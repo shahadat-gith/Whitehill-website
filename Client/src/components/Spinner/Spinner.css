@@ -1,0 +1,69 @@
+/* Spinner Container */
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-container.spinner-small {
+  height: 24px;
+}
+
+.spinner-container.spinner-medium {
+  height: 40px;
+}
+
+.spinner-container.spinner-large {
+  height: 60px;
+}
+
+/* Spinner Animation */
+.spinner {
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-container.spinner-small .spinner {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.spinner-container.spinner-medium .spinner {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.spinner-container.spinner-large .spinner {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+}
+
+/* Spinner Colors */
+.spinner.spinner-primary {
+  border: 3px solid var(--border-light);
+  border-top-color: var(--primary-navy);
+}
+
+.spinner.spinner-secondary {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--accent-yellow);
+}
+
+.spinner.spinner-white {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--bg-white);
+}
+
+.spinner.spinner-blue {
+  border: 3px solid var(--border-light);
+  border-top-color: var(--primary-blue);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

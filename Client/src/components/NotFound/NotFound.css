@@ -1,0 +1,311 @@
+/* ===========================
+   NOT FOUND CONTAINER
+   =========================== */
+.notfound-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-light-gray) 0%, var(--accent-light-blue) 100%);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.notfound-content {
+  text-align: center;
+  max-width: 600px;
+  position: relative;
+  z-index: 10;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ===========================
+   ERROR CODE (404)
+   =========================== */
+.error-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  font-size: 8rem;
+  line-height: 1;
+}
+
+.digit-4,
+.digit-0,
+.digit-4-2 {
+  display: inline-block;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.digit-4 {
+  color: var(--primary-navy);
+  animation-delay: 0s;
+}
+
+.digit-0 {
+  color: var(--primary-blue);
+  animation-delay: 0.1s;
+  font-size: 9rem;
+}
+
+.digit-4-2 {
+  color: var(--primary-navy);
+  animation-delay: 0.2s;
+}
+
+/* ===========================
+   TEXT CONTENT
+   =========================== */
+.notfound-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.notfound-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.notfound-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-home,
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.btn-home {
+  background-color: var(--primary-navy);
+  color: var(--text-white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-home:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-home:active {
+  transform: translateY(0);
+}
+
+.btn-back {
+  background-color: var(--bg-white);
+  color: var(--text-primary);
+  border: 2px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-back:hover {
+  background-color: var(--bg-card);
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-back:active {
+  transform: translateY(0);
+}
+
+.btn-home i,
+.btn-back i {
+  font-size: 1rem;
+}
+
+/* ===========================
+   DECORATIVE CIRCLES
+   =========================== */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  background-color: var(--accent-yellow);
+  top: -100px;
+  right: -100px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-2 {
+  width: 200px;
+  height: 200px;
+  background-color: var(--accent-pink);
+  bottom: -50px;
+  left: -50px;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.circle-3 {
+  width: 150px;
+  height: 150px;
+  background-color: var(--accent-mint);
+  top: 50%;
+  right: 10%;
+  animation: float 7s ease-in-out infinite;
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 768px) {
+  .notfound-container {
+    padding: 1.5rem;
+  }
+
+  .error-code {
+    font-size: 6rem;
+    gap: 0.75rem;
+  }
+
+  .digit-0 {
+    font-size: 7rem;
+  }
+
+  .notfound-title {
+    font-size: 2rem;
+  }
+
+  .notfound-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .notfound-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn-home,
+  .btn-back {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .circle-1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .circle-2 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .circle-3 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error-code {
+    font-size: 4.5rem;
+    gap: 0.5rem;
+  }
+
+  .digit-0 {
+    font-size: 5.5rem;
+  }
+
+  .notfound-title {
+    font-size: 1.75rem;
+  }
+
+  .notfound-description {
+    font-size: 0.95rem;
+  }
+
+  .btn-home,
+  .btn-back {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .error-code {
+    font-size: 3.5rem;
+  }
+
+  .digit-0 {
+    font-size: 4.5rem;
+  }
+
+  .notfound-title {
+    font-size: 1.5rem;
+  }
+
+  .notfound-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+}
