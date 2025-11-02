@@ -1,1 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
+
+
+
+
+:root {
+  /* Primary Colors */
+  --primary-navy: #2d3547;
+  --primary-dark: #1e2432;
+  --primary-blue: #4a7c9e;
+
+  /* Accent Colors */
+  --accent-yellow: #c8d946;
+  --accent-light-yellow: #e8f4a8;
+  --accent-pink: #fde5e8;
+  --accent-light-blue: #d4e8f5;
+  --accent-mint: #c5e8d4;
+
+  --accent-light-pink: #fbd3d8;
+  --accent-light-blue2: #bcdcf0;
+  --accent-light-mint: #aee3c4;
+  --accent-light-yellow2: #f9ed9d;
+
+  /* Background Colors */
+  --bg-light-gray: #e8eaed;
+  --bg-white: #ffffff;
+  --bg-card: #f8f9fa;
+
+  /* Text Colors */
+  --text-primary: #2d3547;
+  --text-secondary: #5a6273;
+  --text-light: #8b92a3;
+  --text-white: #ffffff;
+
+  /* Button Colors */
+  --btn-primary: #2d3547;
+  --btn-primary-hover: #1e2432;
+  --btn-secondary: #ffffff;
+  --btn-secondary-hover: #f5f5f5;
+
+  /* Border Colors */
+  --border-light: #e0e3e8;
+  --border-medium: #c5c9d2;
+
+  /* Status Colors */
+  --success: #4caf50;
+  --warning: #ff9800;
+  --error: #f44336;
+  --info: #2196f3;
+
+  /* Shadow */
+  --shadow-sm: 0 2px 8px rgba(45, 53, 71, 0.08);
+  --shadow-md: 0 4px 16px rgba(45, 53, 71, 0.12);
+  --shadow-lg: 0 8px 24px rgba(45, 53, 71, 0.16);
+}
+
+
+
+/* Base styles */
+body {
+  background-color: var(--bg-light-gray);
+  color: var(--text-primary);
+ font-family: "Roboto", sans-serif;
+}
+
+
+
+.btn {
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-navy);
+  color: var(--text-white);
+  border: 2px solid var(--primary-navy);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-medium);
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
