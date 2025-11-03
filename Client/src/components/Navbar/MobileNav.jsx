@@ -53,7 +53,7 @@ const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout
                         )}
                     </div>
                 ) : (
-                    <button className="btn btn-login-mobile" onClick={() => navigate("/login")}>
+                    <button className="btn btn-primary" onClick={() => navigate("/login")}>
                         Login
                     </button>
                 )}

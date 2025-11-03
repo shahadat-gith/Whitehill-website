@@ -4,45 +4,46 @@ import "./WhyInvest.css";
 const WhyInvest = () => {
   const cards = [
     {
-      title: "By the visioners & the visionaries",
-      desc: "Curated network & access for exceptional investors.",
+      title:
+        "By the Visionary for the Visionaries, Exclusive Network and Connections",
+      desc: "Join a circle of forward-thinking investors and achievers. Whitehill connects you with visionaries, entrepreneurs, and financial experts who share a common goal — strategic wealth creation and long-term success.",
       points: [
-        "Exclusive network",
-        "Peer calibration",
-        "Mentorship",
+        "Exclusive network of successful individuals",
+        "Access to mentors and financial experts",
+        "Collaborative growth and shared insights",
       ],
       color: "pink",
       button: "Explore Network",
     },
     {
-      title: "Lucrative land and future-safe plays",
-      desc: "Secure premium properties and benefit from long-term appreciation.",
+      title: "Lucrative Real Estate, Land Deals and Futuristic Investments",
+      desc: "Invest in premium real estate and land assets that ensure steady appreciation. Whitehill identifies future-ready projects offering high returns and sustainable long-term value for investors.",
       points: [
-        "Minimal land loads",
-        "Even period profits",
-        "Strong ROI projection",
+        "Premium land and property investments",
+        "High return and appreciation potential",
+        "Future-focused real estate opportunities",
       ],
       color: "yellow",
       button: "View More",
     },
     {
-      title: "Strong returns via smart startups",
-      desc: "Gain insight-driven exposure through data-led startup investments.",
+      title: "Strong Returns and Smart Investment Strategies",
+      desc: "Stay ahead with Whitehill’s data-driven investment approach. Our experts analyze trends, manage risks, and create diversified strategies that consistently deliver reliable and profitable returns.",
       points: [
-        "Cross-domain insights",
-        "Data-driven decisions",
-        "Investor intelligence",
+        "Research-backed investment insights",
+        "Data-driven and trend-focused planning",
+        "Optimized strategies for better returns",
       ],
       color: "blue",
       button: "View More",
     },
     {
-      title: "Backing the next big startup",
-      desc: "Early-stage investment access with a scalable mentorship approach.",
+      title: "Supporting the Next Big Startup",
+      desc: "Whitehill identifies and funds promising startups with strong potential. Our mentorship and seed funding help them grow — giving investors early access to scalable, high-growth business ventures.",
       points: [
-        "Pre-blockbuster entry",
-        "Mentorship hubs",
-        "Roadmap access",
+        "Seed investment in promising startups",
+        "Hands-on mentoring and business guidance",
+        "Early-stage entry into growth ventures",
       ],
       color: "mint",
       button: "View Details",
@@ -52,7 +53,7 @@ const WhyInvest = () => {
   return (
     <section className="why-invest">
       <div className="why-header">
-        <h2>WHY INVEST WITH WHITEHILL</h2>
+        <h2>WHY TO INVEST WITH WHITEHILL</h2>
       </div>
 
       <div className="cards-container">
@@ -69,7 +70,6 @@ const WhyInvest = () => {
                 ))}
               </ul>
               <button className="btn btn-primary">{card.button}</button>
-              <p className="note">No guaranteed returns.</p>
             </div>
           </div>
         ))}

@@ -289,29 +289,7 @@
   z-index: 100;
 }
 
-/* Mobile Login Button */
-.btn-login-mobile {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background-color: var(--primary-navy);
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.5px;
-}
 
-.btn-login-mobile:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-login-mobile:active {
-  transform: translateY(0);
-}
 
 /* Mobile Hamburger Button */
 .mobile-menu-btn {

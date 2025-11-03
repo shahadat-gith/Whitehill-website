@@ -9,6 +9,7 @@ import Login from "./pages/Onboard/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./Utils/ProtectedRoute";
 import RestrictedRoute from "./Utils/RestrictedRoute";
+import ScrollToTop from "./Utils/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     <div>
       <Navbar />
       <Toaster/>
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
 
