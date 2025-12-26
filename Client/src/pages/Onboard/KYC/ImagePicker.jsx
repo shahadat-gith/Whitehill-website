@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import "./ImagePicker.css"
 
 const ImagePicker = ({ label, file, onChange, onClear }) => {
   const fileInputRef = useRef(null);
@@ -9,7 +8,7 @@ const ImagePicker = ({ label, file, onChange, onClear }) => {
     <div className="kyc-form-group">
       <label className="kyc-label">{label}</label>
 
-      {/* Hidden Gallery Input */}
+      {/* Gallery input */}
       <input
         ref={fileInputRef}
         type="file"
@@ -18,7 +17,7 @@ const ImagePicker = ({ label, file, onChange, onClear }) => {
         onChange={onChange}
       />
 
-      {/* Hidden Camera Input */}
+      {/* Camera input */}
       <input
         ref={cameraInputRef}
         type="file"
@@ -37,9 +36,10 @@ const ImagePicker = ({ label, file, onChange, onClear }) => {
           <i className="fas fa-folder-open"></i> Choose File
         </button>
 
+        {/* 👇 camera button (hidden on desktop via CSS) */}
         <button
           type="button"
-          className="kyc-btn-secondary"
+          className="kyc-btn-secondary kyc-btn-camera"
           onClick={() => cameraInputRef.current.click()}
         >
           <i className="fas fa-camera"></i> Use Camera
@@ -50,6 +50,7 @@ const ImagePicker = ({ label, file, onChange, onClear }) => {
             type="button"
             className="kyc-btn-clear"
             onClick={onClear}
+            title="Remove image"
           >
             <i className="fas fa-times"></i>
           </button>

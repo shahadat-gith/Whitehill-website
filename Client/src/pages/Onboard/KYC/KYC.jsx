@@ -3,7 +3,7 @@ import api from "../../../Configs/axios";
 import "./KYC.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../Context/AppContext";
-import ImagePicker from "../../../components/ImagePicker/ImagePicker";
+import ImagePicker from "./ImagePicker";
 
 const KYC = () => {
   const navigate = useNavigate();
