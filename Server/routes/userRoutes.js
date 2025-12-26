@@ -2,6 +2,7 @@ import express from 'express';
 
 import * as userController from '../controllers/userController.js';
 import { authMiddleware } from '../middlewares/authmiddleware.js';
+import upload from '../configs/multer.js';
 
 const userRouter = express.Router();
 
@@ -11,6 +12,16 @@ userRouter.post('/login', userController.loginUser);
 
 // Protected routes
 userRouter.get('/profile', authMiddleware, userController.getUserProfile);
-userRouter.post('/logout', authMiddleware, userController.logoutUser);
+userRouter.post(
+  "/kyc",
+  authMiddleware,
+  upload.fields([
+    { name: "aadharFront", maxCount: 1 },
+    { name: "aadharBack", maxCount: 1 },
+    { name: "panFront", maxCount: 1 },
+  ]),
+  userController.updateKYC
+);
+
 
 export default userRouter;

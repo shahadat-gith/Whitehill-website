@@ -1,28 +1,33 @@
 import mongoose from "mongoose";
 
-const consentLogSchema = new mongoose.Schema({
-  consentText: { type: String },
-  ipAddress: { type: String },
-  timestamp: { type: Date, default: Date.now },
-});
-
 const kycSchema = new mongoose.Schema({
-  panNumber: { type: String, uppercase: true, trim: true },
-  panDocumentUrl: { type: String },
-  addressProofType: { 
-    type: String, 
-    enum: ["Aadhaar", "Passport", "Utility Bill"], 
-    default: "Aadhaar" 
+  aadhar: {
+    aadharNumber: { type: String },
+    frontImageUrl: { 
+      url: { type: String},
+      public_id: { type: String }
+    },
+    backImageUrl: { 
+      url: { type: String},
+      public_id: { type: String }
+     },
   },
-  addressProofUrl: { type: String },
-  aadhaarVerified: { type: Boolean, default: false },
-  status: { 
-    type: String, 
-    enum: ["Pending", "Under Review", "Verified", "Rejected"], 
-    default: "Pending" 
+  
+  pan: {
+    panNumber: { type: String },
+    frontImageUrl: { 
+      url: { type: String},
+      public_id: { type: String }
+    },
+  },
+
+  status: {
+    type: String,
+    enum: ["Pending", "Verified", "Rejected"],
+    default: "Pending"
   },
   verifiedAt: { type: Date },
-});
+}, {_id: false});
 
 const bankDetailsSchema = new mongoose.Schema({
   accountHolderName: { type: String },
@@ -30,13 +35,8 @@ const bankDetailsSchema = new mongoose.Schema({
   ifsc: { type: String },
   bankName: { type: String },
   branch: { type: String },
-});
+}, {_id: false});
 
-const notificationPrefsSchema = new mongoose.Schema({
-  email: { type: Boolean, default: true },
-  sms: { type: Boolean, default: false },
-  whatsapp: { type: Boolean, default: false },
-});
 
 const userSchema = new mongoose.Schema(
   {
@@ -50,20 +50,9 @@ const userSchema = new mongoose.Schema(
     // Authentication
     otp: { type: String },
     otpExpiry: { type: Date },
-    isVerified: { type: Boolean, default: false },
-    mfaEnabled: { type: Boolean, default: false },
-
-    // Role (optional but useful for Admin CMS)
-    role: { 
-      type: String, 
-      enum: ["Investor", "Admin", "Compliance", "Finance", "Support"], 
-      default: "Investor" 
-    },
 
     // KYC & Compliance
     kyc: kycSchema,
-    consentLogs: [consentLogSchema],
-
     // Bank Details
     bankDetails: bankDetailsSchema,
 
@@ -73,21 +62,15 @@ const userSchema = new mongoose.Schema(
     totalDistributions: { type: Number, default: 0 },
     nextPayoutDate: { type: Date },
 
-    // Preferences
-    notificationPrefs: notificationPrefsSchema,
-
     // Account Management
-    accountStatus: { 
-      type: String, 
-      enum: ["Active", "Suspended", "Deleted"], 
-      default: "Active" 
+    accountStatus: {
+      type: String,
+      enum: ["Active", "Suspended", "Deleted"],
+      default: "Active"
     },
     deletionRequested: { type: Boolean, default: false },
-
-    // Audit
-    lastLogin: { type: Date },
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);

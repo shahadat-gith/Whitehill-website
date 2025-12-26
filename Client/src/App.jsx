@@ -34,7 +34,7 @@ const App = () => {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/kyc" element={<KYC />} />
+        <Route path="/update-kyc" element={<KYC />} />
 
         <Route path="/profile" element={<Profile />} />
 

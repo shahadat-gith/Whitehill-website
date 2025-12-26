@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "../Configs/axios";
-import axios from "axios";
-
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
@@ -13,7 +11,7 @@ const AppContextProvider = ({ children }) => {
   // Fetch user only if cookie (token) exists
   const fetchUser = async () => {
     try {
-      const { data } = await api.get("/user/profile"); 
+      const { data } = await api.get("/api/user/profile"); 
       if (data.success) {
         setUser(data.user);
       }

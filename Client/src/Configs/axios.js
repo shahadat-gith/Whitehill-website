@@ -1,14 +1,22 @@
 import axios from "axios";
 
-// Create an axios instance
+// Create axios instance
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:4000", // ✅ fix: remove "process."
-  timeout: 20000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-  withCredentials: true, 
+  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:4000",
 });
+
+// 🔐 Request interceptor
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token"); 
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default api;

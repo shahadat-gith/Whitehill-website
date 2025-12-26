@@ -1,49 +1,30 @@
-import React, { useState } from 'react'
-import { formatDate } from "../utility"
+import React from "react";
 
-const Personal = ({ userData }) => {
-    const [isEditing, setIsEditing] = useState(false);
+const Personal = ({ user }) => {
+  return (
+    <div className="prf-tab-content">
+      <div className="prf-section-header">
+        <h2>Personal Information</h2>
+      </div>
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUserData(prev => ({ ...prev, [name]: value }));
-    };
-
-    return (
-        <div className="prf-tab-content">
-            <div className="prf-section-header">
-                <h2>Personal Information</h2>
-                <button className="prf-btn-edit" onClick={() => setIsEditing(!isEditing)}>
-                    <i className="fas fa-edit"></i> {isEditing ? 'Cancel' : 'Edit'}
-                </button>
-            </div>
-
-            <div className="prf-form-grid">
-                <div className="prf-form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="fullName" value={userData.fullName} onChange={handleInputChange} disabled={!isEditing} />
-                </div>
-                <div className="prf-form-group">
-                    <label>Email Address</label>
-                    <input type="email" name="email" value={userData.email} onChange={handleInputChange} disabled={!isEditing} />
-                </div>
-                <div className="prf-form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" name="phone" value={userData.phone} onChange={handleInputChange} disabled={!isEditing} />
-                </div>
-                <div className="prf-form-group">
-                    <label>Last Login</label>
-                    <input type="text" value={formatDate(userData.lastLogin)} disabled />
-                </div>
-            </div>
-
-            {isEditing && (
-                <div className="prf-form-actions">
-                    <button className="prf-btn-primary">Save Changes</button>
-                </div>
-            )}
+      <div className="prf-form-grid">
+        <div className="prf-form-group">
+          <label>Full Name</label>
+          <p className="prf-value">{user?.fullName || "-"}</p>
         </div>
-    )
-}
 
-export default Personal
+        <div className="prf-form-group">
+          <label>Email Address</label>
+          <p className="prf-value">{user?.email || "-"}</p>
+        </div>
+
+        <div className="prf-form-group">
+          <label>Phone Number</label>
+          <p className="prf-value">{user?.phone || "-"}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Personal;

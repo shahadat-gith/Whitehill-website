@@ -3,8 +3,6 @@ import dotenv from "dotenv";  // Fixed import syntax
 import connectDB from "./configs/mongodb.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import subscriberRouter from "./routes/subscriberRoutes.js";  // Moved after express initialization
-import visitorRouter from "./routes/visitorRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
 // Initialize dotenv before using process.env
@@ -30,10 +28,8 @@ app.use(cookieParser());
 await connectDB();
 
 
-// Routes
-app.use('/api', subscriberRouter);
-app.use('/api', visitorRouter);
-app.use('/user', userRouter)
+
+app.use('/api/user', userRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

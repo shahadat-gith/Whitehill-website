@@ -1,78 +1,180 @@
-import React from 'react'
-import { formatDate, getStatusColor } from '../utility'
+import React, { useState } from "react";
+import { formatDate, getStatusColor } from "../utility";
+import { useNavigate } from "react-router-dom";
+import DocumentPreviewModal from "../../../components/DocumentPreviewModal/DocumentPreviewModal";
 
-const KycDetails = ({userData}) => {
+const KycDetails = ({ user }) => {
+  const kyc = user?.kyc;
+  const navigate = useNavigate();
+
+  /* ================= PREVIEW MODAL ================= */
+  const [preview, setPreview] = useState({
+    open: false,
+    url: "",
+  });
+
+  const openPreview = (url) => {
+    setPreview({ open: true, url });
+  };
+
+  const closePreview = () => {
+    setPreview({ open: false, url: "" });
+  };
+
+  /* ================= NO KYC ================= */
+  if (!kyc) {
     return (
-        <div className="prf-tab-content">
-            <div className="prf-section-header">
-                <h2>KYC Details</h2>
-                <span className={`prf-badge ${getStatusColor(userData.kyc.status)}`}>
-                    {userData.kyc.status}
-                </span>
-            </div>
-
-            <div className="prf-kyc-info">
-                <div className="prf-info-card">
-                    <div className="prf-info-label">PAN Number</div>
-                    <div className="prf-info-value">{userData.kyc.panNumber}</div>
-                </div>
-                <div className="prf-info-card">
-                    <div className="prf-info-label">Address Proof Type</div>
-                    <div className="prf-info-value">{userData.kyc.addressProofType}</div>
-                </div>
-                <div className="prf-info-card">
-                    <div className="prf-info-label">Aadhaar Verification</div>
-                    <div className="prf-info-value">
-                        {userData.kyc.aadhaarVerified ? (
-                            <span className="prf-status-verified">
-                                <i className="fas fa-check-circle"></i> Verified
-                            </span>
-                        ) : (
-                            <span className="prf-status-pending">
-                                <i className="fas fa-exclamation-circle"></i> Pending
-                            </span>
-                        )}
-                    </div>
-                </div>
-                <div className="prf-info-card">
-                    <div className="prf-info-label">Verified Date</div>
-                    <div className="prf-info-value">
-                        {userData.kyc.verifiedAt ? formatDate(userData.kyc.verifiedAt) : 'Not verified'}
-                    </div>
-                </div>
-            </div>
-
-            <div className="prf-document-section">
-                <h3>Uploaded Documents</h3>
-                <div className="prf-document-list">
-                    <div className="prf-document-item">
-                        <div className="prf-document-icon">
-                            <i className="fas fa-file-alt"></i>
-                        </div>
-                        <div className="prf-document-info">
-                            <p className="prf-document-name">PAN Card</p>
-                            <p className="prf-document-status">Uploaded & Verified</p>
-                        </div>
-                        <button className="prf-btn-view">
-                            <i className="fas fa-eye"></i> View
-                        </button>
-                    </div>
-                    <div className="prf-document-item">
-                        <div className="prf-document-icon">
-                            <i className="fas fa-file-alt"></i>
-                        </div>
-                        <div className="prf-document-info">
-                            <p className="prf-document-name">Aadhaar Card</p>
-                            <p className="prf-document-status">Uploaded & Verified</p>
-                        </div>
-                        <button className="prf-btn-view">
-                            <i className="fas fa-eye"></i> View
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <div className="prf-tab-content">
+        <div className="prf-section-header">
+          <h2>KYC Details</h2>
+          <span className="prf-badge prf-badge-pending">Not Submitted</span>
         </div>
-    )
-}
 
-export default KycDetails
+        <div className="prf-empty-state">
+          <p>You have not submitted your KYC details yet.</p>
+          <button
+            className="prf-btn-primary"
+            onClick={() => navigate("/update-kyc")}
+          >
+            Update KYC Details
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  /* ================= MAIN VIEW ================= */
+  return (
+    <div className="prf-tab-content">
+      <div className="prf-section-header">
+        <h2>KYC Details</h2>
+        <span className={`prf-badge ${getStatusColor(kyc.status)}`}>
+          {kyc.status}
+        </span>
+      </div>
+
+      {/* ================= BASIC INFO ================= */}
+      <div className="prf-kyc-info">
+        <div className="prf-info-card">
+          <div className="prf-info-label">PAN Number</div>
+          <div className="prf-info-value">
+            {kyc.pan?.panNumber || "-"}
+          </div>
+        </div>
+
+        <div className="prf-info-card">
+          <div className="prf-info-label">Aadhaar Number</div>
+          <div className="prf-info-value">
+            {kyc.aadhar?.aadharNumber || "-"}
+          </div>
+        </div>
+
+        <div className="prf-info-card">
+          <div className="prf-info-label">Verification Status</div>
+          <div className="prf-info-value">
+            {kyc.status === "Verified" ? (
+              <span className="prf-status-verified">
+                <i className="fas fa-check-circle"></i> Verified
+              </span>
+            ) : kyc.status === "Rejected" ? (
+              <span className="prf-status-rejected">
+                <i className="fas fa-times-circle"></i> Rejected
+              </span>
+            ) : (
+              <span className="prf-status-pending">
+                <i className="fas fa-clock"></i> Pending
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="prf-info-card">
+          <div className="prf-info-label">Verified Date</div>
+          <div className="prf-info-value">
+            {kyc.verifiedAt ? formatDate(kyc.verifiedAt) : "Not verified"}
+          </div>
+        </div>
+      </div>
+
+      {/* ================= DOCUMENTS ================= */}
+      <div className="prf-document-section">
+        <h3>Uploaded Documents</h3>
+
+        <div className="prf-document-list">
+          {/* PAN FRONT */}
+          {kyc.pan?.frontImageUrl?.url && (
+            <div className="prf-document-item">
+              <div className="prf-document-icon">
+                <i className="fas fa-id-card"></i>
+              </div>
+              <div className="prf-document-info">
+                <p className="prf-document-name">PAN Card</p>
+                <p className="prf-document-status">Front Image</p>
+              </div>
+              <button
+                className="prf-btn-view"
+                onClick={() => openPreview(kyc.pan.frontImageUrl.url)}
+              >
+                <i className="fas fa-eye"></i> View
+              </button>
+            </div>
+          )}
+
+          {/* AADHAAR FRONT & BACK */}
+          {kyc.aadhar?.frontImageUrl?.url &&
+            kyc.aadhar?.backImageUrl?.url && (
+              <div className="prf-document-item">
+                <div className="prf-document-icon">
+                  <i className="fas fa-id-card"></i>
+                </div>
+                <div className="prf-document-info">
+                  <p className="prf-document-name">Aadhaar Card</p>
+                  <p className="prf-document-status">Front & Back Images</p>
+                </div>
+                <div className="prf-document-actions">
+                  <button
+                    className="prf-btn-view"
+                    onClick={() =>
+                      openPreview(kyc.aadhar.frontImageUrl.url)
+                    }
+                  >
+                    Front
+                  </button>
+                  <button
+                    className="prf-btn-view"
+                    onClick={() =>
+                      openPreview(kyc.aadhar.backImageUrl.url)
+                    }
+                  >
+                    Back
+                  </button>
+                </div>
+              </div>
+            )}
+        </div>
+      </div>
+
+      {/* ================= ACTION ================= */}
+      {kyc.status === "Rejected" && (
+        <div className="prf-form-actions">
+          <button
+            className="prf-btn-primary"
+            onClick={() => navigate("/update-kyc")}
+          >
+            Re-submit KYC
+          </button>
+        </div>
+      )}
+
+      {/* ================= PREVIEW MODAL ================= */}
+      <DocumentPreviewModal
+        isOpen={preview.open}
+        onClose={closePreview}
+        fileUrl={preview.url}
+        fileType="image"
+      />
+    </div>
+  );
+};
+
+export default KycDetails;

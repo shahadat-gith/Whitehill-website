@@ -6,11 +6,13 @@ import axios from "axios";
 import api from "../../Configs/axios";
 import { useAppContext } from "../../Context/AppContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [loggingout, setLoggingOut] = useState(false)
   const { setUser } = useAppContext()
+
+  const navigate = useNavigate()
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -20,19 +22,13 @@ const Navbar = () => {
 
 
   const handleLogout = async () => {
-    setLoggingOut(true)
-    try {
-      const { data } = await api.post("/user/logout")
-      if (data.success) {
-        setUser(null)
-        toast.success("Logged out!")
-      }
-    } catch (error) {
-      toast.error(error?.reponse?.data?.message)
-      console.log("Error while loging out:", error)
-    } finally {
-      setLoggingOut(false)
-    }
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/", {
+      replace: true,
+      state: null,
+    });
+
   }
 
   return (
@@ -48,7 +44,6 @@ const Navbar = () => {
         <div className="desktop-nav">
           <DesktopNav
             handleLogout={handleLogout}
-            loggingout={loggingout}
           />
         </div>
 
@@ -58,7 +53,6 @@ const Navbar = () => {
             mobileMenuOpen={mobileMenuOpen}
             setMobileMenuOpen={setMobileMenuOpen}
             handleLogout={handleLogout}
-            loggingout={loggingout}
           />
         </div>
       </div>

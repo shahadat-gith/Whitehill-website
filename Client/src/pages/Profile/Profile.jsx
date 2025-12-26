@@ -12,7 +12,7 @@ import Preferences from './Tabs/Preferences';
 import { useSearchParams } from 'react-router-dom';
 
 const Profile = () => {
-    const { loading } = useAppContext()
+    const { loading, user } = useAppContext()
 
     const [userData, setUserData] = useState({
         fullName: 'Rajesh Kumar',
@@ -68,30 +68,42 @@ const Profile = () => {
                 <div className="prf-profile-header-content">
                     <div className="prf-profile-avatar-section">
                         <div className="prf-profile-avatar">
-                            {userData.image ? (
-                                <img src={userData.image} alt={userData.fullName} />
+                            {user.image ? (
+                                <img src={user.image} alt={user.fullName} />
                             ) : (
                                 <span className="prf-avatar-initials">
-                                    {userData.fullName.split(' ').map(n => n[0]).join('')}
+                                    {user.fullName.split(' ').map(n => n[0]).join('')}
                                 </span>
                             )}
                         </div>
                         <button className="prf-btn-upload">
-                            <i className="fas fa-upload"></i> Change Photo
+                            {user.image ?
+                                <>
+                                    <i className="fas fa-upload"></i> Change Photo
+                                </>
+                                :
+                                <>
+                                    <i className="fas fa-upload"></i> Upload Photo
+                                </>
+
+                            }
+
                         </button>
                     </div>
 
                     <div className="prf-profile-header-info">
-                        <h1>{userData.fullName}</h1>
-                        <p className="prf-profile-email">{userData.email}</p>
+                        <h1>{user.fullName}</h1>
+                        <p className="prf-profile-email">{user.email}</p>
                         <div className="prf-profile-badges">
-                            <span className={`prf-badge ${getStatusColor(userData.accountStatus)}`}>
-                                {userData.accountStatus}
+                            <span className={`prf-badge ${getStatusColor(user.accountStatus)}`}>
+                                {user.accountStatus}
                             </span>
-                            <span className={`prf-badge ${getStatusColor(userData.kyc.status)}`}>
-                                KYC: {userData.kyc.status}
-                            </span>
-                            <span className="prf-badge prf-badge-role">{userData.role}</span>
+                            {user.kyc &&
+                                <span className={`prf-badge ${getStatusColor(user.kyc?.status)}`}>
+                                    KYC: {user.kyc?.status}
+                                </span>
+
+                            }
                         </div>
                     </div>
                 </div>
@@ -103,7 +115,7 @@ const Profile = () => {
                         </div>
                         <div className="prf-stat-content">
                             <p className="prf-stat-label">Total Invested</p>
-                            <p className="prf-stat-value">{formatCurrency(userData.totalInvested)}</p>
+                            <p className="prf-stat-value">{formatCurrency(user.totalInvested)}</p>
                         </div>
                     </div>
                     <div className="prf-stat-card prf-stat-portfolio">
@@ -112,7 +124,7 @@ const Profile = () => {
                         </div>
                         <div className="prf-stat-content">
                             <p className="prf-stat-label">Portfolio Value</p>
-                            <p className="prf-stat-value">{formatCurrency(userData.portfolioValue)}</p>
+                            <p className="prf-stat-value">{formatCurrency(user.portfolioValue)}</p>
                         </div>
                     </div>
                     <div className="prf-stat-card prf-stat-distributions">
@@ -121,7 +133,7 @@ const Profile = () => {
                         </div>
                         <div className="prf-stat-content">
                             <p className="prf-stat-label">Total Distributions</p>
-                            <p className="prf-stat-value">{formatCurrency(userData.totalDistributions)}</p>
+                            <p className="prf-stat-value">{formatCurrency(user.totalDistributions)}</p>
                         </div>
                     </div>
                 </div>
@@ -173,12 +185,12 @@ const Profile = () => {
             <div className="prf-profile-content">
                 {/* Personal Info Tab */}
                 {activeTab === 'personal' && (
-                    <Personal userData={userData} />
+                    <Personal user={user} />
                 )}
 
                 {/* KYC Details Tab */}
                 {activeTab === 'kyc' && (
-                    <KycDetails userData={userData} />
+                    <KycDetails user={user} />
                 )}
 
                 {/* Bank Details Tab */}
