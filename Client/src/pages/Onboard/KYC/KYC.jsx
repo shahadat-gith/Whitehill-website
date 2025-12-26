@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import api from "../../../Configs/axios";
 import "./KYC.css";
-import { useAppContext } from "../../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../../Context/AppContext";
+import ImagePicker from "../../../components/ImagePicker/ImagePicker";
 
 const KYC = () => {
   const navigate = useNavigate();
@@ -19,18 +20,10 @@ const KYC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
     setLoading(true);
+    setMessage("");
 
     try {
       const payload = new FormData();
@@ -51,11 +44,11 @@ const KYC = () => {
         setMessage("KYC submitted successfully. Verification in progress.");
 
         setTimeout(() => {
-          navigate("/profile");
+          navigate("/profile", { replace: true });
         }, 1000);
       }
-    } catch (error) {
-      setMessage(error.response?.data?.message || "Failed to submit KYC");
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Failed to submit KYC");
     } finally {
       setLoading(false);
     }
@@ -70,11 +63,11 @@ const KYC = () => {
           </div>
           <h1 className="kyc-title">Complete Your KYC</h1>
           <p className="kyc-subtitle">
-            Capture and upload clear photos of your documents
+            Upload valid identity documents for verification
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="kyc-form">
+        <form className="kyc-form" onSubmit={handleSubmit}>
           {/* ================= AADHAAR ================= */}
           <div className="kyc-section">
             <h2 className="kyc-section-title">Aadhaar Details</h2>
@@ -82,44 +75,43 @@ const KYC = () => {
             <div className="kyc-form-group">
               <label className="kyc-label">Aadhaar Number</label>
               <input
-                type="text"
-                name="aadharNumber"
                 className="kyc-input"
-                maxLength="12"
-                placeholder="12-digit Aadhaar number"
                 value={formData.aadharNumber}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setFormData({ ...formData, aadharNumber: e.target.value })
+                }
+                maxLength={12}
                 required
               />
             </div>
 
-            {/* Front */}
-            <div className="kyc-form-group">
-              <label className="kyc-label">Aadhaar Front</label>
-              <input
-                type="file"
-                name="aadharFrontImage"
-                accept="image/*"
-                capture="environment"
-                className="kyc-file-input"
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <ImagePicker
+              label="Aadhaar Front Image"
+              file={formData.aadharFrontImage}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  aadharFrontImage: e.target.files[0],
+                })
+              }
+              onClear={() =>
+                setFormData({ ...formData, aadharFrontImage: null })
+              }
+            />
 
-            {/* Back */}
-            <div className="kyc-form-group">
-              <label className="kyc-label">Aadhaar Back</label>
-              <input
-                type="file"
-                name="aadharBackImage"
-                accept="image/*"
-                capture="environment"
-                className="kyc-file-input"
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <ImagePicker
+              label="Aadhaar Back Image"
+              file={formData.aadharBackImage}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  aadharBackImage: e.target.files[0],
+                })
+              }
+              onClear={() =>
+                setFormData({ ...formData, aadharBackImage: null })
+              }
+            />
           </div>
 
           {/* ================= PAN ================= */}
@@ -129,34 +121,33 @@ const KYC = () => {
             <div className="kyc-form-group">
               <label className="kyc-label">PAN Number</label>
               <input
-                type="text"
-                name="panNumber"
                 className="kyc-input"
-                maxLength="10"
-                placeholder="ABCDE1234F"
                 value={formData.panNumber}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setFormData({ ...formData, panNumber: e.target.value })
+                }
+                maxLength={10}
                 required
               />
             </div>
 
-            <div className="kyc-form-group">
-              <label className="kyc-label">PAN Front</label>
-              <input
-                type="file"
-                name="panFrontImage"
-                accept="image/*"
-                capture="environment"
-                className="kyc-file-input"
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <ImagePicker
+              label="PAN Card Image"
+              file={formData.panFrontImage}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  panFrontImage: e.target.files[0],
+                })
+              }
+              onClear={() =>
+                setFormData({ ...formData, panFrontImage: null })
+              }
+            />
           </div>
 
-          {/* ================= SUBMIT ================= */}
           <div className="kyc-actions">
-            <button type="submit" className="kyc-submit-btn" disabled={loading}>
+            <button className="kyc-submit-btn" disabled={loading}>
               {loading ? (
                 <>
                   <i className="fa fa-spinner fa-spin"></i> Submitting...
@@ -170,8 +161,14 @@ const KYC = () => {
           </div>
 
           {message && (
-            <div className="kyc-message">
-              <i className="fa fa-info-circle"></i> {message}
+            <div
+              className={`kyc-message ${
+                message.includes("success")
+                  ? "kyc-message-success"
+                  : "kyc-message-error"
+              }`}
+            >
+              {message}
             </div>
           )}
         </form>
