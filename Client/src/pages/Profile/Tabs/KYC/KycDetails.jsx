@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { formatDate, getStatusColor } from "../utility";
-import { useNavigate } from "react-router-dom";
-import DocumentPreviewModal from "../../../components/DocumentPreviewModal/DocumentPreviewModal";
+import { formatDate, getStatusColor } from "../../utility";
+import DocumentPreviewModal from "../../Modals/DocumentPreviewModal/DocumentPreviewModal";
+import KycModal from "../../Modals/KycModal/KycModal";
+import "./KycDetails.css"
 
 const KycDetails = ({ user }) => {
   const kyc = user?.kyc;
-  const navigate = useNavigate();
 
   /* ================= PREVIEW MODAL ================= */
   const [preview, setPreview] = useState({
     open: false,
     url: "",
   });
+
+  /* ================= KYC UPDATE MODAL ================= */
+  const [showKycModal, setShowKycModal] = useState(false);
 
   const openPreview = (url) => {
     setPreview({ open: true, url });
@@ -21,7 +24,7 @@ const KycDetails = ({ user }) => {
     setPreview({ open: false, url: "" });
   };
 
-  /* ================= NO KYC ================= */
+  /* ================= NO KYC SUBMITTED ================= */
   if (!kyc) {
     return (
       <div className="prf-tab-content">
@@ -34,11 +37,18 @@ const KycDetails = ({ user }) => {
           <p>You have not submitted your KYC details yet.</p>
           <button
             className="prf-btn-primary"
-            onClick={() => navigate("/update-kyc")}
+            onClick={() => setShowKycModal(true)}
           >
-            Update KYC Details
+            Submit KYC
           </button>
         </div>
+
+        {showKycModal && (
+          <KycModal
+            user={user}
+            onClose={() => setShowKycModal(false)}
+          />
+        )}
       </div>
     );
   }
@@ -101,7 +111,7 @@ const KycDetails = ({ user }) => {
         <h3>Uploaded Documents</h3>
 
         <div className="prf-document-list">
-          {/* PAN FRONT */}
+          {/* PAN FRONT IMAGE */}
           {kyc.pan?.frontImageUrl?.url && (
             <div className="prf-document-item">
               <div className="prf-document-icon">
@@ -113,7 +123,9 @@ const KycDetails = ({ user }) => {
               </div>
               <button
                 className="prf-btn-view"
-                onClick={() => openPreview(kyc.pan.frontImageUrl.url)}
+                onClick={() =>
+                  openPreview(kyc.pan.frontImageUrl.url)
+                }
               >
                 <i className="fas fa-eye"></i> View
               </button>
@@ -129,7 +141,9 @@ const KycDetails = ({ user }) => {
                 </div>
                 <div className="prf-document-info">
                   <p className="prf-document-name">Aadhaar Card</p>
-                  <p className="prf-document-status">Front & Back Images</p>
+                  <p className="prf-document-status">
+                    Front & Back Images
+                  </p>
                 </div>
                 <div className="prf-document-actions">
                   <button
@@ -159,7 +173,7 @@ const KycDetails = ({ user }) => {
         <div className="prf-form-actions">
           <button
             className="prf-btn-primary"
-            onClick={() => navigate("/update-kyc")}
+            onClick={() => setShowKycModal(true)}
           >
             Re-submit KYC
           </button>
@@ -173,6 +187,14 @@ const KycDetails = ({ user }) => {
         fileUrl={preview.url}
         fileType="image"
       />
+
+      {/* ================= UPDATE KYC MODAL ================= */}
+      {showKycModal && (
+        <KycModal
+          user={user}
+          onClose={() => setShowKycModal(false)}
+        />
+      )}
     </div>
   );
 };

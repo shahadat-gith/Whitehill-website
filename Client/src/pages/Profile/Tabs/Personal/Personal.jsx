@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Personal.css"
 const Personal = ({ user }) => {
   return (
     <div className="prf-tab-content">

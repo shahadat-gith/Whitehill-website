@@ -1,12 +1,10 @@
 import React from "react";
-import PdfPreview from "./PdfPreview";
 import "./DocumentPreviewModal.css";
 
 const DocumentPreviewModal = ({
   isOpen,
   onClose,
   fileUrl,
-  fileType, // "pdf" | "image"
 }) => {
   if (!isOpen) return null;
 
@@ -21,15 +19,11 @@ const DocumentPreviewModal = ({
         </button>
 
         <div className="doc-modal-body">
-          {fileType === "pdf" ? (
-            <PdfPreview url={fileUrl} />
-          ) : (
             <img
               src={fileUrl}
               alt="Document Preview"
               className="doc-modal-image"
             />
-          )}
         </div>
       </div>
     </div>

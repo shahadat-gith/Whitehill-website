@@ -115,7 +115,7 @@ export const getUserProfile = async (req, res) => {
 export const updateKYC = async (req, res) => {
   try {
     // ✅ get user id from auth middleware
-    const userId = req.user._id;
+    const userId = req.userId;
 
     /* ================= EXTRACT DATA ================= */
     const { aadharNumber, panNumber } = req.body;
@@ -322,4 +322,45 @@ export const verifyKYC = async (req, res) => {
     });
   }
 };
+
+
+export const updateBankDetails = async (req, res) =>{
+  try {
+    const userId = req.userId;
+
+    const { accountHolderName, accountNumber, ifsc, bankName, branch } = req.body;
+
+    if (!accountHolderName || !accountNumber || !ifsc || !bankName || !branch) {
+      return res.status(400).json({
+        success: false,
+        message: "All bank details fields are required"
+      });
+    }
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { bankDetails: { accountHolderName, accountNumber, ifsc, bankName, branch } },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+    // decrypt before sending
+    user.phone = decrypt(user.phone);
+    res.status(200).json({
+      success: true,
+      message: "Bank details updated successfully",
+      user
+    });
+  } catch (error) {
+     console.error("Error updating bank details:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update bank details"
+    });
+  }
+}
 

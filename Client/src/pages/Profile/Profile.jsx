@@ -4,12 +4,14 @@ import './Profile.css';
 import { useAppContext } from '../../Context/AppContext';
 import Loader from '../../components/Loader/Loader';
 import { formatCurrency, getStatusColor } from "./utility"
-import Personal from './Tabs/Personal';
-import KycDetails from './Tabs/KycDetails';
-import Bank from './Tabs/Bank';
-import Security from './Tabs/Security';
+import Personal from './Tabs/Personal/Personal';
+import KycDetails from './Tabs/KYC/KycDetails';
+import Bank from './Tabs/Bank/Bank';
+
+import Transactions from './Tabs/Transactions/Transactions';
 import Preferences from './Tabs/Preferences';
 import { useSearchParams } from 'react-router-dom';
+import Settings from './Tabs/Settings/Settings';
 
 const Profile = () => {
     const { loading, user } = useAppContext()
@@ -51,7 +53,7 @@ const Profile = () => {
 
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const TABS = ['personal', 'kyc', 'bank', 'security', 'preferences'];
+    const TABS = ['personal', 'kyc', 'bank', 'transactions', 'settings'];
     const activeTab = TABS.includes(searchParams.get('tab')) ? searchParams.get('tab') : 'personal';
 
     const setActiveTab = (tab) => {
@@ -163,17 +165,17 @@ const Profile = () => {
                 </button>
 
                 <button
-                    className={`prf-tab ${activeTab === 'security' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('security')}
+                    className={`prf-tab ${activeTab === 'transactions' ? 'prf-active' : ''}`}
+                    onClick={() => setActiveTab('transactions')}
                 >
-                    <i className="fas fa-shield-alt"></i> Security
+                    <i className="fa-solid fa-money-bill-1-wave"></i> Transactions
                 </button>
 
                 <button
-                    className={`prf-tab ${activeTab === 'preferences' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('preferences')}
+                    className={`prf-tab ${activeTab === 'settings' ? 'prf-active' : ''}`}
+                    onClick={() => setActiveTab('settings')}
                 >
-                    <i className="fas fa-cog"></i> Preferences
+                    <i className="fas fa-cog"></i> Settings
                 </button>
             </div>
 
@@ -195,17 +197,17 @@ const Profile = () => {
 
                 {/* Bank Details Tab */}
                 {activeTab === 'bank' && (
-                    <Bank userData={userData} />
+                    <Bank user={user} />
                 )}
 
                 {/* Security Tab */}
-                {activeTab === 'security' && (
-                    <Security userData={userData} setUserData={setUserData} />
+                {activeTab === 'transactions' && (
+                    <Transactions />
                 )}
 
                 {/* Preferences Tab */}
-                {activeTab === 'preferences' && (
-                    <Preferences userData={userData} setUserData={setUserData} />
+                {activeTab === 'settings' && (
+                    <Settings  />
                 )}
             </div>
         </div>

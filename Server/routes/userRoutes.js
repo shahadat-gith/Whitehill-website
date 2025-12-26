@@ -23,5 +23,7 @@ userRouter.post(
   userController.updateKYC
 );
 
+userRouter.post("/update-bank", authMiddleware, userController.updateBankDetails);
+
 
 export default userRouter;
