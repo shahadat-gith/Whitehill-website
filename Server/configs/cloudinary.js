@@ -1,43 +1,37 @@
-import {v2 as cloudinary} from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 
-const CLOUDINARY_CLOUD_NAME="dncdmquei"
-const CLOUDINARY_API_KEY="352342519189355"
-const CLOUDINARY_API_SECRET="_RwDmcSCoV3cl8Z4H9nU3OH9_nQ"
+const connectToCloudinary = () => {
+  if (
+    !process.env.CLOUDINARY_CLOUD_NAME ||
+    !process.env.CLOUDINARY_API_KEY ||
+    !process.env.CLOUDINARY_API_SECRET
+  ) {
+    throw new Error("Cloudinary env variables missing");
+  }
 
-cloudinary.config({
-    cloud_name: CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET,
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
     secure: true,
-});
+  });
+
+  console.log("Cloudinary connected");
+};
+
+export { cloudinary, connectToCloudinary };
 
 
-
-/* ================= SINGLE UPLOAD ================= */
-/**
- * Upload buffer to Cloudinary
- * @param {Buffer} fileBuffer
- * @param {string} folder
- * @param {Object} options
- * @param {boolean} options.isPdf - true if file is PDF
- * @returns {Promise<{url: string, public_id: string}>}
- */
 export const uploadToCloudinary = (
   fileBuffer,
   folder,
-  { isPdf = false } = {}
 ) => {
   return new Promise((resolve, reject) => {
     const uploadOptions = {
       folder,
-      resource_type: "image", // ✅ ALWAYS image for preview
+      resource_type: "image",
     };
-
-    // ✅ Important for PDFs
-    if (isPdf) {
-      uploadOptions.format = "pdf";
-    }
 
     const uploadStream = cloudinary.uploader.upload_stream(
       uploadOptions,
@@ -73,25 +67,4 @@ export const deleteFromCloudinary = async (
   }
 };
 
-/* ================= MULTIPLE UPLOAD ================= */
-export const uploadMultipleToCloudinary = async (
-  fileBuffers,
-  folder,
-  { isPdf = false } = {}
-) => {
-  return Promise.all(
-    fileBuffers.map((buffer) =>
-      uploadToCloudinary(buffer, folder, { isPdf })
-    )
-  );
-};
 
-/* ================= MULTIPLE DELETE ================= */
-export const deleteMultipleFromCloudinary = async (
-  publicIds,
-  resourceType = "image"
-) => {
-  return Promise.all(
-    publicIds.map((id) => deleteFromCloudinary(id, resourceType))
-  );
-};

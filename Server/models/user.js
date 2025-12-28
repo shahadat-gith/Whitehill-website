@@ -3,20 +3,20 @@ import mongoose from "mongoose";
 const kycSchema = new mongoose.Schema({
   aadhar: {
     aadharNumber: { type: String },
-    frontImageUrl: { 
-      url: { type: String},
+    frontImageUrl: {
+      url: { type: String },
       public_id: { type: String }
     },
-    backImageUrl: { 
-      url: { type: String},
+    backImageUrl: {
+      url: { type: String },
       public_id: { type: String }
-     },
+    },
   },
-  
+
   pan: {
     panNumber: { type: String },
-    frontImageUrl: { 
-      url: { type: String},
+    frontImageUrl: {
+      url: { type: String },
       public_id: { type: String }
     },
   },
@@ -27,7 +27,7 @@ const kycSchema = new mongoose.Schema({
     default: "Pending"
   },
   verifiedAt: { type: Date },
-}, {_id: false});
+}, { _id: false });
 
 const bankDetailsSchema = new mongoose.Schema({
   accountHolderName: { type: String },
@@ -35,7 +35,7 @@ const bankDetailsSchema = new mongoose.Schema({
   ifsc: { type: String },
   bankName: { type: String },
   branch: { type: String },
-}, {_id: false});
+}, { _id: false });
 
 
 const userSchema = new mongoose.Schema(
@@ -45,7 +45,11 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true, lowercase: true },
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    image: { type: String },
+    image: {
+          url: String,
+          public_id: String,
+    },
+
 
     // Authentication
     otp: { type: String },

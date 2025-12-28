@@ -177,3 +177,50 @@
     font-size: 0.95rem;
   }
 }
+
+
+
+
+.btn-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--text-primary);
+  background-color: var(--accent-light-blue);
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-edit i {
+  font-size: 14px;
+  color: var(--primary-blue);
+}
+
+/* Hover */
+.btn-edit:hover {
+  background-color: var(--primary-blue);
+  color: var(--text-white);
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-edit:hover i {
+  color: var(--text-white);
+}
+
+/* Active */
+.btn-edit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+

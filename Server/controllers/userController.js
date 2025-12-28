@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 import { encrypt, decrypt } from "../utils/crypto.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../configs/cloudinary.js";
 
+
+
+
 export const registerUser = async (req, res) => {
   const { fullName, email, password, phone } = req.body;
 
@@ -57,12 +60,10 @@ export const registerUser = async (req, res) => {
 
 
 export const loginUser = async (req, res) => {
-  const { email, phone, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({
-      $or: [{ email }, { phone }],
-    });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ success: false, message: "Invalid credentials" });
@@ -93,7 +94,7 @@ export const loginUser = async (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   try {
-    const {userId} = req; 
+    const { userId } = req;
     const user = await User.findById(userId).select("-password");
 
     const decryptedPhone = decrypt(user.phone);
@@ -324,7 +325,7 @@ export const verifyKYC = async (req, res) => {
 };
 
 
-export const updateBankDetails = async (req, res) =>{
+export const updateBankDetails = async (req, res) => {
   try {
     const userId = req.userId;
 
@@ -356,7 +357,7 @@ export const updateBankDetails = async (req, res) =>{
       user
     });
   } catch (error) {
-     console.error("Error updating bank details:", error);
+    console.error("Error updating bank details:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update bank details"
@@ -364,3 +365,59 @@ export const updateBankDetails = async (req, res) =>{
   }
 }
 
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { fullName, phone, email } = req.body;
+
+    // 1️⃣ Find user first
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // 2️⃣ Update basic fields if provided
+    if (fullName) user.fullName = fullName;
+    if (phone) {
+      const encryptedPhone = encrypt(phone);
+      user.phone = encryptedPhone;
+    }
+    if (email) user.email = email;
+
+    if (req.file) {
+      const newImage = await uploadToCloudinary(
+        req.file.buffer,
+        "profiles"
+      );
+
+      if (user.image?.public_id) {
+        await deleteFromCloudinary(user.image.public_id, "image");
+      }
+
+      user.image.url = newImage.url;
+      user.image.public_id = newImage.public_id;
+    }
+
+    // 4️⃣ Save updated user
+    await user.save({ validateBeforeSave: true });
+
+    // 5️⃣ Decrypt phone before sending response
+    user.phone = decrypt(user.phone);
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update profile",
+    });
+  }
+};

@@ -24,6 +24,13 @@ userRouter.post(
 );
 
 userRouter.post("/update-bank", authMiddleware, userController.updateBankDetails);
+userRouter.post(
+  "/update-profile",
+  authMiddleware,
+  upload.single("profileImage"),
+  userController.updateProfile
+);
+
 
 
 export default userRouter;

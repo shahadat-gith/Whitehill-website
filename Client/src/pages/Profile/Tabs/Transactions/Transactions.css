@@ -1,0 +1,530 @@
+/* ========================================
+   TRANSACTIONS PAGE STYLES
+======================================== */
+
+.txn-container {
+  min-height: 100vh;
+  background: var(--bg-light-gray);
+  padding: 2rem;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.txn-header {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.txn-header-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 0 0.5rem;
+}
+
+.txn-header-content p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.txn-btn-primary {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.txn-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #151820 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.txn-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.txn-btn-primary i {
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   ADD FUNDS SECTION
+======================================== */
+
+.txn-add-funds {
+  background: linear-gradient(135deg, var(--accent-light-blue) 0%, var(--accent-light-blue2) 100%);
+  border: 2px solid var(--primary-blue);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.txn-add-funds h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0 0 1.5rem;
+}
+
+.txn-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.txn-input-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.txn-input-group input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.txn-input-group input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
+}
+
+.txn-form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.txn-btn-secondary {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.txn-btn-secondary:hover {
+  background: var(--bg-light-gray);
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   STATS CARDS
+======================================== */
+
+.txn-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.txn-stat-card {
+  background: var(--bg-white);
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.txn-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.txn-stat-card:nth-child(1) {
+  border-color: var(--accent-light-mint);
+}
+
+.txn-stat-card:nth-child(1):hover {
+  border-color: var(--success);
+}
+
+.txn-stat-card:nth-child(2) {
+  border-color: var(--accent-light-yellow);
+}
+
+.txn-stat-card:nth-child(2):hover {
+  border-color: var(--accent-yellow);
+}
+
+.txn-stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.txn-stat-total {
+  background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-light-mint) 100%);
+}
+
+.txn-stat-count {
+  background: linear-gradient(135deg, var(--accent-light-yellow) 0%, var(--accent-light-yellow2) 100%);
+}
+
+.txn-stat-icon i {
+  font-size: 1.75rem;
+  color: var(--primary-navy);
+}
+
+.txn-stat-content {
+  flex: 1;
+}
+
+.txn-stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.25rem;
+  font-weight: 500;
+}
+
+.txn-stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+}
+
+/* ========================================
+   TRANSACTIONS LIST
+======================================== */
+
+.txn-list-container {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.txn-list-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--accent-yellow);
+}
+
+.txn-list-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0;
+}
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.txn-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.txn-empty-state i {
+  font-size: 4rem;
+  color: var(--border-light);
+  margin-bottom: 1rem;
+}
+
+.txn-empty-state p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.txn-empty-state span {
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   TRANSACTION ITEMS
+======================================== */
+
+.txn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.txn-item {
+  background: var(--bg-card);
+  border: 2px solid var(--bg-light-gray);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.txn-item:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(4px);
+}
+
+.txn-item-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-light-mint) 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.txn-item-icon i {
+  font-size: 1.5rem;
+  color: var(--success);
+}
+
+.txn-item-details {
+  flex: 1;
+}
+
+.txn-item-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0 0 0.25rem;
+}
+
+.txn-item-date {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.25rem;
+}
+
+.txn-item-id {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin: 0;
+  font-family: monospace;
+}
+
+.txn-item-amount {
+  text-align: right;
+}
+
+.txn-amount-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--success);
+  margin: 0 0 0.5rem;
+}
+
+.txn-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--accent-mint);
+  color: var(--success);
+  border: 1px solid var(--success);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.txn-status-badge i {
+  font-size: 0.8rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 1024px) {
+  .txn-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .txn-container {
+    padding: 1rem;
+  }
+
+  .txn-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+
+  .txn-header-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .txn-btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .txn-add-funds {
+    padding: 1.5rem;
+  }
+
+  .txn-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .txn-btn-secondary,
+  .txn-btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .txn-stat-card {
+    padding: 1.5rem;
+  }
+
+  .txn-list-container {
+    padding: 1.5rem;
+  }
+
+  .txn-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+
+  .txn-item-amount {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .txn-container {
+    padding: 0.75rem;
+  }
+
+  .txn-header {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .txn-header-content h1 {
+    font-size: 1.4rem;
+  }
+
+  .txn-header-content p {
+    font-size: 0.9rem;
+  }
+
+  .txn-add-funds {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .txn-add-funds h3 {
+    font-size: 1.15rem;
+  }
+
+  .txn-stat-card {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .txn-stat-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .txn-stat-icon i {
+    font-size: 1.5rem;
+  }
+
+  .txn-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .txn-list-container {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .txn-list-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .txn-item {
+    padding: 1rem;
+  }
+
+  .txn-item-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .txn-item-icon i {
+    font-size: 1.3rem;
+  }
+
+  .txn-item-title {
+    font-size: 0.95rem;
+  }
+
+  .txn-amount-value {
+    font-size: 1.2rem;
+  }
+}

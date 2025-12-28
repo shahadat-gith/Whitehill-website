@@ -73,7 +73,7 @@ const Register = () => {
         setMessage("Account created successfully");
         localStorage.setItem("token", data.token)
         await fetchUser();
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       setMessage(

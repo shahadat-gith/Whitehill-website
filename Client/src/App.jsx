@@ -4,7 +4,6 @@ import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Register from "./pages/Onboard/Register/Register";
-import KYC from "./pages/Onboard/KYC/KYC";
 import Login from "./pages/Onboard/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import { Toaster } from "react-hot-toast";
@@ -33,8 +32,6 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/login" element={<Login />} />
-
-        <Route path="/update-kyc" element={<KYC />} />
 
         <Route path="/profile" element={<Profile />} />
 

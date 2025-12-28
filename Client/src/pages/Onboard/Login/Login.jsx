@@ -9,7 +9,7 @@ const Login = () => {
   const { fetchUser } = useAppContext();
 
   const [formData, setFormData] = useState({
-    emailOrPhone: "",
+    email: "",
     password: "",
   });
 
@@ -30,21 +30,16 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const payload = formData.emailOrPhone.includes("@")
-        ? { email: formData.emailOrPhone, password: formData.password }
-        : { phone: formData.emailOrPhone, password: formData.password };
-
-      const { data } = await api.post("/api/user/login", payload);
+      const { data } = await api.post("/api/user/login", formData);
 
       if (data.success) {
-        // ✅ Save token to localStorage
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
 
         setMessage("Login successful");
         await fetchUser();
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       setMessage(
@@ -63,9 +58,9 @@ const Login = () => {
         <div className="input-group">
           <input
             type="text"
-            name="emailOrPhone"
-            placeholder="EMAIL OR PHONE"
-            value={formData.emailOrPhone}
+            name="email"
+            placeholder="EMAIL"
+            value={formData.email}
             onChange={handleChange}
             required
           />

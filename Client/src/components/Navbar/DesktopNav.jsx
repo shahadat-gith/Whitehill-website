@@ -45,7 +45,7 @@ const DesktopNav = ({ loggingout, handleLogout }) => {
                             className="user-btn"
                         >
                             <img
-                                src={user.image || "/user.png"}
+                                src={user.image?.url || "/user.png"}
                                 alt={user.fullName}
                                 className="user-avatar"
                             />

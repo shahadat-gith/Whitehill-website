@@ -28,7 +28,7 @@ const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout
                 ) : user && user.fullName ? (
                     <div className="navbar-user-mobile">
                         <button onClick={() => setDropdownOpen(!dropdownOpen)} className="user-btn-mobile">
-                            <img src={user.image || "/user.png"} alt={user.fullName} className="user-avatar-mobile" />
+                            <img src={user.image?.url || "/user.png"} alt={user.fullName} className="user-avatar-mobile" />
                             <i className={`fa-solid fa-chevron-down user-arrow-mobile ${dropdownOpen ? "rotate" : ""}`}></i>
                         </button>
 

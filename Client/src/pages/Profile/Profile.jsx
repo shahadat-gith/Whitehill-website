@@ -1,217 +1,166 @@
 // Profile.js
-import React, { useState } from 'react';
-import './Profile.css';
-import { useAppContext } from '../../Context/AppContext';
-import Loader from '../../components/Loader/Loader';
-import { formatCurrency, getStatusColor } from "./utility"
-import Personal from './Tabs/Personal/Personal';
-import KycDetails from './Tabs/KYC/KycDetails';
-import Bank from './Tabs/Bank/Bank';
-
-import Transactions from './Tabs/Transactions/Transactions';
-import Preferences from './Tabs/Preferences';
-import { useSearchParams } from 'react-router-dom';
-import Settings from './Tabs/Settings/Settings';
+import React, { useState } from "react";
+import "./Profile.css";
+import { useAppContext } from "../../Context/AppContext";
+import Loader from "../../components/Loader/Loader";
+import { formatCurrency, getStatusColor } from "./utility";
+import Personal from "./Tabs/Personal/Personal";
+import KycDetails from "./Tabs/KYC/KycDetails";
+import Bank from "./Tabs/Bank/Bank";
+import Transactions from "./Tabs/Transactions/Transactions";
+import Settings from "./Tabs/Settings/Settings";
+import ProfileUpdateModal from "./Modals/ProfileUpdateModal/ProfileUpdateModal";
+import { useSearchParams } from "react-router-dom";
 
 const Profile = () => {
-    const { loading, user } = useAppContext()
+  const { loading, user } = useAppContext();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
-    const [userData, setUserData] = useState({
-        fullName: 'Rajesh Kumar',
-        email: 'rajesh.kumar@email.com',
-        phone: '+91 98765 43210',
-        image: '/profile_demo_pic.jpg',
-        role: 'Investor',
-        accountStatus: 'Active',
-        isVerified: true,
-        mfaEnabled: false,
-        lastLogin: '2024-12-15T10:30:00',
-        kyc: {
-            panNumber: 'ABCDE1234F',
-            addressProofType: 'Aadhaar',
-            aadhaarVerified: true,
-            status: 'Verified',
-            verifiedAt: '2024-11-20T14:00:00'
-        },
-        bankDetails: {
-            accountHolderName: 'Rajesh Kumar',
-            accountNumber: '1234567890',
-            ifsc: 'SBIN0001234',
-            bankName: 'State Bank of India',
-            branch: 'Guwahati Main Branch'
-        },
-        totalInvested: 500000,
-        portfolioValue: 575000,
-        totalDistributions: 45000,
-        nextPayoutDate: '2025-01-15',
-        notificationPrefs: {
-            email: true,
-            sms: false,
-            whatsapp: true
-        }
-    });
+  const TABS = ["personal", "kyc", "bank", "transactions", "settings"];
+  const activeTab = TABS.includes(searchParams.get("tab"))
+    ? searchParams.get("tab")
+    : "personal";
+
+  const setActiveTab = (tab) => {
+    setSearchParams({ tab });
+  };
 
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const TABS = ['personal', 'kyc', 'bank', 'transactions', 'settings'];
-    const activeTab = TABS.includes(searchParams.get('tab')) ? searchParams.get('tab') : 'personal';
+  const tabs = [
+          { key: "personal", icon: "fa-user", label: "Personal Info" },
+          { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
+          { key: "bank", icon: "fa-university", label: "Bank Details" },
+          { key: "transactions", icon: "fa-money-bill-1-wave", label: "Transactions" },
+          { key: "settings", icon: "fa-cog", label: "Settings" },
+        ]
 
-    const setActiveTab = (tab) => {
-        setSearchParams({ tab });
-    };
+  if (loading) return <Loader />;
 
+  // 🛡️ Safe initials
+  const initials =
+    user?.fullName
+      ?.split(" ")
+      .filter(Boolean)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase() || "U";
 
-    if (loading) return <Loader />
-
-    return (
-        <div className="prf-profile-container">
-            {/* Header Section */}
-            <div className="prf-profile-header">
-                <div className="prf-profile-header-content">
-                    <div className="prf-profile-avatar-section">
-                        <div className="prf-profile-avatar">
-                            {user.image ? (
-                                <img src={user.image} alt={user.fullName} />
-                            ) : (
-                                <span className="prf-avatar-initials">
-                                    {user.fullName.split(' ').map(n => n[0]).join('')}
-                                </span>
-                            )}
-                        </div>
-                        <button className="prf-btn-upload">
-                            {user.image ?
-                                <>
-                                    <i className="fas fa-upload"></i> Change Photo
-                                </>
-                                :
-                                <>
-                                    <i className="fas fa-upload"></i> Upload Photo
-                                </>
-
-                            }
-
-                        </button>
-                    </div>
-
-                    <div className="prf-profile-header-info">
-                        <h1>{user.fullName}</h1>
-                        <p className="prf-profile-email">{user.email}</p>
-                        <div className="prf-profile-badges">
-                            <span className={`prf-badge ${getStatusColor(user.accountStatus)}`}>
-                                {user.accountStatus}
-                            </span>
-                            {user.kyc &&
-                                <span className={`prf-badge ${getStatusColor(user.kyc?.status)}`}>
-                                    KYC: {user.kyc?.status}
-                                </span>
-
-                            }
-                        </div>
-                    </div>
-                </div>
-
-                <div className="prf-profile-stats">
-                    <div className="prf-stat-card prf-stat-invested">
-                        <div className="prf-stat-icon">
-                            <i className="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div className="prf-stat-content">
-                            <p className="prf-stat-label">Total Invested</p>
-                            <p className="prf-stat-value">{formatCurrency(user.totalInvested)}</p>
-                        </div>
-                    </div>
-                    <div className="prf-stat-card prf-stat-portfolio">
-                        <div className="prf-stat-icon">
-                            <i className="fas fa-chart-line"></i>
-                        </div>
-                        <div className="prf-stat-content">
-                            <p className="prf-stat-label">Portfolio Value</p>
-                            <p className="prf-stat-value">{formatCurrency(user.portfolioValue)}</p>
-                        </div>
-                    </div>
-                    <div className="prf-stat-card prf-stat-distributions">
-                        <div className="prf-stat-icon">
-                            <i className="fas fa-hand-holding-usd"></i>
-                        </div>
-                        <div className="prf-stat-content">
-                            <p className="prf-stat-label">Total Distributions</p>
-                            <p className="prf-stat-value">{formatCurrency(user.totalDistributions)}</p>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <div className="prf-profile-container">
+      {/* ================= HEADER ================= */}
+      <div className="prf-profile-header">
+        <div className="prf-profile-header-content">
+          <div className="prf-profile-avatar-section">
+            <div className="prf-profile-avatar">
+              {user?.image?.url ? (
+                <img
+                  src={user.image.url}
+                  alt={user.fullName}
+                />
+              ) : (
+                <span className="prf-avatar-initials">{initials}</span>
+              )}
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="prf-profile-tabs">
-                <button
-                    className={`prf-tab ${activeTab === 'personal' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('personal')}
-                >
-                    <i className="fas fa-user"></i> Personal Info
-                </button>
+            <button
+              className="prf-btn-upload"
+              onClick={() => setShowProfileModal(true)}
+            >
+              <i className="fas fa-upload"></i>{" "}
+              {user?.image?.url ? "Change Photo" : "Upload Photo"}
+            </button>
+          </div>
 
-                <button
-                    className={`prf-tab ${activeTab === 'kyc' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('kyc')}
-                >
-                    <i className="fas fa-id-card"></i> KYC Details
-                </button>
+          <div className="prf-profile-header-info">
+            <h1>{user.fullName}</h1>
+            <p className="prf-profile-email">{user.email}</p>
 
-                <button
-                    className={`prf-tab ${activeTab === 'bank' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('bank')}
-                >
-                    <i className="fas fa-university"></i> Bank Details
-                </button>
+            <div className="prf-profile-badges">
+              <span className={`prf-badge ${getStatusColor(user.accountStatus)}`}>
+                {user.accountStatus}
+              </span>
 
-                <button
-                    className={`prf-tab ${activeTab === 'transactions' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('transactions')}
-                >
-                    <i className="fa-solid fa-money-bill-1-wave"></i> Transactions
-                </button>
-
-                <button
-                    className={`prf-tab ${activeTab === 'settings' ? 'prf-active' : ''}`}
-                    onClick={() => setActiveTab('settings')}
-                >
-                    <i className="fas fa-cog"></i> Settings
-                </button>
+              {user?.kyc && (
+                <span className={`prf-badge ${getStatusColor(user.kyc.status)}`}>
+                  KYC: {user.kyc.status}
+                </span>
+              )}
             </div>
-
-
-
-
-
-            {/* Content Area */}
-            <div className="prf-profile-content">
-                {/* Personal Info Tab */}
-                {activeTab === 'personal' && (
-                    <Personal user={user} />
-                )}
-
-                {/* KYC Details Tab */}
-                {activeTab === 'kyc' && (
-                    <KycDetails user={user} />
-                )}
-
-                {/* Bank Details Tab */}
-                {activeTab === 'bank' && (
-                    <Bank user={user} />
-                )}
-
-                {/* Security Tab */}
-                {activeTab === 'transactions' && (
-                    <Transactions />
-                )}
-
-                {/* Preferences Tab */}
-                {activeTab === 'settings' && (
-                    <Settings  />
-                )}
-            </div>
+          </div>
         </div>
-    );
+
+        {/* ================= STATS ================= */}
+        <div className="prf-profile-stats">
+          <div className="prf-stat-card prf-stat-invested">
+            <div className="prf-stat-icon">
+              <i className="fas fa-money-bill-wave"></i>
+            </div>
+            <div className="prf-stat-content">
+              <p className="prf-stat-label">Total Invested</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user.totalInvested)}
+              </p>
+            </div>
+          </div>
+
+          <div className="prf-stat-card prf-stat-portfolio">
+            <div className="prf-stat-icon">
+              <i className="fas fa-chart-line"></i>
+            </div>
+            <div className="prf-stat-content">
+              <p className="prf-stat-label">Portfolio Value</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user.portfolioValue)}
+              </p>
+            </div>
+          </div>
+
+          <div className="prf-stat-card prf-stat-distributions">
+            <div className="prf-stat-icon">
+              <i className="fas fa-hand-holding-usd"></i>
+            </div>
+            <div className="prf-stat-content">
+              <p className="prf-stat-label">Total Distributions</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user.totalDistributions)}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= TABS ================= */}
+      <div className="prf-profile-tabs">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            className={`prf-tab ${activeTab === tab.key ? "prf-active" : ""}`}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            <i className={`fas ${tab.icon}`}></i> {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ================= CONTENT ================= */}
+      <div className="prf-profile-content">
+        {activeTab === "personal" && <Personal user={user} />}
+        {activeTab === "kyc" && <KycDetails user={user} />}
+        {activeTab === "bank" && <Bank user={user} />}
+        {activeTab === "transactions" && <Transactions />}
+        {activeTab === "settings" && <Settings />}
+      </div>
+
+      {/* ================= MODAL ================= */}
+      {showProfileModal && (
+        <ProfileUpdateModal
+          type="profile"
+          onClose={() => setShowProfileModal(false)}
+        />
+      )}
+    </div>
+  );
 };
 
 export default Profile;

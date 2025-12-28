@@ -1,0 +1,346 @@
+/* ========================================
+   PROFILE UPDATE MODAL STYLES
+======================================== */
+
+.profile-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 53, 71, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-modal {
+  background: var(--bg-white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================
+   MODAL HEADER
+======================================== */
+
+.profile-modal h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--accent-yellow);
+}
+
+/* ========================================
+   FORM STYLES
+======================================== */
+
+.profile-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profile-modal input[type="text"],
+.profile-modal input[type="email"] {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.profile-modal input[type="text"]::placeholder,
+.profile-modal input[type="email"]::placeholder {
+  color: var(--text-light);
+}
+
+.profile-modal input[type="text"]:focus,
+.profile-modal input[type="email"]:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
+}
+
+.profile-modal input[type="text"]:hover,
+.profile-modal input[type="email"]:hover {
+  border-color: var(--border-medium);
+}
+
+/* ========================================
+   IMAGE UPLOAD SECTION
+======================================== */
+
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 2px dashed var(--border-light);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.image-upload-section:hover {
+  border-color: var(--primary-blue);
+  background: var(--accent-light-blue);
+}
+
+.profile-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent-yellow);
+  box-shadow: var(--shadow-md);
+}
+
+.profile-modal input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 2px solid var(--primary-navy);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-modal input[type="file"]:hover {
+  background: var(--primary-navy);
+  color: var(--text-white);
+}
+
+.profile-modal input[type="file"]::file-selector-button {
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  font-weight: 600;
+  color: var(--text-white);
+  background: var(--primary-navy);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-modal input[type="file"]::file-selector-button:hover {
+  background: var(--primary-dark);
+}
+
+/* ========================================
+   ERROR MESSAGE
+======================================== */
+
+.profile-modal-error {
+  padding: 1rem 1.25rem;
+  background: var(--accent-pink);
+  color: var(--error);
+  border: 2px solid var(--error);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-modal-error i {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   MODAL ACTIONS
+======================================== */
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--bg-light-gray);
+}
+
+.modal-actions .btn {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-actions .btn.cancel {
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+}
+
+.modal-actions .btn.cancel:hover {
+  background: var(--bg-light-gray);
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-actions .btn.save {
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
+}
+
+.modal-actions .btn.save:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #151820 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-actions .btn.save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+  .profile-modal-backdrop {
+    padding: 0.5rem;
+  }
+
+  .profile-modal {
+    max-width: 95%;
+    padding: 1.5rem;
+  }
+
+  .profile-modal h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.875rem;
+  }
+
+  .profile-modal form {
+    gap: 1rem;
+  }
+
+  .profile-modal input[type="text"],
+  .profile-modal input[type="email"] {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .image-upload-section {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .profile-preview {
+    width: 120px;
+    height: 120px;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-modal-backdrop {
+    padding: 0.25rem;
+  }
+
+  .profile-modal {
+    padding: 1.25rem;
+  }
+
+  .profile-modal h3 {
+    font-size: 1.15rem;
+  }
+
+  .profile-modal input[type="text"],
+  .profile-modal input[type="email"] {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .image-upload-section {
+    padding: 1.25rem;
+  }
+
+  .profile-preview {
+    width: 100px;
+    height: 100px;
+    border-width: 3px;
+  }
+
+  .profile-modal input[type="file"] {
+    padding: 0.625rem;
+    font-size: 0.85rem;
+  }
+
+  .modal-actions .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
