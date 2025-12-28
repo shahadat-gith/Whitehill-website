@@ -8,7 +8,6 @@ import Personal from "./Tabs/Personal/Personal";
 import KycDetails from "./Tabs/KYC/KycDetails";
 import Bank from "./Tabs/Bank/Bank";
 import Transactions from "./Tabs/Transactions/Transactions";
-import Settings from "./Tabs/Settings/Settings";
 import ProfileUpdateModal from "./Modals/ProfileUpdateModal/ProfileUpdateModal";
 import { useSearchParams } from "react-router-dom";
 
@@ -32,7 +31,6 @@ const Profile = () => {
           { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
           { key: "bank", icon: "fa-university", label: "Bank Details" },
           { key: "transactions", icon: "fa-money-bill-1-wave", label: "Transactions" },
-          { key: "settings", icon: "fa-cog", label: "Settings" },
         ]
 
   if (loading) return <Loader />;
@@ -149,7 +147,6 @@ const Profile = () => {
         {activeTab === "kyc" && <KycDetails user={user} />}
         {activeTab === "bank" && <Bank user={user} />}
         {activeTab === "transactions" && <Transactions />}
-        {activeTab === "settings" && <Settings />}
       </div>
 
       {/* ================= MODAL ================= */}
