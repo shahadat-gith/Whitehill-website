@@ -29,7 +29,7 @@ const DesktopNav = ({ loggingout, handleLogout }) => {
             {/* CENTER NAV LINKS */}
             <div className="navbar-center">
                 <Link to="/" className="nav-link">Home</Link>
-                <Link to="/investment" className="nav-link">Investment</Link>
+                <Link to="/projects" className="nav-link">Projects</Link>
                 <Link to="/about" className="nav-link">About</Link>
                 <Link to="/contact" className="nav-link">Contact</Link>
             </div>

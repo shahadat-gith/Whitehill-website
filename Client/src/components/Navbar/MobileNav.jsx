@@ -79,8 +79,8 @@ const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout
                         <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
                             Home
                         </Link>
-                        <Link to="/investment" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                            Investment
+                        <Link to="/projects" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                            Projects
                         </Link>
                         <Link to="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
                             About

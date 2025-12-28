@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 
-const connectToCloudinary = () => {
+const connectToCloudinary = async () => {
   if (
     !process.env.CLOUDINARY_CLOUD_NAME ||
     !process.env.CLOUDINARY_API_KEY ||
@@ -66,5 +66,3 @@ export const deleteFromCloudinary = async (
     throw new Error(`Cloudinary deletion failed: ${error.message}`);
   }
 };
-
-

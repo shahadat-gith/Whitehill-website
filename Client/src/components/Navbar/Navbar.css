@@ -393,6 +393,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -402,6 +403,18 @@
 /* ===========================
    RESPONSIVE BREAKPOINTS
    =========================== */
+@media (max-width: 900px) {
+
+  /* Hide desktop nav */
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Show mobile nav */
+  .mobile-nav {
+    display: flex;
+  }
+}
 
 /* Tablet and Mobile */
 @media (max-width: 768px) {
@@ -413,15 +426,6 @@
     font-size: 1.125rem;
   }
 
-  /* Hide desktop nav */
-  .desktop-nav {
-    display: none;
-  }
-
-  /* Show mobile nav */
-  .mobile-nav {
-    display: flex;
-  }
 }
 
 /* Small Mobile */

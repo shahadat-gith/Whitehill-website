@@ -4,7 +4,7 @@ import api from "../../../../Configs/axios";
 import { useAppContext } from "../../../../Context/AppContext";
 import toast from "react-hot-toast";
 import Loader from "../../../../components/Loader/Loader";
-import { formatCurrency, formatDate } from "../../utility";
+import { formatCurrency, formatDate } from "../../../../Utils/utility";
 
 const Transactions = () => {
   const { user, setUser } = useAppContext();

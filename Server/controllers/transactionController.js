@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import Transaction from "../models/transactions.js";
 import User from "../models/user.js";
+import Investment from "../models/investment.js";
 import crypto from "crypto";
 import Razorpay from 'razorpay';
 
@@ -30,7 +31,7 @@ export const createOrder = async (req, res) => {
 
 export const verifyPayment = async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, amount } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, amount, projectId } = req.body;
     const userId =  req.userId;
 
     const generated_signature = crypto
@@ -50,6 +51,13 @@ export const verifyPayment = async (req, res) => {
       const user = await User.findById(userId);
       user.totalInvested += amount;
       await user.save();
+      const investment = new Investment({
+        user: userId,
+        project: projectId,
+        transaction: transaction._id,
+        status: 'pending'
+      });
+      await investment.save();
 
       res.status(200).json({ success: true, message: "Payment Successful." });
     } else {

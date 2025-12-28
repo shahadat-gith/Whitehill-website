@@ -1,8 +1,6 @@
-/* ========================================
-   PERSONAL TAB STYLES
-======================================== */
 
-.prf-tab-content {
+
+.ps-tab-content {
   padding: 2rem;
   animation: fadeIn 0.4s ease-out;
 }
@@ -22,7 +20,7 @@
    SECTION HEADER
 ======================================== */
 
-.prf-section-header {
+.ps-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +29,7 @@
   border-bottom: 3px solid var(--accent-yellow);
 }
 
-.prf-section-header h2 {
+.ps-section-header h2 {
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--primary-navy);
@@ -42,13 +40,13 @@
    FORM GRID
 ======================================== */
 
-.prf-form-grid {
+.ps-form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.prf-form-group {
+.ps-form-group {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -61,8 +59,8 @@
   overflow: hidden;
 }
 
-.prf-form-group::before {
-  content: '';
+.ps-form-group::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -73,17 +71,17 @@
   transition: transform 0.3s ease;
 }
 
-.prf-form-group:hover {
+.ps-form-group:hover {
   border-color: var(--primary-blue);
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
 
-.prf-form-group:hover::before {
+.ps-form-group:hover::before {
   transform: scaleY(1);
 }
 
-.prf-form-group label {
+.ps-form-group label {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -92,7 +90,7 @@
   margin: 0;
 }
 
-.prf-value {
+.ps-value {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary-navy);
@@ -100,101 +98,34 @@
   word-break: break-word;
 }
 
-/* Add icons to specific fields */
-.prf-form-group:nth-child(1) label::before {
-  content: '👤 ';
-  margin-right: 0.25rem;
+/* Icons for fields */
+.ps-form-group:nth-child(1) label::before {
+  content: "👤 ";
 }
 
-.prf-form-group:nth-child(2) label::before {
-  content: '✉️ ';
-  margin-right: 0.25rem;
+.ps-form-group:nth-child(2) label::before {
+  content: "✉️ ";
 }
 
-.prf-form-group:nth-child(3) label::before {
-  content: '📞 ';
-  margin-right: 0.25rem;
+.ps-form-group:nth-child(3) label::before {
+  content: "📞 ";
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   EDIT BUTTON
 ======================================== */
-
-@media (max-width: 768px) {
-  .prf-tab-content {
-    padding: 1.5rem;
-  }
-
-  .prf-section-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .prf-section-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .prf-form-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .prf-form-group {
-    padding: 1.25rem;
-  }
-
-  .prf-value {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .prf-tab-content {
-    padding: 1rem;
-  }
-
-  .prf-section-header {
-    margin-bottom: 1.25rem;
-  }
-
-  .prf-section-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .prf-form-grid {
-    gap: 1.25rem;
-  }
-
-  .prf-form-group {
-    padding: 1rem;
-    gap: 0.5rem;
-  }
-
-  .prf-form-group label {
-    font-size: 0.75rem;
-  }
-
-  .prf-value {
-    font-size: 0.95rem;
-  }
-}
-
-
-
 
 .btn-edit {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   padding: 8px 14px;
   font-size: 14px;
   font-weight: 500;
-
   color: var(--text-primary);
   background-color: var(--accent-light-blue);
   border: 1px solid var(--border-medium);
   border-radius: 6px;
-
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: var(--shadow-sm);
@@ -205,7 +136,6 @@
   color: var(--primary-blue);
 }
 
-/* Hover */
 .btn-edit:hover {
   background-color: var(--primary-blue);
   color: var(--text-white);
@@ -218,9 +148,57 @@
   color: var(--text-white);
 }
 
-/* Active */
 .btn-edit:active {
   transform: translateY(0);
   box-shadow: var(--shadow-sm);
 }
 
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+  .ps-tab-content {
+    padding: 1.5rem;
+  }
+
+  .ps-section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .ps-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .ps-form-group {
+    padding: 1.25rem;
+  }
+
+  .ps-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ps-tab-content {
+    padding: 1rem;
+  }
+
+  .ps-section-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .ps-form-group {
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .ps-form-group label {
+    font-size: 0.75rem;
+  }
+
+  .ps-value {
+    font-size: 0.95rem;
+  }
+}

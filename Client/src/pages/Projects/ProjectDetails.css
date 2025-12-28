@@ -1,0 +1,701 @@
+/* ========================================
+   PROJECT DETAILS PAGE
+======================================== */
+
+.pd-container {
+  min-height: 100vh;
+  background: var(--bg-light-gray);
+  padding: 2rem;
+}
+
+/* ========================================
+   BACK BUTTON
+======================================== */
+
+.pd-back-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  background: var(--bg-white);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.pd-back-btn:hover {
+  background: var(--primary-navy);
+  color: var(--text-white);
+  border-color: var(--primary-navy);
+  transform: translateX(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   MAIN CONTENT LAYOUT
+======================================== */
+
+.pd-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+}
+
+/* ========================================
+   LEFT COLUMN
+======================================== */
+
+.pd-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ========================================
+   IMAGE GALLERY
+======================================== */
+
+.pd-gallery {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.pd-gallery-main {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pd-gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-risk-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+}
+
+.risk-low {
+  background: var(--accent-mint);
+  color: var(--success);
+  border: 2px solid var(--success);
+}
+
+.risk-medium {
+  background: var(--accent-light-yellow);
+  color: #f57c00;
+  border: 2px solid var(--warning);
+}
+
+.risk-high {
+  background: var(--accent-pink);
+  color: var(--error);
+  border: 2px solid var(--error);
+}
+
+.pd-gallery-thumbs {
+  display: flex;
+  gap: 1rem;
+}
+
+.pd-gallery-thumbs img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+}
+
+.pd-gallery-thumbs img:hover {
+  opacity: 0.9;
+}
+
+.pd-gallery-thumbs img.active {
+  opacity: 1;
+  border-color: var(--accent-yellow);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   PROJECT INFO CARD
+======================================== */
+
+.pd-info-card {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.pd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 3px solid var(--accent-yellow);
+}
+
+.pd-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 0 0.5rem;
+}
+
+.pd-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.pd-location i {
+  color: var(--accent-yellow);
+}
+
+.pd-type-badge {
+  padding: 0.5rem 1rem;
+  background: var(--accent-light-blue);
+  color: var(--primary-blue);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pd-rera {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+.pd-rera i {
+  color: var(--success);
+}
+
+.pd-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+/* ========================================
+   DETAILS GRID
+======================================== */
+
+.pd-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pd-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border-radius: 10px;
+  border: 2px solid var(--bg-light-gray);
+  transition: all 0.3s ease;
+}
+
+.pd-detail-item:hover {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pd-detail-item i {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+}
+
+.pd-detail-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pd-detail-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.pd-detail-value {
+  font-size: 1rem;
+  color: var(--primary-navy);
+  font-weight: 600;
+}
+
+.pd-highlight-success {
+  color: var(--success) !important;
+  font-size: 1.1rem !important;
+}
+
+.pd-highlight-primary {
+  color: var(--primary-blue) !important;
+  font-size: 1.1rem !important;
+}
+
+/* ========================================
+   HIGHLIGHTS
+======================================== */
+
+.pd-highlights {
+  margin-bottom: 2rem;
+}
+
+.pd-highlights h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0 0 1rem;
+}
+
+.pd-highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pd-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-yellow);
+}
+
+.pd-highlights li i {
+  color: var(--success);
+  font-size: 1rem;
+}
+
+/* ========================================
+   DOCUMENTS
+======================================== */
+
+.pd-documents h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin: 0 0 1rem;
+}
+
+.pd-doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pd-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  border: 2px solid var(--bg-light-gray);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.pd-doc-item:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.pd-doc-item i {
+  font-size: 1.5rem;
+  color: var(--error);
+}
+
+.pd-doc-item span {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.pd-doc-btn {
+  padding: 0.5rem 0.75rem;
+  background: var(--primary-navy);
+  color: var(--text-white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pd-doc-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   RIGHT COLUMN - INVESTMENT CARD
+======================================== */
+
+.pd-right {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.pd-invest-card {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--accent-yellow);
+}
+
+.pd-invest-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 0 0.5rem;
+}
+
+.pd-invest-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 2rem;
+}
+
+/* ========================================
+   INVESTMENT FORM
+======================================== */
+
+.pd-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.pd-input-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pd-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pd-input-prefix {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pd-input-wrapper input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.pd-input-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
+  background: var(--bg-white);
+}
+
+.pd-input-hint {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+}
+
+/* ========================================
+   QUICK AMOUNT BUTTONS
+======================================== */
+
+.pd-quick-amounts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.pd-quick-amounts button {
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  background: var(--bg-card);
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pd-quick-amounts button:hover {
+  background: var(--accent-light-blue);
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   INVESTMENT SUMMARY
+======================================== */
+
+.pd-summary {
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--accent-yellow);
+}
+
+.pd-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.pd-summary-item:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.pd-summary-item span:last-child {
+  font-weight: 600;
+  color: var(--primary-navy);
+}
+
+.pd-summary-highlight {
+  color: var(--success) !important;
+  font-size: 1rem !important;
+}
+
+/* ========================================
+   INVEST BUTTON
+======================================== */
+
+.pd-invest-btn {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1rem;
+}
+
+.pd-invest-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #151820 100%);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pd-invest-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.pd-invest-btn i {
+  font-size: 1.2rem;
+}
+
+/* ========================================
+   SECURITY NOTE
+======================================== */
+
+.pd-security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.pd-security-note i {
+  color: var(--success);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 1200px) {
+  .pd-content {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-right {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .pd-container {
+    padding: 1rem;
+  }
+
+  .pd-back-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .pd-gallery-main {
+    height: 300px;
+  }
+
+  .pd-info-card {
+    padding: 1.5rem;
+  }
+
+  .pd-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pd-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .pd-type-badge {
+    align-self: flex-start;
+  }
+
+  .pd-details-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .pd-invest-card {
+    padding: 1.5rem;
+  }
+
+  .pd-quick-amounts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-container {
+    padding: 0.75rem;
+  }
+
+  .pd-gallery {
+    padding: 1rem;
+  }
+
+  .pd-gallery-main {
+    height: 250px;
+  }
+
+  .pd-gallery-thumbs img {
+    width: 80px;
+    height: 65px;
+  }
+
+  .pd-info-card {
+    padding: 1.25rem;
+  }
+
+  .pd-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .pd-description {
+    font-size: 0.9rem;
+  }
+
+  .pd-detail-item {
+    padding: 1rem;
+  }
+
+  .pd-detail-item i {
+    font-size: 1.25rem;
+  }
+
+  .pd-highlights li {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.85rem;
+  }
+
+  .pd-invest-card {
+    padding: 1.25rem;
+  }
+
+  .pd-invest-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}

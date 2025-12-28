@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import "./Profile.css";
 import { useAppContext } from "../../Context/AppContext";
 import Loader from "../../components/Loader/Loader";
-import { formatCurrency, getStatusColor } from "./utility";
+import { formatCurrency, getStatusColor } from "../../Utils/utility";
 import Personal from "./Tabs/Personal/Personal";
 import KycDetails from "./Tabs/KYC/KycDetails";
 import Bank from "./Tabs/Bank/Bank";
 import Transactions from "./Tabs/Transactions/Transactions";
 import ProfileUpdateModal from "./Modals/ProfileUpdateModal/ProfileUpdateModal";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Profile = () => {
   const { loading, user } = useAppContext();
@@ -26,12 +26,15 @@ const Profile = () => {
   };
 
 
+  const navigate = useNavigate()
+
+
   const tabs = [
-          { key: "personal", icon: "fa-user", label: "Personal Info" },
-          { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
-          { key: "bank", icon: "fa-university", label: "Bank Details" },
-          { key: "transactions", icon: "fa-money-bill-1-wave", label: "Transactions" },
-        ]
+    { key: "personal", icon: "fa-user", label: "Personal Info" },
+    { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
+    { key: "bank", icon: "fa-university", label: "Bank Details" },
+    { key: "transactions", icon: "fa-money-bill-1-wave", label: "Transactions" },
+  ]
 
   if (loading) return <Loader />;
 
@@ -49,13 +52,11 @@ const Profile = () => {
       {/* ================= HEADER ================= */}
       <div className="prf-profile-header">
         <div className="prf-profile-header-content">
+          {/* LEFT SIDE */}
           <div className="prf-profile-avatar-section">
             <div className="prf-profile-avatar">
               {user?.image?.url ? (
-                <img
-                  src={user.image.url}
-                  alt={user.fullName}
-                />
+                <img src={user.image.url} alt={user.fullName} />
               ) : (
                 <span className="prf-avatar-initials">{initials}</span>
               )}
@@ -86,7 +87,18 @@ const Profile = () => {
               )}
             </div>
           </div>
+
+          {/* RIGHT SIDE BUTTON */}
+          <div className="prf-profile-header-action">
+            <button
+              className="prf-btn-investments"
+              onClick={() => navigate(`/investment-profile?user=${user._id}`)}
+            >
+              <i className="fas fa-briefcase"></i> My Investments
+            </button>
+          </div>
         </div>
+
 
         {/* ================= STATS ================= */}
         <div className="prf-profile-stats">

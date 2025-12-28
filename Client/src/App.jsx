@@ -8,6 +8,9 @@ import Login from "./pages/Onboard/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import { Toaster } from "react-hot-toast";
 import Profile from "./pages/Profile/Profile";
+import Projects from "./pages/Projects/Projects";
+import ProjectDetails from "./pages/Projects/ProjectDetails";
+import Investment from "./pages/Investment/Investment";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -34,7 +37,10 @@ const App = () => {
         <Route path="/login" element={<Login />} />
 
         <Route path="/profile" element={<Profile />} />
-
+        <Route path="/investment-profile" element={<Investment />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:id" element={<ProjectDetails />} />
+        
         <Route path="/*" element={<NotFound />} />
       </Routes>
 

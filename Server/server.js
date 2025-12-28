@@ -10,6 +10,8 @@ import "./configs/cloudinary.js";
 import userRouter from "./routes/userRoutes.js";
 import { connectToCloudinary } from "./configs/cloudinary.js";
 import transactionRouter from "./routes/transactionRoutes.js";
+import projectRouter from "./routes/projectRoutes.js";
+import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
@@ -24,7 +26,10 @@ await connectDB();
 await connectToCloudinary()
 
 app.use("/api/user", userRouter);
+app.use("/api/project", projectRouter);
 app.use("/api/transaction", transactionRouter);
+app.use("/api/investment", investmentRouter);
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

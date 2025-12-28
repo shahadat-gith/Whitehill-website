@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { formatDate, getStatusColor } from "../../utility";
+import { formatDate, getStatusColor } from "../../../../Utils/utility";
 import DocumentPreviewModal from "../../Modals/DocumentPreviewModal/DocumentPreviewModal";
 import KycModal from "../../Modals/KycModal/KycModal";
-import "./KycDetails.css"
+import "./KycDetails.css";
 
 const KycDetails = ({ user }) => {
   const kyc = user?.kyc;
@@ -27,16 +27,16 @@ const KycDetails = ({ user }) => {
   /* ================= NO KYC SUBMITTED ================= */
   if (!kyc) {
     return (
-      <div className="prf-tab-content">
-        <div className="prf-section-header">
+      <div className="kd-tab-content">
+        <div className="kd-section-header">
           <h2>KYC Details</h2>
-          <span className="prf-badge prf-badge-pending">Not Submitted</span>
+          <span className="kd-badge kd-badge-pending">Not Submitted</span>
         </div>
 
-        <div className="prf-empty-state">
+        <div className="kd-empty-state">
           <p>You have not submitted your KYC details yet.</p>
           <button
-            className="prf-btn-primary"
+            className="kd-btn-primary"
             onClick={() => setShowKycModal(true)}
           >
             Submit KYC
@@ -44,10 +44,7 @@ const KycDetails = ({ user }) => {
         </div>
 
         {showKycModal && (
-          <KycModal
-            user={user}
-            onClose={() => setShowKycModal(false)}
-          />
+          <KycModal user={user} onClose={() => setShowKycModal(false)} />
         )}
       </div>
     );
@@ -55,74 +52,74 @@ const KycDetails = ({ user }) => {
 
   /* ================= MAIN VIEW ================= */
   return (
-    <div className="prf-tab-content">
-      <div className="prf-section-header">
+    <div className="kd-tab-content">
+      <div className="kd-section-header">
         <h2>KYC Details</h2>
-        <span className={`prf-badge ${getStatusColor(kyc.status)}`}>
+        <span className={`kd-badge ${getStatusColor(kyc.status)}`}>
           {kyc.status}
         </span>
       </div>
 
       {/* ================= BASIC INFO ================= */}
-      <div className="prf-kyc-info">
-        <div className="prf-info-card">
-          <div className="prf-info-label">PAN Number</div>
-          <div className="prf-info-value">
+      <div className="kd-kyc-info">
+        <div className="kd-info-card">
+          <div className="kd-info-label">PAN Number</div>
+          <div className="kd-info-value">
             {kyc.pan?.panNumber || "-"}
           </div>
         </div>
 
-        <div className="prf-info-card">
-          <div className="prf-info-label">Aadhaar Number</div>
-          <div className="prf-info-value">
+        <div className="kd-info-card">
+          <div className="kd-info-label">Aadhaar Number</div>
+          <div className="kd-info-value">
             {kyc.aadhar?.aadharNumber || "-"}
           </div>
         </div>
 
-        <div className="prf-info-card">
-          <div className="prf-info-label">Verification Status</div>
-          <div className="prf-info-value">
-            {kyc.status === "Verified" ? (
-              <span className="prf-status-verified">
+        <div className="kd-info-card">
+          <div className="kd-info-label">Verification Status</div>
+          <div className="kd-info-value">
+            {kyc.status === "verified" ? (
+              <span className="kd-status-verified">
                 <i className="fas fa-check-circle"></i> Verified
               </span>
-            ) : kyc.status === "Rejected" ? (
-              <span className="prf-status-rejected">
+            ) : kyc.status === "rejected" ? (
+              <span className="kd-status-rejected">
                 <i className="fas fa-times-circle"></i> Rejected
               </span>
             ) : (
-              <span className="prf-status-pending">
+              <span className="kd-status-pending">
                 <i className="fas fa-clock"></i> Pending
               </span>
             )}
           </div>
         </div>
 
-        <div className="prf-info-card">
-          <div className="prf-info-label">Verified Date</div>
-          <div className="prf-info-value">
+        <div className="kd-info-card">
+          <div className="kd-info-label">Verified Date</div>
+          <div className="kd-info-value">
             {kyc.verifiedAt ? formatDate(kyc.verifiedAt) : "Not verified"}
           </div>
         </div>
       </div>
 
       {/* ================= DOCUMENTS ================= */}
-      <div className="prf-document-section">
+      <div className="kd-document-section">
         <h3>Uploaded Documents</h3>
 
-        <div className="prf-document-list">
+        <div className="kd-document-list">
           {/* PAN FRONT IMAGE */}
           {kyc.pan?.frontImageUrl?.url && (
-            <div className="prf-document-item">
-              <div className="prf-document-icon">
+            <div className="kd-document-item">
+              <div className="kd-document-icon">
                 <i className="fas fa-id-card"></i>
               </div>
-              <div className="prf-document-info">
-                <p className="prf-document-name">PAN Card</p>
-                <p className="prf-document-status">Front Image</p>
+              <div className="kd-document-info">
+                <p className="kd-document-name">PAN Card</p>
+                <p className="kd-document-status">Front Image</p>
               </div>
               <button
-                className="prf-btn-view"
+                className="kd-btn-view"
                 onClick={() =>
                   openPreview(kyc.pan.frontImageUrl.url)
                 }
@@ -135,19 +132,19 @@ const KycDetails = ({ user }) => {
           {/* AADHAAR FRONT & BACK */}
           {kyc.aadhar?.frontImageUrl?.url &&
             kyc.aadhar?.backImageUrl?.url && (
-              <div className="prf-document-item">
-                <div className="prf-document-icon">
+              <div className="kd-document-item">
+                <div className="kd-document-icon">
                   <i className="fas fa-id-card"></i>
                 </div>
-                <div className="prf-document-info">
-                  <p className="prf-document-name">Aadhaar Card</p>
-                  <p className="prf-document-status">
+                <div className="kd-document-info">
+                  <p className="kd-document-name">Aadhaar Card</p>
+                  <p className="kd-document-status">
                     Front & Back Images
                   </p>
                 </div>
-                <div className="prf-document-actions">
+                <div className="kd-document-actions">
                   <button
-                    className="prf-btn-view"
+                    className="kd-btn-view"
                     onClick={() =>
                       openPreview(kyc.aadhar.frontImageUrl.url)
                     }
@@ -155,7 +152,7 @@ const KycDetails = ({ user }) => {
                     Front
                   </button>
                   <button
-                    className="prf-btn-view"
+                    className="kd-btn-view"
                     onClick={() =>
                       openPreview(kyc.aadhar.backImageUrl.url)
                     }
@@ -170,9 +167,9 @@ const KycDetails = ({ user }) => {
 
       {/* ================= ACTION ================= */}
       {kyc.status === "Rejected" && (
-        <div className="prf-form-actions">
+        <div className="kd-form-actions">
           <button
-            className="prf-btn-primary"
+            className="kd-btn-primary"
             onClick={() => setShowKycModal(true)}
           >
             Re-submit KYC
@@ -190,10 +187,7 @@ const KycDetails = ({ user }) => {
 
       {/* ================= UPDATE KYC MODAL ================= */}
       {showKycModal && (
-        <KycModal
-          user={user}
-          onClose={() => setShowKycModal(false)}
-        />
+        <KycModal user={user} onClose={() => setShowKycModal(false)} />
       )}
     </div>
   );

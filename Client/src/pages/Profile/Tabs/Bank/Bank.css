@@ -1,8 +1,4 @@
-/* ========================================
-   BANK COMPONENT STYLES
-======================================== */
-
-.prf-tab-content {
+.bn-tab-content {
   padding: 2rem;
   animation: fadeIn 0.4s ease-out;
 }
@@ -22,7 +18,7 @@
    SECTION HEADER
 ======================================== */
 
-.prf-section-header {
+.bn-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,19 +27,23 @@
   border-bottom: 3px solid var(--accent-yellow);
 }
 
-.prf-section-header h2 {
+.bn-section-header h2 {
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--primary-navy);
   margin: 0;
 }
 
-.prf-btn-primary {
+.bn-btn-update {
   padding: 0.75rem 1.5rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-white);
-  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-navy) 0%,
+    var(--primary-dark) 100%
+  );
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -54,13 +54,17 @@
   white-space: nowrap;
 }
 
-.prf-btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #151820 100%);
+.bn-btn-update:hover {
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    #151820 100%
+  );
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.prf-btn-primary i {
+.bn-btn-update i {
   font-size: 1rem;
 }
 
@@ -68,14 +72,14 @@
    BANK INFO GRID
 ======================================== */
 
-.prf-bank-info {
+.bn-bank-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.prf-info-card {
+.bn-info-card {
   background: var(--bg-white);
   border: 2px solid var(--bg-light-gray);
   border-radius: 12px;
@@ -85,8 +89,8 @@
   overflow: hidden;
 }
 
-.prf-info-card::before {
-  content: '';
+.bn-info-card::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -97,17 +101,17 @@
   transition: transform 0.3s ease;
 }
 
-.prf-info-card:hover {
+.bn-info-card:hover {
   border-color: var(--primary-blue);
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
 
-.prf-info-card:hover::before {
+.bn-info-card:hover::before {
   transform: scaleY(1);
 }
 
-.prf-info-label {
+.bn-info-label {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -116,7 +120,7 @@
   margin-bottom: 0.5rem;
 }
 
-.prf-info-value {
+.bn-info-value {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary-navy);
@@ -124,7 +128,7 @@
 }
 
 /* Full width card for branch */
-.prf-full-width {
+.bn-full-width {
   grid-column: 1 / -1;
 }
 
@@ -132,8 +136,12 @@
    EMPTY STATE
 ======================================== */
 
-.prf-empty-state {
-  background: linear-gradient(135deg, var(--accent-light-blue) 0%, var(--accent-light-blue2) 100%);
+.bn-empty-state {
+  background: linear-gradient(
+    135deg,
+    var(--accent-light-blue) 0%,
+    var(--accent-light-blue2) 100%
+  );
   border: 2px dashed var(--primary-blue);
   border-radius: 12px;
   padding: 3rem 2rem;
@@ -141,171 +149,96 @@
   margin-bottom: 2rem;
 }
 
-.prf-empty-state p {
+.bn-empty-state p {
   font-size: 1.1rem;
   color: var(--text-secondary);
   margin: 0;
   font-weight: 500;
 }
 
-/* ========================================
-   PAYOUT INFORMATION
-======================================== */
 
-.prf-payout-info {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 2px solid var(--bg-light-gray);
-}
-
-.prf-payout-info h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--primary-navy);
-  margin: 0 0 1.5rem;
-}
-
-.prf-payout-card {
-  background: linear-gradient(135deg, var(--accent-mint) 0%, var(--accent-light-mint) 100%);
-  border: 2px solid var(--success);
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-
-.prf-payout-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.prf-payout-card p {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.prf-payout-date {
-  font-size: 1.2rem !important;
-  font-weight: 700 !important;
-  color: var(--success) !important;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.prf-payout-date i {
-  font-size: 1.1rem;
-}
 
 /* ========================================
    RESPONSIVE DESIGN
 ======================================== */
 
 @media (max-width: 1024px) {
-  .prf-bank-info {
+  .bn-bank-info {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  .prf-tab-content {
+  .bn-tab-content {
     padding: 1.5rem;
   }
 
-  .prf-section-header {
+  .bn-section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
 
-  .prf-section-header h2 {
+  .bn-section-header h2 {
     font-size: 1.5rem;
   }
 
-  .prf-btn-primary {
+  .bn-btn-primary {
     width: 100%;
     justify-content: center;
   }
 
-  .prf-bank-info {
+  .bn-bank-info {
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
 
-  .prf-info-card {
+  .bn-info-card {
     padding: 1.25rem;
   }
 
-  .prf-empty-state {
+  .bn-empty-state {
     padding: 2.5rem 1.5rem;
   }
 
-  .prf-payout-card {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .prf-payout-date {
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {
-  .prf-tab-content {
+  .bn-tab-content {
     padding: 1rem;
   }
 
-  .prf-section-header {
+  .bn-section-header {
     margin-bottom: 1.5rem;
   }
 
-  .prf-section-header h2 {
+  .bn-section-header h2 {
     font-size: 1.3rem;
   }
 
-  .prf-btn-primary {
+  .bn-btn-primary {
     padding: 0.625rem 1.25rem;
     font-size: 0.9rem;
   }
 
-  .prf-info-card {
+  .bn-info-card {
     padding: 1rem;
   }
 
-  .prf-info-label {
+  .bn-info-label {
     font-size: 0.75rem;
   }
 
-  .prf-info-value {
+  .bn-info-value {
     font-size: 1rem;
   }
 
-  .prf-empty-state {
+  .bn-empty-state {
     padding: 2rem 1rem;
   }
 
-  .prf-empty-state p {
+  .bn-empty-state p {
     font-size: 1rem;
   }
 
-  .prf-payout-info h3 {
-    font-size: 1.15rem;
-  }
-
-  .prf-payout-card {
-    padding: 1.25rem 1.5rem;
-  }
-
-  .prf-payout-card p {
-    font-size: 0.9rem;
-  }
-
-  .prf-payout-date {
-    font-size: 1.05rem !important;
-  }
 }
