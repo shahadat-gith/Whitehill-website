@@ -413,11 +413,6 @@
     gap: 24px;
   }
 
-  .contact-item {
-    flex-direction: column;
-    text-align: center;
-  }
-
   .whatsapp-btn {
     width: 100%;
     justify-content: center;
