@@ -1,4 +1,4 @@
-import Project from "../models/projects.js";
+import Project from "../models/project.js";
 import { uploadToCloudinary } from "../configs/cloudinary.js";
 
 export const createProject = async (req, res) => {
