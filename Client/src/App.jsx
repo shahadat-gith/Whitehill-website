@@ -11,6 +11,8 @@ import Profile from "./pages/Profile/Profile";
 import Projects from "./pages/Projects/Projects";
 import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Investment from "./pages/Investment/Investment";
+import About from "./pages/About/About";
+import Contact from "./pages/Contact/Contact";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -40,6 +42,8 @@ const App = () => {
         <Route path="/investment-profile" element={<Investment />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         
         <Route path="/*" element={<NotFound />} />
       </Routes>

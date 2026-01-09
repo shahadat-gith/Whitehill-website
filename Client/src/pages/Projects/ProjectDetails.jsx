@@ -47,6 +47,15 @@ const ProjectDetails = () => {
   /* ================= INVESTMENT HANDLER ================= */
   const handleInvest = async (e) => {
     e.preventDefault();
+
+    if(!user){
+      toast.error("Please login to invest!")
+      setTimeout(()=>{
+        navigate("/login")
+      },2000)
+
+      return;
+    }
     const investAmount = Number(amount);
 
     if (!investAmount || investAmount < project.minCommitment) {

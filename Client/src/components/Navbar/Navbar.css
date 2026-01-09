@@ -82,24 +82,17 @@
   white-space: nowrap;
 }
 
+.nav-link.active{
+  color: var(--text-primary);
+  font-weight: bold;
+  border-bottom: 2px solid var(--primary-navy);
+}
+
 .nav-link:hover {
   color: var(--text-primary);
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary-navy);
-  transition: width 0.3s ease;
-}
 
-.nav-link:hover::after {
-  width: 100%;
-}
 
 /* RIGHT SECTION */
 .navbar-right {
@@ -376,7 +369,7 @@
   padding-top: 1.5rem;
   margin-top: 1.5rem;
   width: 100%;
-  max-width: 300px;
+  
 }
 
 .btn-block {

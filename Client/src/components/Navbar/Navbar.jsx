@@ -31,6 +31,13 @@ const Navbar = () => {
 
   }
 
+  const navLinks = [
+    {label: "Home", to:"/"},
+    {label: "Projects", to:"/projects"},
+    {label: "About", to:"/about"},
+    {label: "Contact", to:"/contact"},
+  ]
+
   return (
     <nav className="navbar-container">
       <div className="navbar-inner">
@@ -44,6 +51,7 @@ const Navbar = () => {
         <div className="desktop-nav">
           <DesktopNav
             handleLogout={handleLogout}
+            navLinks = {navLinks}
           />
         </div>
 
@@ -53,6 +61,7 @@ const Navbar = () => {
             mobileMenuOpen={mobileMenuOpen}
             setMobileMenuOpen={setMobileMenuOpen}
             handleLogout={handleLogout}
+            navLinks = {navLinks}
           />
         </div>
       </div>

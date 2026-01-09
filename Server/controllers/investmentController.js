@@ -1,4 +1,3 @@
-import { populate } from "dotenv";
 import Investment from "../models/investment.js";
 
 export const getUserInvestments = async (req, res) => {

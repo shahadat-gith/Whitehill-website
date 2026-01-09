@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 import Spinner from "../Spinner/Spinner";
 
-const DesktopNav = ({ loggingout, handleLogout }) => {
+const DesktopNav = ({ loggingout, handleLogout, navLinks}) => {
     const { user, loading } = useAppContext();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -19,6 +19,8 @@ const DesktopNav = ({ loggingout, handleLogout }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+
+
     return (
         <>
             {/* LEFT SECTION - Empty for now, can add search or other elements */}
@@ -28,10 +30,11 @@ const DesktopNav = ({ loggingout, handleLogout }) => {
 
             {/* CENTER NAV LINKS */}
             <div className="navbar-center">
-                <Link to="/" className="nav-link">Home</Link>
-                <Link to="/projects" className="nav-link">Projects</Link>
-                <Link to="/about" className="nav-link">About</Link>
-                <Link to="/contact" className="nav-link">Contact</Link>
+                {navLinks.map((item, index) =>(
+                    <NavLink to={item.to} className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                } key={index}>{item.label}</NavLink>
+                ))}
             </div>
 
             {/* RIGHT SECTION */}

@@ -68,8 +68,8 @@ body {
 
 
 .btn {
-  padding: 12px 32px;
-  border-radius: 28px;
+  padding: 10px 22px;
+  border-radius: 9999px;   /* 👈 makes it fully rounded */
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -99,9 +99,6 @@ body {
   background-color: var(--btn-secondary-hover);
 }
 
-.btn-secondary:hover {
-  background-color: var(--btn-secondary-hover);
-}
 
 /* Mobiles (small screens) */
 @media (max-width: 768px) {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../Context/AppContext";
 import Spinner from "../Spinner/Spinner";
 
-const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout }) => {
+const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout, navLinks }) => {
     const { user, loading } = useAppContext();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -76,18 +76,11 @@ const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout
             <div className={`mobile-menu-overlay ${mobileMenuOpen ? "open" : ""}`}>
                 <div className="mobile-menu-content">
                     <div className="mobile-nav-links">
-                        <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                            Home
-                        </Link>
-                        <Link to="/projects" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                            Projects
-                        </Link>
-                        <Link to="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                            About
-                        </Link>
-                        <Link to="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                            Contact
-                        </Link>
+                        {navLinks.map((item, index) => (
+                            <Link key={index} to={item.to} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                                {item.label}
+                            </Link>
+                        ))}
                     </div>
 
                     {!user && !loading && (

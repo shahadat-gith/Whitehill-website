@@ -12,12 +12,24 @@ import { connectToCloudinary } from "./configs/cloudinary.js";
 import transactionRouter from "./routes/transactionRoutes.js";
 import projectRouter from "./routes/projectRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({origin: [process.env.CLIENT_URL],credentials: true,}));
+
+
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.ADMIN_URL,
+];
+
+
+app.use(cors({
+  origin: "*",
+}));
+
 
 app.use(cookieParser());
 
@@ -29,6 +41,7 @@ app.use("/api/user", userRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/transaction", transactionRouter);
 app.use("/api/investment", investmentRouter);
+app.use("/api/admin", adminRouter)
 
 
 const PORT = process.env.PORT || 3000;
