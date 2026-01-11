@@ -1,0 +1,34 @@
+.admin-layout {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+/* Sidebar wrapper for animation */
+.sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+.sidebar-wrapper.open {
+  transform: translateX(0);
+}
+
+/* Main content */
+.main-content {
+  margin-top: 90px;
+  margin-left: 250px;
+  padding: 24px;
+  min-height: calc(100vh - 90px);
+  background-color: var(--bg-main);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+}

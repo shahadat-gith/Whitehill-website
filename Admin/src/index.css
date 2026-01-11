@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+[data-theme="light"] {
+  /* ====================
+     BRAND / ACCENT
+  ==================== */
+  --color-primary: #14532d;      /* Deep emerald */
+  --color-primary-soft: #dcfce7;
+  --color-secondary: #78350f;    /* Warm brown */
+  --color-secondary-soft: #fef3c7;
+
+  --color-success: #166534;
+  --color-danger: #991b1b;
+  --color-warning: #b45309;
+  --color-info: #065f46;
+
+  /* ====================
+     BACKGROUNDS
+  ==================== */
+  --bg-main: #f8fafc;            /* App background */
+  --bg-card: #ffffff;            /* Cards / navbar */
+  --bg-muted: #eef2f7;           /* Sidebar / sections */
+  --bg-hover: #e5e7eb;           /* Hover states */
+  --bg-active: #d1d5db;          /* Active states */
+
+  /* ====================
+     TEXT
+  ==================== */
+  --text-primary: #0f172a;        /* Main text */
+  --text-secondary: #334155;      /* Labels */
+  --text-muted: #64748b;          /* Meta text */
+  --text-inverse: #ffffff;
+
+  /* ====================
+     BORDERS / DIVIDERS
+  ==================== */
+  --border-color: #cbd5e1;
+  --border-strong: #94a3b8;
+
+  /* ====================
+     SHADOWS
+  ==================== */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+
+  /* ====================
+     BUTTONS
+  ==================== */
+  --btn-radius: 999px;
+  --btn-padding: 10px 22px;
+}
+
+
+[data-theme="dark"] {
+  /* ====================
+     BRAND / ACCENT
+  ==================== */
+  --color-primary: #22c55e;        /* Emerald accent */
+  --color-primary-soft: #052e16;
+  --color-secondary: #f59e0b;      /* Warm amber */
+  --color-secondary-soft: #3b1d0a;
+
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #34d399;
+
+  /* ====================
+     BACKGROUNDS
+  ==================== */
+  --bg-main: #020617;              /* App background */
+  --bg-card: #020617;              /* Cards / navbar */
+  --bg-muted: #020617;             /* Sidebar / sections */
+  --bg-hover: #020617;             /* Hover states */
+  --bg-active: #020617;            /* Active states */
+
+  /* ====================
+     TEXT
+  ==================== */
+  --text-primary: #f8fafc;         /* Main text */
+  --text-secondary: #e2e8f0;       /* Labels */
+  --text-muted: #94a3b8;           /* Meta text */
+  --text-inverse: #020617;
+
+  /* ====================
+     BORDERS / DIVIDERS
+  ==================== */
+  --border-color: #334155;
+  --border-strong: #475569;
+
+  /* ====================
+     SHADOWS
+  ==================== */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.6);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.8);
+
+  /* ====================
+     BUTTONS
+  ==================== */
+  --btn-radius: 999px;
+  --btn-padding: 10px 22px;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+.card {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+}
+
+
+/* ================================
+   BASE BUTTON
+================================ */
+.btn {
+  padding: var(--btn-padding);
+  border-radius: var(--btn-radius);
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ================================
+   PRIMARY BUTTON
+================================ */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+/* ================================
+   SECONDARY BUTTON
+================================ */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--color-primary) 12%,
+    transparent
+  );
+}
