@@ -108,6 +108,7 @@ export const createProject = async (req, res) => {
             !description
         ) {
             return res.status(400).json({
+                success: false,
                 message: "All required fields must be provided",
             });
         }
@@ -115,12 +116,14 @@ export const createProject = async (req, res) => {
         /* ================= CATEGORY VALIDATION ================= */
         if (category === "real_estate" && !rera) {
             return res.status(400).json({
+                success: false,
                 message: "RERA number is required for real estate projects",
             });
         }
 
         if (category === "startup" && rera) {
             return res.status(400).json({
+                success: false,
                 message: "RERA is not applicable for startup projects",
             });
         }
@@ -141,10 +144,10 @@ export const createProject = async (req, res) => {
             }));
         }
 
+        /* ================= HIGHLIGHTS ================= */
         const highlights = req.body.highlights
             ? JSON.parse(req.body.highlights)
             : [];
-
 
         /* ================= CREATE PROJECT ================= */
         const project = await Project.create({
@@ -183,17 +186,166 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
     try {
         const { projectId } = req.params;
-        const updateData = req.body;
-        const project = await Project.findByIdAndUpdate(projectId, updateData, { new: true });
+
+        /* ================= FIND PROJECT ================= */
+        const project = await Project.findById(projectId);
 
         if (!project) {
-            return res.status(404).json({ success: false, message: "Project not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Project not found",
+            });
         }
-        return res.status(200).json({ success: true, message: "Project updated successfully", project });
+
+        const {
+            category,
+            name,
+            type,
+            city,
+            state,
+            stage,
+            targetHold,
+            minCommitment,
+            targetReturn,
+            risk,
+            description,
+            rera,
+        } = req.body || {};
+
+
+        /* ================= CATEGORY VALIDATION ================= */
+        const finalCategory = category || project.category;
+
+        if (finalCategory === "real_estate" && !rera && !project.rera) {
+            return res.status(400).json({
+                success: false,
+                message: "RERA number is required for real estate projects",
+            });
+        }
+
+        if (finalCategory === "startup" && rera) {
+            return res.status(400).json({
+                success: false,
+                message: "RERA is not applicable for startup projects",
+            });
+        }
+
+        /* ================= UPDATE FIELDS ================= */
+        const updatableFields = {
+            category,
+            name,
+            type,
+            city,
+            state,
+            stage,
+            targetHold,
+            minCommitment,
+            targetReturn,
+            risk,
+            description,
+        };
+
+        Object.keys(updatableFields).forEach((key) => {
+            if (updatableFields[key] !== undefined) {
+                project[key] = updatableFields[key];
+            }
+        });
+
+        /* ================= RERA ================= */
+        if (finalCategory === "real_estate") {
+            project.rera = rera ?? project.rera;
+        } else {
+            project.rera = null;
+        }
+
+        /* ================= HIGHLIGHTS ================= */
+        if (req.body.highlights) {
+            project.highlights = JSON.parse(req.body.highlights);
+        }
+
+        /* ================= SAVE ================= */
+        await project.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Project updated successfully",
+            project,
+        });
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Error updating project", error: error.message });
+        console.error("Update Project Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Error updating project",
+            error: error.message,
+        });
     }
 };
+
+
+export const uploadProjectImages = async (req, res) => {
+    try {
+        const { projectId } = req.body;
+
+        if (!projectId) {
+            return res.status(400).json({
+                success: false,
+                message: "Project ID is required",
+            });
+        }
+
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "At least one image file is required",
+            });
+        }
+
+        /* ================= FIND PROJECT ================= */
+        const project = await Project.findById(projectId);
+
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: "Project not found",
+            });
+        }
+
+        /* ================= UPLOAD IMAGES ================= */
+        const uploadPromises = req.files.map((file) =>
+            uploadToCloudinary(file.buffer, "projects")
+        );
+
+        const uploadedImages = await Promise.all(uploadPromises);
+
+        const newImages = uploadedImages.map((img) => ({
+            url: img.url,
+            public_id: img.public_id,
+        }));
+
+        /* ================= APPEND IMAGES ================= */
+        project.images.push(...newImages);
+
+        /* ================= SAVE ================= */
+        await project.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Images uploaded successfully",
+            images: newImages,
+            project,
+        });
+    } catch (error) {
+        console.error("Upload Project Images Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to upload project images",
+            error: error.message,
+        });
+    }
+};
+
 
 export const deleteProject = async (req, res) => {
     try {
@@ -202,7 +354,7 @@ export const deleteProject = async (req, res) => {
 
         if (!project) {
             return res.status(404).json({ success: false, message: "Project not found" });
-        }   
+        }
         return res.status(200).json({ success: true, message: "Project deleted successfully" });
     }
     catch (error) {

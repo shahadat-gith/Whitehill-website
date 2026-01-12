@@ -8,6 +8,9 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Settings from "./pages/Settings/Settings";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import Projects from "./pages/Projects/Projects";
+import ProjectDetails from "./pages/Projects/ProjectDetails";
+import Investors from "./pages/Investors/Investors";
 
 
 
@@ -43,6 +46,12 @@ const App = () => {
               <AdminLayout>
                 <Routes>
                   <Route path="/" element={<Home />} />
+
+
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/:projectId" element={<ProjectDetails />} />
+
+                  <Route path="/investors" element={<Investors/>} />
                   <Route path="/settings" element={<Settings />} />
 
                   <Route path="/*" element={<PageNotFound/>}/>

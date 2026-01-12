@@ -1,0 +1,306 @@
+/* ================= PROJECTS CONTAINER ================= */
+.pr-container {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+/* ================= HEADER SECTION ================= */
+.pr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
+}
+
+.pr-header h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+/* ================= TABLE WRAPPER ================= */
+.pr-table-wrapper {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+}
+
+/* ================= TABLE ================= */
+.pr-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--text-primary);
+}
+
+.pr-table-header {
+  background-color: var(--bg-muted);
+}
+
+.pr-table-header th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-strong);
+  text-align: left;
+}
+
+.pr-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.pr-table tbody tr:hover {
+  background-color: var(--bg-hover);
+}
+
+.pr-table tbody td {
+  padding: 0.9rem 1rem;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pr-table-bordered {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ================= LOADING & EMPTY STATES ================= */
+.pr-loading-cell,
+.pr-empty-cell {
+  text-align: center;
+  padding: 3rem 1rem !important;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.pr-loading-cell i {
+  color: var(--color-primary);
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+/* ================= TEXT UTILITIES ================= */
+.pr-text-capitalize {
+  text-transform: capitalize;
+}
+
+/* ================= MODAL OVERLAY ================= */
+.pr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ================= MODAL DIALOG ================= */
+.pr-modal-dialog {
+  width: 100%;
+  max-width: 920px;
+}
+
+/* ================= MODAL CONTENT ================= */
+.pr-modal-content {
+  background-color: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+/* ================= MODAL HEADER ================= */
+.pr-modal-header {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-muted);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pr-modal-header h5 {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* ================= MODAL CLOSE ================= */
+.pr-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.pr-modal-close:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ================= MODAL BODY ================= */
+.pr-modal-body {
+  padding: 1.5rem;
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
+/* ================= MODAL FOOTER ================= */
+.pr-modal-footer {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-muted);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* ================= FORM GRID ================= */
+.pr-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.pr-form-col-half {
+  grid-column: span 1;
+}
+
+.pr-form-col-full {
+  grid-column: span 2;
+}
+
+/* ================= LABEL ================= */
+.pr-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+/* ================= INPUTS ================= */
+.pr-input,
+.pr-textarea {
+  width: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pr-input:focus,
+.pr-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  outline: none;
+}
+
+.pr-input::placeholder,
+.pr-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ================= TEXTAREA ================= */
+.pr-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ================= FILE INPUT ================= */
+.pr-file-input {
+  padding: 0.5rem;
+}
+
+.pr-file-input::file-selector-button {
+  background-color: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.pr-file-input::file-selector-button:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ================= HIGHLIGHTS ================= */
+.pr-highlights-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .pr-container {
+    padding: 1.25rem;
+  }
+
+  .pr-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pr-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pr-form-col-half,
+  .pr-form-col-full {
+    grid-column: span 1;
+  }
+
+  .pr-modal-body {
+    max-height: 60vh;
+  }
+
+  .pr-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .pr-modal-footer button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pr-header h4 {
+    font-size: 1.35rem;
+  }
+
+  .pr-table-header th {
+    font-size: 0.68rem;
+  }
+
+  .pr-table tbody td {
+    font-size: 0.82rem;
+  }
+}
