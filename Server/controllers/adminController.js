@@ -2,7 +2,9 @@ import jwt from "jsonwebtoken";
 import { uploadToCloudinary } from "../configs/cloudinary.js";
 import Contact from "../models/contact.js";
 import Project from "../models/project.js";
-
+import Investment from "../models/investment.js";
+import { decrypt } from "../utils/crypto.js";
+import { instance } from "../configs/razorpay.js";
 
 
 //auth 
@@ -364,4 +366,126 @@ export const deleteProject = async (req, res) => {
 
 
 
+//Investments
 
+export const updateInvestmentStatus = async (req, res) => {
+    try {
+        const { investmentId, status, reason } = req.body;
+        const investment = await Investment.findById(investmentId);
+
+        if (!investment) {
+            return res.status(404).json({ success: false, message: "Investment not found" });
+        }
+        investment.status = status;
+        await investment.save();
+        return res.status(200).json({ success: true, message: "Investment status updated successfully", investment });
+    }
+    catch (error) {
+        return res.status(500).json({ success: false, message: "Error updating investment status", error: error.message });
+    }
+};
+
+
+export const getInvestments = async (req, res) => {
+  try {
+    const investments = await Investment.find()
+      .populate({
+        path: "project",
+        select: "name targetReturn images",
+      })
+      .populate({
+        path: "transaction",
+        select: "amount date razorpay_payment_id",
+      })
+      .populate({
+        path: "user",
+        select: "fullName email image",
+      })
+      .sort({ createdAt: -1 })
+      .lean(); 
+
+    return res.status(200).json({
+      success: true,
+      investments,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving investments",
+      error: error.message,
+    });
+  }
+};
+
+
+export const getInvestmentById = async (req, res) => {
+  try {
+    const { investmentId } = req.body;
+
+    // Fetch investment with related data
+    const investment = await Investment.findById(investmentId)
+      .populate({
+        path: "project",
+        select: "name category city state risk targetReturn",
+      })
+      .populate({
+        path: "transaction",
+        select: "amount date razorpay_payment_id razorpay_order_id razorpay_signature",
+      })
+      .populate({
+        path: "user",
+        select: "fullName email phone image",
+      })
+      .lean();
+
+    if (!investment) {
+      return res.status(404).json({
+        success: false,
+        message: "Investment not found",
+      });
+    }
+
+    // Decrypt user phone number
+    if (investment?.user?.phone) {
+      try {
+        investment.user.phone = decrypt(investment.user.phone);
+      } catch (e) {
+        investment.user.phone = null;
+      }
+    }
+
+    // Prepare base response
+    const response = {
+      success: true,
+      investment,
+    };
+
+    // Fetch and attach Razorpay payment details if available
+    const paymentId = investment?.transaction?.razorpay_payment_id;
+    
+    if (paymentId) {
+      try {
+        const razorpayPayment = await instance.payments.fetch(paymentId);
+        response.razorpayPayment = razorpayPayment;
+      } catch (rzpErr) {
+        response.razorpayPayment = null;
+        response.razorpayError = {
+          message: rzpErr?.error?.description || rzpErr.message || "Failed to fetch Razorpay payment",
+          statusCode: rzpErr?.statusCode,
+        };
+      }
+    } else {
+      response.razorpayPayment = null;
+      response.message = "No razorpay_payment_id found for this investment";
+    }
+
+    return res.status(200).json(response);
+    
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving investment by ID",
+      error: error.message,
+    });
+  }
+};

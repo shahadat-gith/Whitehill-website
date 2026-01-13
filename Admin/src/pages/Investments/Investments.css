@@ -1,0 +1,268 @@
+/* ================= INVESTORS CONTAINER ================= */
+.inv-container {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+/* ================= HEADER ================= */
+.inv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.inv-header h4 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.inv-subtitle {
+  margin: 0.35rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ================= HEADER ACTIONS ================= */
+.inv-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.inv-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.inv-search i {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.inv-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  width: 280px;
+  font-size: 0.92rem;
+}
+
+.inv-search input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ================= TABLE WRAPPER ================= */
+.inv-table-wrapper {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+/* ================= TABLE ================= */
+.inv-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--text-primary);
+}
+
+.inv-table thead {
+  background-color: var(--bg-muted);
+}
+
+.inv-table th {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+}
+
+.inv-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  font-size: 0.92rem;
+}
+
+.inv-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.inv-table tbody tr:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ================= LOADING / EMPTY ================= */
+.inv-loading-cell,
+.inv-empty-cell {
+  text-align: center;
+  padding: 3rem 1rem !important;
+  color: var(--text-muted);
+}
+
+.inv-loading-cell i {
+  color: var(--color-primary);
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* ================= USER CELL ================= */
+.inv-user {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 260px;
+}
+
+.inv-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
+}
+
+.inv-user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.inv-user-name {
+  font-weight: 650;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.inv-user-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  line-height: 1.2;
+}
+
+/* ================= PROJECT CELL ================= */
+.inv-project-name {
+  font-weight: 650;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+}
+
+.inv-muted {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+/* ================= AMOUNT ================= */
+.inv-amount {
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ================= STATUS ================= */
+.inv-status {
+  white-space: nowrap;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--text-secondary);
+}
+
+/* Optional: if you want color-coded status without changing JSX
+   Add classes dynamically later: inv-status success/pending/failed */
+.inv-status.success {
+  color: var(--color-success);
+}
+.inv-status.pending {
+  color: var(--color-warning);
+}
+.inv-status.failed {
+  color: var(--color-danger);
+}
+
+/* ================= ACTION COLUMN ================= */
+.inv-table td:last-child {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.inv-table td:last-child .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .inv-container {
+    padding: 1.25rem;
+  }
+
+  .inv-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inv-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inv-search {
+    width: 100%;
+  }
+
+  .inv-search input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .inv-header h4 {
+    font-size: 1.35rem;
+  }
+
+  .inv-table-wrapper {
+    padding: 1rem;
+  }
+
+  .inv-table th,
+  .inv-table td {
+    padding: 0.7rem 0.6rem;
+  }
+
+  .inv-user {
+    min-width: 220px;
+  }
+
+  .inv-avatar {
+    width: 38px;
+    height: 38px;
+  }
+}

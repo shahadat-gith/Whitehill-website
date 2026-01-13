@@ -10,7 +10,8 @@ import Settings from "./pages/Settings/Settings";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import Projects from "./pages/Projects/Projects";
 import ProjectDetails from "./pages/Projects/ProjectDetails";
-import Investors from "./pages/Investors/Investors";
+import Investments from "./pages/Investments/Investments";
+import InvestmentDetails from "./pages/Investments/InvestmentDetails";
 
 
 
@@ -51,7 +52,9 @@ const App = () => {
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/projects/:projectId" element={<ProjectDetails />} />
 
-                  <Route path="/investors" element={<Investors/>} />
+                  <Route path="/investors" element={<Investments/>} />
+                  <Route path="/investors/:investmentId" element={<InvestmentDetails/>} />
+                  
                   <Route path="/settings" element={<Settings />} />
 
                   <Route path="/*" element={<PageNotFound/>}/>

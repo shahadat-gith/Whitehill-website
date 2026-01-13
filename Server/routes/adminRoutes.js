@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from "../configs/multer.js";
 
-import { adminLogin, createContact, createProject, deleteProject, getContacts, updateProject, uploadProjectImages } from '../controllers/adminController.js';
+import { adminLogin, createContact, createProject, deleteProject, getContacts, getInvestments, updateInvestmentStatus, updateProject, uploadProjectImages, getInvestmentById } from '../controllers/adminController.js';
 import { adminAuth } from '../middlewares/adminMiddleware.js';
 
 const adminRouter = express.Router();
@@ -26,6 +26,10 @@ adminRouter.post(
   upload.array("images", 10),
   uploadProjectImages
 );
+
+adminRouter.post("/investment/status/:investmentId", updateInvestmentStatus);
+adminRouter.get("/investment/all", getInvestments)
+adminRouter.post("/investment/details", getInvestmentById);
 
 
 export default adminRouter;
