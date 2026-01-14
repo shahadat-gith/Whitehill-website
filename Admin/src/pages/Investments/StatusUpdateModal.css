@@ -1,0 +1,164 @@
+/* StatusUpdateModal.css */
+
+.sum-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.sum-dialog {
+  width: 100%;
+  max-width: 560px;
+}
+
+.sum-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.sum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sum-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 750;
+  color: var(--text-primary);
+}
+
+.sum-subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sum-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sum-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sum-body {
+  padding: 1.2rem;
+}
+
+.sum-field {
+  margin-bottom: 1rem;
+}
+
+.sum-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sum-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: all 0.15s ease;
+  font-size: 0.95rem;
+}
+
+.sum-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.sum-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.sum-hint {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.sum-info {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.9rem;
+  border-radius: 12px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.sum-info i {
+  margin-top: 0.1rem;
+  color: var(--color-primary);
+}
+
+.sum-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.sum-footer {
+  padding: 1rem 1.2rem;
+  background: var(--bg-muted);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.sum-footer .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 520px) {
+  .sum-footer {
+    flex-direction: column-reverse;
+  }
+
+  .sum-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

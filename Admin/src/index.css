@@ -72,8 +72,8 @@
   --bg-main: #020617;              /* App background */
   --bg-card: #020617;              /* Cards / navbar */
   --bg-muted: #020617;             /* Sidebar / sections */
-  --bg-hover: #020617;             /* Hover states */
-  --bg-active: #020617;            /* Active states */
+  --bg-hover: #10152c;             /* Hover states */
+  --bg-active: #141a30;            /* Active states */
 
   /* ====================
      TEXT

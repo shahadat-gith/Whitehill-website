@@ -11,10 +11,8 @@ const sidebarLinks = [
   { to: "/projects", icon: "fa-solid fa-building", label: "Projects" },
 
   { to: "/investors", icon: "fa-solid fa-users", label: "Investors" },
-
-  { to: "/transactions", icon: "fa-solid fa-money-bill-transfer", label: "Finance" },
-
-  { to: "/razorpay", icon: "fa-solid fa-credit-card", label: "Razorpay" },
+  
+  { to: "/payment-history", icon: "fa-solid fa-money-bill-transfer", label: "Payment History" },
 
   { to: "/settings", icon: "fa-solid fa-gear", label: "Settings" },
 ];

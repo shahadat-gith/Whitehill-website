@@ -1,0 +1,226 @@
+.pg-container {
+  background: var(--bg-main);
+  color: var(--text-primary);
+  padding: 22px;
+  border-radius: 14px;
+}
+
+.pg-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.pg-header h4 {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.pg-subtitle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.pg-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pg-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.pg-search i {
+  color: var(--text-muted);
+  padding-left: 6px;
+}
+
+.pg-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  width: 320px;
+  max-width: 52vw;
+}
+
+/* Card */
+.pg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.pg-card-head {
+  padding: 14px;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pg-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.pg-card-title i {
+  color: var(--color-primary);
+}
+
+/* Pager */
+.pg-pager {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pg-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 6px;
+}
+
+.pg-count select {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 6px 10px;
+  outline: none;
+}
+
+.pg-table-wrap {
+  overflow-x: auto;
+}
+
+.pg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.pg-table thead th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+}
+
+.pg-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.pg-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.pg-loading-cell,
+.pg-empty-cell {
+  text-align: center;
+  padding: 26px 14px !important;
+  color: var(--text-muted);
+}
+
+.pg-loading-cell i {
+  margin-right: 8px;
+}
+
+.pg-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.pg-muted {
+  color: var(--text-muted);
+}
+
+.pg-amount {
+  font-weight: 900;
+}
+
+.pg-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  text-transform: capitalize;
+}
+
+/* common Razorpay statuses: created, authorized, captured, failed, refunded */
+.pg-pill.captured {
+  color: var(--color-success);
+  border-color: rgba(22, 101, 52, 0.35);
+  background: rgba(22, 101, 52, 0.10);
+}
+.pg-pill.failed {
+  color: var(--color-danger);
+  border-color: rgba(153, 27, 27, 0.35);
+  background: rgba(153, 27, 27, 0.10);
+}
+.pg-pill.created,
+.pg-pill.authorized,
+.pg-pill.pending {
+  color: var(--color-warning);
+  border-color: rgba(180, 83, 9, 0.35);
+  background: rgba(180, 83, 9, 0.10);
+}
+.pg-pill.refunded {
+  color: var(--color-info);
+  border-color: rgba(6, 95, 70, 0.35);
+  background: rgba(6, 95, 70, 0.10);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pg-container {
+    padding: 14px;
+  }
+
+  .pg-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pg-search {
+    width: 100%;
+    border-radius: 14px;
+  }
+
+  .pg-search input {
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -12,6 +12,8 @@ import Projects from "./pages/Projects/Projects";
 import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Investments from "./pages/Investments/Investments";
 import InvestmentDetails from "./pages/Investments/InvestmentDetails";
+import PaymentHistory from "./pages/PaymentHistory/PaymentHistory";
+import PaymentDetails from "./pages/PaymentHistory/PaymentDetails";
 
 
 
@@ -54,6 +56,10 @@ const App = () => {
 
                   <Route path="/investors" element={<Investments/>} />
                   <Route path="/investors/:investmentId" element={<InvestmentDetails/>} />
+
+                  <Route path="/payment-history" element={<PaymentHistory/>}/>
+                  <Route path="/payment-history/:paymentId" element={<PaymentDetails />} />
+
                   
                   <Route path="/settings" element={<Settings />} />
 

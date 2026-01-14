@@ -72,7 +72,7 @@ const Profile = () => {
           </div>
 
           <div className="prf-profile-header-info">
-            <h1>{user.fullName}</h1>
+            <h1>{user?.fullName}</h1>
             <p className="prf-profile-email">{user.email}</p>
 
             <div className="prf-profile-badges">

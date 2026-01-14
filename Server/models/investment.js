@@ -10,6 +10,7 @@ const investmentSchema = new mongoose.Schema(
 			enum: ['pending', 'confirmed', 'cancelled', 'completed'],
 			default: 'pending',
 		},
+		cancelReason: { type: String },
 
         date: { type: Date, default: Date.now },
     },

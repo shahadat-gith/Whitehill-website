@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
+import "./ProjectModal.css";
 
 const ProjectModal = ({ isOpen, onClose, project = null }) => {
   const isEdit = Boolean(project?._id);
@@ -44,9 +45,7 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
       });
 
       setHighlights(
-        project.highlights?.length
-          ? project.highlights.map((h) => h.text)
-          : [""]
+        project.highlights?.length ? project.highlights.map((h) => h.text) : [""]
       );
     }
   }, [project]);
@@ -85,9 +84,7 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
 
       payload.append(
         "highlights",
-        JSON.stringify(
-          highlights.filter((h) => h.trim()).map((text) => ({ text }))
-        )
+        JSON.stringify(highlights.filter((h) => h.trim()).map((text) => ({ text })))
       );
 
       // Images ONLY for create
@@ -96,18 +93,11 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
       }
 
       const { data } = isEdit
-        ? await api.put(
-            `/api/admin/project/update/${project._id}`,
-            payload
-          )
+        ? await api.put(`/api/admin/project/update/${project._id}`, payload)
         : await api.post("/api/admin/project/create", payload);
 
       if (data.success) {
-        toast.success(
-          isEdit
-            ? "Project updated successfully"
-            : "Project created successfully"
-        );
+        toast.success(isEdit ? "Project updated successfully" : "Project created successfully");
         onClose(true);
       } else {
         toast.error(data.message || "Operation failed");
@@ -120,28 +110,28 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
   };
 
   return (
-    <div className="pr-modal-overlay">
-      <div className="pr-modal-dialog">
-        <div className="pr-modal-content">
+    <div className="pm-modal-overlay">
+      <div className="pm-modal-dialog">
+        <div className="pm-modal-content">
           <form onSubmit={handleSubmit}>
-            <div className="pr-modal-header">
+            <div className="pm-modal-header">
               <h5>{isEdit ? "Edit Project" : "Create Project"}</h5>
               <button
                 type="button"
-                className="pr-modal-close"
+                className="pm-modal-close"
                 onClick={() => onClose(false)}
               >
                 ×
               </button>
             </div>
 
-            <div className="pr-modal-body">
-              <div className="pr-form-grid">
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Category</label>
+            <div className="pm-modal-body">
+              <div className="pm-form-grid">
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Category</label>
                   <select
                     name="category"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.category}
                     onChange={handleChange}
                   >
@@ -150,105 +140,105 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
                   </select>
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Name</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Name</label>
                   <input
                     name="name"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.name}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Type</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Type</label>
                   <input
                     name="type"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.type}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Stage</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Stage</label>
                   <input
                     name="stage"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.stage}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">City</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">City</label>
                   <input
                     name="city"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.city}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">State</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">State</label>
                   <input
                     name="state"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.state}
                     onChange={handleChange}
                   />
                 </div>
 
                 {formData.category === "real_estate" && (
-                  <div className="pr-form-col-half">
-                    <label className="pr-label">RERA</label>
+                  <div className="pm-form-col-half">
+                    <label className="pm-label">RERA</label>
                     <input
                       name="rera"
-                      className="pr-input"
+                      className="pm-input"
                       value={formData.rera}
                       onChange={handleChange}
                     />
                   </div>
                 )}
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Min Commitment</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Min Commitment</label>
                   <input
                     type="number"
                     name="minCommitment"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.minCommitment}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Target Return</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Target Return</label>
                   <input
                     name="targetReturn"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.targetReturn}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Target Hold</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Target Hold</label>
                   <input
                     name="targetHold"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.targetHold}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-half">
-                  <label className="pr-label">Risk</label>
+                <div className="pm-form-col-half">
+                  <label className="pm-label">Risk</label>
                   <select
                     name="risk"
-                    className="pr-input"
+                    className="pm-input"
                     value={formData.risk}
                     onChange={handleChange}
                   >
@@ -258,29 +248,27 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
                   </select>
                 </div>
 
-                <div className="pr-form-col-full">
-                  <label className="pr-label">Description</label>
+                <div className="pm-form-col-full">
+                  <label className="pm-label">Description</label>
                   <textarea
                     name="description"
-                    className="pr-input pr-textarea"
+                    className="pm-input pm-textarea"
                     rows="3"
                     value={formData.description}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="pr-form-col-full">
-                  <label className="pr-label">Highlights</label>
+                <div className="pm-form-col-full">
+                  <label className="pm-label">Highlights</label>
                   {highlights.map((h, i) => (
                     <input
                       key={i}
-                      className="pr-input pr-highlight-input"
+                      className="pm-input pm-highlight-input"
                       value={h}
                       placeholder={`Highlight ${i + 1}`}
-                      onChange={(e) =>
-                        handleHighlightChange(i, e.target.value)
-                      }
-                      style={{marginTop:"10px"}}
+                      onChange={(e) => handleHighlightChange(i, e.target.value)}
+                      style={{ marginTop: "10px" }}
                     />
                   ))}
                   <button
@@ -295,12 +283,12 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
 
                 {/* ================= IMAGES (CREATE ONLY) ================= */}
                 {!isEdit && (
-                  <div className="pr-form-col-full">
-                    <label className="pr-label">Images</label>
+                  <div className="pm-form-col-full">
+                    <label className="pm-label">Images</label>
                     <input
                       type="file"
                       multiple
-                      className="pr-input pr-file-input"
+                      className="pm-input pm-file-input"
                       onChange={handleImageChange}
                     />
                   </div>
@@ -308,21 +296,17 @@ const ProjectModal = ({ isOpen, onClose, project = null }) => {
               </div>
             </div>
 
-            <div className="pr-modal-footer">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={submitting}
-              >
+            <div className="pm-modal-footer">
+              <button type="submit" className="btn btn-primary" disabled={submitting}>
                 {submitting ? (
                   <>
                     <i className="fa-solid fa-spinner fa-spin"></i>
-                    <span>
-                      {isEdit ? "Updating..." : "Creating..."}
-                    </span>
+                    <span>{isEdit ? "Updating..." : "Creating..."}</span>
                   </>
+                ) : isEdit ? (
+                  "Update"
                 ) : (
-                  isEdit ? "Update" : "Create"
+                  "Create"
                 )}
               </button>
 

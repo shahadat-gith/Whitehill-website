@@ -5,6 +5,8 @@ import Investment from "../models/investment.js";
 import crypto from "crypto";
 import { instance } from "../configs/razorpay.js";
 
+
+
 export const createOrder = async (req, res) => {
   try {
     const { amount } = req.body;

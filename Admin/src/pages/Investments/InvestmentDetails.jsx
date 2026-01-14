@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
 import "./InvestmentDetails.css";
 import { formatAmount, formatDate } from "../../utils/utility";
+import StatusUpdateModal from "./StatusUpdateModal";
+import InvestmentStatusBanner from "./InvestmentStatusBanner";
 
 const InvestmentDetails = () => {
   const { investmentId } = useParams();
@@ -11,50 +13,25 @@ const InvestmentDetails = () => {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
+  const [showStatusModal, setShowStatusModal] = useState(false);
 
-  const [verifying, setVerifying] = useState(false);
-
-  const verifyInvestment = async () => {
-    try {
-      setVerifying(true);
-      const { data } = await api.post("/api/admin/investment/verify", { investmentId });
-
-      if (data.success) {
-        toast.success("Investment verified successfully");
-        fetchDetails(); // refresh page data
-      } else {
-        toast.error(data.message || "Verification failed");
-      }
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Verification failed");
-    } finally {
-      setVerifying(false);
-    }
-  };
-
-
-  const fetchDetails = async () => {
+  const fetchDetails = useCallback(async () => {
     try {
       setLoading(true);
       const res = await api.post("/api/admin/investment/details", { investmentId });
 
-      if (res.data?.success) {
-        setData(res.data);
-        console.log(res.data)
-      } else {
-        toast.error(res.data?.message || "Failed to load investment details");
-      }
+      if (res.data?.success) setData(res.data);
+      else toast.error(res.data?.message || "Failed to load investment details");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
-  };
+  }, [investmentId]);
 
   useEffect(() => {
     if (investmentId) fetchDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [investmentId]);
+  }, [investmentId, fetchDetails]);
 
   const view = useMemo(() => {
     const investment = data?.investment || null;
@@ -64,10 +41,7 @@ const InvestmentDetails = () => {
     const rzp = data?.razorpayPayment || null;
     const rzpErr = data?.razorpayError || null;
 
-    // Determine payment verification status
-    const isVerified = Boolean(rzp?.id && (rzp?.status === "captured" || rzp?.captured === true));
-
-    return { investment, user, project, tx, rzp, rzpErr, isVerified };
+    return { investment, user, project, tx, rzp, rzpErr };
   }, [data]);
 
   if (loading) {
@@ -81,7 +55,7 @@ const InvestmentDetails = () => {
 
   if (!view.investment) return null;
 
-  const { investment, user, project, tx, rzp, rzpErr, isVerified } = view;
+  const { investment, user, project, tx, rzp, rzpErr } = view;
 
   return (
     <div className="id-container">
@@ -111,50 +85,12 @@ const InvestmentDetails = () => {
           </button>
         </div>
       </div>
-      {/* Investment Status */}
-      <div className={`id-verify ${investment?.status === "confirmed" ? "ok" : "warn"}`}>
-        <i
-          className={`fa-solid ${investment?.status === "confirmed" ? "fa-circle-check" : "fa-triangle-exclamation"
-            }`}
-        ></i>
 
-        <div className="id-verify-content">
-          <div className="id-verify-title">
-            Investment Status:{" "}
-            <span className={`id-status ${investment?.status || ""}`}>
-              {investment?.status || "unknown"}
-            </span>
-          </div>
-
-          <div className="id-verify-sub">
-            {String(investment?.status).toLowerCase() === "pending"
-              ? "This investment is pending verification."
-              : "This investment is verified."}
-          </div>
-        </div>
-
-        {String(investment?.status).toLowerCase() === "pending" && (
-          <button
-            type="button"
-            className="btn btn-primary id-verify-btn"
-            onClick={verifyInvestment}
-            disabled={verifying}
-          >
-            {verifying ? (
-              <>
-                <i className="fa-solid fa-spinner fa-spin"></i>
-                <span>Verifying...</span>
-              </>
-            ) : (
-              <>
-                <i class="fa-solid fa-circle-check"></i>
-                <span>Verify Investment</span>
-              </>
-            )}
-          </button>
-        )}
-      </div>
-
+      {/* ✅ Investment Status (Component) */}
+      <InvestmentStatusBanner
+        investment={investment}
+        onUpdate={() => setShowStatusModal(true)}
+      />
 
       {/* Main Content Grid */}
       <div className="id-grid">
@@ -298,7 +234,6 @@ const InvestmentDetails = () => {
                 </span>
               </div>
 
-
               <div className="id-row">
                 <span className="id-label">Payment Method</span>
                 <span className="id-value">{rzp.method?.toUpperCase() || "N/A"}</span>
@@ -321,7 +256,6 @@ const InvestmentDetails = () => {
                 </span>
               </div>
 
-              {/* Payment Failure Details */}
               {(rzp.error_code || rzp.error_description) && (
                 <>
                   <div className="id-row">
@@ -338,7 +272,6 @@ const InvestmentDetails = () => {
                 </>
               )}
 
-              {/* Additional Payment Metadata */}
               {rzp.order_id && (
                 <div className="id-row">
                   <span className="id-label">Order ID</span>
@@ -370,6 +303,18 @@ const InvestmentDetails = () => {
           )}
         </div>
       </div>
+
+      {/* Status Update Modal */}
+      <StatusUpdateModal
+        isOpen={showStatusModal}
+        onClose={(refresh) => {
+          setShowStatusModal(false);
+          if (refresh) fetchDetails();
+        }}
+        investmentId={investmentId}
+        email={user?.email}
+        currentStatus={investment?.status}
+      />
     </div>
   );
 };
