@@ -157,7 +157,7 @@ const Investments = () => {
                     <td>
                         <button
                           className="btn btn-secondary btn-sm"
-                          onClick={() => navigate(`/investors/${inv._id}`)}
+                          onClick={() => navigate(`/investments/${inv._id}`)}
                         >
                           <i className="fa-solid fa-eye"></i>
                           <span style={{ marginLeft: 6 }}>View</span>

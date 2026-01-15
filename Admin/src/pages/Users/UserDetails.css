@@ -1,0 +1,430 @@
+/* =========================
+   UserDetails.css (UPDATED)
+   - adds image viewer click styles
+   - fixes Bank Details into proper tabular grid
+========================= */
+
+/* Page container */
+.ud-container {
+  padding: 18px;
+  color: var(--text-primary);
+}
+
+/* Loading */
+.ud-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0;
+  color: var(--text-muted);
+}
+
+/* Header */
+.ud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
+.ud-userhead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ud-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background: var(--bg-muted);
+}
+
+.ud-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.ud-sub {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.ud-mono {
+  margin-top: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ud-header-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Grid */
+.ud-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.ud-span-3 {
+  grid-column: span 3;
+}
+
+/* Card */
+.ud-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  min-width: 0;
+}
+
+.ud-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.ud-card-title i {
+  color: var(--color-primary);
+}
+
+/* Rows inside cards */
+.ud-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.ud-row:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.ud-label {
+  color: var(--text-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.ud-value {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ud-strong {
+  font-weight: 900;
+}
+
+.ud-empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+  background: var(--bg-main);
+}
+
+/* =========================
+   KYC Banner
+========================= */
+.ud-kyc-banner {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.ud-kyc-left {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.ud-kyc-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.ud-kyc-content {
+  min-width: 0;
+}
+
+.ud-kyc-title {
+  font-weight: 900;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.ud-kyc-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.ud-kyc-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ud-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-left: 8px;
+  border: 1px solid;
+}
+
+/* Tones */
+.ud-kyc-banner.ok {
+  border-color: rgba(22, 101, 52, 0.35);
+  background: linear-gradient(
+    0deg,
+    rgba(22, 101, 52, 0.08),
+    rgba(22, 101, 52, 0.08)
+  );
+}
+.ud-kyc-banner.warn {
+  border-color: rgba(180, 83, 9, 0.35);
+  background: linear-gradient(
+    0deg,
+    rgba(180, 83, 9, 0.10),
+    rgba(180, 83, 9, 0.10)
+  );
+}
+.ud-kyc-banner.danger {
+  border-color: rgba(153, 27, 27, 0.35);
+  background: linear-gradient(
+    0deg,
+    rgba(153, 27, 27, 0.10),
+    rgba(153, 27, 27, 0.10)
+  );
+}
+
+.ud-kyc-icon.ok {
+  background: rgba(22, 101, 52, 0.14);
+  color: var(--color-success);
+}
+.ud-kyc-icon.warn {
+  background: rgba(180, 83, 9, 0.16);
+  color: var(--color-warning);
+}
+.ud-kyc-icon.danger {
+  background: rgba(153, 27, 27, 0.14);
+  color: var(--color-danger);
+}
+
+.ud-pill.ok {
+  color: var(--color-success);
+  border-color: rgba(22, 101, 52, 0.35);
+  background: rgba(22, 101, 52, 0.10);
+}
+.ud-pill.warn {
+  color: var(--color-warning);
+  border-color: rgba(180, 83, 9, 0.35);
+  background: rgba(180, 83, 9, 0.10);
+}
+.ud-pill.danger {
+  color: var(--color-danger);
+  border-color: rgba(153, 27, 27, 0.35);
+  background: rgba(153, 27, 27, 0.10);
+}
+
+/* =========================
+   Docs / KYC Images
+========================= */
+.ud-docs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.ud-doc {
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  border-radius: 12px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.ud-doc img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.ud-doc-cap {
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+/* Clickable image card (button) */
+.ud-doc-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-main);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.ud-doc-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border-strong);
+}
+
+.ud-doc-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-main);
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.ud-bank-grid {
+  margin-top: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-main);
+  padding: 20px;
+}
+
+/* each row looks like a table row */
+.ud-bank-row {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* label fixed, value expands */
+  gap: 12px;
+  padding: 12px 14px;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.ud-bank-row:first-child {
+  border-top: none;
+}
+
+.ud-bank-label {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ud-bank-value {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 900;
+  text-align: right;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Optional: make some values mono */
+.ud-bank-value.ud-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-weight: 800;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ud-grid {
+    grid-template-columns: 1fr;
+  }
+  .ud-span-3 {
+    grid-column: span 1;
+  }
+  .ud-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ud-header-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .ud-docs {
+    grid-template-columns: 1fr;
+  }
+  .ud-bank-row {
+    grid-template-columns: 160px 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .ud-bank-row {
+    grid-template-columns: 1fr;
+  }
+  .ud-bank-value {
+    text-align: left;
+  }
+}

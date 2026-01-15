@@ -1,0 +1,377 @@
+/* =========================
+   HOME (Dashboard) - Home.css
+   ========================= */
+
+.hm-container {
+  padding: 18px;
+  color: var(--text-primary);
+}
+
+.hm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.hm-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hm-subtitle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* =========================
+   STATS
+   ========================= */
+
+.hm-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.hm-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.hm-stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.hm-stat-value {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hm-stat-sub {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* =========================
+   GRID / CARDS
+   ========================= */
+
+.hm-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.hm-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.hm-span-2 {
+  grid-column: span 1; /* default for 2-col layout */
+}
+
+.hm-card-head {
+  padding: 14px 14px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--bg-muted);
+}
+
+.hm-card-head h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.hm-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* =========================
+   TABLES
+   ========================= */
+
+.hm-table-wrap {
+  overflow-x: auto;
+}
+
+.hm-table-wrap-tight {
+  overflow-x: hidden; /* ✅ remove horizontal scrollbar for 3 cols */
+}
+
+.hm-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-primary);
+}
+
+.hm-table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 800;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  white-space: nowrap;
+}
+
+.hm-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.hm-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.hm-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.hm-table-tight {
+  width: 100%;
+  table-layout: fixed; /* ✅ prevents overflow */
+}
+
+.hm-table-tight th,
+.hm-table-tight td {
+  white-space: normal; /* ✅ allow wrap */
+  word-break: break-word;
+}
+
+/* strong cell */
+.hm-cell-strong {
+  font-weight: 800;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+/* amount column (last column in investment table) */
+.hm-table-tight tbody td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* clickable rows */
+.hm-row-click {
+  cursor: pointer;
+}
+
+.hm-row-click:active {
+  transform: translateY(0.5px);
+}
+
+/* =========================
+   PILLS
+   ========================= */
+
+.hm-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.hm-pill.ok {
+  background: rgba(22, 101, 52, 0.12);
+  border-color: rgba(22, 101, 52, 0.35);
+  color: var(--color-success);
+}
+
+.hm-pill.warn {
+  background: rgba(180, 83, 9, 0.12);
+  border-color: rgba(180, 83, 9, 0.35);
+  color: var(--color-warning);
+}
+
+.hm-pill.danger {
+  background: rgba(153, 27, 27, 0.12);
+  border-color: rgba(153, 27, 27, 0.35);
+  color: var(--color-danger);
+}
+
+/* =========================
+   LIST (New Users)
+   ========================= */
+
+.hm-list {
+  padding: 8px 10px 12px;
+}
+
+.hm-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: 12px;
+}
+
+.hm-list-item:hover {
+  background: var(--bg-hover);
+}
+
+.hm-list-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.hm-list-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hm-date {
+  font-size: 0.82rem;
+}
+
+/* =========================
+   QUERY ACTION BUTTONS
+   ========================= */
+
+.hm-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.86rem;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.hm-action i {
+  font-size: 0.95rem;
+}
+
+.hm-action:hover {
+  background: var(--bg-hover);
+}
+
+.hm-action:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.hm-action-ok {
+  background: rgba(22, 101, 52, 0.12);
+  border-color: rgba(22, 101, 52, 0.35);
+  color: var(--color-success);
+}
+
+.hm-action-warn {
+  background: rgba(180, 83, 9, 0.12);
+  border-color: rgba(180, 83, 9, 0.35);
+  color: var(--color-warning);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1024px) {
+  .hm-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hm-span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hm-container {
+    padding: 14px;
+  }
+
+  .hm-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hm-table thead th,
+  .hm-table tbody td {
+    padding: 10px 10px;
+  }
+
+  .hm-stat {
+    padding: 12px 12px;
+  }
+
+  .hm-stat-value {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hm-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hm-header h2 {
+    font-size: 1.35rem;
+  }
+
+  .hm-card-head {
+    padding: 12px 12px;
+  }
+
+  .hm-table thead th {
+    font-size: 0.7rem;
+  }
+
+  .hm-action span {
+    display: none; /* icon only */
+  }
+}

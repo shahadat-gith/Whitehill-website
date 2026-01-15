@@ -33,7 +33,7 @@ const Contact = () => {
         setLoading(true);
 
         try {
-            const { data } = await api.post("/api/admin/contact/create", formData);
+            const { data } = await api.post("/api/admin/query/create", formData);
 
             if (!data.success) {
                 throw new Error(data.message);

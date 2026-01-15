@@ -26,7 +26,9 @@ const kycSchema = new mongoose.Schema({
     enum: ["pending", "verified", "rejected"],
     default: "pending"
   },
-  verifiedAt: { type: Date },
+  rejectionReason: { type: String, default: null },
+  verifiedAt: { type: Date, default: null },
+  rejectedAt: { type: Date, default: null },
 }, { _id: false });
 
 const bankDetailsSchema = new mongoose.Schema({
@@ -64,14 +66,6 @@ const userSchema = new mongoose.Schema(
     totalInvested: { type: Number, default: 0 },
     portfolioValue: { type: Number, default: 0 },
     totalDistributions: { type: Number, default: 0 },
-
-    // Account Management
-    accountStatus: {
-      type: String,
-      enum: ["active", "suspended", "deleted"],
-      default: "active"
-    },
-    deletionRequested: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
