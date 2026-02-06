@@ -1,24 +1,31 @@
 import mongoose from "mongoose";
 
+
+const fileSchema = new mongoose.Schema({
+  url: { type: String },
+  public_id: { type: String }
+}, { _id: false });
+
 const kycSchema = new mongoose.Schema({
   aadhar: {
     aadharNumber: { type: String },
-    frontImageUrl: {
-      url: { type: String },
-      public_id: { type: String }
-    },
-    backImageUrl: {
-      url: { type: String },
-      public_id: { type: String }
-    },
+    frontImageUrl: fileSchema,
+    backImageUrl: fileSchema,
   },
 
   pan: {
     panNumber: { type: String },
-    frontImageUrl: {
-      url: { type: String },
-      public_id: { type: String }
-    },
+    frontImageUrl: fileSchema,
+    backImageUrl: fileSchema,
+  },
+
+  adress:{
+    village: { type: String },
+    town: { type: String },
+    city: { type: String },
+    state: { type: String },
+    pincode: { type: String },
+    country: { type: String },
   },
 
   status: {
@@ -47,12 +54,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true, lowercase: true },
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    image: {
-          url: String,
-          public_id: String,
-    },
-
-
+    image: fileSchema,
     // Authentication
     otp: { type: String },
     otpExpiry: { type: Date },
@@ -61,7 +63,6 @@ const userSchema = new mongoose.Schema(
     kyc: kycSchema,
     // Bank Details
     bankDetails: bankDetailsSchema,
-
 
     totalInvested: { type: Number, default: 0 },
     portfolioValue: { type: Number, default: 0 },
