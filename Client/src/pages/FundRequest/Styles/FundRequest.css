@@ -1,0 +1,79 @@
+/* Fund Request Page */
+
+.fund-request-page {
+  min-height: 100vh;
+  background: var(--bg-light-gray);
+  padding: 2rem 0;
+}
+
+.fund-request-layout-full {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.fund-request-column {
+  width: 100%;
+}
+
+/* Fund Card */
+.fund-card {
+  background: var(--bg-white);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.fund-card h2 {
+  color: var(--primary-navy);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+/* Tabs */
+.fund-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.fund-tab {
+  padding: 1rem 1.5rem;
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-white);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fund-tab:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-navy);
+}
+
+.fund-tab.active {
+  background: var(--primary-navy);
+  border-color: var(--primary-navy);
+  color: var(--text-white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .fund-request-layout-full {
+    padding: 0 1rem;
+  }
+
+  .fund-card {
+    padding: 1.5rem;
+  }
+
+  .fund-tabs {
+    grid-template-columns: 1fr;
+  }
+}

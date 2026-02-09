@@ -13,6 +13,7 @@ import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Investment from "./pages/Investment/Investment";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
+import FundRequest from "./pages/FundRequest/FundRequest";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/fund-request" element={<FundRequest />} />
         
         <Route path="/*" element={<NotFound />} />
       </Routes>

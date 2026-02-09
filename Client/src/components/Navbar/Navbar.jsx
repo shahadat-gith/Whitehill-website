@@ -34,6 +34,7 @@ const Navbar = () => {
   const navLinks = [
     {label: "Home", to:"/"},
     {label: "Projects", to:"/projects"},
+    {label: "Fund Request", to:"/fund-request"},
     {label: "About", to:"/about"},
     {label: "Contact", to:"/contact"},
   ]

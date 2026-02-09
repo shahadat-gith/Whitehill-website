@@ -1,36 +1,24 @@
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 
+/* ===================== CONNECT ===================== */
 const connectToCloudinary = async () => {
-  if (
-    !process.env.CLOUDINARY_CLOUD_NAME ||
-    !process.env.CLOUDINARY_API_KEY ||
-    !process.env.CLOUDINARY_API_SECRET
-  ) {
-    throw new Error("Cloudinary env variables missing");
-  }
-
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
     secure: true,
   });
-
-  console.log("Cloudinary connected");
 };
 
-export { cloudinary, connectToCloudinary };
-
-
-export const uploadToCloudinary = (
-  fileBuffer,
-  folder,
-) => {
+/* ===================== IMAGE UPLOAD ===================== */
+export const uploadToCloudinary = (fileBuffer, folder) => {
   return new Promise((resolve, reject) => {
     const uploadOptions = {
       folder,
       resource_type: "image",
+      use_filename: true,
+      unique_filename: true,
     };
 
     const uploadStream = cloudinary.uploader.upload_stream(
@@ -38,7 +26,7 @@ export const uploadToCloudinary = (
       (error, result) => {
         if (error) {
           return reject(
-            new Error(`Cloudinary upload failed: ${error.message}`)
+            new Error(`Image upload failed: ${error.message}`)
           );
         }
 
@@ -52,6 +40,40 @@ export const uploadToCloudinary = (
     streamifier.createReadStream(fileBuffer).pipe(uploadStream);
   });
 };
+
+/* ===================== PDF / DOC UPLOAD ===================== */
+export const uploadPdfToCloudinary = (fileBuffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const uploadOptions = {
+      folder,
+      resource_type: "raw", // REQUIRED for PDF
+      use_filename: true,
+      unique_filename: true,
+    };
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      uploadOptions,
+      (error, result) => {
+        if (error) {
+          return reject(
+            new Error(`PDF upload failed: ${error.message}`)
+          );
+        }
+
+        resolve({
+          url: result.secure_url,
+          public_id: result.public_id,
+        });
+      }
+    );
+
+    streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+  });
+};
+
+/* ===================== EXPORT ===================== */
+export { cloudinary, connectToCloudinary };
+
 
 /* ================= SINGLE DELETE ================= */
 export const deleteFromCloudinary = async (
