@@ -1,9 +1,14 @@
-import React from 'react';
+import { useNavigate } from "react-router-dom"
 import './Hero.css';
 import buildingImg from './building.png';
 import gearImg from './gear.png';
 
 const Hero = () => {
+
+  const navigate = useNavigate()
+  const handleNavigate = (path) =>{
+    navigate(path);
+  }
   return (
     <section className="hero">
       <div className="hero-container">
@@ -22,6 +27,7 @@ const Hero = () => {
           </p>
           <div className="hero-buttons">
             <button className="btn btn-primary">Explore</button>
+            <button className="btn btn-secondary" onClick={()=>handleNavigate("/request-funds")}>Need Funds ?</button>
           </div>
         </div>
 

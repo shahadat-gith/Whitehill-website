@@ -1,0 +1,139 @@
+/* StepProgress.css */
+
+.step-progress-container {
+  background: var(--bg-white);
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.step-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Step Item */
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+
+/* Step Circle */
+.step-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 0.938rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(45, 53, 71, 0.08);
+}
+
+.step-item.active .step-circle {
+  background: var(--primary-navy);
+  color: var(--text-white);
+  box-shadow: 0 4px 12px rgba(45, 53, 71, 0.25);
+  transform: scale(1.1);
+}
+
+.step-item.completed .step-circle {
+  background: var(--primary-blue);
+  color: var(--text-white);
+  box-shadow: 0 2px 8px rgba(74, 124, 158, 0.3);
+}
+
+/* Step Label */
+.step-label {
+  font-size: 0.813rem;
+  color: var(--text-light);
+  text-align: center;
+  font-weight: 500;
+}
+
+.step-item.active .step-label {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.step-item.completed .step-label {
+  color: var(--text-secondary);
+}
+
+/* Step Line */
+.step-line {
+  flex: 1;
+  height: 3px;
+  background: var(--bg-card);
+  margin: 0 0.75rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  position: relative;
+  top: -22px;
+}
+
+.step-line.completed {
+  background: var(--primary-blue);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .step-progress-container {
+    padding: 1.25rem 1.5rem;
+    border-radius: 40px;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 0.875rem;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    max-width: 90px;
+  }
+
+  .step-line {
+    margin: 0 0.5rem;
+    top: -20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .step-progress-container {
+    padding: 1rem;
+    border-radius: 24px;
+    overflow-x: auto;
+  }
+
+  .step-progress {
+    min-width: max-content;
+    padding: 0 0.5rem;
+  }
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.813rem;
+  }
+
+  .step-label {
+    font-size: 0.688rem;
+    max-width: 70px;
+  }
+
+  .step-line {
+    min-width: 30px;
+    top: -18px;
+  }
+}

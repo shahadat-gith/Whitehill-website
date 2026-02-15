@@ -1,0 +1,335 @@
+
+.sfr-section {
+  margin-bottom: 2rem;
+}
+
+.sfr-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sfr-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sfr-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.938rem;
+}
+
+.sfr-form-group label span {
+  color: var(--error);
+}
+
+.sfr-input,
+.sfr-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  font-size: 0.938rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  transition: border-color 0.2s ease;
+}
+
+.sfr-input:focus,
+.sfr-select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.sfr-input::placeholder {
+  color: var(--text-light);
+}
+
+.sfr-help-text {
+  margin-top: 0.375rem;
+  font-size: 0.813rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sfr-section-body {
+    gap: 1.25rem;
+  }
+}
+
+/* Step2-6: Section Content */
+.sfr-section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Grid Layouts */
+.sfr-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.sfr-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.sfr-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sfr-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Form Field (Step2-6) */
+.sfr-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.sfr-field label {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.938rem;
+}
+
+.sfr-field small {
+  margin-top: 0.375rem;
+  font-size: 0.813rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+.sfr-field input,
+.sfr-field select,
+.sfr-field textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  font-size: 0.938rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.sfr-field input:focus,
+.sfr-field select:focus,
+.sfr-field textarea:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+.sfr-field input::placeholder,
+.sfr-field textarea::placeholder {
+  color: var(--text-light);
+}
+
+.sfr-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* Divider */
+.sfr-divider {
+  height: 1px;
+  background: var(--border-medium);
+  margin: 1rem 0;
+}
+
+/* Team Cards (Step4) */
+.sfr-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sfr-team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.sfr-team-card:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.sfr-team-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-blue) 100%);
+  border-bottom: 2px solid var(--accent-yellow);
+}
+
+.sfr-team-badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sfr-team-card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Remove Button */
+.sfr-remove-btn {
+  padding: 0.5rem 0.875rem;
+  background: var(--error);
+  color: var(--text-white);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.813rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.sfr-remove-btn:hover {
+  background: var(--error-dark);
+  transform: translateY(-1px);
+}
+
+/* Add Button */
+.sfr-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: var(--btn-primary);
+  color: var(--text-white);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.938rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.sfr-add-btn:hover {
+  background: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* File Upload (Step5) */
+.sfr-file-upload {
+  position: relative;
+}
+
+.sfr-file-upload input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.sfr-file-label {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  border: 2px dashed var(--border-medium);
+  border-radius: 6px;
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 70px;
+}
+
+.sfr-file-label:hover {
+  border-color: var(--primary-blue);
+  background: var(--accent-light-blue);
+}
+
+.sfr-file-upload input[type="file"]:focus + .sfr-file-label {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
+}
+
+.sfr-file-label i {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  flex-shrink: 0;
+}
+
+.sfr-file-label span {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+/* Number Input - Hide Arrows */
+.sfr-input[type="number"]::-webkit-inner-spin-button,
+.sfr-input[type="number"]::-webkit-outer-spin-button,
+.sfr-field input[type="number"]::-webkit-inner-spin-button,
+.sfr-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sfr-grid-3,
+  .sfr-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sfr-section-content {
+    gap: 1.25rem;
+  }
+
+  .sfr-grid-2,
+  .sfr-grid-3,
+  .sfr-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .sfr-team-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .sfr-remove-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sfr-team-card-content {
+    padding: 1rem;
+  }
+
+  .sfr-file-label {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1rem;
+  }
+}

@@ -1,11 +1,25 @@
-import React, { useState } from "react";
-import "./Styles/FundRequest.css";
-import StartupFundRequest from "./StartupFundRequest";
-import BusinessFundRequest from "./BusinessFundRequest";
-import IndividualFundRequest from "./IndividualFundRequest";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import "./FundRequest.css";
+import Startup from "./Startup/Startup";
+import BusinessVenture from "./BusinessVenture/BusinessVenture";
+import Individual from "./Individual/Individual";
 
 const FundRequest = () => {
-  const [type, setType] = useState("startup");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get("type") || "startup";
+
+  useEffect(() => {
+    // Set default params if not present
+    if (!searchParams.get("type")) {
+      setSearchParams({ type: "startup", step: "1" });
+    }
+  }, []);
+
+  const handleTypeChange = (newType) => {
+    setSearchParams({ type: newType, step: "1" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="fund-request-page">
@@ -17,15 +31,15 @@ const FundRequest = () => {
               <button
                 type="button"
                 className={`fund-tab ${type === "startup" ? "active" : ""}`}
-                onClick={() => setType("startup")}
+                onClick={() => handleTypeChange("startup")}
               >
                 Startup
               </button>
 
               <button
                 type="button"
-                className={`fund-tab ${type === "business" ? "active" : ""}`}
-                onClick={() => setType("business")}
+                className={`fund-tab ${type === "businessVenture" ? "active" : ""}`}
+                onClick={() => handleTypeChange("businessVenture")}
               >
                 Business Venture
               </button>
@@ -33,16 +47,16 @@ const FundRequest = () => {
               <button
                 type="button"
                 className={`fund-tab ${type === "individual" ? "active" : ""}`}
-                onClick={() => setType("individual")}
+                onClick={() => handleTypeChange("individual")}
               >
                 Individual
               </button>
             </div>
           </div>
 
-          {type === "startup" && <StartupFundRequest />}
-          {type === "business" && <BusinessFundRequest />}
-          {type === "individual" && <IndividualFundRequest />}
+          {type === "startup" && <Startup />}
+          {type === "businessVenture" && <BusinessVenture />}
+          {type === "individual" && <Individual />}
         </div>
       </div>
     </div>

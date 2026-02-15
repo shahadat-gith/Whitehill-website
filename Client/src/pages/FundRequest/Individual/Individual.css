@@ -1,0 +1,69 @@
+
+/* Container */
+.ifr-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Form */
+.ifr-form {
+  background: var(--bg-white);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Section */
+.ifr-section {
+  margin-bottom: 2rem;
+}
+
+
+
+
+/* Form Actions */
+.ifr-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-medium);
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ifr-container {
+    padding: 1rem;
+  }
+
+  .ifr-form {
+    padding: 1.5rem;
+  }
+
+  .ifr-section-header {
+    gap: 1rem;
+  }
+
+  .ifr-section-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+  }
+
+  .ifr-section-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .ifr-section-title p {
+    font-size: 0.875rem;
+  }
+
+  .ifr-actions {
+    flex-direction: column-reverse;
+  }
+
+ 
+}

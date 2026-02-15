@@ -1,0 +1,206 @@
+/* Individual Fund Request Steps Styles */
+
+/* Section Styles */
+.ifr-section {
+  border-radius: 16px;
+  overflow: hidden;
+  
+}
+
+.ifr-section-content {
+  padding: 2rem;
+}
+
+/* Grid Layouts */
+.ifr-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ifr-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.ifr-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ifr-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .ifr-grid-3,
+  .ifr-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ifr-grid-2,
+  .ifr-grid-3,
+  .ifr-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .ifr-section-content {
+    padding: 1.5rem;
+  }
+}
+
+/* Divider */
+.ifr-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+  margin: 2rem 0;
+}
+
+/* Form Fields */
+.ifr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.ifr-field.full {
+  grid-column: 1 / -1;
+}
+
+.ifr-field label {
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ifr-field small {
+  color: var(--text-light);
+  font-size: 0.8125rem;
+  margin-top: -0.25rem;
+}
+
+/* Input Styles */
+.ifr-field input,
+.ifr-field select,
+.ifr-field textarea {
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.ifr-field input:focus,
+.ifr-field select:focus,
+.ifr-field textarea:focus {
+  outline: none;
+  border-color: #a855f7;
+  background: var(--bg-card);
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+}
+
+.ifr-field input::placeholder,
+.ifr-field textarea::placeholder {
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+.ifr-field textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* Select Dropdown */
+.ifr-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L7 7.5L13 1.5' stroke='%232d3547' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.125rem center;
+  padding-right: 3rem;
+  cursor: pointer;
+}
+
+/* File Upload */
+.ifr-file-upload {
+  position: relative;
+}
+
+.ifr-file-upload input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.ifr-file-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border: 2px dashed var(--border-light);
+  border-radius: 10px;
+  background: #faf5ff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 70px;
+}
+
+.ifr-file-label i {
+  font-size: 1.75rem;
+  color: #a855f7;
+}
+
+.ifr-file-label span {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  flex: 1;
+}
+
+.ifr-file-upload:hover .ifr-file-label {
+  border-color: #a855f7;
+  background: #f3e8ff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ifr-file-upload input[type="file"]:focus + .ifr-file-label {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+}
+
+/* Validation States */
+.ifr-field input:invalid:not(:placeholder-shown):not(:focus),
+.ifr-field select:invalid:not(:focus),
+.ifr-field textarea:invalid:not(:placeholder-shown):not(:focus) {
+  border-color: var(--error);
+  background: rgba(244, 67, 54, 0.05);
+}
+
+.ifr-field input:valid:not(:placeholder-shown),
+.ifr-field select:valid,
+.ifr-field textarea:valid:not(:placeholder-shown) {
+  border-color: var(--success);
+}
+
+/* Number Input Arrows Remove */
+.ifr-field input[type="number"]::-webkit-inner-spin-button,
+.ifr-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Focus Visible */
+.ifr-btn:focus-visible {
+  outline: 3px solid #a855f7;
+  outline-offset: 2px;
+}
