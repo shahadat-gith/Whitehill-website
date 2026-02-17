@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const StartupFundRequestSchema = new mongoose.Schema(
+const startupSchema = new mongoose.Schema(
   {
     /* ===== COMMON FIELDS ===== */
     requester: {
@@ -108,5 +108,4 @@ const StartupFundRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.StartupFundRequest ||
-  mongoose.model("StartupFundRequest", StartupFundRequestSchema);
+export default mongoose.models.Startup || mongoose.model("Startup", startupSchema);

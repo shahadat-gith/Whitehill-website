@@ -37,9 +37,9 @@ const Step4CostDetails = ({ details, handleCostChange }) => {
                         <label>Construction Cost *</label>
                         <input
                             type="number"
-                            value={details.cost.construCtionCost}
+                            value={details.cost.constructionCost}
                             onChange={(event) =>
-                                handleCostChange("construCtionCost", event.target.value)
+                                handleCostChange("constructionCost", event.target.value)
                             }
                             placeholder="₹ 80,00,000"
                             required

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const BusinessVentureFundRequestSchema = new mongoose.Schema(
+const businessVentureSchema = new mongoose.Schema(
   {
     requester: {
       type: mongoose.Schema.Types.ObjectId,
@@ -89,8 +89,4 @@ const BusinessVentureFundRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.BusinessVentureFundRequest ||
-  mongoose.model(
-    "BusinessVentureFundRequest",
-    BusinessVentureFundRequestSchema
-  );
+export default mongoose.models.BusinessVenture || mongoose.model("BusinessVenture", businessVentureSchema);

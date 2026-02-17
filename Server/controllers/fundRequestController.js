@@ -1,6 +1,6 @@
-import StartupFundRequest from "../models/fundRequest/startupFundRequest.js";
-import BusinessVentureFundRequest from "../models/fundRequest/businessVentureFundRequest.js";
-import IndividualFundRequest from "../models/fundRequest/individualFundRequest.js";
+import Startup from "../models/fundRequest/startup.js";
+import BusinessVenture from "../models/fundRequest/businessVenture.js";
+import Individual from "../models/fundRequest/individual.js";
 
 import { uploadPdfToCloudinary } from "../configs/cloudinary.js";
 
@@ -46,8 +46,8 @@ export const createStartupFundRequest = async (req, res) => {
       );
     }
 
-    const fundRequest = await StartupFundRequest.create({
-      requester: req.user._id,
+    const fundRequest = await Startup.create({
+      requester: req.userId,
       name,
       sector,
       description,
@@ -117,8 +117,8 @@ export const createBusinessVentureFundRequest = async (req, res) => {
       );
     }
 
-    const fundRequest = await BusinessVentureFundRequest.create({
-      requester: req.user._id,
+    const fundRequest = await BusinessVenture.create({
+      requester: req.userId,
       stage,
       name,
       industry,
@@ -166,7 +166,7 @@ export const createIndividualFundRequest = async (req, res) => {
       "financialModel",
     ];
 
-    const documents = { rera };
+    const documents = {};
 
     for (const key of documentKeys) {
       const file = req.files?.[key]?.[0];
@@ -180,8 +180,11 @@ export const createIndividualFundRequest = async (req, res) => {
       );
     }
 
-    const fundRequest = await IndividualFundRequest.create({
-      requester: req.user._id,
+    // Add rera as a separate field in documents
+    documents.rera = rera;
+
+    const fundRequest = await Individual.create({
+      requester: req.userId,
       category,
       individualType,
       projectType,

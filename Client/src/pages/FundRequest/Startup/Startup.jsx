@@ -5,11 +5,13 @@ import toast from "react-hot-toast";
 import { useAppContext } from "../../../Context/AppContext";
 import StepProgress from "../components/StepProgress";
 import LocationStep from "../components/LocationStep";
+import SubmitReview from "../components/SubmitReview";
 import Step1RequestSummary from "./Steps/Step1RequestSummary";
 import Step2StartupDetails from "./Steps/Step2StartupDetails";
 import Step3BusinessModel from "./Steps/Step3BusinessModel";
 import Step4FoundingTeam from "./Steps/Step4FoundingTeam";
 import Step5Documents from "./Steps/Step5Documents";
+import "../FundRequest.css";
 import "./Startup.css";
 
 const initialLocation = {
@@ -72,7 +74,9 @@ const Startup = () => {
         "Location"
     ];
 
-    const currentStep = parseInt(searchParams.get("step") || "1");
+    // Parse step from URL - support both numeric steps and 'submit'
+    const stepParam = searchParams.get("step") || "1";
+    const currentStep = stepParam === "submit" ? TOTAL_STEPS + 1 : parseInt(stepParam);
 
     const [amountRequested, setAmountRequested] = useState("");
     const [location, setLocation] = useState(initialLocation);
@@ -92,10 +96,14 @@ const Startup = () => {
             } catch (error) {
                 console.error("Error loading saved data:", error);
             }
+        } else if (currentStep > 1) {
+            // If on step > 1 but no saved data, reset to step 1
+            const currentType = searchParams.get("type") || "startup";
+            setSearchParams({ type: currentType, step: "1" });
         }
     }, []);
 
-    // Save data to sessionStorage whenever it changes
+    // Save data to sessionStorage whenever it changes (excluding documents)
     useEffect(() => {
         const dataToSave = {
             amountRequested,
@@ -146,16 +154,18 @@ const Startup = () => {
     };
 
     const goToStep = (step) => {
-        if (step >= 1 && step <= TOTAL_STEPS) {
+        // Allow step 7 (review page) even though TOTAL_STEPS is 6
+        if (step >= 1 && step <= TOTAL_STEPS + 1) {
             const currentType = searchParams.get("type") || "startup";
-            setSearchParams({ type: currentType, step: step.toString() });
+            const stepValue = step === TOTAL_STEPS + 1 ? "submit" : step.toString();
+            setSearchParams({ type: currentType, step: stepValue });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     const handleNext = (e) => {
         e.preventDefault();
-        if (currentStep < TOTAL_STEPS) {
+        if (currentStep <= TOTAL_STEPS) {
             goToStep(currentStep + 1);
         }
     };
@@ -219,8 +229,16 @@ const Startup = () => {
             }
 
             toast.success("Startup fund request submitted successfully!");
-            resetForm();
-            navigate("/profile?tab=fund-requests");
+            
+            // Clear session storage and reset form state
+            sessionStorage.removeItem(STORAGE_KEY);
+            setAmountRequested("");
+            setLocation(initialLocation);
+            setDetails(initialDetails);
+            setDocuments(initialDocs);
+            
+            // Navigate to profile and replace history to prevent back button issues
+            navigate("/profile?tab=fund-requests", { replace: true });
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||
@@ -280,6 +298,17 @@ const Startup = () => {
                         handleLocationChange={handleLocationChange}
                     />
                 );
+            case 7:
+                return (
+                    <SubmitReview
+                        summaryData={
+                            {
+                                label: "Amount",
+                                value: `₹${Number(amountRequested).toLocaleString("en-IN")}`,
+                            }
+                        }
+                    />
+                );
             default:
                 return null;
         }
@@ -293,7 +322,7 @@ const Startup = () => {
                 stepTitles={stepTitles}
             />
 
-            <form className="sfr-form" onSubmit={currentStep === TOTAL_STEPS ? handleSubmit : handleNext}>
+            <form className="sfr-form" onSubmit={currentStep === 7 ? handleSubmit : handleNext}>
                 {renderStep()}
 
                 {/* Form Actions */}
@@ -303,18 +332,15 @@ const Startup = () => {
                             type="button" 
                             className="btn btn-secondary" 
                             onClick={handlePrevious}
+                            disabled={currentStep === 7 && submitting}
                         >
                             <i className="fas fa-arrow-left"></i> Previous
                         </button>
                     )}
                     
-                    {currentStep < TOTAL_STEPS ? (
-                        <button type="submit" className="btn btn-primary">
-                            Next <i className="fas fa-arrow-right"></i>
-                        </button>
-                    ) : (
-                        <button type="submit" className="btn btn-primary" disabled={submitting}>
-                            {submitting ? (
+                    <button type="submit" className="btn btn-primary" disabled={currentStep === 7 && submitting}>
+                        {currentStep === 7 ? (
+                            submitting ? (
                                 <>
                                     <i className="fas fa-spinner fa-spin"></i> Submitting...
                                 </>
@@ -322,9 +348,17 @@ const Startup = () => {
                                 <>
                                     <i className="fas fa-paper-plane"></i> Submit Application
                                 </>
-                            )}
-                        </button>
-                    )}
+                            )
+                        ) : currentStep === TOTAL_STEPS ? (
+                            <>
+                                Review & Submit <i className="fas fa-arrow-right"></i>
+                            </>
+                        ) : (
+                            <>
+                                Next <i className="fas fa-arrow-right"></i>
+                            </>
+                        )}
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const IndividualFundRequestSchema = new mongoose.Schema(
+const individualSchema = new mongoose.Schema(
   {
     /* ===== COMMON FIELDS ===== */
     requester: {
@@ -69,8 +69,4 @@ const IndividualFundRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.IndividualFundRequest ||
-  mongoose.model(
-    "IndividualFundRequest",
-    IndividualFundRequestSchema
-  );
+export default mongoose.models.Individual || mongoose.model("Individual", individualSchema);
