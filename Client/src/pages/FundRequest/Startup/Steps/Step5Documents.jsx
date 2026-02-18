@@ -10,7 +10,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                         <div className="sfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.xlsx,.xls"
+                                accept=".pdf"
                                 onChange={(e) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -25,7 +25,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.projectionStatements
                                         ? documents.projectionStatements.name
-                                        : "Upload 3-5 year financial projections (PDF/Excel)"}
+                                        : "Upload 3-5 year financial projections (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -37,7 +37,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                         <div className="sfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.zip"
+                                accept=".pdf"
                                 onChange={(e) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -52,7 +52,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.legalDocuments
                                         ? documents.legalDocuments.name
-                                        : "Upload incorporation & legal docs (PDF/ZIP)"}
+                                        : "Upload incorporation & legal docs (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -64,7 +64,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                         <div className="sfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.ppt,.pptx"
+                                accept=".pdf"
                                 onChange={(e) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -79,7 +79,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.pitchDeck
                                         ? documents.pitchDeck.name
-                                        : "Upload investor pitch deck (PDF/PPT)"}
+                                        : "Upload investor pitch deck (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -91,7 +91,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                         <div className="sfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.xlsx,.xls"
+                                accept=".pdf"
                                 onChange={(e) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -106,7 +106,7 @@ const Step5Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.shareHoldingPattern
                                         ? documents.shareHoldingPattern.name
-                                        : "Upload cap table/shareholding details (PDF/Excel)"}
+                                        : "Upload cap table/shareholding details (PDF)"}
                                 </span>
                             </label>
                         </div>

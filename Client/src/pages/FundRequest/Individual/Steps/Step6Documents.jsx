@@ -38,7 +38,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                         <div className="ifr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.jpg,.jpeg,.png"
+                                accept=".pdf"
                                 onChange={(event) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -53,7 +53,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.layout
                                         ? documents.layout.name
-                                        : "Upload approved layout plan (PDF/Image)"}
+                                        : "Upload approved layout plan (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -92,7 +92,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                         <div className="ifr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.xlsx,.xls"
+                                accept=".pdf"
                                 onChange={(event) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -107,7 +107,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.financialModel
                                         ? documents.financialModel.name
-                                        : "Upload financial projections & ROI (PDF/Excel)"}
+                                        : "Upload financial projections & ROI (PDF)"}
                                 </span>
                             </label>
                         </div>

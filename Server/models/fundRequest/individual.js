@@ -1,25 +1,15 @@
 import mongoose from "mongoose";
+import locationSchema from "../location.js";
 
 const individualSchema = new mongoose.Schema(
   {
-    /* ===== COMMON FIELDS ===== */
     requester: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
 
-    location: {
-      village: { type: String, default: null },
-      block: { type: String, default: null },
-      town: { type: String, default: null },
-      city: { type: String, required: true },
-      district: { type: String, required: true },
-      state: { type: String, required: true },
-      po: { type: String, default: null },
-      ps: { type: String, default: null },
-      pincode: { type: String, required: true },
-    },
+    location: locationSchema,
     amountRequested: { type: Number, required: true },
 
     status: {
@@ -28,7 +18,6 @@ const individualSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    /* ===== INDIVIDUAL SPECIFIC ===== */
     category: {
       type: String,
       enum: ["project_devlopment", "land_purchase", "land_selling"],

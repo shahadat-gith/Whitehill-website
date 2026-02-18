@@ -70,8 +70,8 @@ const Startup = () => {
         "Startup Details",
         "Business Model",
         "Founding Team",
-        "Documents",
-        "Location"
+        "Location",
+        "Documents"
     ];
 
     // Parse step from URL - support both numeric steps and 'submit'
@@ -237,8 +237,8 @@ const Startup = () => {
             setDetails(initialDetails);
             setDocuments(initialDocs);
             
-            // Navigate to profile and replace history to prevent back button issues
-            navigate("/profile?tab=fund-requests", { replace: true });
+            // Navigate to congratulations page and replace history
+            navigate("/congratulations", { replace: true });
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||
@@ -286,16 +286,16 @@ const Startup = () => {
                 );
             case 5:
                 return (
-                    <Step5Documents
-                        documents={documents}
-                        setDocuments={setDocuments}
+                    <LocationStep
+                        location={location}
+                        handleLocationChange={handleLocationChange}
                     />
                 );
             case 6:
                 return (
-                    <LocationStep
-                        location={location}
-                        handleLocationChange={handleLocationChange}
+                    <Step5Documents
+                        documents={documents}
+                        setDocuments={setDocuments}
                     />
                 );
             case 7:

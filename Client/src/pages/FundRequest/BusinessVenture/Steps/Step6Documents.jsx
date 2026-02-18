@@ -11,7 +11,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                         <div className="bfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.doc,.docx"
+                                accept=".pdf"
                                 onChange={(event) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -26,7 +26,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.businessPlan
                                         ? documents.businessPlan.name
-                                        : "Upload business plan document (PDF/DOC)"}
+                                        : "Upload business plan document (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -65,7 +65,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                         <div className="bfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.xlsx,.xls"
+                                accept=".pdf"
                                 onChange={(event) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -80,7 +80,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.financialStatements
                                         ? documents.financialStatements.name
-                                        : "Upload financial statements (PDF/Excel)"}
+                                        : "Upload financial statements (PDF)"}
                                 </span>
                             </label>
                         </div>
@@ -146,7 +146,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                         <div className="bfr-file-upload">
                             <input
                                 type="file"
-                                accept=".pdf,.xlsx,.xls"
+                                accept=".pdf"
                                 onChange={(event) =>
                                     setDocuments((prev) => ({
                                         ...prev,
@@ -161,7 +161,7 @@ const Step6Documents = ({ documents, setDocuments }) => {
                                 <span>
                                     {documents.cashFlowStatement
                                         ? documents.cashFlowStatement.name
-                                        : "Upload cash flow projections (PDF/Excel)"}
+                                        : "Upload cash flow projections (PDF)"}
                                 </span>
                             </label>
                         </div>

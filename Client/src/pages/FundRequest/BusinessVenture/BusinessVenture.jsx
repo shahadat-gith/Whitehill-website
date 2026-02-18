@@ -75,10 +75,10 @@ const BusinessVenture = () => {
 
     const stepTitles = [
         "Fund Details",
-        "Location",
         "Business Details",
         "Risk Disclosure",
         "Business Partners",
+        "Location",
         "Documents"
     ];
 
@@ -253,8 +253,8 @@ const BusinessVenture = () => {
             setDetails(initialDetails);
             setDocuments(initialDocs);
             
-            // Navigate to profile and replace history to prevent back button issues
-            navigate("/profile?tab=fund-requests", { replace: true });
+            // Navigate to congratulations page and replace history
+            navigate("/congratulations", { replace: true });
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||
@@ -279,33 +279,33 @@ const BusinessVenture = () => {
                 );
             case 2:
                 return (
-                    <LocationStep
-                        location={location}
-                        handleLocationChange={handleLocationChange}
-                    />
-                );
-            case 3:
-                return (
                     <Step3BusinessDetails
                         details={details}
                         handleDetailChange={handleDetailChange}
                         handlePurposeChange={handlePurposeChange}
                     />
                 );
-            case 4:
+            case 3:
                 return (
                     <Step4RiskDisclosure
                         details={details}
                         handleRiskChange={handleRiskChange}
                     />
                 );
-            case 5:
+            case 4:
                 return (
                     <Step5BusinessPartners
                         details={details}
                         handleBusinessPartnerChange={handleBusinessPartnerChange}
                         addBusinessPartner={addBusinessPartner}
                         removeBusinessPartner={removeBusinessPartner}
+                    />
+                );
+            case 5:
+                return (
+                    <LocationStep
+                        location={location}
+                        handleLocationChange={handleLocationChange}
                     />
                 );
             case 6:

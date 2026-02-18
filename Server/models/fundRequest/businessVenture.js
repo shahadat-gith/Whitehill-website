@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import locationSchema from "../location.js";
 
 const businessVentureSchema = new mongoose.Schema(
   {
@@ -8,19 +9,7 @@ const businessVentureSchema = new mongoose.Schema(
       required: true,
     },
 
-    location: {
-      village: String,
-      block: String,
-      town: String,
-      city: { type: String, required: true },
-      district: { type: String, required: true },
-      state: { type: String, required: true },
-      po: String,
-      ps: String,
-      pincode: { type: String, required: true },
-      googleMapLocation: String,
-    },
-
+    location: locationSchema,
     amountRequested: { type: Number, required: true },
     amountAlloted: { type: Number, default: 0 },
 

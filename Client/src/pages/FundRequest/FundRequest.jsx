@@ -49,7 +49,7 @@ const FundRequest = () => {
                 className={`fund-tab ${type === "individual" ? "active" : ""}`}
                 onClick={() => handleTypeChange("individual")}
               >
-                Individual
+                Land / Property
               </button>
             </div>
           </div>

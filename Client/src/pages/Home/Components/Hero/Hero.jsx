@@ -26,7 +26,7 @@ const Hero = () => {
             -linked outcomes.
           </p>
           <div className="hero-buttons">
-            <button className="btn btn-primary">Explore</button>
+            <button className="btn btn-primary" onClick={()=>handleNavigate("/sell-property")}>Sell Property</button>
             <button className="btn btn-secondary" onClick={()=>handleNavigate("/request-funds")}>Need Funds ?</button>
           </div>
         </div>
