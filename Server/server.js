@@ -14,6 +14,7 @@ import projectRouter from "./routes/projectRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import fundRequestRouter from "./routes/fundRequestRoutes.js";
+import propertySellingRouter from "./routes/propertySellingRoutes.js";
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/transaction", transactionRouter);
 app.use("/api/investment", investmentRouter);
 app.use("/api/admin", adminRouter)
 app.use("/api/fund-request", fundRequestRouter);
+app.use("/api/property-selling", propertySellingRouter);
 
 
 const PORT = process.env.PORT || 3000;

@@ -12,7 +12,8 @@ const connectToCloudinary = async () => {
 };
 
 /* ===================== IMAGE UPLOAD ===================== */
-export const uploadToCloudinary = (fileBuffer, folder) => {
+
+export const uploadImageToCloudinary = (fileBuffer, folder) => {
   return new Promise((resolve, reject) => {
     const uploadOptions = {
       folder,
@@ -41,7 +42,10 @@ export const uploadToCloudinary = (fileBuffer, folder) => {
   });
 };
 
+
 /* ===================== PDF / DOC UPLOAD ===================== */
+
+
 export const uploadPdfToCloudinary = (fileBuffer, folder) => {
   return new Promise((resolve, reject) => {
     const uploadOptions = {
@@ -57,6 +61,35 @@ export const uploadPdfToCloudinary = (fileBuffer, folder) => {
         if (error) {
           return reject(
             new Error(`PDF upload failed: ${error.message}`)
+          );
+        }
+
+        resolve({
+          url: result.secure_url,
+          public_id: result.public_id,
+        });
+      }
+    );
+
+    streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+  });
+};
+
+
+/* ===================== Video UPLOADS ===================== */
+export const uploadVideoToCloudinary = (fileBuffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const uploadOptions = {
+      folder,
+      resource_type: "video", // REQUIRED for videos
+      use_filename: true,
+      unique_filename: true,
+    };
+
+    const uploadStream = cloudinary.uploader.upload_stream(uploadOptions, (error, result) => {
+        if (error) {
+          return reject(
+            new Error(`Video upload failed: ${error.message}`)
           );
         }
 

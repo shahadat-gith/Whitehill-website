@@ -1,6 +1,5 @@
 import Startup from "../models/fundRequest/startup.js";
 import BusinessVenture from "../models/fundRequest/businessVenture.js";
-import Individual from "../models/fundRequest/individual.js";
 
 import { uploadPdfToCloudinary } from "../configs/cloudinary.js";
 
@@ -144,59 +143,3 @@ export const createBusinessVentureFundRequest = async (req, res) => {
   }
 };
 
-
-
-export const createIndividualFundRequest = async (req, res) => {
-  try {
-    const {
-      category,
-      individualType,
-      projectType,
-      cost,
-      riskDisclosure,
-      location,
-      amountRequested,
-      rera,
-    } = req.body;
-
-    const documentKeys = [
-      "landOwnershipProof",
-      "layout",
-      "reraCertificate",
-      "financialModel",
-    ];
-
-    const documents = {};
-
-    for (const key of documentKeys) {
-      const file = req.files?.[key]?.[0];
-      if (!file) {
-        return res.status(400).json({ message: `${key} is required` });
-      }
-
-      documents[key] = await uploadPdfToCloudinary(
-        file.buffer,
-        `individual/${key}`
-      );
-    }
-
-    // Add rera as a separate field in documents
-    documents.rera = rera;
-
-    const fundRequest = await Individual.create({
-      requester: req.userId,
-      category,
-      individualType,
-      projectType,
-      cost: JSON.parse(cost),
-      riskDisclosure: JSON.parse(riskDisclosure),
-      location: JSON.parse(location),
-      amountRequested,
-      documents,
-    });
-
-    res.status(201).json({ success: true, data: fundRequest });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};

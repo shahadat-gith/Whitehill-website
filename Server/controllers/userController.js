@@ -2,7 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { encrypt, decrypt } from "../utils/crypto.js";
-import { uploadToCloudinary, deleteFromCloudinary } from "../configs/cloudinary.js";
+import { uploadImageToCloudinary, deleteFromCloudinary } from "../configs/cloudinary.js";
 
 
 
@@ -174,17 +174,17 @@ export const updateKYC = async (req, res) => {
     };
 
     /* ================= UPLOAD FILES ================= */
-    const aadharFront = await uploadToCloudinary(
+    const aadharFront = await uploadImageToCloudinary(
       req.files.aadharFront[0].buffer,
       "kyc/aadhar/images"
     );
 
-    const aadharBack = await uploadToCloudinary(
+    const aadharBack = await uploadImageToCloudinary(
       req.files.aadharBack[0].buffer,
       "kyc/aadhar/images"
     );
 
-    const panFront = await uploadToCloudinary(
+    const panFront = await uploadImageToCloudinary(
       req.files.panFront[0].buffer,
       "kyc/pan/images"
     );
@@ -313,7 +313,7 @@ export const updateProfile = async (req, res) => {
     if (email) user.email = email;
 
     if (req.file) {
-      const newImage = await uploadToCloudinary(
+      const newImage = await uploadImageToCloudinary(
         req.file.buffer,
         "profiles"
       );

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../../../Configs/axios";
 import toast from "react-hot-toast";
 import { useAppContext } from "../../../Context/AppContext";
-import StepProgress from "../components/StepProgress";
-import LocationStep from "../components/LocationStep";
+import StepProgress from "../../../components/StepProgress/StepProgress";
+import LocationStep from "../../../components/LocationStep/LocationStep";
 import SubmitReview from "../components/SubmitReview";
 import Step1RequestSummary from "./Steps/Step1RequestSummary";
 import Step2StartupDetails from "./Steps/Step2StartupDetails";
@@ -59,7 +59,6 @@ const initialDocs = {
 
 const Startup = () => {
     const { user } = useAppContext();
-    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const TOTAL_STEPS = 6;
@@ -74,10 +73,7 @@ const Startup = () => {
         "Documents"
     ];
 
-    // Parse step from URL - support both numeric steps and 'submit'
-    const stepParam = searchParams.get("step") || "1";
-    const currentStep = stepParam === "submit" ? TOTAL_STEPS + 1 : parseInt(stepParam);
-
+    const [currentStep, setCurrentStep] = useState(1);
     const [amountRequested, setAmountRequested] = useState("");
     const [location, setLocation] = useState(initialLocation);
     const [details, setDetails] = useState(initialDetails);
@@ -93,13 +89,10 @@ const Startup = () => {
                 setAmountRequested(parsed.amountRequested || "");
                 setLocation(parsed.location || initialLocation);
                 setDetails(parsed.details || initialDetails);
+                setCurrentStep(parsed.currentStep || 1);
             } catch (error) {
                 console.error("Error loading saved data:", error);
             }
-        } else if (currentStep > 1) {
-            // If on step > 1 but no saved data, reset to step 1
-            const currentType = searchParams.get("type") || "startup";
-            setSearchParams({ type: currentType, step: "1" });
         }
     }, []);
 
@@ -108,10 +101,11 @@ const Startup = () => {
         const dataToSave = {
             amountRequested,
             location,
-            details
+            details,
+            currentStep,
         };
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-    }, [amountRequested, location, details]);
+    }, [amountRequested, location, details, currentStep]);
 
     const handleLocationChange = (field, value) => {
         setLocation((prev) => ({ ...prev, [field]: value }));
@@ -154,11 +148,8 @@ const Startup = () => {
     };
 
     const goToStep = (step) => {
-        // Allow step 7 (review page) even though TOTAL_STEPS is 6
         if (step >= 1 && step <= TOTAL_STEPS + 1) {
-            const currentType = searchParams.get("type") || "startup";
-            const stepValue = step === TOTAL_STEPS + 1 ? "submit" : step.toString();
-            setSearchParams({ type: currentType, step: stepValue });
+            setCurrentStep(step);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };

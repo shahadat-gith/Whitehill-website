@@ -7,17 +7,18 @@ import Individual from "./Individual/Individual";
 
 const FundRequest = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const type = searchParams.get("type") || "startup";
+  const validTypes = ["startup", "businessVenture", "individual"];
+  const typeParam = searchParams.get("type");
+  const type = validTypes.includes(typeParam) ? typeParam : "startup";
 
   useEffect(() => {
-    // Set default params if not present
-    if (!searchParams.get("type")) {
-      setSearchParams({ type: "startup", step: "1" });
+    if (!typeParam || !validTypes.includes(typeParam)) {
+      setSearchParams({ type: "startup" }, { replace: true });
     }
-  }, []);
+  }, [typeParam, setSearchParams]);
 
   const handleTypeChange = (newType) => {
-    setSearchParams({ type: newType, step: "1" });
+    setSearchParams({ type: newType });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

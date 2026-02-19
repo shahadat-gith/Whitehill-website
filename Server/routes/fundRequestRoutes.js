@@ -5,7 +5,6 @@ import { authMiddleware } from "../middlewares/authmiddleware.js";
 import {
   createStartupFundRequest,
   createBusinessVentureFundRequest,
-  createIndividualFundRequest,
 } from "../controllers/fundRequestController.js";
 
 const fundRequestRouter = express.Router();
@@ -38,17 +37,5 @@ fundRequestRouter.post(
   createBusinessVentureFundRequest
 );
 
-/* ===================== INDIVIDUAL FUND REQUEST ===================== */
-fundRequestRouter.post(
-  "/individual",
-  authMiddleware,
-  upload.fields([
-    { name: "landOwnershipProof", maxCount: 1 },
-    { name: "layout", maxCount: 1 },
-    { name: "reraCertificate", maxCount: 1 },
-    { name: "financialModel", maxCount: 1 },
-  ]),
-  createIndividualFundRequest
-);
 
 export default fundRequestRouter;

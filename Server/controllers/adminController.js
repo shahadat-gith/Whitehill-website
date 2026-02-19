@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { uploadToCloudinary } from "../configs/cloudinary.js";
+import { uploadImageToCloudinary } from "../configs/cloudinary.js";
 import { decrypt } from "../utils/crypto.js";
 import { instance } from "../configs/razorpay.js";
 import { sendEmail } from "../configs/nodemailer.js";
@@ -140,7 +140,7 @@ export const createProject = async (req, res) => {
 
         if (req.files && req.files.length > 0) {
             const uploadPromises = req.files.map((file) =>
-                uploadToCloudinary(file.buffer, "projects")
+                uploadImageToCloudinary(file.buffer, "projects")
             );
 
             const uploadResults = await Promise.all(uploadPromises);
@@ -320,7 +320,7 @@ export const uploadProjectImages = async (req, res) => {
 
         /* ================= UPLOAD IMAGES ================= */
         const uploadPromises = req.files.map((file) =>
-            uploadToCloudinary(file.buffer, "projects")
+            uploadImageToCloudinary(file.buffer, "projects")
         );
 
         const uploadedImages = await Promise.all(uploadPromises);
