@@ -1,57 +1,48 @@
-const initialLocation = {
-    village: "",
-    block: "",
-    town: "",
-    city: "",
-    district: "",
-    state: "",
-    po: "",
-    ps: "",
-    pincode: "",
-    googleMapLocation: "",
-};
 
-const initialSellRequest = {
-    type: "land",
-    priceAsked: "",
-    landDetails: {
-        area: "",
-        dagNumber: "",
-        pattaNumber: "",
-        landType: "residential",
+export const initialData = {
+    sellRequest: {
+
+        type: "land",
+        priceAsked: "",
+        description: "",
+        landDetails: {
+            area: "",
+            dagNumber: "",
+            pattaNumber: "",
+            landType: "residential",
+        },
+        propertyDetails: {
+            bedrooms: "",
+            bathrooms: "",
+            parkingSpaces: "",
+        },
     },
-    propertyDetails: {
-        bedrooms: "",
-        bathrooms: "",
-        parkingSpaces: "",
+    location: {
+        village: "",
+        block: "",
+        city: "",
+        district: "",
+        state: "",
+        po: "",
+        ps: "",
+        pincode: "",
+    },
+    documents: {
+        landOwnershipProof: null,
+        khajnaReceipt: null,
+        ownershipProof: null,
+        buildingPlan: null,
+    },
+    media: {
+        landImages: [],
+        propertyImages: [],
     },
 };
 
-const initialDocuments = {
-    landOwnershipProof: null,
-    khajnaReceipt: null,
-    ownershipProof: null,
-    buildingPlan: null,
-};
-
-const initialMedia = {
-    landImages: [],
-    propertyImages: [],
-    outsideView: null,
-    insideView: null,
-};
-
-const stepTitles = [
+export const stepTitles = [
     "Basic Information",
     "Property Details",
     "Location",
 ];
 
 
-export {
-    initialLocation,
-    initialSellRequest,
-    initialDocuments,
-    initialMedia,
-    stepTitles,
-};

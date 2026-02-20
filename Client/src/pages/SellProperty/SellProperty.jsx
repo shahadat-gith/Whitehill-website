@@ -7,11 +7,8 @@ import Step2PropertyDetails from "./Steps/Step2PropertyDetails";
 import Step3LocationDetails from "./Steps/Step3LocationDetails";
 import "./Styles/Layout.css";
 import "./Styles/SellProperty.css";
-import {
-  initialLocation,
-  initialSellRequest,
-  stepTitles,
-} from "./utils";
+import "./Styles/SellPropertyPage.css";
+import { initialData,stepTitles } from "./utils";
 
 const TOTAL_STEPS = 3;
 
@@ -19,8 +16,8 @@ const TOTAL_STEPS = 3;
 const SellProperty = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [sellRequest, setSellRequest] = useState(initialSellRequest);
-  const [location, setLocation] = useState(initialLocation);
+  const [sellRequest, setSellRequest] = useState(initialData.sellRequest);
+  const [location, setLocation] = useState(initialData.location);
 
   const storageKey = "sellPropertyRequestDraft";
 
@@ -30,8 +27,8 @@ const SellProperty = () => {
 
     try {
       const parsed = JSON.parse(saved);
-      setSellRequest(parsed.sellRequest || parsed.listing || initialSellRequest);
-      setLocation(parsed.location || initialLocation);
+      setSellRequest(parsed.sellRequest || initialData.sellRequest);
+      setLocation(parsed.location || initialData.location);
       setCurrentStep(parsed.currentStep || 1);
     } catch {
       sessionStorage.removeItem(storageKey);
@@ -113,7 +110,13 @@ const SellProperty = () => {
 
   const renderStep = () => {
     if (currentStep === 1) {
-      return <Step1BasicInfo sellRequest={sellRequest} setSellRequest={setSellRequest} />;
+      return (
+        <Step1BasicInfo
+          sellRequest={sellRequest}
+          setSellRequest={setSellRequest}
+          onTypeChange={handleTypeChange}
+        />
+      );
     }
 
     if (currentStep === 2) {
@@ -134,29 +137,9 @@ const SellProperty = () => {
   };
 
   return (
-    <div className="sell-property-page">
+    <div className="sell-property-page spp-page">
       <div className="sell-property-layout-full">
         <div className="sell-property-column">
-          <div className="sell-property-card">
-            <h2>Sell Property Request</h2>
-            <div className="sell-property-tabs">
-              <button
-                type="button"
-                className={`sell-property-tab ${isLand ? "active" : ""}`}
-                onClick={() => handleTypeChange("land")}
-              >
-                Land
-              </button>
-              <button
-                type="button"
-                className={`sell-property-tab ${!isLand ? "active" : ""}`}
-                onClick={() => handleTypeChange("property")}
-              >
-                Property
-              </button>
-            </div>
-          </div>
-
           <div className="ifr-container sp-container">
             <StepProgress
               currentStep={currentStep}

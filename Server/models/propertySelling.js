@@ -1,5 +1,21 @@
 import mongoose from "mongoose";
-import locationSchema from "./location.js";
+
+
+
+const locationSchema = new mongoose.Schema(
+  {
+    village: { type: String, trim: true },
+    block: { type: String, trim: true },
+    po: { type: String, trim: true },
+    ps: { type: String, trim: true },
+    district: { type: String, required: true, trim: true },
+    city: { type: String, required: true, trim: true },
+    state: { type: String, required: true, trim: true },
+    pincode: { type: String, required: true, trim: true },
+  },
+  { _id: false }
+);
+
 
 /* ================= LAND DETAILS ================= */
 
@@ -51,11 +67,6 @@ const propertyDetailsSchema = new mongoose.Schema(
       },
     ],
 
-    video: {
-      outsideView: { url: String, public_id: String },
-      insideView: { url: String, public_id: String },
-    },
-
     documents: {
       ownershipProof: { url: String, public_id: String },
       buildingPlan: { url: String, public_id: String },
@@ -81,18 +92,27 @@ const propertySellingSchema = new mongoose.Schema(
       min: 1,
     },
 
+    description: {
+      type: String,
+      trim: true,
+      maxlength: 1000,
+    },
+
     type: {
       type: String,
       enum: ["land", "property"],
       required: true,
-      index: true,
     },
 
     status: {
       type: String,
       enum: ["pending", "approved", "rejected"],
       default: "pending",
-      index: true,
+    },
+
+    isCompleted: {
+      type: Boolean,
+      default: false,
     },
 
     landDetails: landDetailsSchema,

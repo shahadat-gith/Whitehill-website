@@ -2,9 +2,9 @@ import PropertySelling from "../models/propertySelling.js";
 import {
   uploadPdfToCloudinary,
   uploadImageToCloudinary,
-  uploadVideoToCloudinary,
   deleteFromCloudinary,
 } from "../configs/cloudinary.js";
+
 
 const parseJSON = (field) => {
   if (!field) return field;
@@ -18,24 +18,37 @@ const parseJSON = (field) => {
   return field;
 };
 
-const getListingByOwner = async (propertyId, userId) => {
-  const listing = await PropertySelling.findById(propertyId);
 
-  if (!listing) {
-    throw new Error("Property selling request not found");
+
+export const getPropertyRequestCompletionStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const propertyRequest = await PropertySelling.findById(id);
+
+    if (!propertyRequest) {
+      throw new Error("Property selling request not found");
+    }
+
+
+    return res.status(200).json({
+      success: true,
+      isCompleted: propertyRequest.isCompleted,
+      type: propertyRequest.type,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  if (listing.seller.toString() !== userId) {
-    throw new Error("You are not authorized to update this listing");
-  }
-
-  return listing;
 };
+
 
 export const createPropertySellingDetails = async (req, res) => {
   try {
     const { type } = req.body;
     const seller = req.userId;
+    const description = (req.body.description || "").toString().trim();
 
     const priceAsked = Number(req.body.priceAsked);
     const costPrice = Number(req.body.costPrice || 0);
@@ -69,34 +82,31 @@ export const createPropertySellingDetails = async (req, res) => {
       seller,
       type,
       priceAsked,
+      description,
       costPrice,
       sellingPrice,
       location,
       landDetails:
         type === "land"
           ? {
-              ...landDetails,
-              documents: {
-                ownershipProof: null,
-                khajnaReceipt: null,
-              },
-              images: [],
-            }
+            ...landDetails,
+            documents: {
+              ownershipProof: null,
+              khajnaReceipt: null,
+            },
+            images: [],
+          }
           : undefined,
       propertyDetails:
         type === "property"
           ? {
-              ...propertyDetails,
-              documents: {
-                ownershipProof: null,
-                buildingPlan: null,
-              },
-              video: {
-                outsideView: null,
-                insideView: null,
-              },
-              images: [],
-            }
+            ...propertyDetails,
+            documents: {
+              ownershipProof: null,
+              buildingPlan: null,
+            },
+            images: [],
+          }
           : undefined,
     };
 
@@ -115,96 +125,56 @@ export const createPropertySellingDetails = async (req, res) => {
   }
 };
 
-export const uploadPropertySellingDocuments = async (req, res) => {
+export const uploadPropertySellingFiles = async (req, res) => {
   const uploadedPublicIds = [];
 
   try {
     const { id } = req.params;
-    const listing = await getListingByOwner(id, req.userId);
+    const propertyRequest = await PropertySelling.findById(id);
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-      throw new Error("No documents provided");
+    if (!propertyRequest) {
+      throw new Error("Property selling request not found");
     }
 
-    if (listing.type === "land") {
-      if (req.files?.landOwnershipProof?.[0]) {
+    if (propertyRequest.seller.toString() !== req.userId) {
+      throw new Error("You are not authorized to update this property selling request");
+    }
+
+    if (propertyRequest.type === "land") {
+      const landOwnershipProof = req.files?.landOwnershipProof?.[0] || null;
+      const khajnaReceipt = req.files?.khajnaReceipt?.[0] || null;
+      const landImageFiles = req.files?.landImages || req.files?.["landImages[]"] || [];
+
+      if (!landOwnershipProof || !khajnaReceipt) {
+        throw new Error("Both land ownership proof and khajna receipt are required");
+      }
+
+      if (landImageFiles.length < 5) {
+        throw new Error("Minimum 5 land images are required");
+      }
+
+      if (landOwnershipProof) {
         const result = await uploadPdfToCloudinary(
-          req.files.landOwnershipProof[0].buffer,
+          landOwnershipProof.buffer,
           "property/land/documents"
         );
 
         uploadedPublicIds.push({ id: result.public_id, type: "raw" });
-        listing.landDetails.documents.ownershipProof = result;
+        propertyRequest.landDetails.documents.ownershipProof = result;
       }
 
-      if (req.files?.khajnaReceipt?.[0]) {
+      if (khajnaReceipt) {
         const result = await uploadPdfToCloudinary(
-          req.files.khajnaReceipt[0].buffer,
+          khajnaReceipt.buffer,
           "property/land/documents"
         );
 
         uploadedPublicIds.push({ id: result.public_id, type: "raw" });
-        listing.landDetails.documents.khajnaReceipt = result;
-      }
-    } else {
-      if (req.files?.ownershipProof?.[0]) {
-        const result = await uploadPdfToCloudinary(
-          req.files.ownershipProof[0].buffer,
-          "property/property/documents"
-        );
-
-        uploadedPublicIds.push({ id: result.public_id, type: "raw" });
-        listing.propertyDetails.documents.ownershipProof = result;
-      }
-
-      if (req.files?.buildingPlan?.[0]) {
-        const result = await uploadPdfToCloudinary(
-          req.files.buildingPlan[0].buffer,
-          "property/property/documents"
-        );
-
-        uploadedPublicIds.push({ id: result.public_id, type: "raw" });
-        listing.propertyDetails.documents.buildingPlan = result;
-      }
-    }
-
-    await listing.save();
-
-    return res.status(200).json({
-      success: true,
-      message: "Documents uploaded successfully",
-      data: listing,
-    });
-  } catch (error) {
-    for (const file of uploadedPublicIds) {
-      await deleteFromCloudinary(file.id, file.type);
-    }
-
-    return res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-export const uploadPropertySellingImages = async (req, res) => {
-  const uploadedPublicIds = [];
-
-  try {
-    const { id } = req.params;
-    const listing = await getListingByOwner(id, req.userId);
-
-    if (!req.files || Object.keys(req.files).length === 0) {
-      throw new Error("No images provided");
-    }
-
-    if (listing.type === "land") {
-      if (!req.files?.landImages?.length) {
-        throw new Error("Land images are required");
+        propertyRequest.landDetails.documents.khajnaReceipt = result;
       }
 
       const images = await Promise.all(
-        req.files.landImages.map((file) =>
+        landImageFiles.map((file) =>
           uploadImageToCloudinary(file.buffer, "property/land/images")
         )
       );
@@ -213,14 +183,42 @@ export const uploadPropertySellingImages = async (req, res) => {
         uploadedPublicIds.push({ id: image.public_id, type: "image" });
       });
 
-      listing.landDetails.images = images;
+      propertyRequest.landDetails.images = images;
     } else {
-      if (!req.files?.propertyImages?.length) {
-        throw new Error("Property images are required");
+      const ownershipProof = req.files?.ownershipProof?.[0] || null;
+      const buildingPlan = req.files?.buildingPlan?.[0] || null;
+      const propertyImageFiles = req.files?.propertyImages || req.files?.["propertyImages[]"] || [];
+
+      if (!ownershipProof || !buildingPlan) {
+        throw new Error("Both ownership proof and building plan are required");
+      }
+
+      if (propertyImageFiles.length < 5) {
+        throw new Error("Minimum 5 property images are required");
+      }
+
+      if (ownershipProof) {
+        const result = await uploadPdfToCloudinary(
+          ownershipProof.buffer,
+          "property/property/documents"
+        );
+
+        uploadedPublicIds.push({ id: result.public_id, type: "raw" });
+        propertyRequest.propertyDetails.documents.ownershipProof = result;
+      }
+
+      if (buildingPlan) {
+        const result = await uploadPdfToCloudinary(
+          buildingPlan.buffer,
+          "property/property/documents"
+        );
+
+        uploadedPublicIds.push({ id: result.public_id, type: "raw" });
+        propertyRequest.propertyDetails.documents.buildingPlan = result;
       }
 
       const images = await Promise.all(
-        req.files.propertyImages.map((file) =>
+        propertyImageFiles.map((file) =>
           uploadImageToCloudinary(file.buffer, "property/property/images")
         )
       );
@@ -229,15 +227,17 @@ export const uploadPropertySellingImages = async (req, res) => {
         uploadedPublicIds.push({ id: image.public_id, type: "image" });
       });
 
-      listing.propertyDetails.images = images;
+      propertyRequest.propertyDetails.images = images;
     }
 
-    await listing.save();
+    propertyRequest.isCompleted = true;
+
+    await propertyRequest.save();
 
     return res.status(200).json({
       success: true,
-      message: "Images uploaded successfully",
-      data: listing,
+      message: "Documents and images uploaded successfully",
+      data: propertyRequest,
     });
   } catch (error) {
     for (const file of uploadedPublicIds) {
@@ -251,56 +251,3 @@ export const uploadPropertySellingImages = async (req, res) => {
   }
 };
 
-export const uploadPropertySellingVideos = async (req, res) => {
-  const uploadedPublicIds = [];
-
-  try {
-    const { id } = req.params;
-    const listing = await getListingByOwner(id, req.userId);
-
-    if (listing.type !== "property") {
-      throw new Error("Videos are only supported for property listings");
-    }
-
-    if (!req.files || Object.keys(req.files).length === 0) {
-      throw new Error("No videos provided");
-    }
-
-    if (req.files?.outsideView?.[0]) {
-      const result = await uploadVideoToCloudinary(
-        req.files.outsideView[0].buffer,
-        "property/property/videos"
-      );
-
-      uploadedPublicIds.push({ id: result.public_id, type: "video" });
-      listing.propertyDetails.video.outsideView = result;
-    }
-
-    if (req.files?.insideView?.[0]) {
-      const result = await uploadVideoToCloudinary(
-        req.files.insideView[0].buffer,
-        "property/property/videos"
-      );
-
-      uploadedPublicIds.push({ id: result.public_id, type: "video" });
-      listing.propertyDetails.video.insideView = result;
-    }
-
-    await listing.save();
-
-    return res.status(200).json({
-      success: true,
-      message: "Videos uploaded successfully",
-      data: listing,
-    });
-  } catch (error) {
-    for (const file of uploadedPublicIds) {
-      await deleteFromCloudinary(file.id, file.type);
-    }
-
-    return res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};

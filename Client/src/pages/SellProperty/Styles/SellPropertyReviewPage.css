@@ -1,0 +1,9 @@
+.spr-page .submit-review-section {
+  gap: 1rem;
+}
+
+.spr-page .submit-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

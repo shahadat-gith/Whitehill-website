@@ -1,4 +1,5 @@
 import React from "react";
+import "../Styles/Step2PropertyDetails.css";
 
 const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
 
@@ -18,11 +19,11 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
 
   if (isLand) {
     return (
-      <section className="sp-section">
-        <h3>Land Details</h3>
-        <p>Provide official identification details for your land.</p>
-        <div className="sp-grid sp-grid-2">
-          <div className="sp-field">
+      <section className="sp2-section">
+        <h3 className="sp2-title">Land Details</h3>
+        <p className="sp2-subtitle">Provide official identification details for your land.</p>
+        <div className="sp2-grid sp2-grid-2">
+          <div className="sp2-field">
             <label>Area (in Bigha.) *</label>
             <input
               type="number"
@@ -34,7 +35,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
             />
           </div>
 
-          <div className="sp-field">
+          <div className="sp2-field">
             <label>Land Type *</label>
             <select
               value={sellRequest.landDetails.landType}
@@ -46,7 +47,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
             </select>
           </div>
 
-          <div className="sp-field">
+          <div className="sp2-field">
             <label>DAG Number *</label>
             <input
               type="text"
@@ -57,7 +58,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
             />
           </div>
 
-          <div className="sp-field">
+          <div className="sp2-field">
             <label>Patta Number *</label>
             <input
               type="text"
@@ -73,11 +74,11 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
   }
 
   return (
-    <section className="sp-section">
-      <h3>Property Details</h3>
-      <p>Share building details to make your request complete and attractive.</p>
-      <div className="sp-grid sp-grid-3">
-        <div className="sp-field">
+    <section className="sp2-section">
+      <h3 className="sp2-title">Property Details</h3>
+      <p className="sp2-subtitle">Share building details to make your request complete and attractive.</p>
+      <div className="sp2-grid sp2-grid-3">
+        <div className="sp2-field">
           <label>Bedrooms</label>
           <input
             type="number"
@@ -88,7 +89,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
           />
         </div>
 
-        <div className="sp-field">
+        <div className="sp2-field">
           <label>Bathrooms</label>
           <input
             type="number"
@@ -99,7 +100,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
           />
         </div>
 
-        <div className="sp-field">
+        <div className="sp2-field">
           <label>Parking Spaces</label>
           <input
             type="number"

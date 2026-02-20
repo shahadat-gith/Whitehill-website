@@ -4,9 +4,10 @@ import toast from "react-hot-toast";
 import api from "../../Configs/axios";
 import { useAppContext } from "../../Context/AppContext";
 import StepProgress from "../../components/StepProgress/StepProgress";
-import { initialLocation, initialSellRequest, stepTitles } from "./utils";
+import { initialData, stepTitles } from "./utils";
 import "./Styles/Layout.css";
 import "./Styles/SellProperty.css";
+import "./Styles/SellPropertyReviewPage.css";
 
 const TOTAL_STEPS = 3;
 
@@ -22,17 +23,18 @@ const SellPropertyReview = () => {
     try {
       const parsed = JSON.parse(saved);
       return {
-        sellRequest: parsed.sellRequest || parsed.listing || initialSellRequest,
-        location: parsed.location || initialLocation,
+        sellRequest: parsed.sellRequest || initialData.sellRequest,
+        location: parsed.location || initialData.location,
       };
     } catch {
       return null;
     }
   }, []);
 
+  
   if (!draft) {
     return (
-      <div className="sell-property-page">
+      <div className="sell-property-page spr-page">
         <div className="sell-property-layout-full">
           <div className="sell-property-column">
             <div className="ifr-container sp-container">
@@ -54,6 +56,8 @@ const SellPropertyReview = () => {
     );
   }
 
+
+
   const { sellRequest, location } = draft;
   const isLand = sellRequest.type === "land";
 
@@ -71,25 +75,25 @@ const SellPropertyReview = () => {
       const payload = {
         type: sellRequest.type,
         priceAsked: Number(sellRequest.priceAsked),
+        description: sellRequest.description || "",
         location,
-        landDetails: isLand
-          ? {
-              ...sellRequest.landDetails,
-              area: Number(sellRequest.landDetails.area),
-            }
+        landDetails: isLand ? {
+          ...sellRequest.landDetails,
+          area: Number(sellRequest.landDetails.area),
+        }
           : undefined,
-        propertyDetails: !isLand
-          ? {
-              bedrooms: sellRequest.propertyDetails.bedrooms
-                ? Number(sellRequest.propertyDetails.bedrooms)
-                : 0,
-              bathrooms: sellRequest.propertyDetails.bathrooms
-                ? Number(sellRequest.propertyDetails.bathrooms)
-                : 0,
-              parkingSpaces: sellRequest.propertyDetails.parkingSpaces
-                ? Number(sellRequest.propertyDetails.parkingSpaces)
-                : 0,
-            }
+
+        propertyDetails: !isLand ? {
+          bedrooms: sellRequest.propertyDetails.bedrooms
+            ? Number(sellRequest.propertyDetails.bedrooms)
+            : 0,
+          bathrooms: sellRequest.propertyDetails.bathrooms
+            ? Number(sellRequest.propertyDetails.bathrooms)
+            : 0,
+          parkingSpaces: sellRequest.propertyDetails.parkingSpaces
+            ? Number(sellRequest.propertyDetails.parkingSpaces)
+            : 0,
+        }
           : undefined,
       };
 
@@ -100,7 +104,7 @@ const SellPropertyReview = () => {
       }
 
       sessionStorage.removeItem("sellPropertyRequestDraft");
-      navigate(`/sell-property/congratulations?id=${data.data._id}&type=${data.data.type || sellRequest.type}`);
+      navigate(`/sell-property/congratulations?id=${data.data._id}&type=${data.data.type || sellRequest.type}&page=details`);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || "Failed to submit details");
     } finally {
@@ -108,8 +112,9 @@ const SellPropertyReview = () => {
     }
   };
 
+
   return (
-    <div className="sell-property-page">
+    <div className="sell-property-page spr-page">
       <div className="sell-property-layout-full">
         <div className="sell-property-column">
           <div className="ifr-container sp-container">
@@ -130,6 +135,10 @@ const SellPropertyReview = () => {
                   <div className="summary-item">
                     <span className="summary-label">Asking Price</span>
                     <span className="summary-value amount">₹{Number(sellRequest.priceAsked || 0).toLocaleString("en-IN")}</span>
+                  </div>
+                  <div className="summary-item">
+                    <span className="summary-label">Description</span>
+                    <span className="summary-value">{sellRequest.description || "-"}</span>
                   </div>
                   {isLand ? (
                     <>

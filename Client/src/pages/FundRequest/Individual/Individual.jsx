@@ -187,16 +187,16 @@ const Individual = () => {
             }
 
             toast.success("Individual fund request submitted successfully!");
-            
+
             // Clear session storage and reset form state
             sessionStorage.removeItem(STORAGE_KEY);
             setAmountRequested("");
             setLocation(initialLocation);
             setDetails(initialDetails);
             setDocuments(initialDocs);
-            
+
             // Navigate to congratulations page and replace history
-            navigate("/congratulations", { replace: true });
+            navigate("/request-funds/congratulations", { replace: true });
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||
@@ -270,9 +270,9 @@ const Individual = () => {
 
     return (
         <div className="ifr-container">
-            <StepProgress 
-                currentStep={currentStep} 
-                totalSteps={TOTAL_STEPS} 
+            <StepProgress
+                currentStep={currentStep}
+                totalSteps={TOTAL_STEPS}
                 stepTitles={stepTitles}
             />
 

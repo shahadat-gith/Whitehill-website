@@ -1,0 +1,71 @@
+.sp2-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sp2-title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+}
+
+.sp2-subtitle {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.sp2-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.sp2-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sp2-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sp2-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.sp2-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sp2-field input,
+.sp2-field select {
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-white);
+  padding: 0.7rem 0.85rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.sp2-field input:focus,
+.sp2-field select:focus {
+  border-color: var(--primary-blue);
+  outline: none;
+}
+
+@media (max-width: 992px) {
+  .sp2-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .sp2-grid-2,
+  .sp2-grid-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

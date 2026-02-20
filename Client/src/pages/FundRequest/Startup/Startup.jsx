@@ -229,7 +229,7 @@ const Startup = () => {
             setDocuments(initialDocs);
             
             // Navigate to congratulations page and replace history
-            navigate("/congratulations", { replace: true });
+            navigate("/request-funds/congratulations", { replace: true });
         } catch (error) {
             toast.error(
                 error.response?.data?.message ||

@@ -1,9 +1,8 @@
 import express from "express";
 import {
   createPropertySellingDetails,
-  uploadPropertySellingDocuments,
-  uploadPropertySellingImages,
-  uploadPropertySellingVideos,
+  getPropertyRequestCompletionStatus,
+  uploadPropertySellingFiles,
 } from "../controllers/propertySellingController.js";
 
 import { authMiddleware } from "../middlewares/authmiddleware.js";
@@ -17,36 +16,27 @@ propertySellingRouter.post(
   createPropertySellingDetails
 );
 
+propertySellingRouter.get("/:id", authMiddleware, getPropertyRequestCompletionStatus);
+
+
 propertySellingRouter.post(
-  "/:id/upload-documents",
+  "/:id/upload-files",
   authMiddleware,
   upload.fields([
     { name: "landOwnershipProof", maxCount: 1 },
     { name: "khajnaReceipt", maxCount: 1 },
     { name: "ownershipProof", maxCount: 1 },
     { name: "buildingPlan", maxCount: 1 },
-  ]),
-  uploadPropertySellingDocuments
-);
-
-propertySellingRouter.post(
-  "/:id/upload-images",
-  authMiddleware,
-  upload.fields([
     { name: "landImages", maxCount: 10 },
+    { name: "landImages[]", maxCount: 10 },
     { name: "propertyImages", maxCount: 10 },
+    { name: "propertyImages[]", maxCount: 10 },
   ]),
-  uploadPropertySellingImages
+  uploadPropertySellingFiles
 );
 
-propertySellingRouter.post(
-  "/:id/upload-videos",
-  authMiddleware,
-  upload.fields([
-    { name: "outsideView", maxCount: 1 },
-    { name: "insideView", maxCount: 1 },
-  ]),
-  uploadPropertySellingVideos
-);
+
+
+
 
 export default propertySellingRouter;
