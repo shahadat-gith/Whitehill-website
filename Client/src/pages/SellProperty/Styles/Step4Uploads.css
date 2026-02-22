@@ -1,0 +1,134 @@
+/* Step4Uploads.css */
+
+.sp4-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sp4-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sp4-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sp4-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+}
+
+.sp4-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sp4-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sp4-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sp4-required {
+  color: var(--error);
+  margin-left: 2px;
+}
+
+.sp4-help {
+  font-size: 12.5px;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.sp4-input {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  background-color: var(--bg-white);
+  border: 1.5px solid var(--border-medium);
+  border-radius: 9px;
+  padding: 10px 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sp4-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.12);
+}
+
+.sp4-input::file-selector-button {
+  padding: 6px 14px;
+  margin-right: 12px;
+  background-color: var(--primary-navy);
+  color: var(--text-white);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sp4-input::file-selector-button:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.sp4-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sp4-progress-track {
+  flex: 1;
+  height: 8px;
+  background-color: var(--bg-light-gray);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.sp4-progress-fill {
+  height: 100%;
+  background-color: var(--success);
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+.sp4-progress-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .sp4-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .sp4-card {
+    padding: 16px;
+  }
+}

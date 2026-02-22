@@ -1,0 +1,93 @@
+/* ErrorModal.css */
+
+.em-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 36, 50, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: em-fade-in 0.2s ease;
+}
+
+.em-modal {
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  padding: 36px 32px 28px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: em-slide-up 0.25s ease;
+}
+
+.em-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #fde8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.em-icon i {
+  font-size: 26px;
+  color: var(--error);
+}
+
+.em-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+  text-align: center;
+}
+
+.em-message {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.em-btn {
+  margin-top: 8px;
+  padding: 11px 32px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-white);
+  background-color: var(--btn-primary);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.em-btn:hover {
+  background-color: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.em-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes em-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes em-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -16,7 +16,7 @@ import Contact from "./pages/Contact/Contact";
 import FundRequest from "./pages/FundRequest/FundRequest";
 import Congratulations from "./pages/FundRequest/Congratulations";
 import SellProperty from "./pages/SellProperty/SellProperty";
-import SellPropertyUploads from "./pages/SellProperty/SellPropertyUploads";
+import SellPropertyInstructions from "./pages/SellProperty/SellPropertyInstructions";
 import SellPropertyReview from "./pages/SellProperty/SellPropertyReview";
 import SellPropertyCongratulations from "./pages/SellProperty/SellPropertyCongratulations";
 
@@ -52,10 +52,10 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
 
 
-        <Route path="/sell-property" element={<SellProperty />} />
+        <Route path="/sell-property" element={<SellPropertyInstructions />} />
+        <Route path="/sell-property/form" element={<SellProperty />} />
         <Route path="/sell-property/review" element={<SellPropertyReview />} />
         <Route path="/sell-property/congratulations" element={<SellPropertyCongratulations />} />
-        <Route path="/sell-property/uploads/:id" element={<SellPropertyUploads />} />
 
 
         <Route path="/request-funds" element={<FundRequest />} />

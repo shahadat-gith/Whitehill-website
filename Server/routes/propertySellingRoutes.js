@@ -1,8 +1,6 @@
 import express from "express";
 import {
-  createPropertySellingDetails,
-  getPropertyRequestCompletionStatus,
-  uploadPropertySellingFiles,
+  submitPropertySelling,
 } from "../controllers/propertySellingController.js";
 
 import { authMiddleware } from "../middlewares/authmiddleware.js";
@@ -11,16 +9,7 @@ import upload from "../configs/multer.js";
 const propertySellingRouter = express.Router();
 
 propertySellingRouter.post(
-  "/create-details",
-  authMiddleware,
-  createPropertySellingDetails
-);
-
-propertySellingRouter.get("/:id", authMiddleware, getPropertyRequestCompletionStatus);
-
-
-propertySellingRouter.post(
-  "/:id/upload-files",
+  "/submit",
   authMiddleware,
   upload.fields([
     { name: "landOwnershipProof", maxCount: 1 },
@@ -32,10 +21,8 @@ propertySellingRouter.post(
     { name: "propertyImages", maxCount: 10 },
     { name: "propertyImages[]", maxCount: 10 },
   ]),
-  uploadPropertySellingFiles
+  submitPropertySelling
 );
-
-
 
 
 

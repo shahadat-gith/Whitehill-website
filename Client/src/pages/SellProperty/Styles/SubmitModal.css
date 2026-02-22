@@ -1,0 +1,122 @@
+/* SubmitModal.css */
+
+.sm-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 36, 50, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: sm-fade-in 0.25s ease;
+}
+
+.sm-modal {
+  background-color: var(--bg-white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  padding: 44px 36px 36px;
+  max-width: 380px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: sm-slide-up 0.28s ease;
+}
+
+/* Circular progress */
+.sm-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease;
+  margin-bottom: 4px;
+}
+
+.sm-circle-inner {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background-color: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 6px rgba(45, 53, 71, 0.08);
+}
+
+.sm-percent {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  letter-spacing: -0.5px;
+}
+
+.sm-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+  text-align: center;
+}
+
+.sm-status {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-blue);
+  margin: 0;
+  text-align: center;
+  min-height: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.sm-note {
+  font-size: 12.5px;
+  color: var(--text-light);
+  margin: 0;
+  text-align: center;
+}
+
+/* Animated dots */
+.sm-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.sm-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--primary-blue);
+  animation: sm-bounce 1.2s ease-in-out infinite;
+}
+
+.sm-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.sm-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes sm-bounce {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40%            { transform: scale(1);   opacity: 1;   }
+}
+
+@keyframes sm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes sm-slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}

@@ -4,10 +4,10 @@ import mongoose from "mongoose";
 
 const locationSchema = new mongoose.Schema(
   {
-    village: { type: String, trim: true },
-    block: { type: String, trim: true },
-    po: { type: String, trim: true },
-    ps: { type: String, trim: true },
+    village: { type: String, trim: true, required: true },
+    po: { type: String, trim: true,required: true },
+    ps: { type: String, trim: true,required: true },
+    mouza: { type: String, trim: true, required: true },
     district: { type: String, required: true, trim: true },
     city: { type: String, required: true, trim: true },
     state: { type: String, required: true, trim: true },
@@ -21,7 +21,11 @@ const locationSchema = new mongoose.Schema(
 
 const landDetailsSchema = new mongoose.Schema(
   {
-    area: { type: Number, required: true, min: 1 },
+    area: {
+      bigha: { type: Number, min: 0, required: true },
+      kattha: { type: Number, min: 0, required: true },
+      lessa: { type: Number, min: 0, required: true },
+     },
     dagNumber: { type: String, required: true, trim: true },
     pattaNumber: { type: String, required: true, trim: true },
 
@@ -56,9 +60,9 @@ const landDetailsSchema = new mongoose.Schema(
 
 const propertyDetailsSchema = new mongoose.Schema(
   {
-    bedrooms: { type: Number, min: 0 },
-    bathrooms: { type: Number, min: 0 },
-    parkingSpaces: { type: Number, min: 0 },
+    bedrooms: { type: Number, min: 0, required: true },
+    bathrooms: { type: Number, min: 0, required: true },
+    parkingSpaces: { type: Number, min: 0, required: true },
 
     images: [
       {
@@ -95,6 +99,7 @@ const propertySellingSchema = new mongoose.Schema(
     description: {
       type: String,
       trim: true,
+      required: true,
       maxlength: 1000,
     },
 

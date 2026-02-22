@@ -60,42 +60,46 @@ const Step3LocationDetails = ({ location, setLocation }) => {
         </div>
 
         <div className="sp3-field">
-          <label>Village</label>
+          <label>Village *</label>
           <input
             type="text"
             value={location.village}
             onChange={(event) => handleLocationChange("village", event.target.value)}
             placeholder="Village name"
+            required
           />
         </div>
 
         <div className="sp3-field">
-          <label>Block</label>
+          <label>Mouza *</label>
           <input
             type="text"
-            value={location.block}
-            onChange={(event) => handleLocationChange("block", event.target.value)}
-            placeholder="Block name"
+            value={location.mouza}
+            onChange={(event) => handleLocationChange("mouza", event.target.value)}
+            placeholder="Mouza name"
+            required
           />
         </div>
 
         <div className="sp3-field">
-          <label>Post Office</label>
+          <label>Post Office *</label>
           <input
             type="text"
             value={location.po}
             onChange={(event) => handleLocationChange("po", event.target.value)}
             placeholder="Post office"
+            required
           />
         </div>
 
         <div className="sp3-field">
-          <label>Police Station</label>
+          <label>Police Station *</label>
           <input
             type="text"
             value={location.ps}
             onChange={(event) => handleLocationChange("ps", event.target.value)}
             placeholder="Police station"
+            required
           />
         </div>
       </div>

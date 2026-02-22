@@ -17,6 +17,19 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
     }));
   };
 
+  const updateLandArea = (field, value) => {
+    setSellRequest((prev) => ({
+      ...prev,
+      landDetails: {
+        ...prev.landDetails,
+        area: {
+          ...prev.landDetails.area,
+          [field]: value,
+        },
+      },
+    }));
+  };
+
   if (isLand) {
     return (
       <section className="sp2-section">
@@ -24,13 +37,37 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
         <p className="sp2-subtitle">Provide official identification details for your land.</p>
         <div className="sp2-grid sp2-grid-2">
           <div className="sp2-field">
-            <label>Area (in Bigha.) *</label>
+            <label>Area (Bigha) *</label>
             <input
               type="number"
-              min="1"
-              value={sellRequest.landDetails.area}
-              onChange={(event) => updateLandDetails("area", event.target.value)}
-              placeholder="Enter land area"
+              min="0"
+              value={sellRequest.landDetails.area?.bigha || ""}
+              onChange={(event) => updateLandArea("bigha", event.target.value)}
+              placeholder="0"
+              required
+            />
+          </div>
+
+          <div className="sp2-field">
+            <label>Area (Kattha) *</label>
+            <input
+              type="number"
+              min="0"
+              value={sellRequest.landDetails.area?.kattha || ""}
+              onChange={(event) => updateLandArea("kattha", event.target.value)}
+              placeholder="0"
+              required
+            />
+          </div>
+
+          <div className="sp2-field">
+            <label>Area (Lessa) *</label>
+            <input
+              type="number"
+              min="0"
+              value={sellRequest.landDetails.area?.lessa || ""}
+              onChange={(event) => updateLandArea("lessa", event.target.value)}
+              placeholder="0"
               required
             />
           </div>
@@ -40,6 +77,7 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
             <select
               value={sellRequest.landDetails.landType}
               onChange={(event) => updateLandDetails("landType", event.target.value)}
+              required
             >
               <option value="residential">Residential</option>
               <option value="commercial">Commercial</option>
@@ -79,35 +117,38 @@ const Step2PropertyDetails = ({ isLand, sellRequest, setSellRequest }) => {
       <p className="sp2-subtitle">Share building details to make your request complete and attractive.</p>
       <div className="sp2-grid sp2-grid-3">
         <div className="sp2-field">
-          <label>Bedrooms</label>
+          <label>Bedrooms *</label>
           <input
             type="number"
             min="0"
             value={sellRequest.propertyDetails.bedrooms}
             onChange={(event) => updatePropertyDetails("bedrooms", event.target.value)}
             placeholder="0"
+            required
           />
         </div>
 
         <div className="sp2-field">
-          <label>Bathrooms</label>
+          <label>Bathrooms *</label>
           <input
             type="number"
             min="0"
             value={sellRequest.propertyDetails.bathrooms}
             onChange={(event) => updatePropertyDetails("bathrooms", event.target.value)}
             placeholder="0"
+            required
           />
         </div>
 
         <div className="sp2-field">
-          <label>Parking Spaces</label>
+          <label>Parking Spaces *</label>
           <input
             type="number"
             min="0"
             value={sellRequest.propertyDetails.parkingSpaces}
             onChange={(event) => updatePropertyDetails("parkingSpaces", event.target.value)}
             placeholder="0"
+            required
           />
         </div>
       </div>

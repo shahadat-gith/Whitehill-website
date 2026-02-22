@@ -54,13 +54,14 @@ const Step1BasicInfo = ({ sellRequest, setSellRequest, onTypeChange }) => {
         </div>
 
         <div className="sp1-field sp1-field-full">
-          <label>Description</label>
+          <label>Description *</label>
           <textarea
             rows="4"
             value={sellRequest.description || ""}
             onChange={(event) => handleDescriptionChange(event.target.value)}
             placeholder="Add brief details about the property"
             maxLength={1000}
+            required
           />
         </div>
       </div>
