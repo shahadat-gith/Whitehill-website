@@ -3,8 +3,6 @@
 @import "tailwindcss";
 
 
-
-
 :root {
   /* Primary Colors */
   --primary-navy: #2d3547;
@@ -31,7 +29,7 @@
   /* Text Colors */
   --text-primary: #2d3547;
   --text-secondary: #5a6273;
-  --text-light: #8b92a3;
+  --text-light: #525b71;
   --text-white: #ffffff;
 
   /* Button Colors */

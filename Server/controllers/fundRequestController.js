@@ -143,3 +143,21 @@ export const createBusinessVentureFundRequest = async (req, res) => {
   }
 };
 
+export const getUserFundRequests = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const startupRequests = await Startup.find({ requester: userId }).sort({ createdAt: -1 });
+    const businessRequests = await BusinessVenture.find({ requester: userId }).sort({ createdAt: -1 });
+
+    const fundRequests = [
+      ...startupRequests.map(req => ({ ...req.toObject(), type: 'startup' })),
+      ...businessRequests.map(req => ({ ...req.toObject(), type: 'business' }))
+    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.status(200).json({ success: true, data: fundRequests });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

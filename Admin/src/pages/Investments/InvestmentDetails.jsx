@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
 import "./InvestmentDetails.css";
-import { formatAmount, formatDate } from "../../utils/utility";
+import { formatCurrency, formatDate } from "../../utils/utility";
 import StatusUpdateModal from "./StatusUpdateModal";
 import InvestmentStatusBanner from "./InvestmentStatusBanner";
 
@@ -163,7 +163,7 @@ const InvestmentDetails = () => {
 
           <div className="id-row">
             <span className="id-label">Investment Amount</span>
-            <span className="id-value id-strong">{formatAmount(tx.amount)}</span>
+            <span className="id-value id-strong">{formatCurrency(tx.amount)}</span>
           </div>
 
           <div className="id-row">

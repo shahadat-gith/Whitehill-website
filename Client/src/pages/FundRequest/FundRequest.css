@@ -1,251 +1,97 @@
 /* FundRequest.css */
 
 .fund-request-page {
+  padding: 2rem 1rem;
   min-height: 100vh;
-  padding: 2rem 0;
 }
 
 .fund-request-layout-full {
-  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .fund-request-column {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* Fund Card */
+/* Question Card Styling */
 .fund-card {
-  
-  border-radius: 16px;
   padding: 2rem;
-  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .fund-card h2 {
+  color: var(--primary-navy);
   font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 1.5rem 0;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
-/* Fund Tabs - Floating Navbar Style */
+/* Tabs Container */
 .fund-tabs {
   display: inline-flex;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background: var(--bg-card);
-  border-radius: 50px;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-light-gray);
+  padding: 6px;
+  border-radius: 999px; /* Pill shape */
+  gap: 4px;
+  border: 1px solid var(--border-light);
 }
 
+/* Individual Tab Button */
 .fund-tab {
-  padding: 0.75rem 2rem;
+  padding: 10px 24px;
   border: none;
-  border-radius: 50px;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 0.938rem;
-  font-weight: 500;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
-  position: relative;
 }
 
 .fund-tab:hover {
-  color: var(--text-primary);
+  color: var(--primary-navy);
 }
 
+/* Active Tab State */
 .fund-tab.active {
-  background: var(--primary-navy);
+  background-color: var(--primary-navy);
   color: var(--text-white);
-  box-shadow: 0 2px 8px rgba(45, 53, 71, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Responsive */
+/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
-  .fund-request-page {
-    padding: 1rem 0;
-  }
-
-  .fund-card {
-    padding: 1.5rem;
-    border-radius: 12px;
-  }
-
-  .fund-card h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-
   .fund-tabs {
-    display: flex;
+    display: flex; /* Stack on mobile or scroll */
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 10px;
     width: 100%;
-    padding: 0.375rem;
-    gap: 0.375rem;
+    margin: 0 auto;
   }
 
   .fund-tab {
-    flex: 1;
-    padding: 0.625rem 1rem;
-    font-size: 0.875rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .fund-card h2 {
+    font-size: 1.25rem;
   }
 }
 
-/* Shared Submit Review Section Styles */
-.submit-review-section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.submit-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.submit-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, #50c878 0%, #3da05f 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(80, 200, 120, 0.3);
-}
-
-.submit-icon i {
-  font-size: 2.5rem;
-  color: white;
-}
-
-.submit-header h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.submit-header p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-}
-
-.submit-summary {
-  background: var(--bg-tertiary, #f8f9fa);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-color, #e0e0e0);
-}
-
-.summary-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--border-color, #e0e0e0);
-}
-
-.summary-item:last-child {
-  border-bottom: none;
-}
-
-.summary-label {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-
-.summary-value {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: right;
-  max-width: 60%;
-  word-break: break-word;
-}
-
-.summary-value.amount {
-  color: #50c878;
-  font-size: 1.25rem;
-}
-
-.submit-notice {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.submit-notice i {
-  color: #ffc107;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  margin-top: 0.125rem;
-}
-
-.submit-notice div {
-  font-size: 0.938rem;
-  color: #856404;
-  line-height: 1.6;
-}
-
-.submit-notice strong {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-}
-
-/* Responsive for Submit Review */
-@media (max-width: 768px) {
-  .submit-review-section {
-    padding: 1rem;
+/* Extra small devices */
+@media (max-width: 480px) {
+  .fund-request-page {
+    padding: 1rem 0.5rem;
   }
-
-  .submit-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .submit-icon i {
-    font-size: 2rem;
-  }
-
-  .submit-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .submit-header p {
-    font-size: 1rem;
-  }
-
-  .submit-summary {
-    padding: 1.5rem;
-  }
-
-  .summary-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .summary-value {
-    max-width: 100%;
-    text-align: left;
-  }
-
-  .submit-notice {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 0.75rem;
+  
+  .fund-card {
+    padding: 1.5rem 1rem;
   }
 }

@@ -1,5 +1,5 @@
 // Profile.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import { useAppContext } from "../../Context/AppContext";
 import Loader from "../../components/Loader/Loader";
@@ -7,16 +7,21 @@ import { formatCurrency, getStatusColor } from "../../Utils/utility";
 import Personal from "./Tabs/Personal/Personal";
 import KycDetails from "./Tabs/KYC/KycDetails";
 import Bank from "./Tabs/Bank/Bank";
-import Transactions from "./Tabs/Transactions/Transactions";
+import FundRequests from "./Tabs/FundRequests/FundRequests";
+import PropertySelling from "./Tabs/PropertySelling/PropertySelling";
 import ProfileUpdateModal from "./Modals/ProfileUpdateModal/ProfileUpdateModal";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import api from "../../Configs/axios";
 
 const Profile = () => {
   const { loading, user } = useAppContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [fundRequests, setFundRequests] = useState([]);
+  const [propertySellings, setPropertySellings] = useState([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
 
-  const TABS = ["personal", "kyc", "bank", "transactions", "settings"];
+  const TABS = ["personal", "kyc", "bank", "fund-requests", "property-selling", "settings"];
   const activeTab = TABS.includes(searchParams.get("tab"))
     ? searchParams.get("tab")
     : "personal";
@@ -28,17 +33,37 @@ const Profile = () => {
 
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!user) return;
+      setLoadingRequests(true);
+      try {
+        const [fundRes, propertyRes] = await Promise.all([
+          api.get("/api/fund-request"),
+          api.get("/api/property-selling")
+        ]);
+        setFundRequests(fundRes.data.data || []);
+        setPropertySellings(propertyRes.data.data || []);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoadingRequests(false);
+      }
+    };
+    fetchUserData();
+  }, [user]);
 
   const tabs = [
     { key: "personal", icon: "fa-user", label: "Personal Info" },
     { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
     { key: "bank", icon: "fa-university", label: "Bank Details" },
-    { key: "transactions", icon: "fa-money-bill-1-wave", label: "Transactions" },
+    ...(fundRequests.length > 0 ? [{ key: "fund-requests", icon: "fa-hand-holding-usd", label: "Fund Requests" }] : []),
+    ...(propertySellings.length > 0 ? [{ key: "property-selling", icon: "fa-home", label: "Property Selling" }] : []),
   ]
 
   if (loading) return <Loader />;
 
-  // 🛡️ Safe initials
+  // Safe initials
   const initials =
     user?.fullName
       ?.split(" ")
@@ -158,7 +183,8 @@ const Profile = () => {
         {activeTab === "personal" && <Personal user={user} />}
         {activeTab === "kyc" && <KycDetails user={user} />}
         {activeTab === "bank" && <Bank user={user} />}
-        {activeTab === "transactions" && <Transactions />}
+        {activeTab === "fund-requests" && <FundRequests fundRequests={fundRequests} />}
+        {activeTab === "property-selling" && <PropertySelling propertySellings={propertySellings} />}
       </div>
 
       {/* ================= MODAL ================= */}

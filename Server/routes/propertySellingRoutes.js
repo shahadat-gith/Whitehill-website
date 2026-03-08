@@ -1,12 +1,15 @@
 import express from "express";
 import {
   submitPropertySelling,
+  getUserPropertySellings,
 } from "../controllers/propertySellingController.js";
 
 import { authMiddleware } from "../middlewares/authmiddleware.js";
 import upload from "../configs/multer.js";
 
 const propertySellingRouter = express.Router();
+
+propertySellingRouter.get("/", authMiddleware, getUserPropertySellings);
 
 propertySellingRouter.post(
   "/submit",

@@ -1,0 +1,293 @@
+/* ==========================================
+   LAYOUT & CONTAINERS
+   ========================================== */
+.pd-container {
+  padding: 2.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  animation: pdFadeIn 0.4s ease-out;
+}
+
+@keyframes pdFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.pd-header h1 {
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.pd-back-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.pd-back-btn:hover {
+  background: var(--bg-muted);
+}
+
+.pd-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ==========================================
+   MAIN CONTENT CARDS
+   ========================================== */
+.pd-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.pd-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pd-card-header h2 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+/* ==========================================
+   SPECIFICATIONS GRID
+   ========================================== */
+.pd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pd-item label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.pd-item span {
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.pd-tag {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.pd-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+/* ==========================================
+   GALLERY & DOCUMENTS
+   ========================================== */
+.pd-section-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pd-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.pd-main-img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.pd-main-img:hover {
+  transform: scale(1.05);
+  border-color: var(--color-primary);
+}
+
+.pd-doc-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pd-doc-btn {
+  padding: 12px 18px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.pd-doc-btn i {
+  color: #ef4444;
+  font-size: 1.1rem;
+}
+
+.pd-doc-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--color-primary);
+}
+
+/* ==========================================
+   SIDEBAR & ADMIN TOOLS
+   ========================================== */
+.pd-field {
+  margin-bottom: 1.5rem;
+}
+
+.pd-field label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.pd-val-asked {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  background: var(--color-secondary-soft);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.pd-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.pd-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+/* ==========================================
+   BUTTONS & STATUS
+   ========================================== */
+.pd-status-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-approved { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+
+.pd-btn-save {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.pd-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-btn-approve, .pd-btn-reject {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: filter 0.2s;
+}
+
+.pd-btn-approve { background: var(--color-success); }
+.pd-btn-reject { background: var(--color-danger); }
+
+.pd-btn-approve:hover, .pd-btn-reject:hover, .pd-btn-save:hover {
+  filter: brightness(1.1);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 1024px) {
+  .pd-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .pd-sidebar {
+    order: -1; /* Move pricing to top on mobile */
+  }
+}

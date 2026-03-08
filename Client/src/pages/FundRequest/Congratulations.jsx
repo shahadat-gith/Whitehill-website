@@ -23,7 +23,7 @@ const Congratulations = () => {
                     <h1 className="congratulations-title">Congratulations!</h1>
                     
                     <p className="congratulations-message">
-                        Your fund request has been submitted successfully.
+                        Your request has been submitted successfully.
                     </p>
                     
                     <p className="tracking-message">

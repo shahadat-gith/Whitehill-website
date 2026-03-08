@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./PaymentDetails.css";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
-import { formatAmount, formatDate } from "../../utils/utility";
+import { formatCurrency, formatDate } from "../../utils/utility";
 
 const PaymentDetails = () => {
   const navigate = useNavigate();
@@ -166,7 +166,7 @@ const PaymentDetails = () => {
 
           <div className="pdt-row">
             <span className="pdt-k">Amount</span>
-            <span className="pdt-v pdt-strong">{amountINR != null ? formatAmount(amountINR) : "-"}</span>
+            <span className="pdt-v pdt-strong">{amountINR != null ? formatCurrency(amountINR) : "-"}</span>
           </div>
 
           <div className="pdt-row">

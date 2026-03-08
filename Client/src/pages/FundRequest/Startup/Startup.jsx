@@ -11,7 +11,6 @@ import Step2StartupDetails from "./Steps/Step2StartupDetails";
 import Step3BusinessModel from "./Steps/Step3BusinessModel";
 import Step4FoundingTeam from "./Steps/Step4FoundingTeam";
 import Step5Documents from "./Steps/Step5Documents";
-import "../FundRequest.css";
 import "./Startup.css";
 
 const initialLocation = {

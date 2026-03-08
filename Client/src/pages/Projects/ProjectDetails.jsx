@@ -152,9 +152,6 @@ const ProjectDetails = () => {
                 }
                 alt={project.name}
               />
-              <div className={`pd-risk-badge ${getRiskClass(project.risk)}`}>
-                {project.risk} Risk
-              </div>
             </div>
 
             {project.images?.length > 1 && (

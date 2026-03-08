@@ -9,6 +9,9 @@ import Project from "../models/project.js";
 import Investment from "../models/investment.js";
 import User from "../models/user.js";
 import Query from "../models/query.js";
+import Startup from "../models/fundRequest/startup.js";
+import BusinessVenture from "../models/fundRequest/businessVenture.js";
+import PropertySelling from "../models/propertySelling.js";
 
 
 
@@ -956,6 +959,158 @@ export const getDashboardData = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Error retrieving dashboard data",
+      error: error.message,
+    });
+  }
+};
+
+// Fund Requests Admin Functions
+export const getAllFundRequests = async (req, res) => {
+  try {
+    const startupRequests = await Startup.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
+    const businessRequests = await BusinessVenture.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
+
+    const fundRequests = [
+      ...startupRequests.map(req => ({ ...req.toObject(), type: 'startup' })),
+      ...businessRequests.map(req => ({ ...req.toObject(), type: 'business' }))
+    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    return res.status(200).json({
+      success: true,
+      data: fundRequests,
+    });
+  } catch (error) {
+    console.error("getAllFundRequests error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving fund requests",
+      error: error.message,
+    });
+  }
+};
+
+export const getFundRequestById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Try to find in startup requests first
+    let request = await Startup.findById(id).populate('requester', 'fullName email');
+    let type = 'startup';
+
+    // If not found in startup, try business venture
+    if (!request) {
+      request = await BusinessVenture.findById(id).populate('requester', 'fullName email');
+      type = 'business';
+    }
+
+    if (!request) {
+      return res.status(404).json({
+        success: false,
+        message: "Fund request not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: { ...request.toObject(), type },
+    });
+  } catch (error) {
+    console.error("getFundRequestById error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving fund request",
+      error: error.message,
+    });
+  }
+};
+
+export const updateFundRequestStatus = async (req, res) => {
+  try {
+    const { id, type, status, amountAlloted } = req.body;
+
+    let model;
+    if (type === 'startup') {
+      model = Startup;
+    } else if (type === 'business') {
+      model = BusinessVenture;
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid fund request type",
+      });
+    }
+
+    const updateData = { status };
+    if (amountAlloted !== undefined) {
+      updateData.amountAlloted = amountAlloted;
+    }
+
+    const updatedRequest = await model.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedRequest) {
+      return res.status(404).json({
+        success: false,
+        message: "Fund request not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Fund request updated successfully",
+      data: updatedRequest,
+    });
+  } catch (error) {
+    console.error("updateFundRequestStatus error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error updating fund request",
+      error: error.message,
+    });
+  }
+};
+
+// Property Selling Admin Functions
+export const getAllPropertySellings = async (req, res) => {
+  try {
+    const properties = await PropertySelling.find().populate('seller', 'fullName email').sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      data: properties,
+    });
+  } catch (error) {
+    console.error("getAllPropertySellings error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving property sellings",
+      error: error.message,
+    });
+  }
+};
+
+export const updatePropertySellingStatus = async (req, res) => {
+  try {
+    const { id, status } = req.body;
+
+    const updatedProperty = await PropertySelling.findByIdAndUpdate(id, { status }, { new: true });
+
+    if (!updatedProperty) {
+      return res.status(404).json({
+        success: false,
+        message: "Property selling not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Property selling updated successfully",
+      data: updatedProperty,
+    });
+  } catch (error) {
+    console.error("updatePropertySellingStatus error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error updating property selling",
       error: error.message,
     });
   }

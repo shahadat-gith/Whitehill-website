@@ -2,14 +2,15 @@ import { NavLink } from "react-router-dom";
 
 
 const Sidebar = ({ onNavigate }) => {
-  const sidebarLinks = [
-    { to: "/", icon: "fa-solid fa-house", label: "Home" },
-    { to: "/projects", icon: "fa-solid fa-building", label: "Projects" },
-    { to: "/users", icon: "fa-solid fa-user", label: "Users" },
-    { to: "/investments", icon: "fa-solid fa-hand-holding-dollar", label: "Investments" },
-    { to: "/payment-history", icon: "fa-solid fa-clock-rotate-left", label: "Payment History" },
+const sidebarLinks = [
+    { to: "/", icon: "fa-solid fa-gauge-high", label: "Dashboard" }, // More standard for Admin Home
+    { to: "/projects", icon: "fa-solid fa-city", label: "Projects" }, // Better for Real Estate/Development
+    { to: "/users", icon: "fa-solid fa-users-gear", label: "Users" }, // Represents 'Management'
+    { to: "/investments", icon: "fa-solid fa-chart-line", label: "Investments" }, // Represents growth/equity
+    { to: "/fund-requests", icon: "fa-solid fa-file-invoice-dollar", label: "Fund Requests" }, // Represents the 'Application/Form' nature
+    { to: "/property-selling", icon: "fa-solid fa-house-chimney-window", label: "Property Selling" }, // More detailed house icon
+    { to: "/payment-history", icon: "fa-solid fa-receipt", label: "Payment History" }, // Better for financial records
   ];
-
   return (
     <aside className="sidebar">
       <ul className="sidebar-menu">

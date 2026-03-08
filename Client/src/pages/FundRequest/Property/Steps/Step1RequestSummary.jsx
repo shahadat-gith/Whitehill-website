@@ -7,7 +7,7 @@ const Step1RequestSummary = ({ amountRequested, setAmountRequested }) => {
             <div className="ifr-section-content">
                 <div className="ifr-grid ifr-grid-2">
                     <div className="ifr-field">
-                        <label>Amount Requested *</label>
+                        <label>Amount *</label>
                         <input
                             type="number"
                             value={amountRequested}

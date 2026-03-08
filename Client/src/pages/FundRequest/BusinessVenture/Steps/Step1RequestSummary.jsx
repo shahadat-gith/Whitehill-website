@@ -7,7 +7,7 @@ const Step1RequestSummary = ({ amountRequested, setAmountRequested, details, han
             <div className="bfr-section-content">
                 <div className="bfr-grid bfr-grid-2">
                     <div className="bfr-field">
-                        <label>Amount Requested *</label>
+                        <label>Amount *</label>
                         <input
                             type="number"
                             value={amountRequested}

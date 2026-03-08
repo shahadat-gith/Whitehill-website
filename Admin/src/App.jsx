@@ -15,6 +15,10 @@ import PaymentHistory from "./pages/PaymentHistory/PaymentHistory";
 import PaymentDetails from "./pages/PaymentHistory/PaymentDetails";
 import Users from "./pages/Users/Users";
 import UserDetails from "./pages/Users/UserDetails";
+import FundRequests from "./pages/FundRequests/FundRequests";
+import RequestDetails from "./pages/FundRequests/RequestDetails";
+import PropertySelling from "./pages/PropertySelling/PropertySelling";
+import PropertyDetails from "./pages/PropertySelling/PropertyDetails";
 
 
 
@@ -63,6 +67,11 @@ const App = () => {
 
                   <Route path="/payment-history" element={<PaymentHistory/>}/>
                   <Route path="/payment-history/:paymentId" element={<PaymentDetails />} />
+
+                  <Route path="/fund-requests" element={<FundRequests/>}/>
+                  <Route path="/fund-requests/:requestId" element={<RequestDetails/>}/>
+                  <Route path="/property-selling" element={<PropertySelling/>}/>
+                  <Route path="/property-selling/:propertyId" element={<PropertyDetails/>}/>
 
                   <Route path="/*" element={<PageNotFound/>}/>
                 </Routes>

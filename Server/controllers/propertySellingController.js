@@ -177,3 +177,14 @@ export const submitPropertySelling = async (req, res) => {
   }
 };
 
+export const getUserPropertySellings = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const properties = await PropertySelling.find({ seller: userId }).sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, data: properties });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

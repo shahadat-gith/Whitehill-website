@@ -5,10 +5,9 @@ export const formatDate = (dateStr) => {
     return d.toLocaleString();
 };
 
-export const formatAmount = (amt) => {
-    if (amt === null || amt === undefined) return "-";
-    // if you store paise, change this to amt/100
-    return `₹${Number(amt).toLocaleString("en-IN")}`;
+export const formatCurrency = (amount) => {
+  if (amount === null || amount === undefined || amount === 0) return "₹0";
+  return `₹${Number(amount).toLocaleString("en-IN")}`;
 };
 
 export const getRiskClass = (risk) => {

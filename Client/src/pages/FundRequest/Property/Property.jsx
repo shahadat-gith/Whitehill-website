@@ -11,8 +11,7 @@ import Step3ProjectDetails from "./Steps/Step3ProjectDetails";
 import Step4CostDetails from "./Steps/Step4CostDetails";
 import Step5RiskDisclosure from "./Steps/Step5RiskDisclosure";
 import Step6Documents from "./Steps/Step6Documents";
-import "../FundRequest.css";
-import "./Individual.css";
+import "./Property.css";
 
 const initialLocation = {
     village: "",
@@ -51,7 +50,7 @@ const initialDocs = {
     financialModel: null,
 };
 
-const Individual = () => {
+const Property = () => {
     const { user } = useAppContext();
     const navigate = useNavigate();
 
@@ -330,4 +329,4 @@ const Individual = () => {
     );
 };
 
-export default Individual;
+export default Property;

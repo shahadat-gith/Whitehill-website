@@ -5,9 +5,13 @@ import { authMiddleware } from "../middlewares/authmiddleware.js";
 import {
   createStartupFundRequest,
   createBusinessVentureFundRequest,
+  getUserFundRequests,
 } from "../controllers/fundRequestController.js";
 
 const fundRequestRouter = express.Router();
+
+/* ===================== GET USER FUND REQUESTS ===================== */
+fundRequestRouter.get("/", authMiddleware, getUserFundRequests);
 
 /* ===================== STARTUP FUND REQUEST ===================== */
 fundRequestRouter.post(

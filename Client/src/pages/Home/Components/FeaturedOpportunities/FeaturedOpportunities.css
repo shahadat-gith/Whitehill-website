@@ -1,0 +1,291 @@
+/* FeaturedOpportunities.css */
+
+.fo-container {
+  background-color: var(--bg-light-gray);
+  padding: 4rem 1rem;
+  min-height: 100vh;
+}
+
+.fo-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.fo-header {
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.fo-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-navy);
+  font-weight: 800;
+  position: relative;
+}
+
+.fo-header h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--primary-blue);
+  border-radius: 2px;
+}
+
+/* --- GRID LAYOUT --- */
+.fo-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.fo-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* --- SECTIONS --- */
+.fo-section h2, .fo-section h3 {
+  color: var(--primary-navy);
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.fo-section p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* --- STEPS CARD --- */
+.fo-steps-card {
+  background: var(--bg-white);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-medium);
+}
+
+.fo-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.fo-step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.fo-step-icon-wrapper {
+  position: relative;
+}
+
+.fo-step-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--text-white);
+}
+
+.fo-step-amber { background: var(--accent-yellow); color: var(--primary-navy); }
+.fo-step-pink { background: var(--accent-pink); color: #991b1b; }
+.fo-step-blue { background: var(--accent-light-blue); }
+.fo-step-green { background: var(--accent-mint); color: #065f46; }
+
+.fo-step-number {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--primary-navy);
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 2px solid white;
+}
+
+.fo-step-title {
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0 !important;
+  font-size: 1.1rem;
+}
+
+.fo-step-desc {
+  font-size: 0.85rem;
+  margin: 0 !important;
+  color: var(--text-light) !important;
+}
+
+.fo-payment-info {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.fo-payment-info i {
+  color: var(--primary-blue);
+}
+
+/* --- OPPORTUNITY CARDS --- */
+.fo-opportunities {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.fo-opportunity-card {
+  background: var(--bg-white);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+  transition: transform 0.3s ease;
+}
+
+.fo-opportunity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fo-card-image {
+  height: 180px;
+}
+
+.fo-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fo-card-content {
+  padding: 1.5rem;
+}
+
+.fo-card-content h4 {
+  color: var(--primary-navy);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.fo-card-content p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* Color accents for cards */
+.fo-card-blue { border-top: 5px solid var(--primary-blue); }
+.fo-card-pink { border-top: 5px solid var(--accent-pink); }
+.fo-card-amber { border-top: 5px solid var(--accent-yellow); }
+
+/* --- SIDEBAR ENQUIRY FORM --- */
+.fo-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.fo-enquiry-card {
+  background: var(--primary-navy);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.fo-enquiry-card h3 {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.fo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fo-form input, .fo-form textarea {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: inherit;
+}
+
+.fo-form input::placeholder, .fo-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fo-form button {
+  background: var(--accent-yellow);
+  color: var(--primary-navy);
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.fo-form button:hover {
+  background: var(--accent-light-yellow);
+}
+
+.fo-security-note {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .fo-grid {
+    grid-template-columns: 1fr;
+  }
+  .fo-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .fo-steps {
+    grid-template-columns: 1fr;
+  }
+  .fo-header h1 {
+    font-size: 2rem;
+  }
+  .fo-steps-card {
+    padding: 1.5rem;
+  }
+}

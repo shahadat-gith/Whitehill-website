@@ -181,13 +181,6 @@ const BusinessVenture = () => {
         }
     };
 
-    const resetForm = () => {
-        setAmountRequested("");
-        setLocation(initialLocation);
-        setDetails(initialDetails);
-        setDocuments(initialDocs);
-        sessionStorage.removeItem(STORAGE_KEY);
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -227,15 +220,13 @@ const BusinessVenture = () => {
             formData.append("legalDocuments", documents.legalDocuments);
             formData.append("cashFlowStatement", documents.cashFlowStatement);
 
-            const { data } = await api.post("/api/fund-request/business", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
+            const { data } = await api.post("/api/fund-request/business", formData);
 
             if (!data.success) {
                 throw new Error(data.message || "Failed to submit request");
             }
 
-            toast.success("Business fund request submitted successfully!");
+            toast.success("Your request submitted successfully!");
 
             // Clear session storage and reset form state
             sessionStorage.removeItem(STORAGE_KEY);

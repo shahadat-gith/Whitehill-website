@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./PaymentHistory.css";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
-import { formatAmount, formatDate } from "../../utils/utility";
+import { formatCurrency, formatDate } from "../../utils/utility";
 
 const PaymentHistory = () => {
   const navigate = useNavigate();
@@ -181,7 +181,7 @@ const PaymentHistory = () => {
                   return (
                     <tr key={id}>
                       <td className="pg-mono">{id}</td>
-                      <td className="pg-amount">{amount != null ? formatAmount(amount) : "-"}</td>
+                      <td className="pg-amount">{amount != null ? formatCurrency(amount) : "-"}</td>
                       <td>
                         <span className={`pg-pill ${String(p.status || "").toLowerCase()}`}>
                           {p.status || "-"}

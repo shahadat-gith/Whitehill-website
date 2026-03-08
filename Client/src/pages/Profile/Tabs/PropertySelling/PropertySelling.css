@@ -1,0 +1,146 @@
+/* PropertySelling.css */
+
+.ps-container {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.ps-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1rem;
+}
+
+.ps-header-flex h3 {
+  color: var(--primary-navy);
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ps-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  background: var(--bg-card);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* --- EMPTY STATE --- */
+.ps-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fafafa;
+  border-radius: 16px;
+  border: 2px dashed var(--border-medium);
+}
+
+.ps-empty i {
+  font-size: 2.5rem;
+  color: var(--border-medium);
+  margin-bottom: 1rem;
+}
+
+/* --- LIST ROWS --- */
+.ps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ps-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: center;
+  background: var(--bg-white);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-medium);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.ps-row:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(4px);
+}
+
+.ps-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ps-main {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ps-icon-box {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-light-gray);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-navy);
+  font-size: 1.1rem;
+}
+
+.ps-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.ps-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+}
+
+.ps-type {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.ps-date {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 500;
+  padding-left: 1rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .ps-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .ps-status-col {
+    align-items: flex-end;
+  }
+
+  .ps-date {
+    grid-column: span 2;
+    padding: 0;
+    border-top: 1px solid var(--bg-light-gray);
+    padding-top: 0.75rem;
+    text-align: center;
+  }
+}

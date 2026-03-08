@@ -1,77 +1,56 @@
 import React from 'react';
 import './Stats.css';
-import gpayLogo from './gpay.png'
-import razorpayLogo from './razorpay.png'
 
 const Stats = () => {
-
-  const partners = [
+  // Centralized Data Object
+  const statsData = [
     {
       id: 1,
-      name: "Google Pay",
-      logo: gpayLogo,
+      value: "27+",
+      label: "Institutional Investors",
+      sublabel: "Verified HNI & Network",
+      icon: "fa-users",
+      color: "stat-blue"
     },
     {
       id: 2,
-      name: "Razorpay",
-      logo: razorpayLogo,
+      value: "₹17,000Cr",
+      label: "Asset Valuation",
+      sublabel: "Total Managed Portfolio",
+      icon: "fa-chart-pie",
+      color: "stat-yellow"
     },
-  ]
+    {
+      id: 3,
+      value: "Performance",
+      label: "Linked Returns",
+      sublabel: "Milestone-Driven Model",
+      icon: "fa-arrow-trend-up",
+      color: "stat-mint"
+    }
+  ];
+
   return (
     <section className="stats-section">
       <div className="stats-container">
-        <h2 className="stats-title">Trust Stats</h2>
-
-        <div className="stats-grid">
-          {/* Investors Stat */}
-          <div className="stat-card">
-            <div className="stat-icon-wrapper stat-icon-blue">
-              <span className="stat-number">27</span>
-            </div>
-            <div className="stat-info">
-              <p className="stat-label">Investors</p>
-            </div>
-          </div>
-
-          {/* AUM Stat */}
-          <div className="stat-card stat-card-highlight">
-            <div className="stat-icon-wrapper stat-icon-yellow">
-              <span className="stat-currency">₹</span>
-            </div>
-            <div className="stat-info">
-              <p className="stat-value">17,000,000,000,000</p>
-              <p className="stat-label-small">AUM</p>
-              <p className="stat-sublabel">Hold dollars.</p>
-            </div>
-          </div>
-
-          {/* ROI Stat */}
-          <div className="stat-card">
-            <div className="stat-icon-wrapper stat-icon-light-blue">
-              <svg className="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-            </div>
-            <div className="stat-info">
-              <p className="stat-value">0.00%</p>
-              <p className="stat-label-small">permitted ROI,</p>
-              <p className="stat-sublabel">performance, linked only.</p>
-            </div>
-          </div>
+        <div className="stats-header">
+          <h2 className="stats-title">Platform Trust Metrics</h2>
+          <div className="stats-underline"></div>
         </div>
 
-        {/* Payment Partners */}
-        <div className="payment-partners">
-          {
-            partners.map((partner, index) => {
-              return (
-                <div className="partner-logo" key={index}>
-                  <img src={partner.logo} alt="gpay-logo" style={{ width: "40px", borderRadius: "50%" }} />
-                  <span>{partner.name}</span>
-                </div>
-              )
-            })
-          }
+        <div className="stats-grid">
+          {statsData.map((stat) => (
+            <div key={stat.id} className={`stat-card ${stat.id === 2 ? 'stat-card-highlight' : ''}`}>
+              <div className={`stat-icon-wrapper ${stat.color}`}>
+                <i className={`fas ${stat.icon}`}></i>
+              </div>
+              <div className="stat-info">
+                <h3 className="stat-value">{stat.value}</h3>
+                <p className="stat-label">{stat.label}</p>
+                <p className="stat-sublabel">{stat.sublabel}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

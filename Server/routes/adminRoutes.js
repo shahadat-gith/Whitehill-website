@@ -1,7 +1,7 @@
 import express from 'express';
 import upload from "../configs/multer.js";
 
-import { adminLogin, createProject, deleteProject, getInvestments, updateInvestmentStatus, updateProject, uploadProjectImages, getInvestmentById, getPaymentHistory, getPaymentDetails, verifyKYC, getUsers, getUserById, createQuery, getQueries, replyToQuery, getDashboardData } from '../controllers/adminController.js';
+import { adminLogin, createProject, deleteProject, getInvestments, updateInvestmentStatus, updateProject, uploadProjectImages, getInvestmentById, getPaymentHistory, getPaymentDetails, verifyKYC, getUsers, getUserById, createQuery, getQueries, replyToQuery, getDashboardData, getAllFundRequests, getFundRequestById, updateFundRequestStatus, getAllPropertySellings, updatePropertySellingStatus } from '../controllers/adminController.js';
 import { adminAuth } from '../middlewares/adminMiddleware.js';
 
 const adminRouter = express.Router();
@@ -45,5 +45,14 @@ adminRouter.post("/query/reply", replyToQuery)
 
 //dashboard stats
 adminRouter.get("/dashboard/stats", getDashboardData);
+
+//fund requests
+adminRouter.get("/fund-requests/all", getAllFundRequests);
+adminRouter.get("/fund-requests/:id", getFundRequestById);
+adminRouter.post("/fund-requests/update-status", updateFundRequestStatus);
+
+//property selling
+adminRouter.get("/property-selling/all", getAllPropertySellings);
+adminRouter.post("/property-selling/update-status", updatePropertySellingStatus);
 
 export default adminRouter;

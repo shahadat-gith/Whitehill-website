@@ -1,8 +1,7 @@
 
 /* Container */
 .ifr-container {
-  max-width: 1400px;
-  margin: 0 auto;
+  margin: 0 3rem;
   padding: 2rem 1rem;
 }
 
@@ -37,6 +36,7 @@
 @media (max-width: 768px) {
   .ifr-container {
     padding: 1rem;
+    margin: 0.5rem;
   }
 
   .ifr-form {

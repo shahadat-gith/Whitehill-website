@@ -1,152 +1,138 @@
-/* StartupFundRequest.css */
+/* Startup.css */
 
-/* Container */
 .sfr-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 1rem 3rem;
+  animation: slideUp 0.4s ease-out;
 }
 
-/* Form */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .sfr-form {
-  background: var(--bg-white);
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-white);
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-medium);
+  margin-top: 2rem;
 }
 
-/* Form Actions */
+/* Action Buttons */
 .sfr-actions {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
   gap: 1rem;
+}
+
+/* Align "Next" to the right on Step 1 */
+.sfr-actions:has(button:only-child) {
   justify-content: flex-end;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-medium);
 }
 
-
-/* Form Groups */
-.sfr-form-group {
-  margin-bottom: 1.5rem;
-}
-
-.sfr-form-group label {
-  display: block;
+/* Typography for Step content */
+.sfr-form h3 {
+  color: var(--primary-navy);
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 0.938rem;
 }
 
-.sfr-form-group label .required {
-  color: var(--error);
-  margin-left: 0.25rem;
+/* Specialized Card for Founding Team (Step 4) */
+.founding-team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
 }
 
-/* Inputs */
-.sfr-input,
-.sfr-select,
-.sfr-textarea {
-  width: 100%;
-  padding: 0.75rem;
+.team-member-card {
   border: 1px solid var(--border-medium);
-  border-radius: 6px;
-  font-size: 0.938rem;
-  color: var(--text-primary);
-  transition: border-color 0.2s ease;
+  border-radius: 12px;
+  background: var(--bg-white);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
 }
 
-.sfr-input:focus,
-.sfr-select:focus,
-.sfr-textarea:focus {
-  outline: none;
+.team-member-card:hover {
+  box-shadow: var(--shadow-md);
   border-color: var(--primary-blue);
 }
 
-.sfr-textarea {
-  resize: vertical;
-  min-height: 100px;
-  font-family: inherit;
-}
-
-/* Helper Text */
-.sfr-helper-text {
-  margin-top: 0.375rem;
-  font-size: 0.813rem;
-  color: var(--text-light);
-}
-
-/* Grid Layout */
-.sfr-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.sfr-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-/* Section Title */
-.sfr-section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
-}
-
-/* Radio/Checkbox Groups */
-.sfr-radio-group {
+.team-member-header {
+  background-color: var(--bg-card);
+  padding: 0.75rem 1.25rem;
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-medium);
 }
 
-.sfr-radio-label {
+.team-member-header span {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--primary-navy);
+  text-transform: uppercase;
+}
+
+.team-member-body {
+  padding: 1.5rem;
+}
+
+/* Removal button for team members */
+.remove-member-btn {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: var(--text-primary);
-  font-size: 0.938rem;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.sfr-radio-label input[type="radio"] {
-  cursor: pointer;
+.remove-member-btn:hover {
+  background: #ef4444;
+  color: white;
 }
 
-/* Card */
-.sfr-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-medium);
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+/* Success/Spinner Icons */
+.fa-spin {
+  margin-right: 8px;
 }
 
-/* Responsive */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .sfr-container {
-    padding: 1rem;
-  }
-
   .sfr-form {
     padding: 1.5rem;
-  }
-
-  .sfr-grid-2 {
-    grid-template-columns: 1fr;
   }
 
   .sfr-actions {
     flex-direction: column-reverse;
   }
 
-  .sfr-btn {
+  .sfr-actions .btn {
     width: 100%;
-    justify-content: center;
+    margin-top: 0.5rem;
   }
+
+  .sfr-container {
+    margin: 0.5rem;
+  }
+
 }
