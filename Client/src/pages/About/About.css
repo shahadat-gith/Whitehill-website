@@ -1,252 +1,242 @@
-/* About.css */
-
+/* ===========================
+   PAGE LAYOUT & HERO
+   =========================== */
 .abt-page {
-  overflow-x: hidden;
-  background-color: var(--bg-light-gray);
+  background-color: var(--bg-main);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .abt-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 }
 
-/* --- HERO --- */
 .abt-hero {
-  background-color: var(--primary-navy);
-  padding: 8rem 0 10rem;
+  padding: 120px 0 60px;
+  background: linear-gradient(rgba(27, 67, 50, 0.05), transparent);
   text-align: center;
-  color: var(--text-white);
-  position: relative;
 }
 
 .abt-hero-tag {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 8px 16px;
-  border-radius: 99px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  padding: 8px 18px;
+  background: var(--accent-soft-green);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
 }
 
 .abt-hero-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  color: var(--text-heading);
   font-weight: 800;
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-}
-
-.abt-hero-subtitle {
-  font-size: 1.25rem;
-  opacity: 0.8;
-  max-width: 700px;
+  line-height: 1.2;
+  max-width: 850px;
   margin: 0 auto;
 }
 
-/* --- METRICS BANNER --- */
-.abt-metrics {
-  margin-top: -5rem;
+/* ===========================
+   FOUNDER & STORY SECTION
+   =========================== */
+.abt-founder {
+  padding: 100px 0;
+  background: var(--bg-surface);
+}
+
+.abt-founder-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.abt-founder-image-wrapper {
   position: relative;
-  z-index: 5;
 }
 
-.abt-metrics-banner {
-  background: var(--bg-white);
-  display: flex;
-  justify-content: space-around;
-  padding: 3rem 1rem;
-  border-radius: 1.5rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
+.abt-founder-image {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--shadow-high);
 }
 
-.abt-metric-item {
-  text-align: center;
-  flex: 1;
+.abt-founder-accent {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--color-accent);
+  border-radius: 20px;
+  z-index: 1;
 }
 
-.abt-metric-value {
+.abt-section-eyebrow {
   display: block;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary-navy);
-  margin-bottom: 4px;
-}
-
-.abt-metric-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary-soft);
   text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
-.abt-metric-divider {
-  width: 1px;
-  background: var(--border-light);
-  margin: 0 10px;
-}
-
-/* --- SECTIONS --- */
-.abt-section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.abt-section-title {
-  font-size: 2.25rem;
-  color: var(--primary-navy);
+.abt-founder-name {
+  font-size: 2.5rem;
+  color: var(--text-heading);
   font-weight: 800;
+  margin: 0;
+}
+
+.abt-founder-title {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 
 .abt-section-underline {
-  width: 60px;
+  width: 50px;
   height: 4px;
-  background: var(--primary-blue);
-  margin: 1rem auto;
-  border-radius: 2px;
+  background: var(--color-accent);
+  margin-bottom: 2rem;
 }
 
-/* --- PILLARS --- */
-.abt-pillars {
-  padding: 8rem 0;
-  background: #f8fafc;
+.abt-paragraph {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 1.5rem;
+  text-align: justify;
 }
 
-.abt-pillars-grid {
+.abt-paragraph strong {
+  color: var(--color-primary);
+}
+
+/* ===========================
+   PURPOSE (VISION/MISSION)
+   =========================== */
+.abt-purpose {
+  padding: 80px 0;
+}
+
+.abt-purpose-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
 }
 
-.abt-pillar-card {
-  background: var(--bg-white);
-  padding: 2.5rem;
-  border-radius: 1.25rem;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border-medium);
+.abt-purpose-card {
+  padding: 4rem 3rem;
+  border-radius: 24px;
+  color: white;
   transition: transform 0.3s ease;
 }
 
-.abt-pillar-card:hover {
-  transform: translateY(-10px);
-}
+.abt-purpose-card:hover { transform: translateY(-5px); }
 
-.abt-pillar-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6px;
-}
-
-.abt-pillar-accent.accent-mint { background: var(--accent-mint); }
-.abt-pillar-accent.accent-light-blue { background: var(--accent-light-blue); }
-.abt-pillar-accent.accent-pink { background: var(--accent-pink); }
-.abt-pillar-accent.accent-light-yellow { background: var(--accent-light-yellow); }
-
-.abt-pillar-icon {
-  width: 60px;
-  height: 60px;
-  background: var(--bg-light-gray);
+.abt-purpose-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(255,255,255,0.15);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: var(--primary-navy);
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 
-.abt-pillar-title {
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--primary-navy);
+.abt-vision { background: var(--color-primary); }
+.abt-mission { background: var(--color-accent); color: var(--text-heading); }
+.abt-mission h3, .abt-mission .abt-purpose-icon { color: var(--text-heading); }
+
+.abt-purpose-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; }
+.abt-purpose-card p { font-size: 1.05rem; line-height: 1.7; opacity: 0.9; }
+
+/* ===========================
+   PHILOSOPHY BOXES
+   =========================== */
+.abt-philosophy {
+  padding: 100px 0;
+  background: var(--bg-surface);
 }
 
-/* --- LIFECYCLE --- */
-.abt-lifecycle {
-  padding: 8rem 0;
-  background-color: var(--bg-white);
-}
+.abt-section-header { text-align: center; margin-bottom: 4rem; }
+.abt-section-header .abt-section-underline { margin: 1.5rem auto 0; }
 
-.abt-lifecycle-grid {
+.abt-philosophy-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 3rem;
 }
 
-.abt-lifecycle-item {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
+.abt-phil-box {
+  padding: 3rem;
+  background: var(--bg-main);
+  border-left: 5px solid var(--color-accent);
+  border-radius: 0 20px 20px 0;
+  box-shadow: var(--shadow-medium);
 }
 
-.abt-lifecycle-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--accent-light-blue2);
-  line-height: 1;
-  opacity: 0.6;
-}
-
-/* --- FAQ --- */
-.abt-faq {
-  padding: 8rem 0;
-  background: #f1f5f9;
-}
-
-.abt-faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-.abt-faq-card {
-  background: var(--bg-white);
-  padding: 2rem;
-  border-radius: 1rem;
-  border: 1px solid var(--border-medium);
-}
-
-/* --- CTA --- */
-.abt-cta {
-  padding: 8rem 0;
-}
-
-.abt-cta-wrapper {
-  background: var(--primary-navy);
-  padding: 4rem;
-  border-radius: 2rem;
-  text-align: center;
-  color: var(--text-white);
-}
-
-.abt-cta-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 800;
+.abt-phil-box h3 {
+  font-size: 1.4rem;
+  color: var(--text-heading);
   margin-bottom: 1rem;
+  font-weight: 800;
 }
 
-.abt-cta-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+.abt-phil-box p { color: var(--text-body); line-height: 1.7; }
+
+/* ===========================
+   CTA SECTION
+   =========================== */
+.abt-cta { padding: 100px 0; }
+.abt-cta-wrapper {
+  background: var(--color-primary);
+  border-radius: 30px;
+  padding: 5rem 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: var(--shadow-high);
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-  .abt-metrics-banner {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .abt-metric-divider { display: none; }
+.abt-cta-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+.abt-cta-subtitle { font-size: 1.1rem; opacity: 0.8; margin-bottom: 3rem; }
+.abt-cta-buttons { display: flex; gap: 1.5rem; justify-content: center; }
+
+.abt-cta-buttons .btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+}
+
+/* ===========================
+   ANIMATIONS & RESPONSIVE
+   =========================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+  .abt-founder-grid { grid-template-columns: 1fr; gap: 4rem; text-align: center; }
+  .abt-founder-image-wrapper { max-width: 350px; margin: 0 auto; }
+  .abt-section-underline { margin: 1rem auto 2rem; }
+  .abt-purpose-grid, .abt-philosophy-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
   .abt-cta-buttons { flex-direction: column; }
-  .abt-cta-wrapper { padding: 3rem 1.5rem; }
+  .abt-hero-title { font-size: 1.8rem; }
 }

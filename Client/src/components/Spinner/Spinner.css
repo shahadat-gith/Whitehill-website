@@ -1,69 +1,71 @@
-/* Spinner Container */
+/* ===========================
+   SPINNER CONTAINER
+   =========================== */
 .spinner-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
 }
 
-.spinner-container.spinner-small {
-  height: 24px;
+/* Size Variants */
+.spinner-small .spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
 }
 
-.spinner-container.spinner-medium {
+.spinner-medium .spinner {
+  width: 40px;
   height: 40px;
+  border-width: 3px;
 }
 
-.spinner-container.spinner-large {
+.spinner-large .spinner {
+  width: 60px;
   height: 60px;
+  border-width: 4px;
 }
 
-/* Spinner Animation */
+/* ===========================
+   SPINNER CORE
+   =========================== */
 .spinner {
+  border-style: solid;
+  border-color: var(--border-subtle);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 
-.spinner-container.spinner-small .spinner {
-  width: 16px;
-  height: 16px;
-  border-width: 2px;
+/* Color Variants */
+.spinner-primary {
+  border-top-color: var(--color-primary); /* Deep financial green */
 }
 
-.spinner-container.spinner-medium .spinner {
-  width: 24px;
-  height: 24px;
-  border-width: 3px;
+.spinner-secondary {
+  border-top-color: var(--color-accent); /* Elegant gold */
 }
 
-.spinner-container.spinner-large .spinner {
-  width: 40px;
-  height: 40px;
-  border-width: 4px;
+.spinner-white {
+  border-top-color: var(--text-on-primary);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Spinner Colors */
-.spinner.spinner-primary {
-  border: 3px solid var(--border-light);
-  border-top-color: var(--primary-navy);
-}
-
-.spinner.spinner-secondary {
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: var(--accent-yellow);
-}
-
-.spinner.spinner-white {
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: var(--bg-white);
-}
-
-.spinner.spinner-blue {
-  border: 3px solid var(--border-light);
-  border-top-color: var(--primary-blue);
-}
-
+/* ===========================
+   ANIMATIONS
+   =========================== */
 @keyframes spin {
-  to {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
     transform: rotate(360deg);
   }
+}
+
+/* Utility for Buttons */
+.btn .spinner-small {
+  padding: 0;
+  margin-right: 8px;
+  display: inline-flex;
 }

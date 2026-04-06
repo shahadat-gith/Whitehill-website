@@ -1,244 +1,119 @@
 .bn-tab-content {
-  padding: 2rem;
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.4s ease-in-out;
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ========================================
-   SECTION HEADER
-======================================== */
 
 .bn-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid var(--accent-yellow);
 }
 
 .bn-section-header h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--primary-navy);
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
   margin: 0;
 }
 
+/* Update/Add Button */
 .bn-btn-update {
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background: linear-gradient(
-    135deg,
-    var(--primary-navy) 0%,
-    var(--primary-dark) 100%
-  );
+  background: var(--btn-main-bg);
+  color: var(--text-on-primary);
   border: none;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
+  gap: 10px;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .bn-btn-update:hover {
-  background: linear-gradient(
-    135deg,
-    var(--primary-dark) 0%,
-    #151820 100%
-  );
+  background: var(--btn-main-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-medium);
 }
 
 .bn-btn-update i {
-  font-size: 1rem;
+  color: var(--accent-soft-gold); /* Gold icon on dark green button */
 }
 
-/* ========================================
-   BANK INFO GRID
-======================================== */
-
+/* Bank Info Cards Grid */
 .bn-bank-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.25rem;
 }
 
 .bn-info-card {
-  background: var(--bg-white);
-  border: 2px solid var(--bg-light-gray);
-  border-radius: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   padding: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.bn-info-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--accent-yellow);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.3s ease;
 }
 
 .bn-info-card:hover {
-  border-color: var(--primary-blue);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
-
-.bn-info-card:hover::before {
-  transform: scaleY(1);
+  border-color: var(--color-accent); /* Gold border on hover */
 }
 
 .bn-info-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
 }
 
 .bn-info-value {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--primary-navy);
-  word-break: break-word;
+  color: var(--text-body); /* Muted green-gray body text */
 }
 
-/* Full width card for branch */
+/* Full width card for Branch */
 .bn-full-width {
   grid-column: 1 / -1;
+  background: var(--bg-main); /* Slight contrast for footer-like card */
 }
 
-/* ========================================
-   EMPTY STATE
-======================================== */
-
+/* Empty State */
 .bn-empty-state {
-  background: linear-gradient(
-    135deg,
-    var(--accent-light-blue) 0%,
-    var(--accent-light-blue2) 100%
-  );
-  border: 2px dashed var(--primary-blue);
-  border-radius: 12px;
-  padding: 3rem 2rem;
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 5rem 2rem;
+  background: var(--bg-muted);
+  border-radius: 20px;
+  border: 2px dashed var(--border-strong);
 }
 
 .bn-empty-state p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin: 0;
+  color: var(--text-body);
+  font-size: 1rem;
   font-weight: 500;
 }
 
-
-
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-
-@media (max-width: 1024px) {
-  .bn-bank-info {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .bn-tab-content {
-    padding: 1.5rem;
-  }
-
   .bn-section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
 
-  .bn-section-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .bn-btn-primary {
+  .bn-btn-update {
     width: 100%;
     justify-content: center;
-  }
-
-  .bn-bank-info {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
   }
 
   .bn-info-card {
     padding: 1.25rem;
   }
-
-  .bn-empty-state {
-    padding: 2.5rem 1.5rem;
-  }
-
-}
-
-@media (max-width: 480px) {
-  .bn-tab-content {
-    padding: 1rem;
-  }
-
-  .bn-section-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .bn-section-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .bn-btn-primary {
-    padding: 0.625rem 1.25rem;
-    font-size: 0.9rem;
-  }
-
-  .bn-info-card {
-    padding: 1rem;
-  }
-
-  .bn-info-label {
-    font-size: 0.75rem;
-  }
-
-  .bn-info-value {
-    font-size: 1rem;
-  }
-
-  .bn-empty-state {
-    padding: 2rem 1rem;
-  }
-
-  .bn-empty-state p {
-    font-size: 1rem;
-  }
-
 }

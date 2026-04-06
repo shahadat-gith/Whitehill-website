@@ -25,16 +25,18 @@
   };
 
   
-  export const getStatusColor = (status) => {
-    const colors = {
-      'active': 'prf-status-active',
-      'verified': 'prf-status-verified',
-      'pending': 'prf-status-pending',
-      'suspended': 'prf-status-suspended'
-    };
-    return colors[status] || '';
+export const getStatusColor = (status) => {
+  const colors = {
+    'active':    'success',
+    'verified':  'verified',
+    'approved':  'approved',
+    'pending':   'pending',
+    'suspended': 'error',
+    'rejected':  'error',
+    'inactive':  'error',
   };
-
+  return colors[status] || '';
+};
 
    export const getStatusClass = (status) => {
     const statusClasses = {

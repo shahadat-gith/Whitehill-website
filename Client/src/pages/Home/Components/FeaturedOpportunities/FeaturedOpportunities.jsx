@@ -34,31 +34,7 @@ const FeaturedOpportunities = () => {
     }
   ];
 
-  const opportunities = [
-    {
-      title: "Luxury Apartments",
-      desc: "Invest in premium real estate starting from just ₹25 Lakhs.",
-      image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=250&fit=crop",
-      color: "fo-card-blue"
-    },
-    {
-      title: "AgriTech Harvesters",
-      desc:
-        "Early-stage funding opportunity for AI-driven agriculture startups.",
-      image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop",
-      color: "fo-card-pink"
-    },
-    {
-      title: "AgriTech Estate",
-      desc:
-        "Fractional investment available for AgriTech project — Unit A1.",
-      image:
-        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=250&fit=crop",
-      color: "fo-card-amber"
-    }
-  ];
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -116,32 +92,9 @@ const FeaturedOpportunities = () => {
                   <div className="fo-payment-info">
                     <i className="fas fa-credit-card"></i>
                     <span>
-                      Accepted Payments: UPI • Cards • Net Banking • Wallets
+                      Accepted Payments: UPI • Cards • Net Banking
                     </span>
                   </div>
-                </div>
-              </div>
-
-              {/* Opportunities */}
-              <div className="fo-section">
-                <h3>Investment Options</h3>
-
-                <div className="fo-opportunities">
-                  {opportunities.map((item, index) => (
-                    <div
-                      key={index}
-                      className={`fo-opportunity-card ${item.color}`}
-                    >
-                      <div className="fo-card-image">
-                        <img src={item.image} alt={item.title} />
-                      </div>
-
-                      <div className="fo-card-content">
-                        <h4>{item.title}</h4>
-                        <p>{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
 

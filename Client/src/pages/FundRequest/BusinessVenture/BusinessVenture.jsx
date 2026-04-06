@@ -6,8 +6,8 @@ import { useAppContext } from "../../../Context/AppContext";
 import "../FundRequest.css";
 import "./BusinessVenture.css"
 import StepProgress from "../../../components/StepProgress/StepProgress";
-import LocationStep from "../../../components/LocationStep/LocationStep";
-import SubmitReview from "../components/SubmitReview";
+import LocationStep from "../LocationStep";
+import SubmitReview from "../SubmitReview";
 import Step1RequestSummary from "./Steps/Step1RequestSummary";
 import Step3BusinessDetails from "./Steps/Step3BusinessDetails";
 import Step4RiskDisclosure from "./Steps/Step4RiskDisclosure";

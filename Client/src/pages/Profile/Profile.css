@@ -1,55 +1,60 @@
-/* Profile.css - Updated for Dynamic Tabs */
 
 .prf-profile-container {
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-body);
+  padding: 2rem 2.5rem 4rem;
   max-width: 1400px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  animation: fadeIn 0.4s ease-in-out;
+  margin: 0 auto;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ================= HEADER SECTION ================= */
+/* ══════════════════════════════════════════════════════════
+   HEADER CARD
+══════════════════════════════════════════════════════════ */
 .prf-profile-header {
-  background: var(--bg-white);
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  margin-bottom: 1.75rem;
 }
+
+
 
 .prf-profile-header-content {
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 2.5rem;
+  padding: 2rem 2.5rem;
+  flex-wrap: wrap;
 }
 
-/* Avatar Styling */
+/* ── Avatar ───────────────────────────────────────────────── */
 .prf-profile-avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .prf-profile-avatar {
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  background: var(--primary-navy);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
+  border: 3px solid var(--border-default);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 4px solid var(--accent-light-blue2);
-  flex-shrink: 0;
+  box-shadow: 0 0 0 4px var(--accent-soft-green);
+  transition: box-shadow 0.2s ease;
+}
+
+.prf-profile-avatar:hover {
+  box-shadow: 0 0 0 6px var(--accent-soft-green);
 }
 
 .prf-profile-avatar img {
@@ -59,193 +64,343 @@
 }
 
 .prf-avatar-initials {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-on-primary);
+  letter-spacing: 0.04em;
 }
 
 .prf-btn-upload {
-  background: transparent;
-  border: 1px solid var(--border-light);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  border: 1.5px solid var(--border-default);
+  background: var(--bg-surface);
+  color: var(--text-body);
+  font-size: 0.75rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
 }
 
 .prf-btn-upload:hover {
-  background: var(--bg-light-gray);
-  border-color: var(--border-medium);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--accent-soft-green);
 }
 
-/* Info & Badges */
+/* ── Info Block ───────────────────────────────────────────── */
+.prf-profile-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .prf-profile-header-info h1 {
-  font-size: 2rem;
-  color: var(--primary-navy);
-  margin-bottom: 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text-heading);
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .prf-profile-email {
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
 }
 
 .prf-profile-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .prf-badge {
-  padding: 4px 12px;
-  border-radius: 99px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Right Side Button */
-.prf-profile-header-action {
-  margin-left: auto;
-}
-
-.prf-btn-investments {
-  background: var(--primary-navy);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
   font-weight: 600;
-  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Status badge colors — map getStatusColor() classes */
+.prf-badge.success,
+.prf-badge.active,
+.prf-badge.approved,
+.prf-badge.verified {
+  background: var(--accent-soft-green);
+  color: var(--status-success);
+  border: 1px solid #b7e4c7;
+}
+
+.prf-badge.warning,
+.prf-badge.pending {
+  background: var(--accent-soft-gold);
+  color: var(--status-warning);
+  border: 1px solid #f0c070;
+}
+
+.prf-badge.error,
+.prf-badge.rejected,
+.prf-badge.inactive {
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid #f5a5a8;
+}
+
+/* ── Action Buttons ───────────────────────────────────────── */
+.prf-profile-header-action-group {
   display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.prf-btn-nav {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
   white-space: nowrap;
+  border: 1.5px solid transparent;
 }
 
-.prf-btn-investments:hover {
-  transform: translateY(-2px);
-  background: var(--primary-dark);
-  box-shadow: var(--shadow-md);
+
+.prf-btn-nav.secondary {
+  background: var(--btn-alt-bg);
+  color: var(--text-body);
+  border-color: var(--border-default);
 }
 
-/* ================= STATS GRID ================= */
+.prf-btn-nav.secondary:hover {
+  background: var(--accent-soft-green);
+  border-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* ══════════════════════════════════════════════════════════
+   STATS ROW
+══════════════════════════════════════════════════════════ */
 .prf-profile-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .prf-stat-card {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  background: #f8fafc;
-  border: 1px solid var(--border-light);
-  transition: transform 0.2s ease;
+  gap: 1rem;
+  padding: 1.25rem 2.5rem;
+  position: relative;
+  transition: background 0.18s ease;
+}
+
+.prf-stat-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--border-subtle);
 }
 
 .prf-stat-card:hover {
-  transform: scale(1.02);
+  background: var(--bg-muted);
 }
 
 .prf-stat-icon {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
-.prf-stat-invested .prf-stat-icon { background: var(--accent-light-blue2); color: var(--primary-blue); }
-.prf-stat-portfolio .prf-stat-icon { background: var(--accent-light-mint); color: #047857; }
-.prf-stat-distributions .prf-stat-icon { background: var(--accent-light-yellow2); color: #b45309; }
+.prf-stat-invested .prf-stat-icon {
+  background: var(--accent-soft-green);
+  color: var(--color-primary);
+}
 
-.prf-stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 2px; font-weight: 500; }
-.prf-stat-value { font-size: 1.25rem; font-weight: 800; color: var(--primary-navy); }
+.prf-stat-portfolio .prf-stat-icon {
+  background: var(--accent-soft-gold);
+  color: #a07430;
+}
 
-/* ================= TABS ================= */
+.prf-stat-distributions .prf-stat-icon {
+  background: var(--accent-soft-olive);
+  color: var(--status-info);
+}
+
+.prf-stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0 0 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prf-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════════════════ */
 .prf-profile-tabs {
   display: flex;
-  gap: 1rem;
-  border-bottom: 1px solid var(--border-light);
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-}
-
-.prf-profile-tabs::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
+  gap: 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 0.4rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-low);
+  width: fit-content;
 }
 
 .prf-tab {
-  background: none;
-  border: none;
-  padding: 12px 18px;
-  font-family: inherit;
-  font-weight: 600;
-  color: var(--text-light);
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  position: relative;
-  transition: color 0.2s;
-  white-space: nowrap;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: "DM Sans", sans-serif;
 }
 
-.prf-tab:hover { color: var(--primary-blue); }
+.prf-tab:hover:not(.prf-active) {
+  background: var(--bg-muted);
+  color: var(--text-body);
+}
 
 .prf-tab.prf-active {
-  color: var(--primary-navy);
+  background: var(--color-primary);
+  color: var(--text-on-primary);
+  box-shadow: var(--shadow-low);
+  font-weight: 600;
 }
 
-.prf-tab.prf-active i {
-  color: var(--primary-blue);
+.prf-tab i {
+  font-size: 0.8rem;
 }
 
-.prf-tab.prf-active::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--primary-navy);
-  border-radius: 3px;
-}
-
-/* ================= CONTENT AREA ================= */
+/* ══════════════════════════════════════════════════════════
+   CONTENT PANEL
+══════════════════════════════════════════════════════════ */
 .prf-profile-content {
-  background: var(--bg-white);
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  box-shadow: var(--shadow-md);
-  min-height: 400px;
-  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  box-shadow: var(--shadow-medium);
+  padding: 2rem 2.5rem;
+  min-height: 320px;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 992px) {
-  .prf-profile-stats { grid-template-columns: 1fr; }
-  .prf-profile-header-content { flex-direction: column; text-align: center; }
-  .prf-profile-header-action { margin-left: 0; width: 100%; }
-  .prf-btn-investments { justify-content: center; width: 100%; }
-  .prf-profile-badges { justify-content: center; }
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .prf-profile-container {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .prf-profile-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .prf-profile-avatar-section {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .prf-profile-header-action-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .prf-btn-nav {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.78rem;
+  }
+
+  .prf-profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .prf-stat-card:not(:last-child)::after {
+    top: auto;
+    bottom: 0;
+    right: 10%;
+    width: 80%;
+    height: 1px;
+    left: 10%;
+  }
+
+  .prf-stat-card {
+    padding: 1rem 1.5rem;
+  }
+
+  .prf-profile-tabs {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .prf-tab {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.78rem;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .prf-profile-content {
+    padding: 1.25rem;
+  }
 }
 
-@media (max-width: 600px) {
-  .prf-profile-header { padding: 1.5rem; }
-  .prf-profile-content { padding: 1.5rem; }
-  .prf-tab { padding: 10px 12px; font-size: 0.9rem; }
+@media (max-width: 500px) {
+  .prf-profile-header-info h1 {
+    font-size: 1.3rem;
+  }
+
+  .prf-stat-value {
+    font-size: 1.1rem;
+  }
+
+  .prf-tab span {
+    display: none;
+  }
 }
+

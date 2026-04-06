@@ -27,7 +27,7 @@ const Footer = () => {
 
         {/* CENTER SECTION */}
         <div className="footer-section footer-center">
-          <h3>QUICK LINKS</h3>
+          <h3>Company</h3>
           <ul>
             <li><a href="#">About Us</a></li>
             <li><a href="#">Terms & Conditions</a></li>
@@ -42,11 +42,6 @@ const Footer = () => {
           <h3>CONTACT US</h3>
           <p><i className="fas fa-envelope"></i> whitehilll.info@gmail.com</p>
           <p><i className="fas fa-phone"></i> +91 8474896216 | +91 7662824778</p>
-
-          <form className="subscribe-form">
-            <input type="email" placeholder="Enter your email" />
-            <button type="submit"><i className="fas fa-paper-plane"></i></button>
-          </form>
         </div>
       </div>
 

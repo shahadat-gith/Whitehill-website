@@ -1,6 +1,11 @@
+/* ===========================
+   LOCATION SECTION
+   =========================== */
 .location-section {
   padding: 2rem;
   margin-bottom: 1.5rem;
+  background-color: var(--bg-surface);
+  border-radius: 1rem;
 }
 
 .location-content {
@@ -29,30 +34,42 @@
 }
 
 .location-field label {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-heading); /* Rich dark green-black */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .location-field input {
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
   font-size: 1rem;
-  transition: all 0.2s;
-  background: white;
+  transition: all 0.2s ease;
+  background: var(--bg-white);
+  color: var(--text-body);
+  font-family: inherit;
+}
+
+.location-field input:hover {
+  border-color: var(--border-strong);
 }
 
 .location-field input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--color-primary-soft); /* Softer green focus */
+  box-shadow: 0 0 0 3px var(--accent-soft-green); /* Financial green glow */
 }
 
 .location-field input::placeholder {
-  color: #9ca3af;
+  color: var(--text-muted);
+  opacity: 0.6;
 }
 
+/* ===========================
+   RESPONSIVE BREAKPOINTS
+   =========================== */
 @media (max-width: 1024px) {
   .location-grid-4 {
     grid-template-columns: repeat(2, 1fr);

@@ -1,303 +1,203 @@
-/* ========================================
-   KYC MODAL STYLES
-======================================== */
-
 .kyc-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(45, 53, 71, 0.85);
-  backdrop-filter: blur(4px);
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 28, 21, 0.7);
+  backdrop-filter: blur(6px);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 9999;
-  padding: 1rem;
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  justify-content: center;
+  z-index: 1100;
+  padding: 1.5rem;
 }
 
 .kyc-modal {
-  background: var(--bg-white);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
+  background: var(--bg-surface);
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   max-height: 90vh;
-  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: var(--shadow-high);
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.4s ease-out;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
-
-/* ========================================
-   MODAL HEADER
-======================================== */
 
 .kyc-modal-header {
-  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
-  padding: 1.75rem 2rem;
+  padding: 1.5rem 2rem;
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid var(--accent-yellow);
 }
 
 .kyc-modal-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-white);
   margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-heading);
+  font-weight: 700;
 }
 
 .kyc-modal-close {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  color: var(--text-white);
-  font-size: 1.25rem;
+  background: var(--bg-muted);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s;
 }
 
 .kyc-modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: var(--accent-yellow);
-  transform: rotate(90deg);
+  background: var(--accent-soft-red);
+  color: var(--status-error);
 }
-
-/* ========================================
-   MODAL FORM
-======================================== */
 
 .kyc-modal-form {
   padding: 2rem;
   overflow-y: auto;
-  flex: 1;
-}
-
-.kyc-modal-section {
-  margin-bottom: 2rem;
-  padding: 1.75rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-  border: 2px solid var(--bg-light-gray);
-}
-
-.kyc-modal-section:last-of-type {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .kyc-modal-section h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary-navy);
-  margin: 0 0 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--accent-yellow);
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.25rem;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-soft-green);
+  display: inline-block;
 }
 
-/* ========================================
-   GRID LAYOUTS
-======================================== */
-
+/* Grid Layouts */
 .kyc-grid-3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 1.25rem;
 }
 
 .kyc-grid-2 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.25rem;
 }
-
-/* ========================================
-   FORM FIELDS
-======================================== */
 
 .kyc-field {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .kyc-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-body);
 }
 
 .kyc-field input[type="text"] {
-  padding: 0.875rem 1rem;
-  font-size: 1rem;
-  color: var(--text-primary);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
   background: var(--bg-white);
-  border: 2px solid var(--border-light);
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  color: var(--text-heading);
   font-family: inherit;
+  transition: border-color 0.2s;
 }
 
-.kyc-field input[type="text"]:focus {
+.kyc-field input:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
+  border-color: var(--color-primary-soft);
 }
 
-.kyc-field input[type="text"]:hover {
-  border-color: var(--border-medium);
-}
-
-/* ========================================
-   CUSTOM FILE PICKER
-======================================== */
-
+/* File Picker Styling */
 .kyc-file-picker-btn {
-  width: 100%;
-  padding: 0.875rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--primary-navy);
-  background: var(--bg-white);
-  border: 2px dashed var(--primary-navy);
-  border-radius: 8px;
+  background: var(--bg-muted);
+  border: 1px dashed var(--border-strong);
+  color: var(--text-body);
+  padding: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: inherit;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
 }
 
 .kyc-file-picker-btn:hover {
-  background: var(--accent-light-blue);
-  border-color: var(--primary-blue);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  background: var(--accent-soft-green);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
-.kyc-file-picker-btn i {
-  font-size: 1rem;
-}
-
-/* File name display */
 .kyc-file-selected {
-  margin-top: 0.5rem;
-  padding: 0.625rem 0.875rem;
-  background: var(--accent-mint);
-  border-radius: 6px;
-  font-size: 0.85rem;
-  color: var(--success);
+  font-size: 0.75rem;
+  color: var(--status-success);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+  gap: 5px;
+  margin-top: 4px;
   word-break: break-all;
 }
 
-.kyc-file-selected i {
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-/* ========================================
-   ERROR MESSAGE
-======================================== */
-
 .kyc-modal-error {
-  margin: 1.5rem 0 0;
-  padding: 1rem 1.25rem;
-  background: var(--accent-pink);
-  color: #c62828;
-  border: 2px solid var(--error);
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  padding: 10px;
   border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   text-align: center;
+  font-weight: 600;
 }
 
-/* ========================================
-   MODAL ACTIONS
-======================================== */
-
+/* Footer Actions */
 .kyc-modal-actions {
   display: flex;
-  gap: 1rem;
   justify-content: flex-end;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid var(--bg-light-gray);
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .kyc-btn-secondary {
-  padding: 0.875rem 1.75rem;
-  font-size: 1rem;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-body);
+  padding: 10px 20px;
+  border-radius: 10px;
   font-weight: 600;
-  color: var(--text-primary);
-  background: var(--bg-white);
-  border: 2px solid var(--border-light);
-  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.kyc-btn-secondary:hover {
-  background: var(--bg-light-gray);
-  border-color: var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
 }
 
 .kyc-btn-primary {
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
+  background: var(--btn-main-bg);
+  color: var(--text-on-primary);
   border: none;
-  border-radius: 8px;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  transition: background 0.2s;
 }
 
 .kyc-btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #151820 100%);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  background: var(--btn-main-hover);
 }
 
 .kyc-btn-primary:disabled {
@@ -305,101 +205,8 @@
   cursor: not-allowed;
 }
 
-.kyc-btn-primary i {
-  font-size: 1rem;
-}
-
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-
 @media (max-width: 768px) {
-  .kyc-modal {
-    max-width: 95%;
-    max-height: 95vh;
-  }
-
-  .kyc-modal-header {
-    padding: 1.5rem 1.5rem;
-  }
-
-  .kyc-modal-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .kyc-modal-form {
-    padding: 1.5rem;
-  }
-
-  .kyc-modal-section {
-    padding: 1.5rem;
-  }
-
-  .kyc-grid-3 {
+  .kyc-grid-3, .kyc-grid-2 {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .kyc-grid-2 {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .kyc-modal-actions {
-    flex-direction: column-reverse;
-  }
-
-  .kyc-btn-secondary,
-  .kyc-btn-primary {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .kyc-modal-backdrop {
-    padding: 0.5rem;
-  }
-
-  .kyc-modal-header {
-    padding: 1.25rem 1rem;
-  }
-
-  .kyc-modal-header h2 {
-    font-size: 1.15rem;
-  }
-
-  .kyc-modal-close {
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-  }
-
-  .kyc-modal-form {
-    padding: 1.25rem;
-  }
-
-  .kyc-modal-section {
-    padding: 1.25rem;
-  }
-
-  .kyc-modal-section h3 {
-    font-size: 1.05rem;
-  }
-
-  .kyc-field input[type="text"] {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.95rem;
-  }
-
-  .kyc-field:has(input[type="file"])::after {
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-  }
-
-  .kyc-btn-secondary,
-  .kyc-btn-primary {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
   }
 }

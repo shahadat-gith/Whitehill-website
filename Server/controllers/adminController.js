@@ -1026,7 +1026,7 @@ export const getFundRequestById = async (req, res) => {
 
 export const updateFundRequestStatus = async (req, res) => {
   try {
-    const { id, type, status, amountAlloted } = req.body;
+    const { id, type, status, amountAlloted,rejectionReason="" } = req.body;
 
     let model;
     if (type === 'startup') {
@@ -1040,9 +1040,18 @@ export const updateFundRequestStatus = async (req, res) => {
       });
     }
 
+    if(status === "rejected"){
+      model.rejectionReason = String(rejectionReason).trim() || "No reason provided";
+      return res.status(200).json({
+        success: true,
+        message: "Fund request rejected successfully",
+      });
+    }
+
     const updateData = { status };
     if (amountAlloted !== undefined) {
       updateData.amountAlloted = amountAlloted;
+      updateData.processedAt = new Date();
     }
 
     const updatedRequest = await model.findByIdAndUpdate(id, updateData, { new: true });

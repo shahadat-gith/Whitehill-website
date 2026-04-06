@@ -16,7 +16,9 @@ const propertySchema = new mongoose.Schema(
         },
 
         location: locationSchema,
-        amountRequested: { type: Number, required: true },
+        amountRequested: { type: Number, required: true, min: 1 },
+        amountAlloted: { type: Number, default: 0 },
+
 
         status: {
             type: String,
@@ -24,7 +26,9 @@ const propertySchema = new mongoose.Schema(
             default: "pending",
         },
 
-        rejectionReason: { type: String, default: "" },
+        processedAt: { type: Date, default: null },
+        rejectionReason: { type: String, default: null },
+
         purpose: {
             type: String,
             enum: ["project_development", "land_purchase"],

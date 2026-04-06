@@ -38,26 +38,49 @@ const SellPropertyInstructions = () => {
 
                 <ul className="spi-list">
                   <li className="spi-list-item">
-                    Select the correct property type (Land / Built Property) and enter
-                    a realistic asking price.
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Select the correct property type (Land / Built Property) and enter
+                      a realistic asking price.
+                    </span>
                   </li>
+
                   <li className="spi-list-item">
-                    Provide exact land or property details as per official documents
-                    (Dag Number, Patta Number, Area, Bedrooms, etc.).
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Provide exact land or property details as per official documents
+                      (Dag Number, Patta Number, Area, Bedrooms, etc.).
+                    </span>
                   </li>
+
                   <li className="spi-list-item">
-                    Enter complete and accurate location details including Village,
-                    Mouza, PO, PS, District, State, and Pincode.
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Enter complete and accurate location details including Village,
+                      Mouza, PO, PS, District, State, and Pincode.
+                    </span>
                   </li>
+
                   <li className="spi-list-item">
-                    Upload clear ownership proof and required supporting documents.
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Upload clear ownership proof and required supporting documents.
+                    </span>
                   </li>
+
                   <li className="spi-list-item">
-                    Upload high-quality property images (minimum 4 recommended).
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Upload high-quality property images (minimum 4 recommended).
+                    </span>
                   </li>
+
                   <li className="spi-list-item">
-                    Ensure the property is legally owned by you or you are authorized
-                    to sell it.
+                    <i className="fa-solid fa-circle-check spi-icon"></i>
+                    <span>
+                      Ensure the property is legally owned by you or you are authorized
+                      to sell it.
+                    </span>
                   </li>
                 </ul>
 

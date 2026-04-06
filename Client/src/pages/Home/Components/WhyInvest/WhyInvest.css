@@ -1,11 +1,9 @@
-/* WhyInvest.css */
-
+/* ===========================
+   SECTION CONTAINER
+   =========================== */
 .why-invest {
-  padding: 5rem 2rem;
-  background-color: var(--bg-white);
-  border-radius: 40px;
-  max-width: 1400px; 
-  margin: 0 auto;
+  padding: 80px 20px;
+  background-color: var(--bg-main); /* Warm off-white */
 }
 
 .why-header {
@@ -15,73 +13,70 @@
 
 .why-header h2 {
   font-size: 2.25rem;
-  color: var(--primary-navy);
   font-weight: 800;
-  letter-spacing: 1px;
+  color: var(--text-heading); /* Rich dark green */
+  letter-spacing: -0.02em;
   position: relative;
   display: inline-block;
-  text-transform: uppercase;
 }
 
 .why-header h2::after {
   content: "";
   position: absolute;
-  bottom: -12px;
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: var(--primary-blue);
+  background-color: var(--color-accent); /* Gold Accent */
   border-radius: 2px;
 }
 
-/* --- CARDS GRID --- */
+/* ===========================
+   CARDS GRID
+   =========================== */
 .cards-container {
+  max-width: 1400px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
 .invest-card {
+  background: var(--bg-surface);
+  border-radius: 24px;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  padding: 3rem;
-  border-radius: 2rem;
+  justify-content: space-between;
+  border: 1px solid var(--border-subtle);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-  height: 100%;
+  box-shadow: var(--shadow-low);
 }
 
 .invest-card:hover {
   transform: translateY(-10px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-high);
+  border-color: var(--color-accent);
 }
 
-/* Color Variants */
-.invest-card.pink { background-color: var(--accent-pink); border-color: var(--accent-light-pink); }
-.invest-card.yellow { background-color: var(--accent-light-yellow); border-color: var(--accent-light-yellow2); }
-.invest-card.blue { background-color: var(--bg-card); border-color: var(--accent-light-blue2); }
-.invest-card.mint { background-color: var(--accent-mint); border-color: var(--accent-light-mint); }
-
-/* --- CARD CONTENT --- */
-.card-header h3 {
-  font-size: 1.5rem;
-  color: var(--primary-navy);
+/* ===========================
+   CARD CONTENT
+   =========================== */
+.invest-card h3 {
+  font-size: 1.4rem;
   font-weight: 700;
-  line-height: 1.3;
+  color: var(--text-heading);
+  line-height: 1.4;
   margin-bottom: 1.5rem;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  min-height: 4rem;
 }
 
 .invest-card .desc {
   font-size: 1rem;
+  color: var(--text-body);
   line-height: 1.6;
-  color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
 
@@ -89,66 +84,61 @@
   list-style: none;
   padding: 0;
   margin: 0 0 2.5rem 0;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.invest-card ul li {
-  position: relative;
-  padding-left: 1.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  line-height: 1.4;
+.invest-card li {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.invest-card ul li::before {
-  content: "\f054"; /* FontAwesome angle-right */
-  font-family: "Font Awesome 5 Free";
+.invest-card li::before {
+  content: "\f058"; /* FontAwesome check-circle */
+  font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  position: absolute;
-  left: 0;
-  color: var(--primary-blue);
-  font-size: 0.8rem;
-  top: 3px;
+  color: var(--color-primary);
 }
 
-/* --- BUTTON --- */
-.invest-card .btn {
+/* ===========================
+   COLOR VARIANTS (Mapped to your Theme)
+   =========================== */
+.invest-card.pink { background-color: var(--accent-soft-gold); }
+.invest-card.yellow { background-color: var(--accent-soft-olive); }
+.invest-card.blue { background-color: var(--accent-soft-green); }
+.invest-card.mint { background-color: #f1f8f4; } /* Subtle custom mix */
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.invest-card .btn-primary {
+  background-color: var(--btn-main-bg);
+  color: var(--text-on-primary);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
   align-self: flex-start;
-  margin-top: auto;
-  min-width: 160px;
-  text-align: center;
 }
 
+.invest-card .btn-primary:hover {
+  background-color: var(--btn-main-hover);
+  transform: scale(1.05);
+}
 
-/* ============================================================
-   RESPONSIVE QUERIES
-   ============================================================ */
-
-/* Tablet & Mobile: Switch to 1 column from 768px downwards */
+/* ===========================
+   RESPONSIVE
+   =========================== */
 @media (max-width: 768px) {
-  .cards-container {
-    grid-template-columns: 1fr; 
-    gap: 1.5rem;
-  }
-
-  .invest-card {
-    padding: 2rem;
-  }
-
-  .why-header h2 {
-    font-size: 1.75rem;
-  }
-
-  .why-invest {
-    padding: 3rem 1rem;
-  }
-}
-
-/* Medium screens: Adjust padding slightly */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .invest-card {
-    padding: 2.25rem;
-  }
+  .why-header h2 { font-size: 1.75rem; }
+  .invest-card { padding: 1.75rem; }
+  .invest-card h3 { min-height: auto; }
 }

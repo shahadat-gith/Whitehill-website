@@ -1,79 +1,101 @@
-/* Step1BasicInfo.css */
-
+/* ===========================
+   STEP 1 SECTION
+   =========================== */
 .sp1-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  width: 100%;
 }
 
 .sp1-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
+/* ===========================
+   FIELD STYLING
+   =========================== */
 .sp1-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.5rem;
 }
 
+/* For the textarea to span full width */
 .sp1-field-full {
-  grid-column: 1 / -1;
+  grid-column: span 2;
 }
 
 .sp1-field label {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-heading); /* Deep financial green */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .sp1-field input,
 .sp1-field select,
 .sp1-field textarea {
-  width: 100%;
-  padding: 11px 14px;
-  font-size: 14px;
-  color: var(--text-primary);
-  background-color: var(--bg-white);
-  border: 1.5px solid var(--border-medium);
-  border-radius: 9px;
-  outline: none;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 1rem;
   font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.sp1-field input:focus,
-.sp1-field select:focus,
-.sp1-field textarea:focus {
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.12);
+  color: var(--text-body);
+  background: var(--bg-surface);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sp1-field input::placeholder,
 .sp1-field textarea::placeholder {
-  color: var(--text-light);
+  color: var(--text-muted);
+  opacity: 0.6;
 }
 
+/* ===========================
+   INTERACTIVE STATES
+   =========================== */
+.sp1-field input:focus,
+.sp1-field select:focus,
+.sp1-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-soft); /* Softer green focus */
+  background: white;
+  box-shadow: 0 0 0 4px var(--accent-soft-green); /* Subtle green glow */
+}
+
+.sp1-field input:hover,
+.sp1-field select:hover,
+.sp1-field textarea:hover {
+  border-color: var(--border-strong);
+}
+
+/* Specific styling for the select dropdown */
 .sp1-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6273' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 38px;
   cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231B4332'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
 }
 
-.sp1-field textarea {
-  resize: vertical;
-  min-height: 110px;
-  line-height: 1.65;
-}
-
-@media (max-width: 640px) {
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 600px) {
   .sp1-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .sp1-field-full {
+    grid-column: span 1;
+  }
+  
+  .sp1-field input,
+  .sp1-field select,
+  .sp1-field textarea {
+    font-size: 0.95rem;
   }
 }

@@ -1,9 +1,9 @@
-/* FeaturedOpportunities.css */
-
+/* ===========================
+   CONTAINER & WRAPPER
+   =========================== */
 .fo-container {
-  background-color: var(--bg-light-gray);
-  padding: 4rem 1rem;
-  min-height: 100vh;
+  padding: 80px 20px;
+  background-color: var(--bg-main); /* Warm off-white */
 }
 
 .fo-wrapper {
@@ -11,172 +11,151 @@
   margin: 0 auto;
 }
 
-/* --- HEADER --- */
 .fo-header {
-  margin-bottom: 3rem;
-  text-align: left;
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .fo-header h1 {
   font-size: 2.5rem;
-  color: var(--primary-navy);
   font-weight: 800;
-  position: relative;
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
 }
 
-.fo-header h1::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: var(--primary-blue);
-  border-radius: 2px;
-}
-
-/* --- GRID LAYOUT --- */
+/* ===========================
+   GRID LAYOUT
+   =========================== */
 .fo-grid {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 400px;
   gap: 3rem;
   align-items: start;
 }
 
-.fo-main {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-/* --- SECTIONS --- */
+/* ===========================
+   LEFT CONTENT (HOW IT WORKS)
+   =========================== */
 .fo-section h2, .fo-section h3 {
-  color: var(--primary-navy);
-  font-size: 1.75rem;
+  color: var(--text-heading);
   margin-bottom: 1rem;
-  font-weight: 700;
 }
 
 .fo-section p {
-  color: var(--text-secondary);
-  line-height: 1.6;
+  color: var(--text-body);
   margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-/* --- STEPS CARD --- */
 .fo-steps-card {
-  background: var(--bg-white);
-  border-radius: 1.5rem;
+  background: var(--bg-surface);
+  border-radius: 24px;
   padding: 2.5rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-low);
 }
 
 .fo-steps {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-bottom: 2.5rem;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .fo-step {
   display: flex;
   gap: 1.25rem;
-  align-items: flex-start;
 }
 
 .fo-step-icon-wrapper {
   position: relative;
+  flex-shrink: 0;
 }
 
 .fo-step-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  color: var(--text-white);
 }
 
-.fo-step-amber { background: var(--accent-yellow); color: var(--primary-navy); }
-.fo-step-pink { background: var(--accent-pink); color: #991b1b; }
-.fo-step-blue { background: var(--accent-light-blue); }
-.fo-step-green { background: var(--accent-mint); color: #065f46; }
+/* Step Colors Mapped to Theme */
+.fo-step-amber { background: var(--accent-soft-gold); color: var(--status-warning); }
+.fo-step-pink { background: var(--accent-soft-red); color: var(--status-error); }
+.fo-step-blue { background: var(--accent-soft-green); color: var(--color-primary); }
+.fo-step-green { background: var(--accent-soft-olive); color: var(--status-success); }
 
 .fo-step-number {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--primary-navy);
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
   color: white;
-  width: 20px;
-  height: 20px;
   border-radius: 50%;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  border: 2px solid white;
+  border: 2px solid var(--bg-surface);
 }
 
 .fo-step-title {
   font-weight: 700;
-  color: var(--primary-navy);
-  margin: 0 !important;
-  font-size: 1.1rem;
+  color: var(--text-heading);
+  margin: 0 0 4px 0;
 }
 
 .fo-step-desc {
   font-size: 0.85rem;
-  margin: 0 !important;
-  color: var(--text-light) !important;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .fo-payment-info {
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-subtle);
   padding-top: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  font-weight: 500;
+  gap: 12px;
+  color: var(--text-body);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-.fo-payment-info i {
-  color: var(--primary-blue);
-}
+.fo-payment-info i { color: var(--color-accent); }
 
-/* --- OPPORTUNITY CARDS --- */
+/* ===========================
+   OPPORTUNITY CARDS
+   =========================== */
 .fo-opportunities {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 .fo-opportunity-card {
-  background: var(--bg-white);
-  border-radius: 1rem;
+  background: var(--bg-surface);
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--border-medium);
-  transition: transform 0.3s ease;
+  border: 1px solid var(--border-default);
+  transition: all 0.3s ease;
 }
 
 .fo-opportunity-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
-
-.fo-card-image {
-  height: 180px;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-medium);
 }
 
 .fo-card-image img {
   width: 100%;
-  height: 100%;
+  height: 180px;
   object-fit: cover;
 }
 
@@ -185,107 +164,99 @@
 }
 
 .fo-card-content h4 {
-  color: var(--primary-navy);
+  color: var(--text-heading);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
 .fo-card-content p {
   font-size: 0.9rem;
+  color: var(--text-body);
   margin: 0;
-  color: var(--text-secondary);
 }
 
-/* Color accents for cards */
-.fo-card-blue { border-top: 5px solid var(--primary-blue); }
-.fo-card-pink { border-top: 5px solid var(--accent-pink); }
-.fo-card-amber { border-top: 5px solid var(--accent-yellow); }
+/* Opportunity specific subtle tints */
+.fo-card-blue { border-bottom: 4px solid var(--color-primary); }
+.fo-card-pink { border-bottom: 4px solid var(--status-error); }
+.fo-card-amber { border-bottom: 4px solid var(--color-accent); }
 
-/* --- SIDEBAR ENQUIRY FORM --- */
-.fo-sidebar {
-  position: sticky;
-  top: 2rem;
-}
-
+/* ===========================
+   RIGHT SIDEBAR (ENQUIRY)
+   =========================== */
 .fo-enquiry-card {
-  background: var(--primary-navy);
+  background: var(--color-primary); /* Deep Green Sidebar */
   padding: 2.5rem;
-  border-radius: 1.5rem;
+  border-radius: 24px;
   color: white;
-  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 120px;
 }
 
 .fo-enquiry-card h3 {
-  color: white;
+  color: var(--color-accent); /* Gold Header */
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  gap: 12px;
 }
 
 .fo-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .fo-form input, .fo-form textarea {
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: none;
   background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px;
+  border-radius: 12px;
   color: white;
   font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
 }
 
-.fo-form input::placeholder, .fo-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+.fo-form input:focus, .fo-form textarea:focus {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .fo-form button {
-  background: var(--accent-yellow);
-  color: var(--primary-navy);
-  padding: 14px;
-  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-primary);
   border: none;
-  font-weight: 700;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 800;
   cursor: pointer;
-  transition: background 0.2s;
-  margin-top: 0.5rem;
+  transition: all 0.2s;
 }
 
 .fo-form button:hover {
-  background: var(--accent-light-yellow);
+  background: var(--accent-soft-gold);
+  transform: translateY(-2px);
 }
 
 .fo-security-note {
   margin-top: 1.5rem;
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
   display: flex;
   align-items: center;
   gap: 8px;
+  opacity: 0.7;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 1024px) {
-  .fo-grid {
-    grid-template-columns: 1fr;
-  }
-  .fo-sidebar {
-    position: static;
-  }
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 1100px) {
+  .fo-grid { grid-template-columns: 1fr; }
+  .fo-enquiry-card { position: static; }
 }
 
 @media (max-width: 600px) {
-  .fo-steps {
-    grid-template-columns: 1fr;
-  }
-  .fo-header h1 {
-    font-size: 2rem;
-  }
-  .fo-steps-card {
-    padding: 1.5rem;
-  }
+  .fo-steps { grid-template-columns: 1fr; }
+  .fo-header h1 { font-size: 2rem; }
+  .fo-steps-card { padding: 1.5rem; }
 }

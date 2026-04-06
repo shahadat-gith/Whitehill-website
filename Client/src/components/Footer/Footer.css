@@ -1,162 +1,194 @@
 .footer {
-  background-color: var(--bg-card);
-  color: var(--text-primary);
-  padding: 3rem 2rem 1.5rem;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: var(--shadow-md);
-  margin-top: 40px;
+  background-color: var(--color-primary); /* Deep financial green */
+  color: var(--text-on-primary);
+  padding: 4rem 0 0 0;
+  font-family: inherit;
 }
 
 .footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
-  gap: 2rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
 }
 
-/* === LEFT SECTION === */
-.footer-left {
-  flex: 1 1 300px;
-}
-
+/* ===========================
+   LEFT SECTION
+   =========================== */
 .footer-logo {
-  width: 140px;
-  margin-bottom: 1rem;
+  height: 45px;
+  margin-bottom: 1.5rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Makes logo white if it's dark */
 }
 
 .footer-description {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  color: var(--accent-soft-green); /* Softer green for text on dark bg */
+  font-size: 0.9rem;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 450px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
 }
 
 .footer-social a {
-  display: inline-block;
-  color: var(--primary-blue);
-  font-size: 1rem;
-  margin-right: 10px;
-  background: var(--bg-light-gray);
-  padding: 10px;
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-primary-soft);
+  color: var(--text-on-primary);
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-sm);
 }
 
 .footer-social a:hover {
-  color: var(--accent-yellow);
-  background: var(--accent-light-blue);
+  background-color: var(--color-accent); /* Gold hover */
   transform: translateY(-3px);
+  color: var(--color-primary);
 }
 
-/* === CENTER SECTION === */
-.footer-center {
-  flex: 1 1 200px;
-}
-
-.footer-center h3 {
-  color: var(--primary-blue);
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+/* ===========================
+   CENTER & RIGHT SECTIONS
+   =========================== */
+.footer-section h3 {
+  color: var(--color-accent); /* Gold headings */
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1.5px;
 }
 
 .footer-center ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.footer-center ul li {
-  margin-bottom: 0.6rem;
+.footer-center li {
+  margin-bottom: 0.75rem;
 }
 
-.footer-center ul li a {
-  color: var(--text-primary);
+.footer-center a {
+  color: var(--text-on-primary);
   text-decoration: none;
-  transition: color 0.3s;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  opacity: 0.8;
 }
 
-.footer-center ul li a:hover {
-  color: var(--accent-yellow);
-}
-
-/* === RIGHT SECTION === */
-
-
-.footer-right h3 {
-  color: var(--primary-blue);
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+.footer-center a:hover {
+  color: var(--color-accent);
+  opacity: 1;
+  padding-left: 5px;
 }
 
 .footer-right p {
-  color: var(--text-secondary);
-  margin: 6px 0;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
 }
 
 .footer-right i {
-  color: var(--accent-yellow);
-  margin-right: 8px;
+  color: var(--color-accent);
 }
 
-/* Subscribe Form */
+/* ===========================
+   SUBSCRIBE FORM
+   =========================== */
 .subscribe-form {
   display: flex;
-  margin-top: 1rem;
-  background: var(--bg-light-gray);
-  border-radius: 30px;
-  overflow: hidden;
-  border: 1px solid var(--border-light);
+  margin-top: 1.5rem;
+  background: var(--color-primary-soft);
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary-soft);
 }
 
 .subscribe-form input {
   flex: 1;
-  border: none;
-  padding: 0.7rem 1rem;
-  color: var(--text-primary);
   background: transparent;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  font-family: inherit;
   outline: none;
 }
 
 .subscribe-form input::placeholder {
-  color: var(--text-light);
+  color: var(--accent-soft-green);
+  opacity: 0.6;
 }
 
 .subscribe-form button {
-  background: var(--primary-blue);
+  background-color: var(--color-accent);
+  color: var(--color-primary);
   border: none;
-  padding: 0.7rem 1rem;
-  color: var(--text-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.2s;
 }
 
 .subscribe-form button:hover {
-  background: var(--primary-dark);
+  background-color: var(--accent-soft-gold);
+  transform: scale(1.05);
 }
 
-/* === BOTTOM COPYRIGHT === */
+/* ===========================
+   FOOTER BOTTOM
+   =========================== */
 .footer-bottom {
+  border-top: 1px solid var(--color-primary-soft);
+  padding: 1.5rem 0;
   text-align: center;
-  border-top: 1px solid var(--border-light);
-  margin-top: 2rem;
-  padding-top: 1rem;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  letter-spacing: 1px;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
+.footer-bottom p {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 1024px) {
   .footer-content {
-    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .footer-left {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem;
+  }
+  .footer-left {
+    grid-column: span 1;
+  }
+  .footer-section {
     text-align: center;
   }
-
-  .subscribe-form {
+  .footer-social, .footer-right p {
     justify-content: center;
   }
 }

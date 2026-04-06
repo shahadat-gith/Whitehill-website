@@ -55,9 +55,6 @@ const KycDetails = ({ user }) => {
     <div className="kd-tab-content">
       <div className="kd-section-header">
         <h2>KYC Details</h2>
-        <span className={`kd-badge ${getStatusColor(kyc.status)}`}>
-          {kyc.status}
-        </span>
       </div>
 
       {/* ================= BASIC INFO ================= */}

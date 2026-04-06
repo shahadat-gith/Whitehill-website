@@ -1,81 +1,66 @@
 /* ===========================
-   NOT FOUND CONTAINER
+   NOTFOUND CONTAINER
    =========================== */
 .notfound-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 5rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--bg-light-gray) 0%, var(--accent-light-blue) 100%);
+  background-color: var(--bg-main);
   padding: 2rem;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
 .notfound-content {
   text-align: center;
   max-width: 600px;
+  width: 100%;
   position: relative;
   z-index: 10;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeIn 0.6s ease-out;
 }
 
 /* ===========================
-   ERROR CODE (404)
+   ANIMATED 404 CODE
    =========================== */
 .error-code {
+  font-size: clamp(8rem, 20vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  font-weight: 800;
-  font-size: 8rem;
-  line-height: 1;
-}
-
-.digit-4,
-.digit-0,
-.digit-4-2 {
-  display: inline-block;
-  animation: bounce 1s ease-in-out infinite;
-}
-
-.digit-4 {
-  color: var(--primary-navy);
-  animation-delay: 0s;
+  gap: 0.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .digit-0 {
-  color: var(--primary-blue);
-  animation-delay: 0.1s;
-  font-size: 9rem;
+  color: var(--color-accent); /* Elegant Gold for the zero */
+  animation: pulse 2s infinite ease-in-out;
 }
 
-.digit-4-2 {
-  color: var(--primary-navy);
-  animation-delay: 0.2s;
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
 }
 
 /* ===========================
-   TEXT CONTENT
+   TYPOGRAPHY
    =========================== */
 .notfound-title {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-heading);
   margin-bottom: 1rem;
-  letter-spacing: -0.5px;
+  font-weight: 800;
 }
 
 .notfound-description {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  color: var(--text-body);
+  margin-bottom: 3rem;
   line-height: 1.6;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* ===========================
@@ -85,227 +70,93 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
-.btn-home,
-.btn-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
+.btn-home, .btn-back {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
   font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.5rem;
-  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  border: none;
 }
 
 .btn-home {
-  background-color: var(--primary-navy);
-  color: var(--text-white);
-  box-shadow: var(--shadow-md);
+  background-color: var(--btn-main-bg);
+  color: var(--text-on-primary);
+  box-shadow: var(--shadow-medium);
 }
 
 .btn-home:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-home:active {
-  transform: translateY(0);
+  background-color: var(--btn-main-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-high);
 }
 
 .btn-back {
-  background-color: var(--bg-white);
-  color: var(--text-primary);
-  border: 2px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-heading);
+  border: 1px solid var(--border-default);
 }
 
 .btn-back:hover {
-  background-color: var(--bg-card);
-  border-color: var(--border-medium);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-back:active {
-  transform: translateY(0);
-}
-
-.btn-home i,
-.btn-back i {
-  font-size: 1rem;
+  background-color: var(--btn-alt-hover);
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-3px);
 }
 
 /* ===========================
-   DECORATIVE CIRCLES
+   DECORATIVE ELEMENTS
    =========================== */
 .decorative-circle {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.15;
-  z-index: 1;
-  pointer-events: none;
+  filter: blur(60px);
+  z-index: -1;
+  opacity: 0.4;
 }
 
 .circle-1 {
   width: 300px;
   height: 300px;
-  background-color: var(--accent-yellow);
-  top: -100px;
-  right: -100px;
-  animation: float 6s ease-in-out infinite;
+  background: var(--accent-soft-green);
+  top: -150px;
+  left: -150px;
 }
 
 .circle-2 {
-  width: 200px;
-  height: 200px;
-  background-color: var(--accent-pink);
-  bottom: -50px;
-  left: -50px;
-  animation: float 8s ease-in-out infinite reverse;
+  width: 250px;
+  height: 250px;
+  background: var(--accent-soft-gold);
+  bottom: -100px;
+  right: -50px;
 }
 
 .circle-3 {
   width: 150px;
   height: 150px;
-  background-color: var(--accent-mint);
-  top: 50%;
+  background: var(--accent-soft-olive);
+  top: 20%;
   right: 10%;
-  animation: float 7s ease-in-out infinite;
 }
 
 /* ===========================
-   ANIMATIONS
+   RESPONSIVE
    =========================== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@media (max-width: 600px) {
+  .notfound-title { font-size: 1.75rem; }
+  .notfound-description { font-size: 1rem; margin-bottom: 2rem; }
+  .notfound-buttons { flex-direction: column; width: 100%; max-width: 280px; margin: 0 auto; }
+  .btn-home, .btn-back { width: 100%; justify-content: center; }
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-30px) rotate(5deg);
-  }
-}
-
-/* ===========================
-   RESPONSIVE DESIGN
-   =========================== */
-@media (max-width: 768px) {
-  .notfound-container {
-    padding: 1.5rem;
-  }
-
-  .error-code {
-    font-size: 6rem;
-    gap: 0.75rem;
-  }
-
-  .digit-0 {
-    font-size: 7rem;
-  }
-
-  .notfound-title {
-    font-size: 2rem;
-  }
-
-  .notfound-description {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .notfound-buttons {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .btn-home,
-  .btn-back {
-    width: 100%;
-    max-width: 300px;
-    justify-content: center;
-  }
-
-  .circle-1 {
-    width: 200px;
-    height: 200px;
-  }
-
-  .circle-2 {
-    width: 150px;
-    height: 150px;
-  }
-
-  .circle-3 {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  .error-code {
-    font-size: 4.5rem;
-    gap: 0.5rem;
-  }
-
-  .digit-0 {
-    font-size: 5.5rem;
-  }
-
-  .notfound-title {
-    font-size: 1.75rem;
-  }
-
-  .notfound-description {
-    font-size: 0.95rem;
-  }
-
-  .btn-home,
-  .btn-back {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .error-code {
-    font-size: 3.5rem;
-  }
-
-  .digit-0 {
-    font-size: 4.5rem;
-  }
-
-  .notfound-title {
-    font-size: 1.5rem;
-  }
-
-  .notfound-description {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

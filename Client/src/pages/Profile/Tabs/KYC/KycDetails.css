@@ -1,232 +1,75 @@
-/* ========================================
-   KYC DETAILS COMPONENT STYLES
-======================================== */
+/* KycDetails.css - Synchronized with Green/Gold Theme */
 
 .kd-tab-content {
-  padding: 2rem;
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.4s ease-in-out;
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ========================================
-   SECTION HEADER
-======================================== */
 
 .kd-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid var(--accent-yellow);
 }
 
 .kd-section-header h2 {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--primary-navy);
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
   margin: 0;
 }
 
-/* ========================================
-   STATUS BADGES
-======================================== */
-
 .kd-badge {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.kd-badge-verified {
-  background: var(--accent-mint);
-  color: var(--success);
-  border: 2px solid var(--success);
-}
-
-.kd-badge-pending {
-  background: var(--accent-light-yellow);
-  color: #f57c00;
-  border: 2px solid var(--warning);
-}
-
-.kd-badge-rejected {
-  background: var(--accent-pink);
-  color: var(--error);
-  border: 2px solid var(--error);
-}
-
-/* ========================================
-   EMPTY STATE
-======================================== */
-
-.kd-empty-state {
-  background: linear-gradient(
-    135deg,
-    var(--accent-light-blue) 0%,
-    var(--accent-light-blue2) 100%
-  );
-  border: 2px dashed var(--primary-blue);
-  border-radius: 12px;
-  padding: 3rem 2rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.kd-empty-state p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin: 0 0 1.5rem;
-  font-weight: 500;
-}
-
-.kd-btn-primary {
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background: linear-gradient(
-    135deg,
-    var(--primary-navy) 0%,
-    var(--primary-dark) 100%
-  );
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.kd-btn-primary:hover {
-  background: linear-gradient(
-    135deg,
-    var(--primary-dark) 0%,
-    #151820 100%
-  );
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-/* ========================================
-   KYC INFO GRID
-======================================== */
-
+/* Info Cards Grid */
 .kd-kyc-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
 }
 
 .kd-info-card {
-  background: var(--bg-white);
-  border: 2px solid var(--bg-light-gray);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  padding: 1.25rem;
   border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.kd-info-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--accent-yellow);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
-}
-
-.kd-info-card:hover {
-  border-color: var(--primary-blue);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
-
-.kd-info-card:hover::before {
-  transform: scaleY(1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .kd-info-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 0.5rem;
 }
 
 .kd-info-value {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--primary-navy);
-  word-break: break-word;
+  color: var(--text-body);
 }
 
-/* ========================================
-   STATUS INDICATORS
-======================================== */
+/* Status specific styling using your Status Colors */
+.kd-status-verified { color: var(--status-success); display: flex; align-items: center; gap: 6px; }
+.kd-status-rejected { color: var(--status-error); display: flex; align-items: center; gap: 6px; }
+.kd-status-pending { color: var(--status-warning); display: flex; align-items: center; gap: 6px; }
 
-.kd-status-verified,
-.kd-status-rejected,
-.kd-status-pending {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-}
-
-.kd-status-verified {
-  color: var(--success);
-}
-
-.kd-status-rejected {
-  color: var(--error);
-}
-
-.kd-status-pending {
-  color: var(--warning);
-}
-
-.kd-status-verified i,
-.kd-status-rejected i,
-.kd-status-pending i {
-  font-size: 1.2rem;
-}
-
-/* ========================================
-   DOCUMENT SECTION
-======================================== */
-
-.kd-document-section {
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 2px solid var(--bg-light-gray);
-}
-
+/* Document Section */
 .kd-document-section h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--primary-navy);
-  margin: 0 0 1.5rem;
+  font-size: 1.1rem;
+  color: var(--text-heading);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .kd-document-list {
@@ -236,40 +79,31 @@
 }
 
 .kd-document-item {
-  background: var(--bg-card);
-  border: 2px solid var(--bg-light-gray);
-  border-radius: 12px;
-  padding: 1.5rem;
   display: flex;
   align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
   gap: 1.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .kd-document-item:hover {
-  border-color: var(--primary-blue);
-  box-shadow: var(--shadow-sm);
-  transform: translateX(4px);
+  border-color: var(--color-accent); /* Elegant Gold Accent */
+  background: var(--bg-main);
 }
 
 .kd-document-icon {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(
-    135deg,
-    var(--accent-light-blue) 0%,
-    var(--accent-light-blue2) 100%
-  );
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  background: var(--accent-soft-green); /* Financial Green */
+  color: var(--color-primary);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-}
-
-.kd-document-icon i {
-  font-size: 1.75rem;
-  color: var(--primary-blue);
+  font-size: 1.2rem;
 }
 
 .kd-document-info {
@@ -277,206 +111,64 @@
 }
 
 .kd-document-name {
-  font-size: 1.05rem;
   font-weight: 600;
-  color: var(--primary-navy);
-  margin: 0 0 0.25rem;
-}
-
-.kd-document-status {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--text-heading);
   margin: 0;
 }
 
-.kd-document-actions {
-  display: flex;
-  gap: 0.75rem;
+.kd-document-status {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 2px 0 0 0;
 }
 
+/* Buttons using your Primary Green and Alt Hover */
 .kd-btn-view {
-  padding: 0.625rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--primary-navy);
-  background: var(--bg-white);
-  border: 2px solid var(--primary-navy);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-body);
+  padding: 8px 16px;
   border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
+  gap: 6px;
+  transition: all 0.2s;
 }
 
 .kd-btn-view:hover {
-  background: var(--primary-navy);
-  color: var(--text-white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  background: var(--btn-main-bg); /* Deep Green */
+  color: var(--text-on-primary);
+  border-color: var(--btn-main-bg);
 }
 
-.kd-btn-view i {
-  font-size: 0.95rem;
-}
-
-/* ========================================
-   FORM ACTIONS
-======================================== */
-
-.kd-form-actions {
-  margin-top: 2rem;
-  padding: 2rem;
-  background: var(--accent-pink);
-  border: 2px solid var(--error);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.kd-form-actions::before {
-  content: "⚠️ Your KYC was rejected. Please re-submit with correct documents.";
-  font-size: 0.95rem;
-  color: var(--error);
+.kd-btn-primary {
+  background: var(--btn-main-bg);
+  color: var(--text-on-primary);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.kd-btn-primary:hover {
+  background: var(--btn-main-hover);
+}
+
+/* Empty State */
+.kd-empty-state {
   text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-muted);
+  border-radius: 20px;
+  border: 2px dashed var(--border-strong);
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-
-@media (max-width: 1024px) {
-  .kd-kyc-info {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .kd-tab-content {
-    padding: 1.5rem;
-  }
-
-  .kd-section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .kd-section-header h2 {
-    font-size: 1.5rem;
-  }
-
-  .kd-kyc-info {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .kd-info-card {
-    padding: 1.25rem;
-  }
-
-  .kd-empty-state {
-    padding: 2.5rem 1.5rem;
-  }
-
-  .kd-document-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .kd-document-actions {
-    width: 100%;
-  }
-
-  .kd-btn-view {
-    flex: 1;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .kd-tab-content {
-    padding: 1rem;
-  }
-
-  .kd-section-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .kd-section-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .kd-badge {
-    padding: 0.4rem 0.875rem;
-    font-size: 0.75rem;
-  }
-
-  .kd-info-card {
-    padding: 1rem;
-  }
-
-  .kd-info-label {
-    font-size: 0.75rem;
-  }
-
-  .kd-info-value {
-    font-size: 1rem;
-  }
-
-  .kd-empty-state {
-    padding: 2rem 1rem;
-  }
-
-  .kd-empty-state p {
-    font-size: 1rem;
-  }
-
-  .kd-btn-primary {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .kd-document-section h3 {
-    font-size: 1.15rem;
-  }
-
-  .kd-document-item {
-    padding: 1.25rem;
-  }
-
-  .kd-document-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .kd-document-icon i {
-    font-size: 1.5rem;
-  }
-
-  .kd-document-name {
-    font-size: 0.95rem;
-  }
-
-  .kd-document-status {
-    font-size: 0.8rem;
-  }
-
-  .kd-btn-view {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-  }
-
-  .kd-form-actions {
-    padding: 1.5rem;
-  }
-
-  .kd-form-actions::before {
-    font-size: 0.85rem;
-  }
+.kd-empty-state p {
+  color: var(--text-body);
+  margin-bottom: 1.5rem;
 }

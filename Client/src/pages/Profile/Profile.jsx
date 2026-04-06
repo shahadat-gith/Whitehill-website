@@ -1,4 +1,3 @@
-// Profile.js
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import { useAppContext } from "../../Context/AppContext";
@@ -7,21 +6,17 @@ import { formatCurrency, getStatusColor } from "../../Utils/utility";
 import Personal from "./Tabs/Personal/Personal";
 import KycDetails from "./Tabs/KYC/KycDetails";
 import Bank from "./Tabs/Bank/Bank";
-import FundRequests from "./Tabs/FundRequests/FundRequests";
-import PropertySelling from "./Tabs/PropertySelling/PropertySelling";
 import ProfileUpdateModal from "./Modals/ProfileUpdateModal/ProfileUpdateModal";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import api from "../../Configs/axios";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Profile = () => {
   const { loading, user } = useAppContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [fundRequests, setFundRequests] = useState([]);
-  const [propertySellings, setPropertySellings] = useState([]);
-  const [loadingRequests, setLoadingRequests] = useState(false);
 
-  const TABS = ["personal", "kyc", "bank", "fund-requests", "property-selling", "settings"];
+
+
+  const TABS = ["personal", "kyc", "bank"];
   const activeTab = TABS.includes(searchParams.get("tab"))
     ? searchParams.get("tab")
     : "personal";
@@ -30,40 +25,17 @@ const Profile = () => {
     setSearchParams({ tab });
   };
 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user) return;
-      setLoadingRequests(true);
-      try {
-        const [fundRes, propertyRes] = await Promise.all([
-          api.get("/api/fund-request"),
-          api.get("/api/property-selling")
-        ]);
-        setFundRequests(fundRes.data.data || []);
-        setPropertySellings(propertyRes.data.data || []);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoadingRequests(false);
-      }
-    };
-    fetchUserData();
-  }, [user]);
-
+  // Define only identity-based tabs
   const tabs = [
-    { key: "personal", icon: "fa-user", label: "Personal Info" },
-    { key: "kyc", icon: "fa-id-card", label: "KYC Details" },
-    { key: "bank", icon: "fa-university", label: "Bank Details" },
-    ...(fundRequests.length > 0 ? [{ key: "fund-requests", icon: "fa-hand-holding-usd", label: "Fund Requests" }] : []),
-    ...(propertySellings.length > 0 ? [{ key: "property-selling", icon: "fa-home", label: "Property Selling" }] : []),
-  ]
+    { key: "personal", icon: "fa-user", label: "Personal" },
+    { key: "kyc", icon: "fa-id-card", label: "KYC" },
+    { key: "bank", icon: "fa-university", label: "Bank" },
+  ];
 
   if (loading) return <Loader />;
 
-  // Safe initials
   const initials =
     user?.fullName
       ?.split(" ")
@@ -77,7 +49,7 @@ const Profile = () => {
       {/* ================= HEADER ================= */}
       <div className="prf-profile-header">
         <div className="prf-profile-header-content">
-          {/* LEFT SIDE */}
+          {/* LEFT SIDE: AVATAR */}
           <div className="prf-profile-avatar-section">
             <div className="prf-profile-avatar">
               {user?.image?.url ? (
@@ -86,7 +58,6 @@ const Profile = () => {
                 <span className="prf-avatar-initials">{initials}</span>
               )}
             </div>
-
             <button
               className="prf-btn-upload"
               onClick={() => setShowProfileModal(true)}
@@ -96,15 +67,14 @@ const Profile = () => {
             </button>
           </div>
 
+          {/* MIDDLE: INFO */}
           <div className="prf-profile-header-info">
             <h1>{user?.fullName}</h1>
             <p className="prf-profile-email">{user.email}</p>
-
             <div className="prf-profile-badges">
               <span className={`prf-badge ${getStatusColor(user.accountStatus)}`}>
                 {user.accountStatus}
               </span>
-
               {user?.kyc && (
                 <span className={`prf-badge ${getStatusColor(user.kyc.status)}`}>
                   KYC: {user.kyc.status}
@@ -113,17 +83,29 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE BUTTON */}
-          <div className="prf-profile-header-action">
-            <button
-              className="prf-btn-investments"
-              onClick={() => navigate(`/investment-profile?user=${user._id}`)}
+          <div className="prf-profile-header-action-group">
+            <Link
+              to={`/fund-requests?user=${user._id}`}
+              className="prf-btn-nav secondary"
+            >
+              <i className="fas fa-hand-holding-usd"></i> Fund Requests
+            </Link>
+
+            <Link
+              to={`/sold-property?user=${user._id}`}
+              className="prf-btn-nav secondary"
+            >
+              <i className="fas fa-home"></i> Sold Property
+            </Link>
+
+            <Link
+              to={`/investment-profile?user=${user._id}`}
+              className="prf-btn-nav secondary"
             >
               <i className="fas fa-briefcase"></i> My Investments
-            </button>
+            </Link>
           </div>
         </div>
-
 
         {/* ================= STATS ================= */}
         <div className="prf-profile-stats">
@@ -133,9 +115,7 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Total Invested</p>
-              <p className="prf-stat-value">
-                {formatCurrency(user.totalInvested)}
-              </p>
+              <p className="prf-stat-value">{formatCurrency(user.totalInvested)}</p>
             </div>
           </div>
 
@@ -145,9 +125,7 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Portfolio Value</p>
-              <p className="prf-stat-value">
-                {formatCurrency(user.portfolioValue)}
-              </p>
+              <p className="prf-stat-value">{formatCurrency(user.portfolioValue)}</p>
             </div>
           </div>
 
@@ -157,9 +135,7 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Total Distributions</p>
-              <p className="prf-stat-value">
-                {formatCurrency(user.totalDistributions)}
-              </p>
+              <p className="prf-stat-value">{formatCurrency(user.totalDistributions)}</p>
             </div>
           </div>
         </div>
@@ -183,8 +159,6 @@ const Profile = () => {
         {activeTab === "personal" && <Personal user={user} />}
         {activeTab === "kyc" && <KycDetails user={user} />}
         {activeTab === "bank" && <Bank user={user} />}
-        {activeTab === "fund-requests" && <FundRequests fundRequests={fundRequests} />}
-        {activeTab === "property-selling" && <PropertySelling propertySellings={propertySellings} />}
       </div>
 
       {/* ================= MODAL ================= */}

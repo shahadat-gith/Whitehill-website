@@ -78,15 +78,12 @@ const Projects = () => {
               <div className="proj-card-content">
                 <div className="proj-card-header">
                   <h3>{project.name}</h3>
-                  <span className="proj-type-badge">{project.type}</span>
                 </div>
 
                 <div className="proj-location">
                   <i className="fas fa-map-marker-alt"></i>
                   {project.city}, {project.state}
                 </div>
-
-                <p className="proj-description">{project.description}</p>
 
                 <div className="proj-details-grid">
                   <div className="proj-detail-item">

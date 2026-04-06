@@ -1,38 +1,52 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import './Hero.css';
 import buildingImg from './building.png';
 import gearImg from './gear.png';
 
 const Hero = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-  const handleNavigate = (path) =>{
+  const handleNavigate = (path) => {
     navigate(path);
-  }
+  };
+
   return (
     <section className="hero">
       <div className="hero-container">
+        {/* LEFT ILLUSTRATION */}
         <div className="hero-illustration hero-illustration-left">
-          <img src={buildingImg} alt="Buildings" className="building-img" />
+          <img src={buildingImg} alt="Strategic Real Estate" className="building-img" />
         </div>
 
+        {/* CENTER CONTENT */}
         <div className="hero-content">
           <h1 className="hero-title">
             Strategic real estate and startup investments.
           </h1>
           <p className="hero-subtitle">
-            Curated access. Institutional diligence, Performance
-            <br />
-            -linked outcomes.
+            Curated access. Institutional diligence. Performance-linked outcomes 
+            delivered through a transparent digital platform.
           </p>
+          
           <div className="hero-buttons">
-            <button className="btn btn-primary" onClick={()=>handleNavigate("/sell-property")}>Sell Property</button>
-            <button className="btn btn-secondary" onClick={()=>handleNavigate("/request-funds")}>Need Funds ?</button>
+            <button 
+              className="btn btn-primary" 
+              onClick={() => handleNavigate("/sell-property")}
+            >
+              Sell Property
+            </button>
+            <button 
+              className="btn btn-secondary" 
+              onClick={() => handleNavigate("/request-funds")}
+            >
+              Need Funds?
+            </button>
           </div>
         </div>
 
+        {/* RIGHT ILLUSTRATION */}
         <div className="hero-illustration hero-illustration-right">
-          <img src={gearImg} alt="Innovation" className="gear-img" />
+          <img src={gearImg} alt="Startup Innovation" className="gear-img" />
         </div>
       </div>
     </section>

@@ -1,93 +1,127 @@
-/* ErrorModal.css */
-
+/* ===========================
+   MODAL OVERLAY
+   =========================== */
 .em-overlay {
   position: fixed;
-  inset: 0;
-  background-color: rgba(30, 36, 50, 0.5);
-  backdrop-filter: blur(3px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 28, 21, 0.7); /* Deep Green backdrop */
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 16px;
-  animation: em-fade-in 0.2s ease;
+  z-index: 10000;
+  padding: 1.5rem;
+  animation: emFadeIn 0.3s ease-out;
 }
 
+/* ===========================
+   MODAL BOX
+   =========================== */
 .em-modal {
-  background-color: var(--bg-white);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  padding: 36px 32px 28px;
-  max-width: 400px;
+  background: var(--bg-surface);
   width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-high);
+  border: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  animation: em-slide-up 0.25s ease;
+  gap: 1.25rem;
+  animation: emSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* ===========================
+   ICON & TITLE
+   =========================== */
 .em-icon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
+  background: var(--accent-soft-red); /* Soft Muted Red */
+  color: var(--status-error); /* Rich Crimson */
   border-radius: 50%;
-  background-color: #fde8e8;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
-}
-
-.em-icon i {
-  font-size: 26px;
-  color: var(--error);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .em-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--primary-navy);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-heading);
   margin: 0;
-  text-align: center;
+  letter-spacing: -0.01em;
 }
 
 .em-message {
-  font-size: 14px;
-  color: var(--text-secondary);
-  text-align: center;
-  line-height: 1.65;
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.6;
   margin: 0;
+  background: var(--bg-main);
+  padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  border: 1px dashed var(--border-subtle);
 }
 
+/* ===========================
+   CLOSE BUTTON
+   =========================== */
 .em-btn {
-  margin-top: 8px;
-  padding: 11px 32px;
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--text-white);
-  background-color: var(--btn-primary);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
   width: 100%;
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  padding: 14px;
+  background: var(--color-primary); /* Deep Green Action */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
 }
 
 .em-btn:hover {
-  background-color: var(--btn-primary-hover);
-  transform: translateY(-1px);
+  background: var(--color-primary-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
 }
 
 .em-btn:active {
   transform: translateY(0);
 }
 
-@keyframes em-fade-in {
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes emFadeIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 
-@keyframes em-slide-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes emSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 480px) {
+  .em-modal {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .em-title {
+    font-size: 1.25rem;
+  }
 }

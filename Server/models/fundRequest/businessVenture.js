@@ -19,6 +19,10 @@ const businessVentureSchema = new mongoose.Schema(
       default: "pending",
     },
 
+    processedAt: { type: Date, default: null },
+    rejectionReason: { type: String, default: null },
+
+
 
     stage: {
       type: String,

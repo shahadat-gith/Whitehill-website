@@ -69,7 +69,7 @@ const WhyInvest = () => {
                   <li key={i}>{point}</li>
                 ))}
               </ul>
-              <button className="btn btn-primary">{card.button}</button>
+              {/* <button className="btn btn-primary">{card.button}</button> */}
             </div>
           </div>
         ))}

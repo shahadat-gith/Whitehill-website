@@ -1,8 +1,9 @@
-/* FundRequest.css */
+/* FundRequest.css - Color Update Only */
 
 .fund-request-page {
   padding: 2rem 1rem;
   min-height: 100vh;
+  background-color: var(--bg-main); /* Updated to warm off-white */
 }
 
 .fund-request-layout-full {
@@ -19,10 +20,12 @@
 .fund-card {
   padding: 2rem;
   text-align: center;
+  background: var(--bg-surface); /* Updated to clean surface white */
+  border-radius: 24px;
 }
 
 .fund-card h2 {
-  color: var(--primary-navy);
+  color: var(--text-heading); /* Updated to Deep Financial Green */
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -31,11 +34,11 @@
 /* Tabs Container */
 .fund-tabs {
   display: inline-flex;
-  background-color: var(--bg-light-gray);
+  background-color: var(--bg-main); /* Updated to neutral bg */
   padding: 6px;
   border-radius: 999px; /* Pill shape */
   gap: 4px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-default); /* Updated to subtle border */
 }
 
 /* Individual Tab Button */
@@ -43,7 +46,7 @@
   padding: 10px 24px;
   border: none;
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--text-body); /* Updated to muted green-gray */
   font-family: inherit;
   font-weight: 600;
   font-size: 0.95rem;
@@ -54,22 +57,22 @@
 }
 
 .fund-tab:hover {
-  color: var(--primary-navy);
+  color: var(--color-primary); /* Updated to Brand Green */
 }
 
 /* Active Tab State */
 .fund-tab.active {
-  background-color: var(--primary-navy);
-  color: var(--text-white);
+  background-color: var(--color-primary); /* Updated to Brand Green */
+  color: var(--text-on-primary); /* Updated to White/Light text */
   box-shadow: var(--shadow-sm);
 }
 
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .fund-tabs {
-    display: flex; /* Stack on mobile or scroll */
+    display: flex; 
     flex-direction: column;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     padding: 10px;
     width: 100%;
     margin: 0 auto;

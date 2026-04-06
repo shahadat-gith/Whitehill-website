@@ -1,41 +1,47 @@
-/* Contact.css */
-
+/* ===========================
+   CONTACT PAGE WRAPPER
+   =========================== */
 .contact-page {
-  background-color: var(--bg-light-gray);
-  animation: fadeIn 0.4s ease-out;
+  background-color: var(--bg-main);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .contact-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 }
 
-/* --- HERO SECTION --- */
+/* ===========================
+   HERO SECTION
+   =========================== */
 .contact-hero {
-  background-color: var(--primary-navy);
-  padding: 6rem 0;
+  padding: 80px 0 60px;
+  background: linear-gradient(rgba(27, 67, 50, 0.05), transparent);
   text-align: center;
-  color: var(--text-white);
 }
 
 .contact-hero-title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: 3rem;
+  color: var(--text-heading);
   font-weight: 800;
   margin-bottom: 1rem;
+  letter-spacing: -0.02em;
 }
 
 .contact-hero-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.8;
+  font-size: 1.15rem;
+  color: var(--text-body);
   max-width: 600px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* --- MAIN CONTENT LAYOUT --- */
+/* ===========================
+   MAIN CONTACT SECTION
+   =========================== */
 .contact-main {
-  padding: 5rem 0;
-  margin-top: -3rem; /* Overlaps hero for a modern look */
+  padding-bottom: 100px;
 }
 
 .contact-wrapper {
@@ -45,28 +51,24 @@
   align-items: start;
 }
 
-/* --- CONTACT INFO SIDE --- */
-.contact-info {
-  padding: 1rem;
-}
-
+/* LEFT SIDE: INFO */
 .contact-info-title {
-  color: var(--primary-navy);
-  font-size: 2rem;
+  font-size: 1.75rem;
+  color: var(--text-heading);
   font-weight: 800;
   margin-bottom: 1.5rem;
 }
 
 .contact-info-text {
-  color: var(--text-secondary);
-  line-height: 1.6;
+  color: var(--text-body);
+  line-height: 1.7;
   margin-bottom: 3rem;
 }
 
 .contact-items {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
   margin-bottom: 3rem;
 }
 
@@ -79,29 +81,27 @@
 .contact-icon {
   width: 50px;
   height: 50px;
-  background: var(--bg-white);
+  background: var(--accent-soft-green);
+  color: var(--color-primary);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
-  color: var(--primary-blue);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-medium);
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
 .contact-details h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--primary-navy);
+  color: var(--text-heading);
   margin-bottom: 4px;
 }
 
 .contact-details p {
-  color: var(--text-secondary);
   font-size: 0.95rem;
-  line-height: 1.4;
+  color: var(--text-body);
+  line-height: 1.5;
 }
 
 /* WhatsApp Button */
@@ -109,52 +109,49 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background-color: #25d366;
+  background: #25D366; /* WhatsApp Brand Color */
   color: white;
-  padding: 14px 24px;
+  padding: 14px 28px;
   border-radius: 12px;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
 }
 
 .whatsapp-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  filter: brightness(1.1);
 }
 
-.whatsapp-btn i {
-  font-size: 1.5rem;
-}
-
-/* --- CONTACT FORM CARD --- */
+/* RIGHT SIDE: FORM CARD */
 .contact-form-card {
-  background: var(--bg-white);
-  padding: 3rem;
-  border-radius: 2rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  padding: 3.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-high);
 }
 
 .contact-form-title {
-  color: var(--primary-navy);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
+  color: var(--text-heading);
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .form-success {
-  background-color: var(--accent-mint);
-  color: #065f46;
-  padding: 1.25rem;
+  background: var(--accent-soft-green);
+  color: var(--status-success);
+  padding: 1.5rem;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 2rem;
-  font-weight: 500;
-  border: 1px solid rgba(0,0,0,0.05);
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .contact-form {
@@ -163,101 +160,114 @@
   gap: 1.5rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .form-group label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-group input, 
 .form-group textarea {
-  padding: 12px 16px;
-  border: 1px solid var(--border-medium);
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border-default);
   border-radius: 10px;
+  background: var(--bg-main);
   font-family: inherit;
   font-size: 1rem;
-  background-color: #fafafa;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .form-group input:focus, 
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  background: #fff;
-  box-shadow: 0 0 0 4px rgba(74, 124, 158, 0.1);
+  border-color: var(--color-primary-soft);
+  box-shadow: 0 0 0 4px var(--accent-soft-green);
+  background: white;
 }
 
 .form-group-checkbox {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  margin: 0.5rem 0;
 }
 
 .form-group-checkbox input {
+  margin-top: 4px;
   width: 18px;
   height: 18px;
-  margin-top: 3px;
-  accent-color: var(--primary-navy);
-  cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
 .form-group-checkbox label {
   font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  cursor: pointer;
+  color: var(--text-body);
+  line-height: 1.6;
 }
 
-/* --- DISCLAIMER --- */
+/* Submit Button Override */
+.contact-form .btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===========================
+   DISCLAIMER SECTION
+   =========================== */
 .contact-disclaimer {
-  padding-bottom: 5rem;
+  padding-bottom: 80px;
 }
 
 .disclaimer-box {
-  background: #fff;
-  border: 1px solid var(--accent-light-yellow2);
+  background: #fffcf0; /* Very light warning amber */
+  border: 1px solid #ffeeba;
   padding: 1.5rem 2rem;
   border-radius: 12px;
   display: flex;
-  gap: 1.5rem;
+  gap: 15px;
   align-items: center;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
 }
 
 .disclaimer-box i {
-  color: var(--warning);
-  font-size: 1.5rem;
+  color: var(--status-warning);
+  font-size: 1.25rem;
 }
 
-/* --- RESPONSIVE --- */
+.disclaimer-box p {
+  font-size: 0.85rem;
+  color: #856404;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
 @media (max-width: 992px) {
   .contact-wrapper {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 4rem;
   }
   
-  .contact-main {
-    margin-top: 0;
-    padding-top: 3rem;
+  .contact-info {
+    text-align: center;
+  }
+  
+  .contact-item {
+    justify-content: center;
+    text-align: left;
   }
 }
 
 @media (max-width: 600px) {
-  .contact-form-card {
-    padding: 2rem 1.5rem;
-    border-radius: 1.5rem;
-  }
-  
-  .contact-hero {
-    padding: 4rem 0;
-  }
+  .contact-hero-title { font-size: 2.25rem; }
+  .contact-form-card { padding: 2rem 1.5rem; }
 }

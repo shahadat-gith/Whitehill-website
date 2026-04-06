@@ -2,84 +2,63 @@ import React from "react";
 import "./StepProgress.css";
 
 const StepProgress = ({ currentStep, totalSteps, stepTitles }) => {
-  const color = "#50c878";
-
+  // Logic for progress calculation
   const isSubmitPage = currentStep > totalSteps;
   const completedSteps = isSubmitPage ? totalSteps : currentStep - 1;
-  const progressPercentage = isSubmitPage ? 100 : (completedSteps / totalSteps) * 100;
-
-  const getProgressBarStyle = () => {
-    return {
-      width: `${progressPercentage}%`,
-      background: `linear-gradient(90deg, ${color} 0%, ${color}dd 60%, ${color}99 100%)`,
-    };
-  };
+  const progressPercentage = isSubmitPage ? 100 : (completedSteps / (totalSteps - 1)) * 100;
 
   return (
     <div className="step-progress-container">
+      {/* HEADER SECTION */}
       <div className="progress-header">
         <div className="progress-meta">
-          <span className="progress-eyebrow" style={{ color }}>
-            Progress
-          </span>
           <h3 className="progress-title">
-            {isSubmitPage ? "Review & Submit" : stepTitles[currentStep - 1]}
+            {isSubmitPage ? "Final Review & Submission" : stepTitles[currentStep - 1]}
           </h3>
         </div>
-        <span className="progress-badge">
-          {completedSteps}
-          <span className="progress-badge-sep">/</span>
-          {totalSteps}
-        </span>
-      </div>
-
-      <div className="progress-bar-wrapper">
-        <div className="progress-bar-track">
-          <div className="progress-bar-fill" style={getProgressBarStyle()}>
-            {progressPercentage > 0 && (
-              <span className="progress-percentage">{Math.round(progressPercentage)}%</span>
-            )}
-          </div>
+        <div className="progress-badge-wrapper">
+          <span className="progress-badge">
+            Step {isSubmitPage ? totalSteps : currentStep} 
+            <span className="progress-badge-sep">of</span> 
+            {totalSteps}
+          </span>
         </div>
       </div>
 
-      <div className="progress-steps">
-        {Array.from({ length: totalSteps }).map((_, i) => (
-          <div
-            key={i}
-            className={`step-dot ${
-              isSubmitPage || i < completedSteps
-                ? "step-done"
-                : i === completedSteps
-                ? "step-active"
-                : "step-pending"
-            }`}
-            style={
-              isSubmitPage || i < completedSteps
-                ? { background: color, borderColor: color }
-                : i === completedSteps
-                ? { borderColor: color, color: color }
-                : {}
-            }
+      {/* VISUAL TRACK & DOTS */}
+      <div className="progress-visual-area">
+        <div className="progress-bar-track">
+          <div 
+            className="progress-bar-fill" 
+            style={{ width: `${progressPercentage}%` }}
           >
-            {isSubmitPage || i < completedSteps ? (
-              <svg viewBox="0 0 10 8" fill="none">
-                <path
-                  d="M1 4l2.5 2.5L9 1"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            ) : (
-              <span>{i + 1}</span>
-            )}
+            <div className="progress-shimmer"></div>
           </div>
-        ))}
-      </div>
-      <div className="completed-msg">
-        <p>{completedSteps === 1 ? `${completedSteps} step completed` : `${completedSteps} steps completed!`}</p>
+        </div>
+
+        <div className="progress-steps-row">
+          {Array.from({ length: totalSteps }).map((_, i) => {
+            const isDone = isSubmitPage || i < completedSteps;
+            const isActive = i === completedSteps && !isSubmitPage;
+            
+            return (
+              <div key={i} className="step-node-wrapper">
+                <div 
+                  className={`step-dot ${isDone ? "step-done" : isActive ? "step-active" : "step-pending"}`}
+                >
+                  {isDone ? (
+                    <i className="fas fa-check"></i>
+                  ) : (
+                    <span>{i + 1}</span>
+                  )}
+                </div>
+                <span className={`step-label ${isActive ? "active" : ""}`}>
+                   {stepTitles[i]}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
