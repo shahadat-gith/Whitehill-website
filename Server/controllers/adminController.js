@@ -11,6 +11,7 @@ import User from "../models/user.js";
 import Query from "../models/query.js";
 import Startup from "../models/fundRequest/startup.js";
 import BusinessVenture from "../models/fundRequest/businessVenture.js";
+import Property from "../models/fundRequest/property.js";
 import PropertySelling from "../models/propertySelling.js";
 
 
@@ -969,10 +970,12 @@ export const getAllFundRequests = async (req, res) => {
   try {
     const startupRequests = await Startup.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
     const businessRequests = await BusinessVenture.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
+    const propertyRequests = await Property.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
 
     const fundRequests = [
       ...startupRequests.map(req => ({ ...req.toObject(), type: 'startup' })),
-      ...businessRequests.map(req => ({ ...req.toObject(), type: 'business' }))
+      ...businessRequests.map(req => ({ ...req.toObject(), type: 'business' })),
+      ...propertyRequests.map(req => ({ ...req.toObject(), type: 'property' }))
     ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return res.status(200).json({
@@ -1001,6 +1004,12 @@ export const getFundRequestById = async (req, res) => {
     if (!request) {
       request = await BusinessVenture.findById(id).populate('requester', 'fullName email');
       type = 'business';
+    }
+
+    // If not found in business, try property
+    if (!request) {
+      request = await Property.findById(id).populate('requester', 'fullName email');
+      type = 'property';
     }
 
     if (!request) {
@@ -1033,6 +1042,8 @@ export const updateFundRequestStatus = async (req, res) => {
       model = Startup;
     } else if (type === 'business') {
       model = BusinessVenture;
+    } else if (type === 'property') {
+      model = Property;
     } else {
       return res.status(400).json({
         success: false,

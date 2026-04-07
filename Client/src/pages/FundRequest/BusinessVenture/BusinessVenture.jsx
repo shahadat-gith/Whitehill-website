@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../Configs/axios";
 import toast from "react-hot-toast";
 import { useAppContext } from "../../../Context/AppContext";
-import "../FundRequest.css";
-import "./BusinessVenture.css"
-import StepProgress from "../../../components/StepProgress/StepProgress";
-import LocationStep from "../LocationStep";
-import SubmitReview from "../SubmitReview";
-import Step1RequestSummary from "./Steps/Step1RequestSummary";
-import Step3BusinessDetails from "./Steps/Step3BusinessDetails";
-import Step4RiskDisclosure from "./Steps/Step4RiskDisclosure";
-import Step5BusinessPartners from "./Steps/Step5BusinessPartners";
-import Step6Documents from "./Steps/Step6Documents";
-
+import "./BusinessVenture.css";
 
 const initialLocation = {
-    village: "",
-    block: "",
-    town: "",
-    city: "",
-    district: "",
-    state: "",
-    po: "",
-    ps: "",
-    pincode: "",
-    googleMapLocation: "",
+    village: "", block: "", town: "", city: "", district: "",
+    state: "", po: "", ps: "", pincode: "", googleMapLocation: "",
 };
 
 const initialDetails = {
@@ -69,56 +51,13 @@ const BusinessVenture = () => {
     const { user } = useAppContext();
     const navigate = useNavigate();
 
-    const TOTAL_STEPS = 6;
-    const STORAGE_KEY = "businessVentureFundRequest";
-
-    const stepTitles = [
-        "Fund Details",
-        "Business Details",
-        "Risk Disclosure",
-        "Business Partners",
-        "Location",
-        "Documents"
-    ];
-
-    const [currentStep, setCurrentStep] = useState(1);
     const [amountRequested, setAmountRequested] = useState("");
     const [location, setLocation] = useState(initialLocation);
     const [details, setDetails] = useState(initialDetails);
     const [documents, setDocuments] = useState(initialDocs);
     const [submitting, setSubmitting] = useState(false);
 
-    // Load data from sessionStorage on mount
-    useEffect(() => {
-        const savedData = sessionStorage.getItem(STORAGE_KEY);
-        if (savedData) {
-            try {
-                const parsed = JSON.parse(savedData);
-                setAmountRequested(parsed.amountRequested || "");
-                setLocation(parsed.location || initialLocation);
-                setDetails(parsed.details || initialDetails);
-                setCurrentStep(parsed.currentStep || 1);
-            } catch (error) {
-                console.error("Error loading saved data:", error);
-            }
-        }
-    }, []);
-
-    // Save data to sessionStorage whenever it changes (excluding documents)
-    useEffect(() => {
-        const dataToSave = {
-            amountRequested,
-            location,
-            details,
-            currentStep,
-        };
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
-    }, [amountRequested, location, details, currentStep]);
-
-    const handleLocationChange = (field, value) => {
-        setLocation((prev) => ({ ...prev, [field]: value }));
-    };
-
+    // --- HANDLERS ---
     const handleDetailChange = (field, value) => {
         setDetails((prev) => ({ ...prev, [field]: value }));
     };
@@ -137,64 +76,37 @@ const BusinessVenture = () => {
         }));
     };
 
-    const handleBusinessPartnerChange = (index, field, value) => {
-        setDetails((prev) => {
-            const updated = [...prev.businessPartners];
-            updated[index] = { ...updated[index], [field]: value };
-            return { ...prev, businessPartners: updated };
+    const handleLocationChange = (field, value) => {
+        setLocation((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const handlePartnerChange = (index, field, value) => {
+        const updated = [...details.businessPartners];
+        updated[index] = { ...updated[index], [field]: value };
+        setDetails({ ...details, businessPartners: updated });
+    };
+
+    const addPartner = () => {
+        setDetails({
+            ...details,
+            businessPartners: [...details.businessPartners, { name: "", role: "", share: "" }]
         });
     };
 
-    const addBusinessPartner = () => {
-        setDetails((prev) => ({
-            ...prev,
-            businessPartners: [
-                ...prev.businessPartners,
-                { name: "", role: "", share: "" },
-            ],
-        }));
+    const removePartner = (index) => {
+        setDetails({
+            ...details,
+            businessPartners: details.businessPartners.filter((_, i) => i !== index)
+        });
     };
-
-    const removeBusinessPartner = (index) => {
-        setDetails((prev) => ({
-            ...prev,
-            businessPartners: prev.businessPartners.filter((_, idx) => idx !== index),
-        }));
-    };
-
-    const goToStep = (step) => {
-        if (step >= 1 && step <= TOTAL_STEPS + 1) {
-            setCurrentStep(step);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
-
-    const nextStep = () => {
-        if (currentStep <= TOTAL_STEPS) {
-            goToStep(currentStep + 1);
-        }
-    };
-
-    const prevStep = () => {
-        if (currentStep > 1) {
-            goToStep(currentStep - 1);
-        }
-    };
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!user?._id) {
-            toast.error("Please login to submit a fund request");
-            return;
-        }
-
+        if (!user?._id) return toast.error("Please login to submit a fund request");
         if (submitting) return;
 
         try {
             setSubmitting(true);
-
             const formData = new FormData();
             formData.append("amountRequested", amountRequested);
             formData.append("location", JSON.stringify(location));
@@ -213,162 +125,157 @@ const BusinessVenture = () => {
             formData.append("riskDisclosure", JSON.stringify(details.riskDisclosure));
             formData.append("businessPartners", JSON.stringify(details.businessPartners));
 
-            formData.append("businessPlan", documents.businessPlan);
-            formData.append("bankStatements", documents.bankStatements);
-            formData.append("financialStatements", documents.financialStatements);
-            formData.append("gstReturns", documents.gstReturns);
-            formData.append("legalDocuments", documents.legalDocuments);
-            formData.append("cashFlowStatement", documents.cashFlowStatement);
+            Object.keys(documents).forEach(key => {
+                if (documents[key]) formData.append(key, documents[key]);
+            });
 
             const { data } = await api.post("/api/fund-request/business", formData);
+            if (!data.success) throw new Error(data.message || "Submission failed");
 
-            if (!data.success) {
-                throw new Error(data.message || "Failed to submit request");
-            }
-
-            toast.success("Your request submitted successfully!");
-
-            // Clear session storage and reset form state
-            sessionStorage.removeItem(STORAGE_KEY);
-            setAmountRequested("");
-            setLocation(initialLocation);
-            setDetails(initialDetails);
-            setDocuments(initialDocs);
-
-            // Navigate to congratulations page and replace history
+            toast.success("Business Venture request submitted successfully!");
             navigate("/request-funds/congratulations", { replace: true });
         } catch (error) {
-            toast.error(
-                error.response?.data?.message ||
-                error.message ||
-                "Failed to submit request"
-            );
+            toast.error(error.response?.data?.message || error.message || "Failed to submit request");
         } finally {
             setSubmitting(false);
         }
     };
 
-    const renderStep = () => {
-        switch (currentStep) {
-            case 1:
-                return (
-                    <Step1RequestSummary
-                        amountRequested={amountRequested}
-                        setAmountRequested={setAmountRequested}
-                        details={details}
-                        handleDetailChange={handleDetailChange}
-                    />
-                );
-            case 2:
-                return (
-                    <Step3BusinessDetails
-                        details={details}
-                        handleDetailChange={handleDetailChange}
-                        handlePurposeChange={handlePurposeChange}
-                    />
-                );
-            case 3:
-                return (
-                    <Step4RiskDisclosure
-                        details={details}
-                        handleRiskChange={handleRiskChange}
-                    />
-                );
-            case 4:
-                return (
-                    <Step5BusinessPartners
-                        details={details}
-                        handleBusinessPartnerChange={handleBusinessPartnerChange}
-                        addBusinessPartner={addBusinessPartner}
-                        removeBusinessPartner={removeBusinessPartner}
-                    />
-                );
-            case 5:
-                return (
-                    <LocationStep
-                        location={location}
-                        handleLocationChange={handleLocationChange}
-                    />
-                );
-            case 6:
-                return (
-                    <Step6Documents
-                        documents={documents}
-                        setDocuments={setDocuments}
-                    />
-                );
-            case 7:
-                return (
-                    <SubmitReview
-                        summaryData={
-                            {
-                                label: "Amount",
-                                value: `₹${Number(amountRequested).toLocaleString("en-IN")}`,
-
-                            }
-                        }
-                    />
-                );
-            default:
-                return null;
-        }
-    };
-
     return (
-        <div className="bfr-container">
-            <StepProgress
-                currentStep={currentStep}
-                totalSteps={TOTAL_STEPS}
-                stepTitles={stepTitles}
-            />
+        <div className="bus-container">
+            <header className="bus-header">
+                <h1>Business Venture Funding</h1>
+                <p>Complete the application for business expansion or working capital funding.</p>
+            </header>
 
-            <form className="bfr-form" onSubmit={currentStep === 7 ? handleSubmit : (e) => { e.preventDefault(); }}>
-                <div className="bfr-section">
-                    {renderStep()}
+            <form className="bus-form" onSubmit={handleSubmit}>
+                
+                {/* 1. REQUEST SUMMARY */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">1. Funding Summary</h3>
+                    <div className="bus-grid bus-grid-2">
+                        <div className="bus-field">
+                            <label>Amount Requested (₹) *</label>
+                            <input type="number" value={amountRequested} onChange={(e) => setAmountRequested(e.target.value)} placeholder="₹ 1,00,00,000" required />
+                        </div>
+                        <div className="bus-field">
+                            <label>Funding Type *</label>
+                            <select value={details.fundingType} onChange={(e) => handleDetailChange("fundingType", e.target.value)}>
+                                <option value="equity">Equity</option>
+                                <option value="profitSharing">Profit Sharing</option>
+                                <option value="revenueSharing">Revenue Sharing</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Navigation Buttons */}
-                <div className="bfr-actions">
-                    {currentStep > 1 && (
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            onClick={prevStep}
-                            disabled={currentStep === 7 && submitting}
-                            style={{
-                                background: "#e0e0e0",
-                                color: "#333",
-                            }}
-                        >
-                            <i className="fas fa-arrow-left"></i> Previous
-                        </button>
-                    )}
+                {/* 2. BUSINESS DETAILS */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">2. Business Core Details</h3>
+                    <div className="bus-grid bus-grid-2">
+                        <div className="bus-field"><label>Business Name *</label><input type="text" value={details.name} onChange={(e) => handleDetailChange("name", e.target.value)} placeholder="Enter business name" required /></div>
+                        <div className="bus-field"><label>Industry *</label><input type="text" value={details.industry} onChange={(e) => handleDetailChange("industry", e.target.value)} placeholder="e.g. Manufacturing, Retail" required /></div>
+                    </div>
+                    <div className="bus-grid bus-grid-3" style={{marginTop: '1rem'}}>
+                        <div className="bus-field">
+                            <label>Stage *</label>
+                            <select value={details.stage} onChange={(e) => handleDetailChange("stage", e.target.value)}>
+                                <option value="idea">Idea</option><option value="mvp">MVP</option><option value="growth">Growth</option><option value="scale">Scale</option>
+                            </select>
+                        </div>
+                        <div className="bus-field"><label>Turnover (Annual) *</label><input type="number" value={details.turnOver} onChange={(e) => handleDetailChange("turnOver", e.target.value)} placeholder="₹ in lakhs" required /></div>
+                        <div className="bus-field"><label>Profit Margin (%) *</label><input type="text" value={details.profitMargin} onChange={(e) => handleDetailChange("profitMargin", e.target.value)} placeholder="e.g. 15%" required /></div>
+                    </div>
+                    <div className="bus-field" style={{marginTop: '1rem'}}>
+                        <label>Business Model *</label>
+                        <textarea rows="3" value={details.businessModel} onChange={(e) => handleDetailChange("businessModel", e.target.value)} placeholder="How do you generate revenue?" required />
+                    </div>
+                </div>
 
-                    <button
-                        type={currentStep === 7 ? "submit" : "button"}
-                        className="btn btn-primary"
-                        onClick={currentStep !== 7 ? nextStep : undefined}
-                        disabled={currentStep === 7 && submitting}
-                    >
-                        {currentStep === 7 ? (
-                            submitting ? (
-                                <>
-                                    <i className="fas fa-spinner fa-spin"></i> Submitting...
-                                </>
-                            ) : (
-                                <>
-                                    <i className="fas fa-paper-plane"></i> Submit Application
-                                </>
-                            )
-                        ) : currentStep === TOTAL_STEPS ? (
-                            <>
-                                Review & Submit <i className="fas fa-arrow-right"></i>
-                            </>
-                        ) : (
-                            <>
-                                Next <i className="fas fa-arrow-right"></i>
-                            </>
-                        )}
+                {/* 3. PURPOSE & CHECKBOXES */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">3. Purpose of Funding</h3>
+                    <div className="bus-checkbox-group">
+                        <label><input type="checkbox" checked={details.purpose.workingCapital} onChange={(e) => handlePurposeChange("workingCapital", e.target.checked)} /> Working Capital</label>
+                        <label><input type="checkbox" checked={details.purpose.expansion} onChange={(e) => handlePurposeChange("expansion", e.target.checked)} /> Expansion</label>
+                        <label><input type="checkbox" checked={details.purpose.assetPurchase} onChange={(e) => handlePurposeChange("assetPurchase", e.target.checked)} /> Asset Purchase</label>
+                    </div>
+                    <div className="bus-field" style={{marginTop: '1rem'}}>
+                        <label>Other Purpose</label>
+                        <input type="text" value={details.purpose.other} onChange={(e) => handlePurposeChange("other", e.target.value)} placeholder="Specify if other" />
+                    </div>
+                </div>
+
+                {/* 4. RISK DISCLOSURE */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">4. Risk Disclosure</h3>
+                    <div className="bus-grid bus-grid-2">
+                        <div className="bus-field"><label>Market Risks *</label><textarea rows="3" value={details.riskDisclosure.marketRisks} onChange={(e) => handleRiskChange("marketRisks", e.target.value)} placeholder="Competition, volatility..." required /></div>
+                        <div className="bus-field"><label>Operational Risks *</label><textarea rows="3" value={details.riskDisclosure.operationalRisks} onChange={(e) => handleRiskChange("operationalRisks", e.target.value)} placeholder="Supply chain, staffing..." required /></div>
+                    </div>
+                </div>
+
+                {/* 5. PARTNERS */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">5. Business Partners</h3>
+                    <div className="bus-partner-list">
+                        {details.businessPartners.map((partner, index) => (
+                            <div className="bus-partner-card" key={index}>
+                                <div className="bus-partner-header">
+                                    <span>Partner {index + 1}</span>
+                                    {details.businessPartners.length > 1 && (
+                                        <button type="button" className="bus-remove-btn" onClick={() => removePartner(index)}><i className="fas fa-times"></i></button>
+                                    )}
+                                </div>
+                                <div className="bus-grid bus-grid-3">
+                                    <input type="text" value={partner.name} onChange={(e) => handlePartnerChange(index, "name", e.target.value)} placeholder="Name" required />
+                                    <input type="text" value={partner.role} onChange={(e) => handlePartnerChange(index, "role", e.target.value)} placeholder="Role" required />
+                                    <input type="number" value={partner.share} onChange={(e) => handlePartnerChange(index, "share", e.target.value)} placeholder="Share %" required />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <button type="button" className="btn btn-secondary" onClick={addPartner}>+ Add Partner</button>
+                </div>
+
+                {/* 6. OPERATING LOCATION */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">6. Operating Location</h3>
+                    <div className="bus-grid bus-grid-3">
+                        <div className="bus-field"><label>State *</label><input type="text" value={location.state} onChange={(e) => handleLocationChange("state", e.target.value)} placeholder="e.g. Assam" required /></div>
+                        <div className="bus-field"><label>District *</label><input type="text" value={location.district} onChange={(e) => handleLocationChange("district", e.target.value)} placeholder="District" required /></div>
+                        <div className="bus-field"><label>City/Town *</label><input type="text" value={location.city} onChange={(e) => handleLocationChange("city", e.target.value)} placeholder="City" required /></div>
+                    </div>
+                    <div className="bus-grid bus-grid-4" style={{marginTop: '1rem'}}>
+                        <div className="bus-field"><label>Village</label><input type="text" value={location.village} onChange={(e) => handleLocationChange("village", e.target.value)} placeholder="Village" /></div>
+                        <div className="bus-field"><label>Block</label><input type="text" value={location.block} onChange={(e) => handleLocationChange("block", e.target.value)} placeholder="Block" /></div>
+                        <div className="bus-field"><label>PIN Code *</label><input type="text" value={location.pincode} onChange={(e) => handleLocationChange("pincode", e.target.value)} placeholder="781001" maxLength="6" required /></div>
+                        <div className="bus-field"><label>Google Maps Link</label><input type="url" value={location.googleMapLocation} onChange={(e) => handleLocationChange("googleMapLocation", e.target.value)} placeholder="https://..." /></div>
+                    </div>
+                </div>
+
+                {/* 7. DOCUMENTS */}
+                <div className="bus-section">
+                    <h3 className="bus-section-title">7. Required Documents (PDF)</h3>
+                    <div className="bus-grid bus-grid-2">
+                        {Object.keys(initialDocs).map((docKey) => (
+                            <div className="bus-field" key={docKey}>
+                                <label>{docKey.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())} *</label>
+                                <div className="bus-file-upload">
+                                    <input type="file" accept=".pdf" id={docKey} onChange={(e) => setDocuments({...documents, [docKey]: e.target.files[0]})} required />
+                                    <label htmlFor={docKey} className="bus-file-label">
+                                        <i className="fas fa-cloud-upload-alt"></i>
+                                        <span>{documents[docKey] ? documents[docKey].name : "Upload Document"}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="bus-actions">
+                    <button type="submit" className="btn btn-primary" disabled={submitting}>
+                        {submitting ? <><i className="fas fa-spinner fa-spin"></i> Submitting...</> : <><i className="fas fa-paper-plane"></i> Final Submission</>}
                     </button>
                 </div>
             </form>

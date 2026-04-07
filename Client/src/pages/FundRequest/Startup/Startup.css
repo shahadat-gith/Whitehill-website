@@ -1,138 +1,247 @@
-/* Startup.css */
-
-.sfr-container {
-  margin: 1rem 3rem;
-  animation: slideUp 0.4s ease-out;
+/* ===========================
+   PAGE CONTAINER & HEADER
+   =========================== */
+.sta-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  animation: fadeIn 0.5s ease-out;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.sta-header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.sfr-form {
-  background-color: var(--bg-white);
-  padding: 2.5rem;
-  border-radius: 1.25rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
-  margin-top: 2rem;
-}
-
-/* Action Buttons */
-.sfr-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
-  gap: 1rem;
-}
-
-/* Align "Next" to the right on Step 1 */
-.sfr-actions:has(button:only-child) {
-  justify-content: flex-end;
-}
-
-/* Typography for Step content */
-.sfr-form h3 {
-  color: var(--primary-navy);
-  font-size: 1.25rem;
-  font-weight: 600;
+.sta-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-heading);
+  font-weight: 800;
   margin-bottom: 0.5rem;
 }
 
-/* Specialized Card for Founding Team (Step 4) */
-.founding-team-grid {
+.sta-header p {
+  color: var(--text-body);
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   FORM & SECTION CARDS
+   =========================== */
+.sta-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 2rem;
+}
+
+.sta-section {
+  background: var(--bg-surface);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-medium);
+  transition: border-color 0.3s ease;
+}
+
+.sta-section:focus-within {
+  border-color: var(--color-primary-soft);
+}
+
+.sta-section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-primary);
   margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent-soft-green);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.team-member-card {
-  border: 1px solid var(--border-medium);
+/* ===========================
+   GRID SYSTEM
+   =========================== */
+.sta-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.sta-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.sta-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sta-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ===========================
+   FIELDS & INPUTS
+   =========================== */
+.sta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sta-field label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sta-field input,
+.sta-field select,
+.sta-field textarea {
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text-body);
+  background: var(--bg-main);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sta-field input:focus,
+.sta-field select:focus,
+.sta-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-soft);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px var(--accent-soft-green);
+}
+
+/* ===========================
+   TEAM CARDS
+   =========================== */
+.sta-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sta-team-card {
+  background: var(--bg-main);
+  padding: 1.5rem;
   border-radius: 12px;
-  background: var(--bg-white);
-  overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  border: 1px solid var(--border-subtle);
+  position: relative;
 }
 
-.team-member-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-blue);
-}
-
-.team-member-header {
-  background-color: var(--bg-card);
-  padding: 0.75rem 1.25rem;
+.sta-team-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-medium);
-}
-
-.team-member-header span {
+  margin-bottom: 1.5rem;
   font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--primary-navy);
-  text-transform: uppercase;
+  color: var(--color-primary-soft);
+  font-size: 0.9rem;
 }
 
-.team-member-body {
-  padding: 1.5rem;
-}
-
-/* Removal button for team members */
-.remove-member-btn {
-  background: #fee2e2;
-  color: #ef4444;
+.sta-remove-btn {
+  background: #fff0f0;
+  color: var(--status-error);
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
 
-.remove-member-btn:hover {
-  background: #ef4444;
+.sta-remove-btn:hover {
+  background: var(--status-error);
   color: white;
 }
 
-/* Success/Spinner Icons */
-.fa-spin {
-  margin-right: 8px;
+/* ===========================
+   FILE UPLOAD CUSTOMIZATION
+   =========================== */
+.sta-file-upload {
+  position: relative;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .sfr-form {
+.sta-file-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.sta-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--bg-main);
+  border: 2px dashed var(--border-default);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.sta-file-label i {
+  font-size: 1.5rem;
+  color: var(--color-primary-soft);
+  margin-bottom: 10px;
+}
+
+.sta-file-label span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.sta-file-label:hover {
+  border-color: var(--color-accent);
+  background: #ffffff;
+}
+
+/* ===========================
+   FORM ACTIONS
+   =========================== */
+.sta-actions {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--bg-surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow-high);
+  display: flex;
+  justify-content: center;
+}
+
+.sta-actions .btn-primary {
+  width: 100%;
+  max-width: 400px;
+  padding: 18px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 900px) {
+  .sta-grid-2, .sta-grid-3, .sta-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .sta-section {
     padding: 1.5rem;
   }
-
-  .sfr-actions {
-    flex-direction: column-reverse;
+  
+  .sta-header h1 {
+    font-size: 1.8rem;
   }
+}
 
-  .sfr-actions .btn {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  .sfr-container {
-    margin: 0.5rem;
-  }
-
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

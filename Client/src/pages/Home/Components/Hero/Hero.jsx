@@ -1,13 +1,17 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Hero.css';
 import buildingImg from './building.png';
 import gearImg from './gear.png';
+import FundModal from "./FundModal";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleNavigate = (path) => {
-    navigate(path);
+  const handleFundSelection = (type) => {
+    setIsModalOpen(false);
+    navigate(`/request-funds?type=${type}`);
   };
 
   return (
@@ -31,13 +35,13 @@ const Hero = () => {
           <div className="hero-buttons">
             <button 
               className="btn btn-primary" 
-              onClick={() => handleNavigate("/sell-property")}
+              onClick={() => navigate("/sell-property")}
             >
               Sell Property
             </button>
             <button 
               className="btn btn-secondary" 
-              onClick={() => handleNavigate("/request-funds")}
+              onClick={() => setIsModalOpen(true)}
             >
               Need Funds?
             </button>
@@ -49,6 +53,11 @@ const Hero = () => {
           <img src={gearImg} alt="Startup Innovation" className="gear-img" />
         </div>
       </div>
+
+      {/* FUNDING TYPE SELECTION MODAL */}
+      {isModalOpen && (
+        <FundModal setIsModalOpen={setIsModalOpen} handleFundSelection={handleFundSelection}/>
+      )}
     </section>
   );
 };

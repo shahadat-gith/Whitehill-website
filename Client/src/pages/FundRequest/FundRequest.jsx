@@ -1,62 +1,42 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import "./FundRequest.css";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Startup from "./Startup/Startup";
 import BusinessVenture from "./BusinessVenture/BusinessVenture";
 import Property from "./Property/Property";
 
 const FundRequest = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const validTypes = ["startup", "businessVenture", "property"];
-  const typeParam = searchParams.get("type");
-  const type = validTypes.includes(typeParam) ? typeParam : "startup";
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const validTypes = ["startup", "business", "property"];
+  const type = searchParams.get("type");
 
   useEffect(() => {
-    if (!typeParam || !validTypes.includes(typeParam)) {
-      setSearchParams({ type: "startup" }, { replace: true });
+    // If no type is provided or the type is invalid, 
+    // default to startup to prevent a blank page
+    if (!type || !validTypes.includes(type)) {
+      navigate("/request-funds?type=startup", { replace: true });
     }
-  }, [typeParam, setSearchParams]);
+  }, [type, navigate]);
 
-  const handleTypeChange = (newType) => {
-    setSearchParams({ type: newType });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Map the URL type to the specific component
+  const renderFormComponent = () => {
+    switch (type) {
+      case "startup":
+        return <Startup />;
+      case "business":
+        return <BusinessVenture />;
+      case "property":
+        return <Property />;
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="fund-request-page">
       <div className="fund-request-column">
-        <div className="fund-card">
-          <h2>Need fund for?</h2>
-          <div className="fund-tabs">
-            <button
-              type="button"
-              className={`fund-tab ${type === "startup" ? "active" : ""}`}
-              onClick={() => handleTypeChange("startup")}
-            >
-              Startup
-            </button>
-
-            <button
-              type="button"
-              className={`fund-tab ${type === "businessVenture" ? "active" : ""}`}
-              onClick={() => handleTypeChange("businessVenture")}
-            >
-              Business Venture
-            </button>
-
-            <button
-              type="button"
-              className={`fund-tab ${type === "property" ? "active" : ""}`}
-              onClick={() => handleTypeChange("property")}
-            >
-              Land / Property
-            </button>
-          </div>
-        </div>
-
-        {type === "startup" && <Startup />}
-        {type === "businessVenture" && <BusinessVenture />}
-        {type === "property" && <Property />}
+        {renderFormComponent()}
       </div>
     </div>
   );

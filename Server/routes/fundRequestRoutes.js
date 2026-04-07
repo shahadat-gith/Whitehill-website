@@ -5,6 +5,7 @@ import { authMiddleware } from "../middlewares/authmiddleware.js";
 import {
   createStartupFundRequest,
   createBusinessVentureFundRequest,
+  createPropertyFundRequest,
   getUserFundRequests,
 } from "../controllers/fundRequestController.js";
 
@@ -39,6 +40,19 @@ fundRequestRouter.post(
     { name: "cashFlowStatement", maxCount: 1 },
   ]),
   createBusinessVentureFundRequest
+);
+
+/* ===================== PROPERTY FUND REQUEST ===================== */
+fundRequestRouter.post(
+  "/property",
+  authMiddleware,
+  upload.fields([
+    { name: "landOwnershipProof", maxCount: 1 },
+    { name: "layout", maxCount: 1 },
+    { name: "reraCertificate", maxCount: 1 },
+    { name: "financialModel", maxCount: 1 },
+  ]),
+  createPropertyFundRequest
 );
 
 

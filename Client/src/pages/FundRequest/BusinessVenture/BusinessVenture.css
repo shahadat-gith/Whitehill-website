@@ -1,140 +1,116 @@
-/* BusinessVenture.css */
-
-.bfr-container {
-  margin: 2rem 3rem;
-  padding: 0 1rem;
-  animation: fadeIn 0.5s ease-in-out;
+.bus-container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.bus-header {
+    text-align: center;
+    margin-bottom: 3rem;
 }
 
-.bfr-form {
-  background-color: var(--bg-white);
-  padding: 2.5rem;
-  border-radius: 1.5rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
-  margin-top: 2rem;
+.bus-header h1 {
+    font-size: 2.2rem;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
 }
 
-.bfr-section {
-  margin-bottom: 2rem;
+.bus-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-/* Navigation Buttons Container */
-.bfr-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-light);
-  gap: 1rem;
+.bus-section {
+    background: var(--bg-surface);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-medium);
 }
 
-/* Ensure single button (Next) aligns to the right on Step 1 */
-.bfr-actions:has(button:only-child) {
-  justify-content: flex-end;
+.bus-section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-soft-green);
+    text-transform: uppercase;
 }
 
-/* Typography for Step Content (Targeting children components) */
-.bfr-section h2 {
-  color: var(--primary-navy);
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+.bus-grid {
+    display: grid;
+    gap: 1.5rem;
 }
 
-.bfr-section p.step-description {
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
+.bus-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.bus-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.bus-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.bus-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-/* Form Group Layout (Generic helper for Step components) */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+.bus-field label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-heading);
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.bus-field input, .bus-field select, .bus-field textarea {
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border-default);
+    border-radius: 10px;
+    font-family: inherit;
+    background: var(--bg-main);
 }
 
-.form-group label {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.95rem;
+.bus-checkbox-group {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-/* Input Styling to match your theme */
-.bfr-form input[type="text"],
-.bfr-form input[type="number"],
-.bfr-form input[type="url"],
-.bfr-form select,
-.bfr-form textarea {
-  padding: 12px 16px;
-  border: 1px solid var(--border-medium);
-  border-radius: 8px;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  background-color: #fafafa;
-}
-
-.bfr-form input:focus,
-.bfr-form textarea:focus {
-  outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(74, 124, 158, 0.1);
-  background-color: var(--bg-white);
-}
-
-/* Icon Spacing */
-.btn i {
-  margin: 0 8px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .bfr-form {
+.bus-partner-card {
+    background: var(--bg-main);
     padding: 1.5rem;
-    border-radius: 1rem;
-  }
-
-  .bfr-container {
-    margin: 0.5rem;
-  }
-
-
-  .bfr-actions {
-    flex-direction: column-reverse;
-    /* Stack buttons on mobile */
-  }
-
-  .bfr-actions .btn {
-    width: 100%;
-  }
-
-  .bfr-section {
-    min-height: auto;
-  }
+    border-radius: 12px;
+    margin-bottom: 1rem;
 }
 
-/* Submit Review Step Specifics */
-.review-card {
-  background-color: var(--bg-card);
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid var(--accent-light-blue2);
+.bus-partner-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.bus-file-upload input { display: none; }
+.bus-file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--bg-main);
+    border: 2px dashed var(--border-default);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.bus-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.bus-actions button {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .bus-grid-2, .bus-grid-3, .bus-grid-4 { grid-template-columns: 1fr; }
 }
