@@ -9,9 +9,6 @@ import Project from "../models/project.js";
 import Investment from "../models/investment.js";
 import User from "../models/user.js";
 import Query from "../models/query.js";
-import Startup from "../models/fundRequest/startup.js";
-import BusinessVenture from "../models/fundRequest/businessVenture.js";
-import Property from "../models/fundRequest/property.js";
 import PropertySelling from "../models/propertySelling.js";
 
 
@@ -965,129 +962,6 @@ export const getDashboardData = async (req, res) => {
   }
 };
 
-// Fund Requests Admin Functions
-export const getAllFundRequests = async (req, res) => {
-  try {
-    const startupRequests = await Startup.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
-    const businessRequests = await BusinessVenture.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
-    const propertyRequests = await Property.find().populate('requester', 'fullName email').sort({ createdAt: -1 });
-
-    const fundRequests = [
-      ...startupRequests.map(req => ({ ...req.toObject(), type: 'startup' })),
-      ...businessRequests.map(req => ({ ...req.toObject(), type: 'business' })),
-      ...propertyRequests.map(req => ({ ...req.toObject(), type: 'property' }))
-    ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    return res.status(200).json({
-      success: true,
-      data: fundRequests,
-    });
-  } catch (error) {
-    console.error("getAllFundRequests error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Error retrieving fund requests",
-      error: error.message,
-    });
-  }
-};
-
-export const getFundRequestById = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    // Try to find in startup requests first
-    let request = await Startup.findById(id).populate('requester', 'fullName email');
-    let type = 'startup';
-
-    // If not found in startup, try business venture
-    if (!request) {
-      request = await BusinessVenture.findById(id).populate('requester', 'fullName email');
-      type = 'business';
-    }
-
-    // If not found in business, try property
-    if (!request) {
-      request = await Property.findById(id).populate('requester', 'fullName email');
-      type = 'property';
-    }
-
-    if (!request) {
-      return res.status(404).json({
-        success: false,
-        message: "Fund request not found",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      data: { ...request.toObject(), type },
-    });
-  } catch (error) {
-    console.error("getFundRequestById error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Error retrieving fund request",
-      error: error.message,
-    });
-  }
-};
-
-export const updateFundRequestStatus = async (req, res) => {
-  try {
-    const { id, type, status, amountAlloted,rejectionReason="" } = req.body;
-
-    let model;
-    if (type === 'startup') {
-      model = Startup;
-    } else if (type === 'business') {
-      model = BusinessVenture;
-    } else if (type === 'property') {
-      model = Property;
-    } else {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid fund request type",
-      });
-    }
-
-    if(status === "rejected"){
-      model.rejectionReason = String(rejectionReason).trim() || "No reason provided";
-      return res.status(200).json({
-        success: true,
-        message: "Fund request rejected successfully",
-      });
-    }
-
-    const updateData = { status };
-    if (amountAlloted !== undefined) {
-      updateData.amountAlloted = amountAlloted;
-      updateData.processedAt = new Date();
-    }
-
-    const updatedRequest = await model.findByIdAndUpdate(id, updateData, { new: true });
-
-    if (!updatedRequest) {
-      return res.status(404).json({
-        success: false,
-        message: "Fund request not found",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Fund request updated successfully",
-      data: updatedRequest,
-    });
-  } catch (error) {
-    console.error("updateFundRequestStatus error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Error updating fund request",
-      error: error.message,
-    });
-  }
-};
 
 // Property Selling Admin Functions
 export const getAllPropertySellings = async (req, res) => {

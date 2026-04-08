@@ -13,8 +13,7 @@ import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Investment from "./pages/Investment/Investment";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
-import FundRequest from "./pages/FundRequest/FundRequest";
-import Congratulations from "./pages/FundRequest/Congratulations";
+import Funding from "./pages/Funding/Funding";
 import SellProperty from "./pages/SellProperty/SellProperty";
 import SellPropertyInstructions from "./pages/SellProperty/SellPropertyInstructions";
 import SellPropertyReview from "./pages/SellProperty/SellPropertyReview";
@@ -50,7 +49,7 @@ const App = () => {
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-
+        <Route path="/request-funds" element={<Funding />} />
 
         <Route path="/sell-property" element={<SellPropertyInstructions />} />
         <Route path="/sell-property/form" element={<SellProperty />} />
@@ -58,8 +57,7 @@ const App = () => {
         <Route path="/sell-property/congratulations" element={<SellPropertyCongratulations />} />
 
 
-        <Route path="/request-funds" element={<FundRequest />} />
-        <Route path="/request-funds/congratulations" element={<Congratulations />} />
+
         
         <Route path="/*" element={<NotFound />} />
       </Routes>

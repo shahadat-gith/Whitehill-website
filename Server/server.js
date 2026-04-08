@@ -13,7 +13,7 @@ import transactionRouter from "./routes/transactionRoutes.js";
 import projectRouter from "./routes/projectRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
-import fundRequestRouter from "./routes/fundRequestRoutes.js";
+import fundingRouter from "./routes/fundingRoutes.js";
 import propertySellingRouter from "./routes/propertySellingRoutes.js";
 
 const app = express();
@@ -44,7 +44,7 @@ app.use("/api/project", projectRouter);
 app.use("/api/transaction", transactionRouter);
 app.use("/api/investment", investmentRouter);
 app.use("/api/admin", adminRouter)
-app.use("/api/fund-request", fundRequestRouter);
+app.use("/api/funding", fundingRouter);
 app.use("/api/property-selling", propertySellingRouter);
 
 
