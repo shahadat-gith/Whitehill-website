@@ -222,21 +222,6 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-.fo-form button {
-  background: var(--color-accent);
-  color: var(--color-primary);
-  border: none;
-  padding: 14px;
-  border-radius: 12px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.fo-form button:hover {
-  background: var(--accent-soft-gold);
-  transform: translateY(-2px);
-}
 
 .fo-security-note {
   margin-top: 1.5rem;

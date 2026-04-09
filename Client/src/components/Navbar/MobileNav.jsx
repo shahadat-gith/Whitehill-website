@@ -82,20 +82,6 @@ const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout
                             </Link>
                         ))}
                     </div>
-
-                    {!user && !loading && (
-                        <div className="mobile-auth-buttons">
-                            <button
-                                className="btn btn-primary btn-block"
-                                onClick={() => {
-                                    setMobileMenuOpen(false);
-                                    navigate("/register");
-                                }}
-                            >
-                                Create Account
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

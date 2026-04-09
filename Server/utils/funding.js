@@ -1,55 +1,50 @@
-import { uploadPdfToCloudinary } from "../configs/cloudinary.js";
+import {
+  uploadImageToCloudinary,
+  uploadPdfToCloudinary,
+  uploadVideoToCloudinary
+} from "../configs/cloudinary.js";
 
-export const parseJSON = (value, fieldName) => {
-  if (value === undefined || value === null || value === "") return undefined;
+
+export const parseIfJSON = (value) => {
   if (typeof value !== "string") return value;
-
   try {
     return JSON.parse(value);
-  } catch (error) {
-    throw new Error(`Invalid JSON format for ${fieldName || "field"}`);
+  } catch {
+    return value;
   }
 };
 
-export const parseArrayField = (value) => {
-  if (!value) return [];
-  if (Array.isArray(value)) return value;
-
-  const trimmed = String(value).trim();
-  if (!trimmed) return [];
-
-  if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
-    return parseJSON(trimmed, "array field");
+export const getUploadHandler = (mimetype) => {
+  if (mimetype.startsWith("image/")) {
+    return { fn: uploadImageToCloudinary, resource_type: "image" };
   }
-
-  return trimmed.split(",").map((item) => item.trim()).filter(Boolean);
-};
-
-export const uploadFile = async (file, folder) => {
-  if (!file) return null;
-  const result = await uploadPdfToCloudinary(file.buffer, folder);
-  return {
-    url: result.url,
-    public_id: result.public_id,
-  };
-};
-
-export const uploadFiles = async (files = [], folder) => {
-  const uploaded = [];
-  for (const file of files) {
-    const result = await uploadPdfToCloudinary(file.buffer, `${folder}/${file.originalname.replace(/\s+/g, "_")}`);
-    uploaded.push({ url: result.url, public_id: result.public_id });
+  if (mimetype.startsWith("video/")) {
+    return { fn: uploadVideoToCloudinary, resource_type: "video" };
   }
-  return uploaded;
+  return { fn: uploadPdfToCloudinary, resource_type: "raw" };
 };
 
-export const buildConsent = (value) => {
-  const payload = parseJSON(value, "consent") || {};
+export const cleanEmpty = (obj) => {
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      cleanEmpty(obj[key]);
+      if (Object.keys(obj[key]).length === 0) delete obj[key];
+    }
+    if (obj[key] === undefined || obj[key] === null) delete obj[key];
+  });
+};
 
-  return {
-    agreedToTerms: Boolean(payload.agreedToTerms),
-    agreedToPrivacyPolicy: Boolean(payload.agreedToPrivacyPolicy),
-    agreedToCreditCheck: Boolean(payload.agreedToCreditCheck),
-    consentedAt: payload.consentedAt ? new Date(payload.consentedAt) : new Date(),
-  };
+export const deepMerge = (target, source) => {
+  for (const key in source) {
+    if (
+      source[key] &&
+      typeof source[key] === "object" &&
+      !Array.isArray(source[key])
+    ) {
+      if (!target[key]) target[key] = {};
+      deepMerge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
 };

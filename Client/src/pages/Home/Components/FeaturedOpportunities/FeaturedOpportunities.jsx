@@ -129,7 +129,7 @@ const FeaturedOpportunities = () => {
                     required
                   ></textarea>
 
-                  <button type="submit">
+                  <button type="submit" className="btn btn-secondary">
                     Submit Enquiry
                   </button>
                 </form>

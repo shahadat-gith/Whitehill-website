@@ -91,12 +91,6 @@ const DesktopNav = ({ loggingout, handleLogout, navLinks}) => {
                     <div className="auth-buttons">
                         <button
                             className="btn btn-primary"
-                            onClick={() => navigate("/register")}
-                        >
-                            Create Account
-                        </button>
-                        <button
-                            className="btn btn-secondary"
                             onClick={() => navigate("/login")}
                         >
                             Login

@@ -1,0 +1,25 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background shapes -->
+  <rect x="50" y="140" width="120" height="120" rx="20" fill="#f3f0a8"/>
+  <rect x="140" y="80" width="120" height="180" rx="20" fill="#b8d4e3"/>
+  <rect x="100" y="160" width="120" height="140" rx="20" fill="#e6bfc4"/>
+
+  <!-- Gear 1 -->
+  <circle cx="110" cy="110" r="35" stroke="#1e293b" stroke-width="3"/>
+  
+  <!-- Gear 2 -->
+  <circle cx="90" cy="170" r="25" stroke="#1e293b" stroke-width="3"/>
+
+  <!-- Bulb -->
+  <path d="M200 120 
+           C180 120, 170 140, 170 160 
+           C170 180, 185 190, 185 210 
+           L215 210 
+           C215 190, 230 180, 230 160 
+           C230 140, 220 120, 200 120Z" 
+        stroke="#1e293b" stroke-width="3" fill="none"/>
+
+  <rect x="185" y="210" width="30" height="20" rx="5" stroke="#1e293b" stroke-width="3"/>
+
+</svg>

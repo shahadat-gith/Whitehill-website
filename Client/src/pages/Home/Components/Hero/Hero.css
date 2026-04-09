@@ -2,7 +2,7 @@
    HERO SECTION
    =========================== */
 .hero {
-  background-color: var(--bg-main); /* Warm off-white */
+  background-color: var(--bg-main);
   padding: 80px 20px;
   border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
@@ -22,7 +22,7 @@
    ILLUSTRATIONS (LEFT & RIGHT)
    =========================== */
 .hero-illustration {
-  flex: 0 0 280px; /* Fixed width for desktop balance */
+  flex: 0 0 280px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,6 +52,7 @@
 .hero-content {
   text-align: center;
   flex: 1;
+  min-width: 0; /* IMPORTANT: prevents overflow */
   max-width: 700px;
   z-index: 2;
   animation: fadeIn 1s ease-in;
@@ -60,7 +61,7 @@
 .hero-title {
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
-  color: var(--text-heading); /* Rich dark green */
+  color: var(--text-heading);
   margin-bottom: 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -68,7 +69,7 @@
 
 .hero-subtitle {
   font-size: 1.15rem;
-  color: var(--text-body); /* Muted green-gray */
+  color: var(--text-body);
   margin-bottom: 2.5rem;
   line-height: 1.6;
   max-width: 550px;
@@ -76,55 +77,13 @@
   margin-right: auto;
 }
 
-/* ===========================
-   BUTTONS (Primary & Secondary)
-   =========================== */
-.hero-buttons {
+
+.hero-buttons{
   display: flex;
-  gap: 1.25rem;
   justify-content: center;
-  align-items: center;
+  gap: 20px;
 }
 
-.btn {
-  padding: 14px 32px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-.btn-primary {
-  background-color: var(--btn-main-bg);
-  color: var(--text-on-primary);
-  border: none;
-  box-shadow: var(--shadow-medium);
-}
-
-.btn-primary:hover {
-  background-color: var(--btn-main-hover);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-high);
-}
-
-.btn-secondary {
-  background-color: var(--bg-surface);
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-}
-
-.btn-secondary:hover {
-  border-color: var(--color-accent); /* Gold border on hover */
-  color: var(--color-accent);
-  background-color: var(--btn-alt-hover);
-  transform: translateY(-3px);
-}
 
 /* ===========================
    ANIMATIONS
@@ -144,60 +103,57 @@
   to { opacity: 1; }
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
 
-/* Tablet */
-@media (max-width: 1100px) {
-  .hero-illustration {
-    flex: 0 0 200px;
-  }
-  .building-img, .gear-img { max-height: 250px; }
-}
-
-/* Mobile: Stack layout, illustrations side-by-side above text */
+/* Mobile — KEEP LEFT & RIGHT */
 @media (max-width: 850px) {
   .hero-container {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row; /* FIXED: no column */
+    align-items: center;
+    gap: 1rem;
   }
 
   .hero-illustration {
-    flex: 1;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  /* Make illustrations appear side by side on mobile for space */
-  .hero-illustration-left, .hero-illustration-right {
-    display: inline-flex;
-    width: 45%;
+    flex: 0 0 150px; 
   }
 
-  .building-img, .gear-img { height: 160px; }
-  
-  .hero-content {
-    order: 2;
-    margin-top: 2rem;
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons{
+    max-width: 80%;
+    margin: 0 auto;
   }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
-  .hero { padding: 40px 15px; }
-  .hero-title { font-size: 1.8rem; }
-  .hero-subtitle { font-size: 1rem; }
-  .hero-buttons { flex-direction: column; width: 100%; }
-  .btn { width: 100%; }
-  .building-img, .gear-img { height: 120px; }
+  .hero {
+    padding: 40px 10px;
+  }
+
+  .hero-container {
+    gap: 0.5rem;
+  }
+
+  .hero-illustration {
+    flex: 0 0 90px;
+  }
+
+    .hero-title {
+    font-size: 1.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+
+
 }
-
-
 
 
 
@@ -210,7 +166,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(8, 28, 21, 0.8); /* Deep Green Backdrop */
+  background: rgba(8, 28, 21, 0.8);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -256,7 +212,7 @@
 }
 
 /* ===========================
-   RADIO CARD OPTIONS
+   RADIO OPTIONS
    =========================== */
 .modal-options {
   display: grid;
@@ -270,7 +226,7 @@
 }
 
 .modal-radio-card input[type="radio"] {
-  display: none; /* Hide actual radio button */
+  display: none;
 }
 
 .radio-content {
@@ -282,7 +238,7 @@
   align-items: center;
   gap: 12px;
   background: var(--bg-main);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 }
 
 .radio-content i {
@@ -296,19 +252,18 @@
   color: var(--text-heading);
 }
 
-/* Hover & Selection States */
 .modal-radio-card:hover .radio-content {
   border-color: var(--color-accent);
   transform: translateY(-4px);
   background: #ffffff;
 }
 
-/* Response logic: when user clicks, it navigates immediately */
-
+/* Mobile modal */
 @media (max-width: 600px) {
   .modal-options {
     grid-template-columns: 1fr;
   }
+
   .hero-modal {
     padding: 2rem 1.5rem;
   }

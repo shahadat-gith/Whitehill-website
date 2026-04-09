@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import './Hero.css';
 import buildingImg from './building.png';
 import gearImg from './gear.png';
+
 import FundModal from "./FundModal";
 
 const Hero = () => {
@@ -25,27 +26,11 @@ const Hero = () => {
         {/* CENTER CONTENT */}
         <div className="hero-content">
           <h1 className="hero-title">
-            Strategic real estate and startup investments.
+            Smart investments. Real returns.
           </h1>
           <p className="hero-subtitle">
-            Curated access. Institutional diligence. Performance-linked outcomes 
-            delivered through a transparent digital platform.
+            Real estate and startups, built for performance.
           </p>
-          
-          <div className="hero-buttons">
-            <button 
-              className="btn btn-primary" 
-              onClick={() => navigate("/sell-property")}
-            >
-              Sell Property
-            </button>
-            <button 
-              className="btn btn-secondary" 
-              onClick={() => setIsModalOpen(true)}
-            >
-              Need Funds?
-            </button>
-          </div>
         </div>
 
         {/* RIGHT ILLUSTRATION */}
@@ -54,9 +39,24 @@ const Hero = () => {
         </div>
       </div>
 
+      <div className="hero-buttons">
+        <button
+          className="btn btn-primary"
+          onClick={() => navigate("/sell-property")}
+        >
+          Sell Property
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Need Funds?
+        </button>
+      </div>
+
       {/* FUNDING TYPE SELECTION MODAL */}
       {isModalOpen && (
-        <FundModal setIsModalOpen={setIsModalOpen} handleFundSelection={handleFundSelection}/>
+        <FundModal setIsModalOpen={setIsModalOpen} handleFundSelection={handleFundSelection} />
       )}
     </section>
   );

@@ -6,47 +6,99 @@ import * as fundingController from "../controllers/fundingController.js";
 
 const fundingRouter = express.Router();
 
+/* =========================
+   DOCUMENT FIELDS CONFIG
+   ========================= */
+
+const documentFields = [
+  // Common
+  { name: "incomeProof", maxCount: 1 },
+  { name: "bankStatement", maxCount: 1 },
+  { name: "creditReport", maxCount: 1 },
+  { name: "additionalDocs", maxCount: 5 },
+
+  // Startup
+  { name: "pitchDeck", maxCount: 1 },
+  { name: "financialProjections", maxCount: 1 },
+  { name: "capTable", maxCount: 1 },
+  { name: "incorporationCertificate", maxCount: 1 },
+  { name: "startupBankStatement", maxCount: 1 },
+  { name: "tractionProof", maxCount: 1 },
+
+  // Business
+  { name: "cashFlow", maxCount: 1 },
+  { name: "balanceSheet", maxCount: 1 },
+  { name: "profitLoss", maxCount: 1 },
+  { name: "gstReturns", maxCount: 1 },
+  { name: "itrReturns", maxCount: 1 },
+  { name: "businessRegistration", maxCount: 1 },
+  { name: "businessBankStatement", maxCount: 1 },
+  { name: "invoiceRecords", maxCount: 1 },
+
+  // Property
+  { name: "saleDeed", maxCount: 1 },
+  { name: "titleDeed", maxCount: 1 },
+  { name: "taxReceipt", maxCount: 1 },
+  { name: "encumbrance", maxCount: 1 },
+  { name: "landRecords", maxCount: 1 },
+  { name: "buildingApproval", maxCount: 1 },
+  { name: "propertyInsurance", maxCount: 1 },
+  { name: "valuationReport", maxCount: 1 },
+  { name: "occupancyCertificate", maxCount: 1 },
+  { name: "noObjectionCertificates", maxCount: 5 },
+];
+
+/* =========================
+   USER ROUTES
+   ========================= */
+
+// 🔥 Create funding (with documents)
 fundingRouter.post(
-  "/startup",
+  "/",
   authMiddleware,
-  upload.fields([
-    { name: "incomeProof", maxCount: 1 },
-    { name: "bankStatement", maxCount: 1 },
-    { name: "pitchDeck", maxCount: 1 },
-    { name: "additionalDocs", maxCount: 10 },
-  ]),
-  fundingController.createStartupFunding
+  upload.fields(documentFields),
+  fundingController.createFunding
 );
 
-fundingRouter.post(
-  "/business",
+// 🔄 Update funding (partial + optional files)
+fundingRouter.patch(
+  "/:id",
   authMiddleware,
-  upload.fields([
-    { name: "cashFlow", maxCount: 1 },
-    { name: "balanceSheet", maxCount: 1 },
-    { name: "profitLoss", maxCount: 1 },
-  ]),
-  fundingController.createBusinessFunding
+  upload.fields(documentFields),
+  fundingController.updateFunding
 );
 
-fundingRouter.post(
-  "/property",
+// 📄 Get all funding (optional filters)
+fundingRouter.get(
+  "/",
   authMiddleware,
-  upload.fields([
-    { name: "saleDeed", maxCount: 1 },
-    { name: "titleDeed", maxCount: 1 },
-    { name: "taxReceipt", maxCount: 1 },
-    { name: "encumbrance", maxCount: 1 },
-    { name: "landRecords", maxCount: 1 },
-    { name: "buildingApproval", maxCount: 1 },
-  ]),
-  fundingController.createPropertyFunding
+  fundingController.getAllFunding
 );
 
-fundingRouter.get("/me", authMiddleware, fundingController.getUserFundings);
-fundingRouter.get("/", adminAuth, fundingController.getAllFundings);
-fundingRouter.get("/:id", authMiddleware, fundingController.getFundingById);
-fundingRouter.patch("/:id/admin-review", adminAuth, fundingController.updateFundingReview);
-fundingRouter.delete("/:id", adminAuth, fundingController.deleteFunding);
+// 📄 Get single funding
+fundingRouter.get(
+  "/:id",
+  authMiddleware,
+  fundingController.getFundingById
+);
+
+// 🚀 Submit funding (draft → submitted)
+fundingRouter.patch(
+  "/:id/submit",
+  authMiddleware,
+  fundingController.submitFunding
+);
+
+/* =========================
+   ADMIN ROUTES
+   ========================= */
+
+// 🛠 Admin review (approve/reject/etc.)
+fundingRouter.patch(
+  "/:id/review",
+  authMiddleware,
+  adminAuth,
+  fundingController.reviewFunding // (you will implement)
+);
 
 export default fundingRouter;

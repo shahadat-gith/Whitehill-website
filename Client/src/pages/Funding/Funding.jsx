@@ -395,7 +395,6 @@ const Funding = () => {
             </div>
 
             <div className="form-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>Back</button>
               <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? "Submitting..." : "Submit funding request"}</button>
             </div>
           </form>

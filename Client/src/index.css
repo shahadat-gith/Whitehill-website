@@ -4,50 +4,43 @@
 
 
 :root {
-  /* Brand & Primary Neutrals */
-  --color-primary: #1b4332;         /* Deep financial green */
-  --color-primary-soft: #2d6a4f;    /* Softer green for hover */
-  --color-accent: #d4a373;          /* Elegant gold accent */
+  --color-primary: #1e293b;
+  --color-primary-soft: #334155;
+  --color-accent: #1e7cc9;
 
-  /* Backgrounds & Surfaces */
-  --bg-main: #f9faf9;               /* Warm off-white */
-  --bg-surface: #ffffff;            
-  --bg-muted: #f1f3f2;              /* Soft neutral gray */
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-muted: #f1f5f9;
 
-  /* Text Colors */
-  --text-heading: #081c15;          /* Rich dark green-black */
-  --text-body: #344e41;             /* Muted green-gray */
-  --text-muted: #6c757d;            
+  --text-heading: #020617;
+  --text-body: #334155;
+  --text-muted: #64748b;
   --text-on-primary: #ffffff;
 
-  /* Decorative Accents (Soft Finance-friendly tones) */
-  --accent-soft-green: #d8f3dc;     
-  --accent-soft-gold: #faedcd;      
-  --accent-soft-olive: #e9f5db;     
-  --accent-soft-red: #fde2e4;       
+  --accent-soft-green: #dcfce7;
+  --accent-soft-gold: #e0f2fe;
+  --accent-soft-olive: #e2e8f0;
+  --accent-soft-red: #fee2e2;
 
-  /* Button Colors */
-  --btn-main-bg: #1b4332;
-  --btn-main-hover: #081c15;
+  --btn-main-bg: #1e293b;
+  --btn-main-hover: #020617;
   --btn-alt-bg: #ffffff;
-  --btn-alt-hover: #f9faf9;
+  --btn-alt-hover: #f1f5f9;
 
-  /* Border Colors */
-  --border-subtle: #7f8f83;
-  --border-default: #cbf3db;
-  --border-strong: #d2efe0;
+  --border-subtle: #cbd5f5;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
 
-  /* Status Colors */
-  --status-success: #2d6a4f;
-  --status-warning: #e09f3e;        /* Warm amber */
-  --status-error: #bc4749;          
-  --status-info: #588157;           /* Muted green instead of blue */
+  --status-success: #22c55e;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+  --status-info: #3b82f6;
 
-  /* Elevation (Shadows) */
-  --shadow-low: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
-  --shadow-high: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-low: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-medium: 0 4px 6px rgba(0,0,0,0.08);
+  --shadow-high: 0 10px 20px rgba(0,0,0,0.12);
 }
+
 /* Base styles */
 body {
   background-color: var(--bg-light-gray);
@@ -57,61 +50,50 @@ body {
 
 
 
+/* ===========================
+   BUTTONS (FIXED + CONSISTENT)
+   =========================== */
+
 .btn {
-  padding: 10px 22px;
-  border-radius: 9999px;   /* 👈 makes it fully rounded */
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 8px 26px;
+  border-radius: 9999px; 
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   border: none;
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
 }
 
+/* PRIMARY BUTTON */
 .btn-primary {
-  background-color: var(--primary-navy);
-  color: var(--text-white);
-  border: 2px solid var(--primary-navy);
+  background-color: var(--btn-main-bg);
+  color: var(--text-on-primary);
+  border: 2px solid var(--btn-main-bg);
+  box-shadow: var(--shadow-medium);
 }
 
 .btn-primary:hover {
-  background-color: var(--btn-primary-hover);
-  border-color: var(--btn-primary-hover);
+  background-color: var(--btn-main-hover);
+  border-color: var(--btn-main-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-high);
 }
 
+/* SECONDARY BUTTON */
 .btn-secondary {
-  background-color: var(--btn-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--border-medium);
+  background-color: var(--bg-surface);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .btn-secondary:hover {
-  background-color: var(--btn-secondary-hover);
-}
-
-
-/* Mobiles (small screens) */
-@media (max-width: 768px) {
-  .btn {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-
-  /* Center align button on small screens */
-  .btn-primary,
-  .btn-secondary {
-    margin: 10px auto 0;
-
-  }
-}
-
-/* Extra-small devices (under 480px) */
-@media (max-width: 480px) {
-  .btn {
-    font-size: 0.85rem;
-    padding: 8px 16px;
-
-  }
+  background-color: var(--btn-alt-hover);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
 }

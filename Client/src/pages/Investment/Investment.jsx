@@ -93,7 +93,7 @@ const Investment = () => {
             <h3>No Investments Found</h3>
             {investments.length === 0 && (
               <button
-                className="inv-btn-primary"
+                className="btn btn-primary"
                 onClick={() => navigate("/projects")}
               >
                 <i className="fas fa-plus-circle"></i>
@@ -117,7 +117,7 @@ const Investment = () => {
                 {investments.map((inv) => (
                   <tr 
                     key={inv._id}
-                    onClick={() => navigate(`/project/${inv.project?._id}`)}
+                    onClick={() => navigate(`/projects/${inv.project?._id}`)}
                     style={{ cursor: 'pointer' }}
                   >
                     {/* Project */}

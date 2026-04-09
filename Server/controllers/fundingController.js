@@ -1,238 +1,302 @@
-import { StartupFunding, BusinessFunding, PropertyFunding } from "../models/funding/index.js";
+import { Funding } from "../models/funding/index.js";
+import { deleteFromCloudinary } from "../configs/cloudinary.js";
+import { parseIfJSON, getUploadHandler, cleanEmpty, deepMerge } from "../utils/funding.js";
 
-import { parseJSON, parseArrayField, uploadFile, uploadFiles, buildConsent } from "../utils/funding.js";
 
-// Helper to handle standard error response
-const handleError = (res, error, context) => {
-  console.error(`${context} Error:`, error);
-  if (error.name === "ValidationError") {
-    const messages = Object.values(error.errors).map((val) => val.message);
-    return res.status(400).json({ success: false, message: messages.join(", ") });
-  }
-  return res.status(400).json({ success: false, message: error.message });
-};
+/* =========================
+   CREATE FUNDING
+   ========================= */
 
-export const createStartupFunding = async (req, res) => {
+export const createFunding = async (req, res) => {
   try {
-    const { amount, tenureMonths, purpose, disclosures, riskFactors, consent, startup } = req.body;
+    const payload = { ...req.body };
+    payload.user = req.userId;
 
-    const parsedConsent = buildConsent(consent);
-    if (!parsedConsent.agreedToTerms || !parsedConsent.agreedToPrivacyPolicy || !parsedConsent.agreedToCreditCheck) {
-      return res.status(400).json({ success: false, message: "Consent to all required terms is mandatory." });
+    // Parse JSON fields
+    payload.fundDetails = parseIfJSON(payload.fundDetails);
+    payload.disclosures = parseIfJSON(payload.disclosures);
+    payload.consent = parseIfJSON(payload.consent);
+    payload.startup = parseIfJSON(payload.startup);
+    payload.business = parseIfJSON(payload.business);
+    payload.property = parseIfJSON(payload.property);
+    payload.riskFactors = parseIfJSON(payload.riskFactors);
+    payload.documents = payload.documents
+      ? parseIfJSON(payload.documents)
+      : {};
+
+    // Upload files
+    if (req.files) {
+      const uploadedDocs = {};
+
+      for (const fieldName of Object.keys(req.files)) {
+        const filesArr = req.files[fieldName];
+
+        const isArrayField =
+          fieldName === "additionalDocs" ||
+          fieldName === "noObjectionCertificates";
+
+        if (isArrayField) {
+          uploadedDocs[fieldName] = [];
+
+          for (const file of filesArr) {
+            const { fn, resource_type } = getUploadHandler(file.mimetype);
+
+            const result = await fn(
+              file.buffer,
+              `funding/${payload.type}/documents/${fieldName}`
+            );
+
+            uploadedDocs[fieldName].push({
+              url: result.url,
+              public_id: result.public_id,
+              resource_type,
+              originalName: file.originalname,
+            });
+          }
+        } else {
+          const file = filesArr[0];
+          const { fn, resource_type } = getUploadHandler(file.mimetype);
+
+          const result = await fn(
+            file.buffer,
+            `funding/${payload.type}/documents/${fieldName}`
+          );
+
+          uploadedDocs[fieldName] = {
+            url: result.url,
+            public_id: result.public_id,
+            resource_type,
+            originalName: file.originalname,
+          };
+        }
+      }
+
+      payload.documents = { ...payload.documents, ...uploadedDocs };
     }
 
-    // 1. Base Documents (Matches baseFundingSchema)
-    const baseDocs = {
-      incomeProof: await uploadFile(req.files?.incomeProof?.[0], `funding/startup/${req.userId}/incomeProof`),
-      bankStatement: await uploadFile(req.files?.bankStatement?.[0], `funding/startup/${req.userId}/bankStatement`),
-      additionalDocs: await uploadFiles(req.files?.additionalDocs || [], `funding/startup/${req.userId}/additionalDocs`),
-    };
+    cleanEmpty(payload);
 
-    // 2. Startup Specific Data (Matches startup Schema)
-    const parsedStartup = parseJSON(startup, "startup") || {};
-    // Add pitchDeck which is inside the startup object in your schema
-    parsedStartup.pitchDeck = await uploadFile(req.files?.pitchDeck?.[0], `funding/startup/${req.userId}/pitchDeck`);
+    const funding = await Funding.create(payload);
 
-    const funding = new StartupFunding({
-      user: req.userId,
-      fundingRequest: { amount: Number(amount), tenureMonths: Number(tenureMonths) || undefined, purpose },
-      disclosures: parseJSON(disclosures, "disclosures"),
-      riskFactors: parseArrayField(riskFactors),
-      documents: baseDocs,
-      consent: parsedConsent,
-      startup: parsedStartup,
+    res.status(201).json({
+      success: true,
+      message: "Funding created successfully",
+      data: funding,
     });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+/* =========================
+   UPDATE FUNDING
+   ========================= */
+
+export const updateFunding = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const funding = await Funding.findById(id);
+
+    if (!funding) {
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
+    }
+
+    // Prevent type change
+    if (req.body.type && req.body.type !== funding.type) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot change funding type",
+      });
+    }
+
+    const payload = { ...req.body };
+
+    payload.fundDetails = parseIfJSON(payload.fundDetails);
+    payload.disclosures = parseIfJSON(payload.disclosures);
+    payload.consent = parseIfJSON(payload.consent);
+    payload.startup = parseIfJSON(payload.startup);
+    payload.business = parseIfJSON(payload.business);
+    payload.property = parseIfJSON(payload.property);
+    payload.riskFactors = parseIfJSON(payload.riskFactors);
+
+    // Handle file replacement
+    if (req.files) {
+      for (const fieldName of Object.keys(req.files)) {
+        const filesArr = req.files[fieldName];
+        const file = filesArr[0];
+
+        const { fn, resource_type } = getUploadHandler(file.mimetype);
+
+        // Delete old file if exists
+        if (funding.documents?.[fieldName]?.public_id) {
+          await deleteFromCloudinary(
+            funding.documents[fieldName].public_id,
+            funding.documents[fieldName].resource_type
+          );
+        }
+
+        const result = await fn(
+          file.buffer,
+          `funding/${funding.type}/documents/${fieldName}`
+        );
+
+        payload.documents = payload.documents || {};
+        payload.documents[fieldName] = {
+          url: result.url,
+          public_id: result.public_id,
+          resource_type,
+          originalName: file.originalname,
+        };
+      }
+    }
+
+    deepMerge(funding, payload);
+    cleanEmpty(funding);
 
     await funding.save();
-    return res.status(201).json({ success: true, funding });
-  } catch (error) {
-    return handleError(res, error, "Create Startup Funding");
-  }
-};
 
-export const createBusinessFunding = async (req, res) => {
-  try {
-    const { amount, tenureMonths, purpose, disclosures, riskFactors, consent, business } = req.body;
-
-    const parsedConsent = buildConsent(consent);
-    const baseDocs = {
-      incomeProof: await uploadFile(req.files?.incomeProof?.[0], `funding/business/${req.userId}/incomeProof`),
-      bankStatement: await uploadFile(req.files?.bankStatement?.[0], `funding/business/${req.userId}/bankStatement`),
-      additionalDocs: await uploadFiles(req.files?.additionalDocs || [], `funding/business/${req.userId}/additionalDocs`),
-    };
-
-    // 3. Business Specific Financial Docs (Matches business.financialDocs)
-    const parsedBusiness = parseJSON(business, "business") || {};
-    parsedBusiness.financialDocs = {
-      cashFlow: await uploadFile(req.files?.cashFlow?.[0], `funding/business/${req.userId}/cashFlow`),
-      balanceSheet: await uploadFile(req.files?.balanceSheet?.[0], `funding/business/${req.userId}/balanceSheet`),
-      profitLoss: await uploadFile(req.files?.profitLoss?.[0], `funding/business/${req.userId}/profitLoss`),
-    };
-
-    const funding = new BusinessFunding({
-      user: req.userId,
-      fundingRequest: { amount: Number(amount), tenureMonths: Number(tenureMonths) || undefined, purpose },
-      disclosures: parseJSON(disclosures, "disclosures"),
-      riskFactors: parseArrayField(riskFactors),
-      documents: baseDocs,
-      consent: parsedConsent,
-      business: parsedBusiness,
+    res.status(200).json({
+      success: true,
+      message: "Funding updated",
+      data: funding,
     });
-
-    await funding.save();
-    return res.status(201).json({ success: true, funding });
   } catch (error) {
-    return handleError(res, error, "Create Business Funding");
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
-export const createPropertyFunding = async (req, res) => {
+/* =========================
+   GET ALL
+   ========================= */
+
+export const getAllFunding = async (req, res) => {
   try {
-    const { amount, tenureMonths, purpose, disclosures, riskFactors, consent, property } = req.body;
+    const { type, status } = req.query;
 
-    const parsedConsent = buildConsent(consent);
-    const baseDocs = {
-      incomeProof: await uploadFile(req.files?.incomeProof?.[0], `funding/property/${req.userId}/incomeProof`),
-      bankStatement: await uploadFile(req.files?.bankStatement?.[0], `funding/property/${req.userId}/bankStatement`),
-      additionalDocs: await uploadFiles(req.files?.additionalDocs || [], `funding/property/${req.userId}/additionalDocs`),
-    };
+    const query = {};
+    if (type) query.type = type;
+    if (status) query.status = status;
 
-    // 4. Property Specific Legal Docs (Matches property.documents)
-    const parsedProperty = parseJSON(property, "property") || {};
-    parsedProperty.documents = {
-      saleDeed: await uploadFile(req.files?.saleDeed?.[0], `funding/property/${req.userId}/saleDeed`),
-      titleDeed: await uploadFile(req.files?.titleDeed?.[0], `funding/property/${req.userId}/titleDeed`),
-      taxReceipt: await uploadFile(req.files?.taxReceipt?.[0], `funding/property/${req.userId}/taxReceipt`),
-      encumbrance: await uploadFile(req.files?.encumbrance?.[0], `funding/property/${req.userId}/encumbrance`),
-      landRecords: await uploadFile(req.files?.landRecords?.[0], `funding/property/${req.userId}/landRecords`),
-      buildingApproval: await uploadFile(req.files?.buildingApproval?.[0], `funding/property/${req.userId}/buildingApproval`),
-    };
+    const data = await Funding.find(query).sort({ createdAt: -1 });
 
-    const funding = new PropertyFunding({
-      user: req.userId,
-      fundingRequest: { amount: Number(amount), tenureMonths: Number(tenureMonths) || undefined, purpose },
-      disclosures: parseJSON(disclosures, "disclosures"),
-      riskFactors: parseArrayField(riskFactors),
-      documents: baseDocs,
-      consent: parsedConsent,
-      property: parsedProperty,
+    res.status(200).json({
+      success: true,
+      count: data.length,
+      data,
     });
-
-    await funding.save();
-    return res.status(201).json({ success: true, funding });
   } catch (error) {
-    return handleError(res, error, "Create Property Funding");
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-export const getUserFundings = async (req, res) => {
-  try {
-    const fundings = await Funding.find({ user: req.userId }).sort({ createdAt: -1 });
-    return res.status(200).json({ success: true, fundings });
-  } catch (error) {
-    console.error("Get User Fundings Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to fetch funding records." });
-  }
-};
-
-export const getAllFundings = async (req, res) => {
-  try {
-    const filter = {};
-    const { type } = req.query;
-    if (type) filter.type = type;
-
-    const fundings = await Funding.find(filter).sort({ createdAt: -1 });
-    return res.status(200).json({ success: true, fundings });
-  } catch (error) {
-    console.error("Get All Fundings Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to fetch funding records." });
-  }
-};
+/* =========================
+   GET ONE
+   ========================= */
 
 export const getFundingById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const funding = await Funding.findById(id);
+    const funding = await Funding.findById(req.params.id);
 
     if (!funding) {
-      return res.status(404).json({ success: false, message: "Funding request not found." });
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
     }
 
-    if (funding.user.toString() !== req.userId) {
-      return res.status(403).json({ success: false, message: "Access denied." });
-    }
-
-    return res.status(200).json({ success: true, funding });
+    res.status(200).json({
+      success: true,
+      data: funding,
+    });
   } catch (error) {
-    console.error("Get Funding By ID Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to fetch funding request." });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
-export const updateFundingReview = async (req, res) => {
+/* =========================
+   SUBMIT FUNDING
+   ========================= */
+
+export const submitFunding = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { decision, approvedAmount, interestRate, notes, rejectionReason, reviewedBy } = req.body;
+    const funding = await Funding.findById(req.params.id);
 
-    if (!decision || !["approved", "rejected", "needs_more_info"].includes(decision)) {
-      return res.status(400).json({ success: false, message: "Invalid admin decision." });
-    }
-
-    const funding = await Funding.findById(id);
     if (!funding) {
-      return res.status(404).json({ success: false, message: "Funding request not found." });
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
     }
 
-    if (decision === "rejected" && !rejectionReason) {
-      return res.status(400).json({ success: false, message: "Rejection reason is required when rejecting a request." });
+    if (funding.status !== "draft") {
+      return res.status(400).json({
+        success: false,
+        message: "Only draft can be submitted",
+      });
     }
 
-    funding.adminReview = {
-      reviewedBy: reviewedBy || funding.adminReview?.reviewedBy || {},
-      decision,
-      approvedAmount: approvedAmount !== undefined ? Number(approvedAmount) : funding.adminReview?.approvedAmount,
-      interestRate: interestRate !== undefined ? Number(interestRate) : funding.adminReview?.interestRate,
-      notes,
-      rejectionReason: rejectionReason || funding.adminReview?.rejectionReason,
-      reviewedAt: new Date(),
-    };
+    funding.status = "submitted";
 
     await funding.save();
 
-    return res.status(200).json({ success: true, funding });
+    res.status(200).json({
+      success: true,
+      message: "Funding submitted",
+      data: funding,
+    });
   } catch (error) {
-    console.error("Update Funding Review Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to update funding review." });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
-export const deleteFunding = async (req, res) => {
+/* =========================
+   ADMIN REVIEW
+   ========================= */
+
+export const reviewFunding = async (req, res) => {
   try {
-    const { id } = req.params;
-    const funding = await Funding.findById(id);
+    const funding = await Funding.findById(req.params.id);
 
     if (!funding) {
-      return res.status(404).json({ success: false, message: "Funding request not found." });
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
     }
 
-    await funding.deleteOne();
+    const { decision, approvedAmount, interestRate, notes, rejectionReason } =
+      req.body;
 
-    return res.status(200).json({ success: true, message: "Funding request deleted successfully." });
+    funding.adminReview = {
+      reviewedBy: {
+        name: req.user.name,
+        role: "admin",
+        email: req.user.email,
+      },
+      decision,
+      approvedAmount,
+      interestRate,
+      notes,
+      rejectionReason,
+      reviewedAt: new Date(),
+    };
+
+    // Update status
+    if (decision === "approved") funding.status = "approved";
+    if (decision === "rejected") funding.status = "rejected";
+    if (decision === "needs_more_info") funding.status = "under_review";
+
+    await funding.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Review submitted",
+      data: funding,
+    });
   } catch (error) {
-    console.error("Delete Funding Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to delete funding request." });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
-
