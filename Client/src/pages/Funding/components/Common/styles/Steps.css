@@ -1,0 +1,75 @@
+
+
+.steps-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Progress Bar Track ─────────────────────────────────── */
+.steps-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-muted);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+
+.steps-progress-bar {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Progress Fill ──────────────────────────────────────── */
+.steps-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Step Counter Text ──────────────────────────────────── */
+.steps-counter {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.steps-counter::after {
+  content: "In Progress";
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--status-info);
+  background: var(--accent-soft-gold);
+  padding: 2px 10px;
+  border-radius: 999px;
+  text-transform: none;
+}
+
+/* ── Logic for Final Step ───────────────────────────────── */
+/* If you pass props to identify completion, you can toggle this */
+.steps-container[data-complete="true"] .steps-counter::after {
+  content: "Ready to Submit";
+  color: var(--status-success);
+  background: var(--accent-soft-green);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .steps-container {
+    margin-bottom: 24px;
+  }
+  
+  .steps-counter {
+    font-size: 0.75rem;
+  }
+}

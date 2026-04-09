@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
-import { useAppContext } from "../../Context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import Loader from "../../components/Loader/Loader";
 import { formatCurrency, getStatusColor } from "../../Utils/utility";
 import Personal from "./Tabs/Personal/Personal";
@@ -14,9 +14,8 @@ const Profile = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-
-
   const TABS = ["personal", "kyc", "bank"];
+
   const activeTab = TABS.includes(searchParams.get("tab"))
     ? searchParams.get("tab")
     : "personal";
@@ -25,16 +24,14 @@ const Profile = () => {
     setSearchParams({ tab });
   };
 
-  const navigate = useNavigate();
 
-  // Define only identity-based tabs
+
+  // Tabs config
   const tabs = [
     { key: "personal", icon: "fa-user", label: "Personal" },
     { key: "kyc", icon: "fa-id-card", label: "KYC" },
     { key: "bank", icon: "fa-university", label: "Bank" },
   ];
-
-  if (loading) return <Loader />;
 
   const initials =
     user?.fullName
@@ -44,12 +41,16 @@ const Profile = () => {
       .join("")
       .toUpperCase() || "U";
 
+  if (loading) return <Loader />;
+
+
   return (
     <div className="prf-profile-container">
       {/* ================= HEADER ================= */}
       <div className="prf-profile-header">
         <div className="prf-profile-header-content">
-          {/* LEFT SIDE: AVATAR */}
+
+          {/* AVATAR */}
           <div className="prf-profile-avatar-section">
             <div className="prf-profile-avatar">
               {user?.image?.url ? (
@@ -58,6 +59,7 @@ const Profile = () => {
                 <span className="prf-avatar-initials">{initials}</span>
               )}
             </div>
+
             <button
               className="prf-btn-upload"
               onClick={() => setShowProfileModal(true)}
@@ -67,39 +69,42 @@ const Profile = () => {
             </button>
           </div>
 
-          {/* MIDDLE: INFO */}
+          {/* INFO */}
           <div className="prf-profile-header-info">
             <h1>{user?.fullName}</h1>
-            <p className="prf-profile-email">{user.email}</p>
+            <p className="prf-profile-email">{user?.email}</p>
+
             <div className="prf-profile-badges">
-              <span className={`prf-badge ${getStatusColor(user.accountStatus)}`}>
-                {user.accountStatus}
+              <span className={`prf-badge ${getStatusColor(user?.accountStatus)}`}>
+                {user?.accountStatus}
               </span>
+
               {user?.kyc && (
-                <span className={`prf-badge ${getStatusColor(user.kyc.status)}`}>
-                  KYC: {user.kyc.status}
+                <span className={`prf-badge ${getStatusColor(user?.kyc.status)}`}>
+                  KYC: {user?.kyc.status}
                 </span>
               )}
             </div>
           </div>
 
+          {/* ACTIONS */}
           <div className="prf-profile-header-action-group">
             <Link
-              to={`/fund-requests?user=${user._id}`}
+              to={`/fund-requests?user=${user?._id}`}
               className="prf-btn-nav secondary"
             >
               <i className="fas fa-hand-holding-usd"></i> Fund Requests
             </Link>
 
             <Link
-              to={`/sold-property?user=${user._id}`}
+              to={`/sold-property?user=${user?._id}`}
               className="prf-btn-nav secondary"
             >
               <i className="fas fa-home"></i> Sold Property
             </Link>
 
             <Link
-              to={`/investment-profile?user=${user._id}`}
+              to={`/investment-profile?user=${user?._id}`}
               className="prf-btn-nav secondary"
             >
               <i className="fas fa-briefcase"></i> My Investments
@@ -115,7 +120,9 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Total Invested</p>
-              <p className="prf-stat-value">{formatCurrency(user.totalInvested)}</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user?.totalInvested)}
+              </p>
             </div>
           </div>
 
@@ -125,7 +132,9 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Portfolio Value</p>
-              <p className="prf-stat-value">{formatCurrency(user.portfolioValue)}</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user?.portfolioValue)}
+              </p>
             </div>
           </div>
 
@@ -135,7 +144,9 @@ const Profile = () => {
             </div>
             <div className="prf-stat-content">
               <p className="prf-stat-label">Total Distributions</p>
-              <p className="prf-stat-value">{formatCurrency(user.totalDistributions)}</p>
+              <p className="prf-stat-value">
+                {formatCurrency(user?.totalDistributions)}
+              </p>
             </div>
           </div>
         </div>

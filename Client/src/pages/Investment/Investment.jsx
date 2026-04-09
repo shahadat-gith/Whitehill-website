@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "./Investment.css";
-import api from "../../Configs/axios";
+import api from "../../configs/axios";
 import Loader from "../../components/Loader/Loader";
-import { useAppContext } from "../../Context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import { getStatusClass, formatCurrency, formatDate, getRiskClass } from "../../Utils/utility";
 
 const Investment = () => {

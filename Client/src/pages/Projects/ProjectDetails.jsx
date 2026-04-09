@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./ProjectDetails.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../Context/AppContext";
-import api from "../../Configs/axios";
+import { useAppContext } from "../../context/AppContext";
+import api from "../../configs/axios";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader/Loader";
 import { formatCurrency, getRiskClass } from "../../Utils/utility";

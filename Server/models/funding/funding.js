@@ -20,8 +20,8 @@ const fundingSchema = new Schema(
 
     status: {
       type: String,
-      enum: ["draft", "submitted", "under_review", "approved", "rejected"],
-      default: "draft",
+      enum: ["under_review", "approved", "rejected"],
+      default: "under_review",
     },
 
     fundDetails: {

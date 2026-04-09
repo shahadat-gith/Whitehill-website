@@ -1,0 +1,181 @@
+
+.bd-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.bd-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bd-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.bd-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Fields Layout ──────────────────────────────────────── */
+.bd-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Matches the BusinessForm grid */
+  gap: 24px;
+}
+
+.bd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bd-field:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-low);
+}
+
+/* ── Labels ─────────────────────────────────────────────── */
+.bd-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+.bd-optional {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.bd-required {
+  color: var(--status-error);
+  margin-left: 2px;
+}
+
+/* ── File Input Group ───────────────────────────────────── */
+.bd-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bd-file-input {
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 8px;
+  background: var(--bg-muted);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bd-file-input:hover {
+  background: var(--bg-surface);
+  border-color: var(--color-accent);
+}
+
+.bd-file-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0 4px;
+}
+
+.bd-description {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+/* ── File List / Items ──────────────────────────────────── */
+.bd-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.bd-file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--accent-soft-green); /* Positive reinforcement */
+  border: 1px solid var(--status-success);
+  border-radius: 6px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.bd-file-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--status-success);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.bd-file-size {
+  font-size: 0.75rem;
+  color: var(--status-success);
+  opacity: 0.8;
+}
+
+/* ── Errors ─────────────────────────────────────────────── */
+.bd-errors {
+  background: var(--accent-soft-red);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--status-error);
+}
+
+.bd-error {
+  font-size: 0.78rem;
+  color: var(--status-error);
+  font-weight: 500;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .bd-fields {
+    grid-template-columns: 1fr;
+  }
+}

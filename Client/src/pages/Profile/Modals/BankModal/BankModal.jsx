@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./BankModal.css";
-import api from "../../../../Configs/axios";
-import { useAppContext } from "../../../../Context/AppContext";
+import api from "../../../../configs/axios";
+import { useAppContext } from "../../../../context/AppContext";
 import toast from "react-hot-toast";
 
 const BankModal = ({ onClose, bank }) => {

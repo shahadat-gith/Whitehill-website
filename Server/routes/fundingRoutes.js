@@ -82,13 +82,6 @@ fundingRouter.get(
   fundingController.getFundingById
 );
 
-// 🚀 Submit funding (draft → submitted)
-fundingRouter.patch(
-  "/:id/submit",
-  authMiddleware,
-  fundingController.submitFunding
-);
-
 /* =========================
    ADMIN ROUTES
    ========================= */

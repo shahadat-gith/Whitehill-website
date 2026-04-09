@@ -1,0 +1,164 @@
+
+
+.rf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Title ─────────────────────────────────────────────── */
+.rf-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rf-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.rf-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Input Group ───────────────────────────────────────── */
+.rf-input-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.rf-input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-body);
+  transition: all 0.2s;
+  outline: none;
+}
+
+.rf-input:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(30, 124, 201, 0.1);
+}
+
+.rf-add-btn {
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.rf-add-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.rf-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── List Section ──────────────────────────────────────── */
+.rf-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rf-list-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.rf-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rf-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  animation: rfSlideIn 0.3s ease-out;
+}
+
+.rf-item-text {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  font-weight: 500;
+}
+
+/* ── Remove Button ─────────────────────────────────────── */
+.rf-remove-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid #fca5a5;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rf-remove-btn:hover {
+  background: var(--status-error);
+  color: #fff;
+  border-color: var(--status-error);
+}
+
+@keyframes rfSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .rf-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

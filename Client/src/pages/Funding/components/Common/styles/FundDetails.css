@@ -1,0 +1,108 @@
+
+
+.fd-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Title ─────────────────────────────────────────────── */
+.fd-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ── Grid Layout ───────────────────────────────────────── */
+.fd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+}
+
+/* ── Field ─────────────────────────────────────────────── */
+.fd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fd-field--full {
+  grid-column: 1 / -1;
+}
+
+/* ── Label ─────────────────────────────────────────────── */
+.fd-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fd-required {
+  color: var(--status-error);
+  font-size: 0.85rem;
+}
+
+/* ── Inputs & Textarea ─────────────────────────────────── */
+.fd-input,
+.fd-textarea {
+  width: 100%;
+  padding: 10px 13px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-body);
+  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.fd-input::placeholder,
+.fd-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.fd-input:focus,
+.fd-textarea:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(30, 124, 201, 0.1);
+}
+
+.fd-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .fd-grid {
+    grid-template-columns: 1fr;
+  }
+}

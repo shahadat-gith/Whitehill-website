@@ -1,0 +1,233 @@
+
+
+.sf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Title ─────────────────────────────────────────────── */
+.sf-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sf-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ── Grid Layouts ──────────────────────────────────────── */
+.sf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+}
+
+.sf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sf-field--full {
+  grid-column: 1 / -1;
+}
+
+/* ── Labels & Inputs ───────────────────────────────────── */
+.sf-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sf-required {
+  color: var(--status-error);
+}
+
+.sf-input,
+.sf-select,
+.sf-textarea {
+  width: 100%;
+  padding: 10px 13px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-body);
+  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.sf-input:focus,
+.sf-select:focus,
+.sf-textarea:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(30, 124, 201, 0.1);
+}
+
+.sf-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ── Founder & Funding Row Inputs ───────────────────────── */
+.sf-founder-input,
+.sf-funding-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+/* Specific adjustment for Founder info (4 columns) */
+.sf-founder-input {
+  grid-template-columns: 1.2fr 1fr 1fr 1.5fr auto;
+}
+
+/* ── Specialized Grids (Traction & Usage) ──────────────── */
+.sf-traction-grid,
+.sf-usage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  background: var(--bg-muted);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid var(--border-default);
+}
+
+.sf-usage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sf-usage-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.sf-add-btn {
+  padding: 10px 18px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.sf-add-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.sf-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Lists & Items ──────────────────────────────────────── */
+.sf-founder-list,
+.sf-funding-list,
+.sf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.sf-founder-item,
+.sf-funding-item,
+.sf-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+}
+
+.sf-founder-info,
+.sf-funding-info {
+  font-size: 0.85rem;
+  color: var(--text-body);
+}
+
+.sf-founder-info a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.sf-remove-btn {
+  padding: 5px 12px;
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sf-remove-btn:hover {
+  background: var(--status-error);
+  color: #fff;
+}
+
+/* ── General Input Group (Competitors/Risks) ────────────── */
+.sf-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sf-founder-input,
+  .sf-funding-input {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .sf-grid,
+  .sf-traction-grid,
+  .sf-usage-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sf-founder-input,
+  .sf-funding-input {
+    grid-template-columns: 1fr;
+  }
+}

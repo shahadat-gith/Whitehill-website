@@ -1,62 +1,107 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './Hero.css';
-import buildingImg from './building.png';
-import gearImg from './gear.png';
-
+import "./Hero.css";
+import buildingImg from "./building.png";
+import gearImg from "./gear.png";
 import FundModal from "./FundModal";
 
 const Hero = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const isLoggedIn = Boolean(localStorage.getItem("token"));
+
   const handleFundSelection = (type) => {
+    if (!isLoggedIn) return; // modal handles the unauth UI
     setIsModalOpen(false);
-    navigate(`/request-funds?type=${type}`);
+    navigate(`/funding?type=${type}`);
   };
 
   return (
     <section className="hero">
-      <div className="hero-container">
-        {/* LEFT ILLUSTRATION */}
-        <div className="hero-illustration hero-illustration-left">
-          <img src={buildingImg} alt="Strategic Real Estate" className="building-img" />
+      {/* ── Background grid + glow ── */}
+      <div className="hero-bg">
+        <div className="hero-glow hero-glow-1" />
+        <div className="hero-glow hero-glow-2" />
+        <div className="hero-grid" />
+      </div>
+
+      {/* ── Main layout ── */}
+      <div className="hero-body">
+        {/* Left illustration */}
+        <div className="hero-illus hero-illus-left">
+          <div className="illus-card illus-card-left">
+            <img src={buildingImg} alt="Real Estate" />
+            <span className="illus-label">Real Estate</span>
+          </div>
         </div>
 
-        {/* CENTER CONTENT */}
-        <div className="hero-content">
+        {/* Center content */}
+        <div className="hero-center">
+          <div className="hero-eyebrow">
+            <span className="eyebrow-dot" />
+            Trusted by 500+ investors
+          </div>
+
           <h1 className="hero-title">
-            Smart investments. Real returns.
+            Smart capital.<br />
+            <em>Real returns.</em>
           </h1>
+
           <p className="hero-subtitle">
-            Real estate and startups, built for performance.
+            Real estate acquisitions and startup ventures — one platform
+            engineered for performance.
           </p>
+
+          <div className="hero-ctas">
+            <button
+              className="btn btn-secondary"
+              onClick={() => navigate("/sell-property")}
+            >
+              Sell Property
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Need Funds?
+            </button>
+          </div>
+
+          <div className="hero-trust">
+            <div className="trust-stat">
+              <strong>$2.5M+</strong>
+              <span>Deployed</span>
+            </div>
+            <div className="trust-divider" />
+            <div className="trust-stat">
+              <strong>98%</strong>
+              <span>Success Rate</span>
+            </div>
+            <div className="trust-divider" />
+            <div className="trust-stat">
+              <strong>72 hrs</strong>
+              <span>Avg. Approval</span>
+            </div>
+          </div>
         </div>
 
-        {/* RIGHT ILLUSTRATION */}
-        <div className="hero-illustration hero-illustration-right">
-          <img src={gearImg} alt="Startup Innovation" className="gear-img" />
+        {/* Right illustration */}
+        <div className="hero-illus hero-illus-right">
+          <div className="illus-card illus-card-right">
+            <img src={gearImg} alt="Startups" />
+            <span className="illus-label">Startups</span>
+          </div>
         </div>
       </div>
 
-      <div className="hero-buttons">
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate("/sell-property")}
-        >
-          Sell Property
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Need Funds?
-        </button>
-      </div>
-
-      {/* FUNDING TYPE SELECTION MODAL */}
+      {/* ── Modal ── */}
       {isModalOpen && (
-        <FundModal setIsModalOpen={setIsModalOpen} handleFundSelection={handleFundSelection} />
+        <FundModal
+          isLoggedIn={isLoggedIn}
+          setIsModalOpen={setIsModalOpen}
+          handleFundSelection={handleFundSelection}
+        />
       )}
     </section>
   );

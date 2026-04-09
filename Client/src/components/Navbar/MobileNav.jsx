@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../Context/AppContext";
+import { useAppContext } from "../../context/AppContext";
 import Spinner from "../Spinner/Spinner";
 
 const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout, navLinks }) => {

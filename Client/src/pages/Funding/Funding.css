@@ -1,0 +1,209 @@
+
+/* ── Container ─────────────────────────────────────────── */
+.fun-container {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.fun-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-primary);
+  color: var(--text-on-primary);
+  padding: 80px 24px 96px;
+  text-align: center;
+}
+
+/* ── Decorative background shapes ──────────────────────── */
+.fun-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fun-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+}
+
+.fun-shape-1 {
+  width: 520px;
+  height: 520px;
+  background: var(--color-accent);
+  top: -160px;
+  left: -140px;
+}
+
+.fun-shape-2 {
+  width: 380px;
+  height: 380px;
+  background: var(--color-accent);
+  bottom: -120px;
+  right: -100px;
+}
+
+/* ── Hero content ───────────────────────────────────────── */
+.fun-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.fun-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e0f2fe;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 9999px;
+}
+
+.fun-hero-title {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.fun-hero-title span {
+  color: var(--color-accent);
+  display: block;
+}
+
+.fun-hero-desc {
+  font-size: 1rem;
+  color: #94a3b8;
+  max-width: 560px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Stats row ──────────────────────────────────────────── */
+.fun-hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fun-hero-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.fun-hero-stats h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.fun-hero-stats p {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+/* ============================================================
+   APPLICATION SECTION
+   ============================================================ */
+.fun-application {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ── Form card ──────────────────────────────────────────── */
+.fun-form-container {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+}
+
+.fun-form {
+  padding: 40px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Feedback messages ──────────────────────────────────── */
+.fun-error {
+  background-color: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid var(--status-error);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.fun-success {
+  background-color: var(--accent-soft-green);
+  color: #15803d;
+  border: 1px solid var(--status-success);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* ── Navigation buttons ─────────────────────────────────── */
+.fun-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-default);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .fun-hero {
+    padding: 56px 20px 72px;
+  }
+
+  .fun-hero-stats {
+    gap: 24px;
+  }
+
+  .fun-form {
+    padding: 28px 24px;
+  }
+
+  .fun-application {
+    padding: 36px 16px 60px;
+  }
+}

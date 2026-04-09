@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./KycModal.css";
-import api from "../../../../Configs/axios";
-import { useAppContext } from "../../../../Context/AppContext";
+import api from "../../../../configs/axios";
+import { useAppContext } from "../../../../context/AppContext";
 
 const KycModal = ({ user, onClose }) => {
   const { setUser } = useAppContext();

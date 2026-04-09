@@ -1,0 +1,222 @@
+/* ============================================================
+   BUSINESS FORM — BusinessForm.css
+   Uses tokens from index.css
+   ============================================================ */
+
+.bf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Title ──────────────────────────────────────────────── */
+.bf-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bf-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ── Grid layout ────────────────────────────────────────── */
+.bf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+}
+
+/* ── Field ──────────────────────────────────────────────── */
+.bf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bf-field--full {
+  grid-column: 1 / -1;
+}
+
+/* ── Label ──────────────────────────────────────────────── */
+.bf-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bf-required {
+  color: var(--status-error);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+/* ── Inputs / Select / Textarea ─────────────────────────── */
+.bf-input,
+.bf-select,
+.bf-textarea {
+  width: 100%;
+  padding: 10px 13px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-body);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.bf-input::placeholder,
+.bf-textarea::placeholder {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.bf-input:focus,
+.bf-select:focus,
+.bf-textarea:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(30, 124, 201, 0.1);
+}
+
+.bf-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.bf-textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.6;
+}
+
+/* ── Asset / Liability input row ────────────────────────── */
+.bf-asset-input,
+.bf-liability-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ── Add button ─────────────────────────────────────────── */
+.bf-add-btn {
+  padding: 10px 18px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.bf-add-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.bf-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Asset / Liability list ─────────────────────────────── */
+.bf-asset-list,
+.bf-liability-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.bf-asset-item,
+.bf-liability-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  gap: 12px;
+}
+
+.bf-asset-info,
+.bf-liability-info {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-body);
+}
+
+/* ── Remove button ──────────────────────────────────────── */
+.bf-remove-btn {
+  padding: 5px 12px;
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bf-remove-btn:hover {
+  background: var(--status-error);
+  color: #fff;
+  border-color: var(--status-error);
+}
+
+/* ── Section dividers for textarea groups ───────────────── */
+.bf-field--full + .bf-field--full {
+  padding-top: 4px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .bf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bf-asset-input,
+  .bf-liability-input {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bf-add-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}

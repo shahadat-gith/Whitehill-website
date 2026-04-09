@@ -1,41 +1,125 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const FundModal = ({setIsModalOpen, handleFundSelection}) => {
-    return (
-        <div className="hero-modal-overlay" onClick={() => setIsModalOpen(false)}>
-            <div className="hero-modal" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-close" onClick={() => setIsModalOpen(false)}>&times;</button>
-                <h2 className="modal-title">What do you need funds for?</h2>
-                <p className="modal-sub">Select the category that best describes your request.</p>
+const FUND_TYPES = [
+  { value: "startup", icon: "fa-rocket", label: "Startup" },
+  { value: "businessVenture", icon: "fa-chart-line", label: "Business Venture" },
+  { value: "property", icon: "fa-building", label: "Property / Land" },
+];
 
-                <div className="modal-options">
-                    <label className="modal-radio-card" onClick={() => handleFundSelection("startup")}>
-                        <input type="radio" name="fundType" value="startup" />
-                        <div className="radio-content">
-                            <i className="fas fa-rocket"></i>
-                            <span>Startup</span>
-                        </div>
-                    </label>
+const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
+  const navigate = useNavigate();
 
-                    <label className="modal-radio-card" onClick={() => handleFundSelection("businessVenture")}>
-                        <input type="radio" name="fundType" value="businessVenture" />
-                        <div className="radio-content">
-                            <i className="fas fa-chart-line"></i>
-                            <span>Business Venture</span>
-                        </div>
-                    </label>
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [selectedType, setSelectedType] = useState(null); 
 
-                    <label className="modal-radio-card" onClick={() => handleFundSelection("property")}>
-                        <input type="radio" name="fundType" value="property" />
-                        <div className="radio-content">
-                            <i className="fas fa-building"></i>
-                            <span>Property / Land</span>
-                        </div>
-                    </label>
-                </div>
+  /* =========================
+     HANDLE CARD CLICK
+  ========================= */
+  const handleCardClick = (type) => {
+    if (!isLoggedIn) {
+      setSelectedType(type);
+      setShowAuthPrompt(true);
+      return;
+    }
+
+    handleFundSelection(type);
+  };
+
+  /* =========================
+     HANDLE LOGIN REDIRECT
+  ========================= */
+  const handleLoginRedirect = () => {
+    if (!selectedType) return;
+
+    const redirectUrl = `/funding?type=${selectedType}`;
+
+    setIsModalOpen(false); // ✅ close modal
+
+    navigate(
+      `/login?redirect=${encodeURIComponent(redirectUrl)}`
+    );
+  };
+
+  return (
+    <div
+      className="fmodal-overlay"
+      onClick={() => setIsModalOpen(false)}
+    >
+      <div
+        className="fmodal"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* CLOSE */}
+        <button
+          className="fmodal-close"
+          onClick={() => setIsModalOpen(false)}
+        >
+          &times;
+        </button>
+
+        {!showAuthPrompt ? (
+          <>
+            {/* HEADER */}
+            <div className="fmodal-header">
+              <h2 className="fmodal-title">Fund your vision</h2>
+              <p className="fmodal-sub">
+                Select the category that best describes your request.
+              </p>
             </div>
-        </div>
-    )
-}
 
-export default FundModal
+            {/* OPTIONS */}
+            <div className="fmodal-options">
+              {FUND_TYPES.map(({ value, icon, label }) => (
+                <button
+                  key={value}
+                  className="fmodal-card"
+                  onClick={() => handleCardClick(value)}
+                >
+                  <span className="fmodal-icon">
+                    <i className={`fas ${icon}`} />
+                  </span>
+
+                  <span className="fmodal-card-label">
+                    {label}
+                  </span>
+
+                  <i className="fas fa-arrow-right fmodal-arrow" />
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="fmodal-auth">
+            <div className="fmodal-auth-icon">
+              <i className="fas fa-lock" />
+            </div>
+
+            <h2 className="fmodal-title">Login required</h2>
+
+            <p className="fmodal-sub">
+              You need to be logged in to apply for funding. It only
+              takes a minute to get started.
+            </p>
+
+            <button
+              className="btn btn-primary fmodal-login-btn"
+              onClick={handleLoginRedirect}
+            >
+              Okay! Login
+            </button>
+
+            <button
+              className="fmodal-back-link"
+              onClick={() => setShowAuthPrompt(false)}
+            >
+              ← Back to options
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default FundModal;

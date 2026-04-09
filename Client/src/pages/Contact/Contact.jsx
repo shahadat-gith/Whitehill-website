@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Contact.css';
 import { contactDetails, whatsappDetails } from './utils';
-import api from '../../Configs/axios';
+import api from '../../configs/axios';
 import toast from "react-hot-toast";
 
 const Contact = () => {

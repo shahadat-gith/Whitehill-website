@@ -1,34 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Projects.css";
-import api from "../../Configs/axios";
+import api from "../../configs/axios";
 import Loader from "../../components/Loader/Loader";
 import { formatCurrency, getRiskClass } from "../../Utils/utility";
+import { useAppContext } from "../../context/AppContext";
 
 const Projects = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("real_estate");
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      setLoading(true);
-      try {
-        const { data } = await api.get("/api/project/projects");
-        if (data.success) setProjects(data.projects);
-      } catch (error) {
-        console.error("Failed to fetch projects", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProjects();
-  }, []);
-
+  const { projects } = useAppContext()
   const filteredProjects = projects.filter((p) => p.category === activeTab);
 
-  if (loading) return <Loader />;
 
   return (
     <div className="proj-page">

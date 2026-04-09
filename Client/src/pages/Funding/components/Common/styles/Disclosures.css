@@ -1,0 +1,166 @@
+
+
+.ds-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.ds-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ds-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.ds-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--accent-soft-gold);
+  border-left: 4px solid var(--status-info);
+  border-radius: 4px;
+}
+
+/* ── Fields Layout ──────────────────────────────────────── */
+.ds-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ds-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-default);
+}
+
+.ds-field--full {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: none;
+}
+
+/* ── Labels ─────────────────────────────────────────────── */
+.ds-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-body);
+  max-width: 60%;
+}
+
+.ds-required {
+  color: var(--status-error);
+  margin-left: 4px;
+}
+
+/* ── Radio Group Styling ────────────────────────────────── */
+.ds-radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.ds-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 16px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.ds-radio-label:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-strong);
+}
+
+/* Target label when the radio inside it is checked */
+.ds-radio-label:has(input:checked) {
+  background: var(--accent-soft-gold);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.ds-radio-label input[type="radio"] {
+  accent-color: var(--color-accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.ds-radio-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+/* ── Textarea ───────────────────────────────────────────── */
+.ds-textarea {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text-body);
+  resize: vertical;
+  min-height: 100px;
+  transition: all 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ds-textarea:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(30, 124, 201, 0.1);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .ds-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .ds-label {
+    max-width: 100%;
+  }
+
+  .ds-radio-group {
+    width: 100%;
+  }
+
+  .ds-radio-label {
+    flex: 1;
+  }
+}

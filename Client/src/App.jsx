@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import GuestRoute from "./components/GuestRoute/GuestRoute";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -14,10 +16,8 @@ import Investment from "./pages/Investment/Investment";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Funding from "./pages/Funding/Funding";
-import SellProperty from "./pages/SellProperty/SellProperty";
-import SellPropertyInstructions from "./pages/SellProperty/SellPropertyInstructions";
-import SellPropertyReview from "./pages/SellProperty/SellPropertyReview";
-import SellPropertyCongratulations from "./pages/SellProperty/SellPropertyCongratulations";
+
+
 
 const App = () => {
   const { pathname } = useLocation();
@@ -39,26 +39,62 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/register" element={<Register />} />
+        {/* 🚫 Guest Only */}
+        <Route
+          path="/register"
+          element={
+            <GuestRoute>
+              <Register />
+            </GuestRoute>
+          }
+        />
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <GuestRoute>
+              <Login />
+            </GuestRoute>
+          }
+        />
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/investment-profile" element={<Investment />} />
+        {/* 🔐 Protected */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/investment-profile"
+          element={
+            <ProtectedRoute>
+              <Investment />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/funding"
+          element={
+            <ProtectedRoute>
+              <Funding />
+            </ProtectedRoute>
+          }
+        />
+
+
+        
+
+        {/* Public */}
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/request-funds" element={<Funding />} />
 
-        <Route path="/sell-property" element={<SellPropertyInstructions />} />
-        <Route path="/sell-property/form" element={<SellProperty />} />
-        <Route path="/sell-property/review" element={<SellPropertyReview />} />
-        <Route path="/sell-property/congratulations" element={<SellPropertyCongratulations />} />
-
-
-
-        
         <Route path="/*" element={<NotFound />} />
       </Routes>
 

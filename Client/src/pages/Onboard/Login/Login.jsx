@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../../../Configs/axios";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import api from "../../../configs/axios";
 import "./Login.css";
-import { useAppContext } from "../../../Context/AppContext";
+import { useAppContext } from "../../../context/AppContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { fetchUser } = useAppContext();
+  const { login } = useAppContext();
+
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -32,14 +35,14 @@ const Login = () => {
     try {
       const { data } = await api.post("/api/user/login", formData);
 
-      if (data.success) {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-        }
+      if (data.success && data.token) {
+        await login(data.token);
 
         setMessage("Login successful");
-        await fetchUser();
-        navigate("/profile");
+
+        setTimeout(() => {
+          navigate(redirect || "/profile", { replace: true });
+        }, 300);
       }
     } catch (error) {
       setMessage(
@@ -49,6 +52,16 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  /* ================= GO TO REGISTER ================= */
+  const handleGoToRegister = () => {
+    navigate(
+      redirect
+        ? `/register?redirect=${encodeURIComponent(redirect)}`
+        : "/register"
+    );
+  };
+
 
   return (
     <div className="auth-container">
@@ -107,7 +120,9 @@ const Login = () => {
 
         <p className="auth-switch">
           Don't have an account?{" "}
-          <span onClick={() => navigate("/register")}>Register</span>
+          <span onClick={handleGoToRegister}>
+            Register
+          </span>
         </p>
       </form>
     </div>

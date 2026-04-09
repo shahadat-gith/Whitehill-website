@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../Configs/axios";
+import api from "../../../configs/axios";
 import "./Register.css";
-import { useAppContext } from "../../../Context/AppContext";
+import { useAppContext } from "../../../context/AppContext";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { fetchUser } = useAppContext();
+
+  const { login } = useAppContext();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,7 +20,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  /* ================= BASIC VALIDATION ================= */
+  /* ================= VALIDATION ================= */
   const validate = () => {
     const newErrors = {};
 
@@ -44,7 +45,7 @@ const Register = () => {
     return newErrors;
   };
 
-  /* ================= INPUT CHANGE ================= */
+  /* ================= INPUT ================= */
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -70,9 +71,12 @@ const Register = () => {
       const { data } = await api.post("/api/user/register", formData);
 
       if (data.success) {
+        if (data.token) {
+          await login(data.token);
+        }
+
         setMessage("Account created successfully");
-        localStorage.setItem("token", data.token)
-        await fetchUser();
+
         navigate("/profile");
       }
     } catch (error) {
@@ -174,7 +178,9 @@ const Register = () => {
 
         <p className="auth-switch">
           Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Login</span>
+          <span onClick={() => navigate("/login")}>
+            Login
+          </span>
         </p>
       </form>
     </div>

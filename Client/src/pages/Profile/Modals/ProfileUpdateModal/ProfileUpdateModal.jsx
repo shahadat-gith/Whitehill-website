@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import api from "../../../../Configs/axios";
+import api from "../../../../configs/axios";
 import toast from "react-hot-toast";
 import "./ProfileUpdateModal.css";
-import { useAppContext } from "../../../../Context/AppContext";
+import { useAppContext } from "../../../../context/AppContext";
 
 const ProfileUpdateModal = ({ type = "basic", onClose }) => {
   const [loading, setLoading] = useState(false);
