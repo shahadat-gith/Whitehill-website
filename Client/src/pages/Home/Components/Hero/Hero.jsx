@@ -56,7 +56,7 @@ const Hero = () => {
           <div className="hero-ctas">
             <button
               className="btn btn-primary"
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/auth")}
             >
 
               Get started

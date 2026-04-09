@@ -5,8 +5,6 @@ import GuestRoute from "./components/GuestRoute/GuestRoute";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Register from "./pages/Onboard/Register/Register";
-import Login from "./pages/Onboard/Login/Login";
 import NotFound from "./components/NotFound/NotFound";
 import { Toaster } from "react-hot-toast";
 import Profile from "./pages/Profile/Profile";
@@ -16,6 +14,7 @@ import Investment from "./pages/Investment/Investment";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Funding from "./pages/Funding/Funding";
+import Authentication from "./pages/Authentication/Authentication";
 
 
 
@@ -41,19 +40,10 @@ const App = () => {
 
         {/* 🚫 Guest Only */}
         <Route
-          path="/register"
+          path="/auth"
           element={
             <GuestRoute>
-              <Register />
-            </GuestRoute>
-          }
-        />
-
-        <Route
-          path="/login"
-          element={
-            <GuestRoute>
-              <Login />
+            <Authentication />
             </GuestRoute>
           }
         />

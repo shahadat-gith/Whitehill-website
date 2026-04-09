@@ -37,7 +37,7 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
     setIsModalOpen(false); // ✅ close modal
 
     navigate(
-      `/login?redirect=${encodeURIComponent(redirectUrl)}`
+      `/auth?redirect=${encodeURIComponent(redirectUrl)}`
     );
   };
 

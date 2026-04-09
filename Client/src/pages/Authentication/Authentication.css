@@ -1,0 +1,175 @@
+/* ============================================================
+   AUTHENTICATION — Authentication.css
+   Matches the Professional Fintech UI system
+   ============================================================ */
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg-main);
+  margin: 3rem auto;
+}
+
+.auth-form {
+  background: var(--bg-surface);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-high);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+}
+
+/* ── Input Groups ───────────────────────────────────────── */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-body);
+  transition: all 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: var(--color-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 4px rgba(30, 124, 201, 0.1);
+}
+
+.input-group input.input-error {
+  border-color: var(--status-error);
+  background: #fff5f5;
+}
+
+.error-message {
+  font-size: 0.75rem;
+  color: var(--status-error);
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* ── Forgot Password ────────────────────────────────────── */
+.forgot-password {
+  text-align: right;
+  margin-top: -10px;
+}
+
+.forgot-password span {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.forgot-password span:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ── Submit Button ──────────────────────────────────────── */
+.auth-form button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.auth-form button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 124, 201, 0.2);
+}
+
+.auth-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Status Messages ────────────────────────────────────── */
+.auth-message {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.auth-message.success {
+  background: var(--accent-soft-green);
+  color: var(--status-success);
+  border: 1px solid var(--status-success);
+}
+
+.auth-message.error {
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+  border: 1px solid var(--status-error);
+}
+
+/* ── Switch Link ────────────────────────────────────────── */
+.auth-switch {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.auth-switch span {
+  color: var(--color-accent);
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.auth-switch span:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .auth-form {
+    padding: 30px 20px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+}
