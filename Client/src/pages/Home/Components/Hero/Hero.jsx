@@ -55,10 +55,12 @@ const Hero = () => {
 
           <div className="hero-ctas">
             <button
-              className="btn btn-secondary"
-              onClick={() => navigate("/sell-property")}
+              className="btn btn-primary"
+              onClick={() => navigate("/login")}
             >
-              Sell Property
+
+              Get started
+              <i className="fas fa-rocket" style={{ marginLeft: "4px" }}></i>
             </button>
             <button
               className="btn btn-secondary"
