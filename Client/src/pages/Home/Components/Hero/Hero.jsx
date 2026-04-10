@@ -9,95 +9,91 @@ const Hero = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const stats = [
+    { label: "Deployed", value: "$2.5M+" },
+    { label: "Success Rate", value: "98%" },
+    { label: "Avg. Approval", value: "72 hrs" },
+  ];
+
   const isLoggedIn = Boolean(localStorage.getItem("token"));
 
   const handleFundSelection = (type) => {
-    if (!isLoggedIn) return; // modal handles the unauth UI
+    if (!isLoggedIn) return; 
     setIsModalOpen(false);
     navigate(`/funding?type=${type}`);
   };
 
   return (
-    <section className="hero">
+    <section className="he-hero">
       {/* ── Background grid + glow ── */}
-      <div className="hero-bg">
-        <div className="hero-glow hero-glow-1" />
-        <div className="hero-glow hero-glow-2" />
-        <div className="hero-grid" />
+      <div className="he-hero-bg">
+        <div className="he-hero-glow he-hero-glow-1" />
+        <div className="he-hero-glow he-hero-glow-2" />
+        <div className="he-hero-grid" />
       </div>
 
-      {/* ── Main layout ── */}
-      <div className="hero-body">
+      <div className="he-hero-body">
         {/* Left illustration */}
-        <div className="hero-illus hero-illus-left">
-          <div className="illus-card illus-card-left">
+        <div className="he-hero-illus he-hero-illus-left">
+          <div className="he-illus-card">
             <img src={buildingImg} alt="Real Estate" />
-            <span className="illus-label">Real Estate</span>
+            <span className="he-illus-label">Real Estate</span>
           </div>
         </div>
 
         {/* Center content */}
-        <div className="hero-center">
-          <div className="hero-eyebrow">
-            <span className="eyebrow-dot" />
-            Trusted by 500+ investors
+        <div className="he-hero-center">
+          <div className="he-hero-eyebrow">
+            <span className="he-eyebrow-dot" />
+            Trusted by 500+ global investors
           </div>
 
-          <h1 className="hero-title">
+          <h1 className="he-hero-title">
             Smart capital.<br />
-            <em>Real returns.</em>
+            <span className="he-hero-title-italic">Real returns.</span>
           </h1>
 
-          <p className="hero-subtitle">
-            Real estate acquisitions and startup ventures — one platform
-            engineered for performance.
-          </p>
-
-          <div className="hero-ctas">
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/auth")}
-            >
-
-              Get started
-              <i className="fas fa-rocket" style={{ marginLeft: "4px" }}></i>
-            </button>
+          <div className="he-hero-ctas">
+            {!isLoggedIn && (
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate("/auth")}
+              >
+                Get started
+                <i className="fas fa-rocket"></i>
+              </button>
+            )}
+            
             <button
               className="btn btn-secondary"
               onClick={() => setIsModalOpen(true)}
             >
-              Need Funds?
+              Need funding? Apply Here!
             </button>
           </div>
 
-          <div className="hero-trust">
-            <div className="trust-stat">
-              <strong>$2.5M+</strong>
-              <span>Deployed</span>
-            </div>
-            <div className="trust-divider" />
-            <div className="trust-stat">
-              <strong>98%</strong>
-              <span>Success Rate</span>
-            </div>
-            <div className="trust-divider" />
-            <div className="trust-stat">
-              <strong>72 hrs</strong>
-              <span>Avg. Approval</span>
-            </div>
+          <div className="he-hero-trust">
+            {stats.map((stat, index) => (
+              <React.Fragment key={index}>
+                <div className="he-trust-stat">
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+                {index < stats.length - 1 && <div className="he-trust-divider" />}
+              </React.Fragment>
+            ))}
           </div>
         </div>
 
         {/* Right illustration */}
-        <div className="hero-illus hero-illus-right">
-          <div className="illus-card illus-card-right">
+        <div className="he-hero-illus he-hero-illus-right">
+          <div className="he-illus-card">
             <img src={gearImg} alt="Startups" />
-            <span className="illus-label">Startups</span>
+            <span className="he-illus-label">Startups</span>
           </div>
         </div>
       </div>
 
-      {/* ── Modal ── */}
       {isModalOpen && (
         <FundModal
           isLoggedIn={isLoggedIn}

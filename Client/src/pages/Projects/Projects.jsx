@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Projects.css";
-import api from "../../configs/axios";
-import Loader from "../../components/Loader/Loader";
 import { formatCurrency, getRiskClass } from "../../Utils/utility";
 import { useAppContext } from "../../context/AppContext";
 
 const Projects = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("real_estate");
-  const { projects } = useAppContext()
+  const { projects } = useAppContext();
   const filteredProjects = projects.filter((p) => p.category === activeTab);
-
 
   return (
     <div className="proj-page">
       {/* ================= HEADER ================= */}
       <div className="proj-header">
-        <h1>Investment Opportunities</h1>
+        <h1 className="proj-title">Investment Opportunities</h1>
         <p className="proj-subtitle">
           Explore curated {activeTab === "real_estate" ? "Real Estate" : "Startup"} opportunities with verified returns.
         </p>
@@ -26,14 +23,14 @@ const Projects = () => {
       {/* ================= TABS ================= */}
       <div className="proj-tabs">
         <button
-          className={`proj-tab ${activeTab === "real_estate" ? "proj-tab-active" : ""}`}
+          className={`proj-tab-btn ${activeTab === "real_estate" ? "proj-tab-active" : ""}`}
           onClick={() => setActiveTab("real_estate")}
         >
           <i className="fas fa-building"></i> Real Estate
         </button>
 
         <button
-          className={`proj-tab ${activeTab === "startup" ? "proj-tab-active" : ""}`}
+          className={`proj-tab-btn ${activeTab === "startup" ? "proj-tab-active" : ""}`}
           onClick={() => setActiveTab("startup")}
         >
           <i className="fas fa-rocket"></i> Startups
@@ -54,18 +51,16 @@ const Projects = () => {
               <div className="proj-card-image">
                 <img src={project.images?.[0]?.url || "https://via.placeholder.com/500x300"} alt={project.name} />
                 <div className={`proj-risk-badge ${getRiskClass(project.risk)}`}>
-                  {project.risk} Risk
+                  <i className="fas fa-shield-halved"></i> {project.risk} Risk
                 </div>
               </div>
 
               <div className="proj-card-content">
                 <div className="proj-card-header">
                   <h3>{project.name}</h3>
-                </div>
-
-                <div className="proj-location">
-                  <i className="fas fa-map-marker-alt"></i>
-                  {project.city}, {project.state}
+                  <div className="proj-location">
+                    <i className="fas fa-location-dot"></i> {project.city}, {project.state}
+                  </div>
                 </div>
 
                 <div className="proj-details-grid">
@@ -83,8 +78,10 @@ const Projects = () => {
                   </div>
                 </div>
 
+                {/* Using Global Button Class */}
                 <button
-                  className="proj-view-btn"
+                  className="btn btn-primary"
+                  style={{ width: "100%", marginTop: "10px" }}
                   onClick={() => navigate(`/projects/${project._id || project.id}`)}
                 >
                   View Details <i className="fas fa-arrow-right"></i>

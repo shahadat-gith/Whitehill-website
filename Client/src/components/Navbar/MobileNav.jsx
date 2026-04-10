@@ -1,89 +1,80 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import Spinner from "../Spinner/Spinner";
+import "./MobileNav.css"
 
 const MobileNav = ({ mobileMenuOpen, setMobileMenuOpen, loggingout, handleLogout, navLinks }) => {
-    const { user, loading } = useAppContext();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const navigate = useNavigate();
+  const { user, loading } = useAppContext();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-                setDropdownOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    return (
-        <div className="navbar-mobile">
-            <div className="navbar-mobile-actions" ref={dropdownRef}>
-                {loading ? (
-                    <Spinner size="small" color="primary" />
-                ) : user && user.fullName ? (
-                    <div className="navbar-user-mobile">
-                        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="user-btn-mobile">
-                            <img src={user.image?.url || "/user.png"} alt={user.fullName} className="user-avatar-mobile" />
-                            <i className={`fa-solid fa-chevron-down user-arrow-mobile ${dropdownOpen ? "rotate" : ""}`}></i>
-                        </button>
+  const closeMenu = () => setMobileMenuOpen(false);
 
-                        {dropdownOpen && (
-                            <div className="dropdown-menu-mobile">
-                                <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
-                                    <i className="fa-solid fa-user"></i> Profile
-                                </Link>
-                                <Link to="/settings" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
-                                    <i className="fa-solid fa-gear"></i> Settings
-                                </Link>
-                                <button
-                                    onClick={() => {
-                                        handleLogout()
-                                        setDropdownOpen(false);
-                                    }}
-                                    className="dropdown-item logout"
-                                >
-                                    <i className="fa-solid fa-right-from-bracket"></i> {loggingout ? "logging out..." : "Logout"}
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    null
-                )}
+  return (
+    <div className="mn-container">
+      <div className="mn-bar-actions" ref={dropdownRef}>
+        {!loading && user && user.fullName && (
+          <div className="mn-user-wrapper">
+            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="mn-avatar-btn">
+              <img src={user.image?.url || "/user.png"} alt="User" />
+            </button>
+            {dropdownOpen && (
+              <div className="mn-avatar-dropdown">
+                <Link to="/profile" onClick={() => setDropdownOpen(false)}>Profile</Link>
+                <button onClick={() => { handleLogout(); setDropdownOpen(false); }}>Logout</button>
+              </div>
+            )}
+          </div>
+        )}
 
-                {/* HAMBURGER BUTTON */}
-                <button
-                    className="mobile-menu-btn"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    {mobileMenuOpen ? (
-                        <i className="fa-solid fa-xmark"></i>
-                    ) : (
-                        <i className="fa-solid fa-bars"></i>
-                    )}
-                </button>
+        <button 
+          className={`mn-hamburger ${mobileMenuOpen ? "active" : ""}`} 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      {/* DRAWER (Starts below navbar) */}
+      <div className={`mn-drawer ${mobileMenuOpen ? "open" : ""}`}>
+        <div className="mn-drawer-inner">
+          <nav className="mn-nav-list">
+            {navLinks.map((item, index) => (
+              <Link key={index} to={item.to} className="mn-nav-item" onClick={closeMenu}>
+                <span className="mn-nav-label">{item.label}</span>
+                <i className="fas fa-chevron-right mn-nav-arrow"></i>
+              </Link>
+            ))}
+          </nav>
+
+          {!user && (
+            <div className="mn-auth-footer">
+              <button className="btn btn-primary mn-full-btn" onClick={() => { navigate("/auth"); closeMenu(); }}>
+                Create Account
+              </button>
+              <button className="btn btn-secondary mn-full-btn" onClick={() => { navigate("/auth"); closeMenu(); }}>
+                Sign In
+              </button>
             </div>
-
-            {/* Overlay Menu */}
-            <div className={`mobile-menu-overlay ${mobileMenuOpen ? "open" : ""}`}>
-                <div className="mobile-menu-content">
-                    <div className="mobile-nav-links">
-                        {navLinks.map((item, index) => (
-                            <Link key={index} to={item.to} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                                {item.label}
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default MobileNav;

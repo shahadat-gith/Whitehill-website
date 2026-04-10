@@ -1,142 +1,146 @@
-/* ============================================================
-   WHY INVEST — WhyInvest.css
-   ============================================================ */
 
-.why-invest {
-  padding: 80px 20px;
+
+.wi-section {
+  padding: 100px 20px;
+  background-color: var(--bg-main);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid var(--border-strong);
+}
+
+.wi-container {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* ── Section Header ─────────────────────────────────────── */
-.why-header {
+/* ── Header ─────────────────────────────────────────────── */
+.wi-header {
   text-align: center;
   margin-bottom: 60px;
 }
 
-.why-header h2 {
-  font-size: 2.2rem;
+.wi-eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+
+.wi-title {
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--text-heading);
+  margin-bottom: 16px;
   letter-spacing: -0.02em;
-  position: relative;
-  display: inline-block;
 }
 
-.why-header h2::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: var(--color-accent);
-  border-radius: 99px;
+.wi-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* ── Cards Container ────────────────────────────────────── */
-.cards-container {
+/* ── Grid ───────────────────────────────────────────────── */
+.wi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  gap: 24px;
 }
 
-/* ── Base Card Style ────────────────────────────────────── */
-.invest-card {
-  padding: 40px;
-  border-radius: 24px;
+/* ── Card Styling ───────────────────────────────────────── */
+.wi-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  padding: 40px 30px;
+  border-radius: 32px;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-  height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
-.invest-card:hover {
-  transform: translateY(-8px);
+.wi-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-accent);
   box-shadow: var(--shadow-high);
 }
 
-.invest-card h3 {
+/* Icon Styling */
+.wi-card-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--bg-muted);
+  color: var(--color-accent);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.wi-card:hover .wi-card-icon {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Content */
+.wi-card-title {
   font-size: 1.25rem;
   font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 20px;
   color: var(--text-heading);
+  line-height: 1.4;
+  margin-bottom: 16px;
 }
 
-.invest-card .desc {
-  font-size: 0.95rem;
-  line-height: 1.6;
+.wi-card-desc {
+  font-size: 0.92rem;
   color: var(--text-body);
+  line-height: 1.6;
   margin-bottom: 24px;
-  opacity: 0.9;
 }
 
-/* ── Points List ────────────────────────────────────────── */
-.invest-card ul {
+/* List */
+.wi-card-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 32px 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.invest-card li {
+.wi-card-list li {
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-body);
+  color: var(--text-muted);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
-.invest-card li::before {
-  content: "✓";
-  font-weight: 900;
-  color: var(--color-primary);
-  flex-shrink: 0;
+.wi-card-list li i {
+  color: var(--status-success);
+  font-size: 0.95rem;
 }
 
-/* ── Color Variations ──────────────────────────────────── */
-
-/* Pink / Visionaries */
-.invest-card.pink {
-  background: #fff5f7; /* Very soft pink */
-  border-color: #fce7eb;
+/* Footer */
+.wi-card-footer {
+  margin-top: auto;
 }
-.invest-card.pink h3 { color: #9d174d; }
 
-/* Yellow / Real Estate */
-.invest-card.yellow {
-  background: #fffbeb; /* Soft amber */
-  border-color: #fef3c7;
+.wi-card-footer .btn {
+  width: 100%; /* Make button fill the card width */
 }
-.invest-card.yellow h3 { color: #92400e; }
-
-/* Blue / Strategies */
-.invest-card.blue {
-  background: #f0f9ff; /* Soft sky blue */
-  border-color: #e0f2fe;
-}
-.invest-card.blue h3 { color: #075985; }
-
-/* Mint / Startups */
-.invest-card.mint {
-  background: #f0fdf4; /* Soft mint green */
-  border-color: #dcfce7;
-}
-.invest-card.mint h3 { color: #166534; }
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .why-header h2 {
-    font-size: 1.75rem;
-  }
-  
-  .invest-card {
-    padding: 30px;
-  }
+  .wi-title { font-size: 2rem; }
+  .wi-card { padding: 30px 24px; }
 }

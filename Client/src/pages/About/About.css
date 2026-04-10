@@ -1,242 +1,426 @@
-/* ===========================
-   PAGE LAYOUT & HERO
-   =========================== */
+
+
 .abt-page {
   background-color: var(--bg-main);
-  animation: fadeIn 0.5s ease-in-out;
+  color: var(--text-body);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
 .abt-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 20px;
 }
 
+/* ── HERO SECTION ── */
 .abt-hero {
-  padding: 120px 0 60px;
-  background: linear-gradient(rgba(27, 67, 50, 0.05), transparent);
+  padding: 140px 0 100px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #0f172a 100%);
+  color: white;
   text-align: center;
+  position: relative;
 }
 
-.abt-hero-tag {
-  display: inline-block;
-  padding: 8px 18px;
-  background: var(--accent-soft-green);
-  color: var(--color-primary);
-  font-size: 0.75rem;
-  font-weight: 800;
+.abt-eyebrow {
+  color: var(--color-accent);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 15px;
 }
 
 .abt-hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  color: var(--text-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
-  line-height: 1.2;
-  max-width: 850px;
-  margin: 0 auto;
+  margin: 20px 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-/* ===========================
-   FOUNDER & STORY SECTION
-   =========================== */
+.abt-hero-title span {
+  color: var(--color-accent);
+  font-style: italic;
+  font-family: "Playfair Display", serif; /* Optional serif contrast */
+}
+
+.abt-hero-lead {
+  max-width: 750px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  opacity: 0.85;
+  line-height: 1.7;
+}
+
+/* ── METRICS BAR ── */
+.abt-metrics {
+  margin-top: -60px;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.abt-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.abt-metric-card {
+  background: var(--bg-surface);
+  padding: 40px 20px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-high);
+  border: 1px solid var(--border-default);
+  transition: transform 0.3s ease;
+}
+
+.abt-metric-card:hover {
+  transform: translateY(-5px);
+}
+
+.abt-metric-card h3 {
+  font-size: 2.2rem;
+  color: var(--color-accent);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.abt-metric-card p {
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── FOUNDER SECTION ── */
 .abt-founder {
   padding: 100px 0;
-  background: var(--bg-surface);
+  background-color: var(--bg-surface);
 }
 
 .abt-founder-grid {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 5rem;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
   align-items: center;
 }
 
-.abt-founder-image-wrapper {
+.abt-founder-image-container {
   position: relative;
 }
 
-.abt-founder-image {
+.abt-founder-img {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
-  border-radius: 20px;
-  position: relative;
-  z-index: 2;
+  border-radius: 40px;
+  filter: grayscale(15%);
   box-shadow: var(--shadow-high);
 }
 
-.abt-founder-accent {
+.abt-founder-experience {
   position: absolute;
-  top: 25px;
-  left: 25px;
-  width: 100%;
-  height: 100%;
-  border: 2px solid var(--color-accent);
+  bottom: 30px;
+  right: -20px;
+  background: var(--color-accent);
+  color: white;
+  padding: 20px 30px;
   border-radius: 20px;
-  z-index: 1;
+  box-shadow: var(--shadow-medium);
+  display: flex;
+  flex-direction: column;
 }
 
-.abt-section-eyebrow {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--color-primary-soft);
+.abt-founder-experience strong {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.abt-founder-experience span {
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.abt-founder-name {
-  font-size: 2.5rem;
+.abt-founder-text h2 {
+  font-size: 2.8rem;
+  margin: 10px 0 5px;
   color: var(--text-heading);
   font-weight: 800;
-  margin: 0;
 }
 
 .abt-founder-title {
+  color: var(--color-accent);
+  font-weight: 700;
   font-size: 1.1rem;
-  color: var(--color-primary);
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-}
-
-.abt-section-underline {
-  width: 50px;
-  height: 4px;
-  background: var(--color-accent);
-  margin-bottom: 2rem;
+  margin-bottom: 25px;
+  display: block;
 }
 
 .abt-paragraph {
+  margin-bottom: 20px;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: var(--text-body);
+}
+
+.abt-founder-quote {
+  margin-top: 30px;
+  padding: 30px;
+  background: var(--bg-muted);
+  border-left: 5px solid var(--color-accent);
+  border-radius: 0 24px 24px 0;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--text-heading);
+  line-height: 1.6;
+}
+
+/* ── MODERN STORY SECTION ── */
+.abt-story {
+  padding: 120px 0;
+  background-color: var(--bg-main);
+}
+
+.abt-story-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.abt-section-tag {
+  color: var(--color-accent);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.abt-story-h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 15px 0 25px;
+  line-height: 1.2;
+}
+
+.abt-story-p {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--text-body);
-  margin-bottom: 1.5rem;
-  text-align: justify;
+  margin-bottom: 30px;
 }
 
-.abt-paragraph strong {
-  color: var(--color-primary);
+.abt-story-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* ===========================
-   PURPOSE (VISION/MISSION)
-   =========================== */
-.abt-purpose {
-  padding: 80px 0;
-}
-
-.abt-purpose-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.abt-purpose-card {
-  padding: 4rem 3rem;
-  border-radius: 24px;
-  color: white;
-  transition: transform 0.3s ease;
-}
-
-.abt-purpose-card:hover { transform: translateY(-5px); }
-
-.abt-purpose-icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 12px;
+.abt-check-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-}
-
-.abt-vision { background: var(--color-primary); }
-.abt-mission { background: var(--color-accent); color: var(--text-heading); }
-.abt-mission h3, .abt-mission .abt-purpose-icon { color: var(--text-heading); }
-
-.abt-purpose-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; }
-.abt-purpose-card p { font-size: 1.05rem; line-height: 1.7; opacity: 0.9; }
-
-/* ===========================
-   PHILOSOPHY BOXES
-   =========================== */
-.abt-philosophy {
-  padding: 100px 0;
-  background: var(--bg-surface);
-}
-
-.abt-section-header { text-align: center; margin-bottom: 4rem; }
-.abt-section-header .abt-section-underline { margin: 1.5rem auto 0; }
-
-.abt-philosophy-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.abt-phil-box {
-  padding: 3rem;
-  background: var(--bg-main);
-  border-left: 5px solid var(--color-accent);
-  border-radius: 0 20px 20px 0;
-  box-shadow: var(--shadow-medium);
-}
-
-.abt-phil-box h3 {
-  font-size: 1.4rem;
+  gap: 12px;
+  font-weight: 600;
   color: var(--text-heading);
-  margin-bottom: 1rem;
-  font-weight: 800;
+  font-size: 0.95rem;
 }
 
-.abt-phil-box p { color: var(--text-body); line-height: 1.7; }
+.abt-check-item i {
+  color: var(--status-success);
+}
 
-/* ===========================
-   CTA SECTION
-   =========================== */
-.abt-cta { padding: 100px 0; }
-.abt-cta-wrapper {
-  background: var(--color-primary);
-  border-radius: 30px;
-  padding: 5rem 2rem;
+/* ── VISUAL STACK ── */
+.abt-story-visual-modern {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.abt-visual-stack {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+}
+
+.abt-stack-card {
+  position: absolute;
+  width: 100%;
+  padding: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.abt-stack-1 { top: 0; z-index: 3; border-left: 5px solid var(--color-accent); }
+.abt-stack-2 { top: 110px; left: 25px; z-index: 2; background: var(--bg-muted); transform: scale(0.96); }
+.abt-stack-3 { top: 220px; left: 50px; z-index: 1; background: var(--bg-surface); transform: scale(0.92); opacity: 0.8; }
+
+.abt-visual-stack:hover .abt-stack-2 { transform: scale(0.98) translate(15px, 5px); opacity: 1; }
+.abt-visual-stack:hover .abt-stack-3 { transform: scale(0.96) translate(30px, 10px); opacity: 1; }
+
+.abt-stack-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  opacity: 0.4;
+}
+
+.abt-stack-info h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.abt-stack-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+}
+
+.abt-stack-icon {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--border-strong);
+}
+
+.abt-visual-circle {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 180px;
+  height: 180px;
+  background: var(--accent-soft-gold);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* ── PILLARS ── */
+.abt-pillars {
+  padding: 100px 0;
+  background-color: var(--bg-muted);
+}
+
+.abt-section-header {
   text-align: center;
-  color: white;
+  margin-bottom: 60px;
+}
+
+.abt-section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.abt-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.abt-pillar-card {
+  background: var(--bg-surface);
+  padding: 45px 35px;
+  border-radius: 32px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-default);
+}
+
+.abt-pillar-card:hover {
+  transform: translateY(-12px);
+  border-color: var(--color-accent);
   box-shadow: var(--shadow-high);
 }
 
-.abt-cta-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
-.abt-cta-subtitle { font-size: 1.1rem; opacity: 0.8; margin-bottom: 3rem; }
-.abt-cta-buttons { display: flex; gap: 1.5rem; justify-content: center; }
+.abt-pillar-card .abt-icon {
+  font-size: 2.2rem;
+  color: var(--color-accent);
+  margin-bottom: 25px;
+}
 
-.abt-cta-buttons .btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.4);
+.abt-pillar-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--text-heading);
+}
+
+.abt-pillar-card p {
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+/* ── CTA SECTION ── */
+.abt-cta {
+  padding: 120px 0;
+}
+
+.abt-cta-card {
+  background-size: cover !important;
+  background-position: center !important;
+  padding: 100px 60px;
+  border-radius: 48px;
+  text-align: center;
   color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-high);
 }
 
-/* ===========================
-   ANIMATIONS & RESPONSIVE
-   =========================== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.abt-cta-card h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 992px) {
-  .abt-founder-grid { grid-template-columns: 1fr; gap: 4rem; text-align: center; }
-  .abt-founder-image-wrapper { max-width: 350px; margin: 0 auto; }
-  .abt-section-underline { margin: 1rem auto 2rem; }
-  .abt-purpose-grid, .abt-philosophy-grid { grid-template-columns: 1fr; }
+.abt-cta-card p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-@media (max-width: 600px) {
-  .abt-cta-buttons { flex-direction: column; }
-  .abt-hero-title { font-size: 1.8rem; }
+.abt-cta-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .abt-container { padding: 0 40px; }
+  .abt-founder-grid, .abt-story-grid { grid-template-columns: 1fr; gap: 60px; }
+  .abt-pillars-grid { grid-template-columns: 1fr; }
+  .abt-hero { padding: 100px 0 80px; }
+  .abt-cta-card { padding: 60px 30px; }
+  .abt-cta-card h2 { font-size: 2.2rem; }
+}
+
+@media (max-width: 480px) {
+  .abt-container { padding: 0 20px; }
+  .abt-founder-experience { right: 0; bottom: -20px; }
+  .abt-hero-title { font-size: 2.2rem; }
+  .abt-metrics { margin-top: -30px; }
+  .abt-visual-stack { max-width: 320px; height: 350px; }
+  .abt-stack-card { padding: 16px; gap: 12px; }
+  .abt-stack-2 { left: 15px; top: 90px; }
+  .abt-stack-3 { left: 30px; top: 180px; }
 }

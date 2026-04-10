@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import Spinner from "../Spinner/Spinner";
+import "./DesktopNav.css"
 
 const DesktopNav = ({ loggingout, handleLogout, navLinks}) => {
     const { user, loading } = useAppContext();

@@ -1,0 +1,184 @@
+/* ===========================
+   DESKTOP NAV
+   =========================== */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: space-between;
+}
+
+/* LEFT SECTION */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  min-width: 150px;
+}
+
+/* CENTER SECTION */
+.navbar-center {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.nav-link {
+  color: var(--text-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-link.active {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent);
+}
+
+.nav-link:hover {
+  color: var(--color-primary-soft);
+}
+
+/* RIGHT SECTION */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  justify-content: flex-end;
+  min-width: 150px;
+}
+
+/* User Section - Desktop */
+.navbar-user {
+  position: relative;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2.5rem;
+  transition: all 0.2s;
+}
+
+.user-btn:hover {
+  background-color: var(--accent-soft-green);
+  border-color: var(--color-primary-soft);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-surface);
+  object-fit: cover;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-heading);
+}
+
+.user-arrow {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.user-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+/* Desktop Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 200px;
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-high);
+  border: 1px solid var(--border-default);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-in-out;
+  z-index: 100;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-body);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-soft-gold);
+  color: var(--text-heading);
+}
+
+.dropdown-item i {
+  width: 18px;
+  text-align: center;
+  color: var(--color-primary-soft);
+  font-size: 0.9rem;
+}
+
+.dropdown-item.logout {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dropdown-item.logout:hover {
+  background-color: var(--accent-soft-red);
+  color: var(--status-error);
+}
+
+/* Auth Buttons - Desktop */
+.auth-buttons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ===========================
+   RESPONSIVE — DESKTOP NAV
+   =========================== */
+@media (max-width: 900px) {
+  .desktop-nav { display: none; }
+}
+
+@media (min-width: 1400px) {
+  .navbar-center { gap: 2.5rem; }
+  .nav-link { font-size: 1rem; }
+  .navbar-left, .navbar-right { min-width: 200px; }
+}

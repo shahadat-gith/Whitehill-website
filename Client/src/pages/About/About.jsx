@@ -1,114 +1,133 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ABOUT_CONTENT } from './data'; 
 import './About.css';
 
 const About = () => {
   const navigate = useNavigate();
-
-  const founder = {
-    name: 'Dr. Mridul Islam',
-    title: 'Founder & Chief Strategist',
-    bio: 'With over two decades of experience in alternative asset management and structured finance, Dr. Islam founded Whitehill to democratize access to high-yield, institutional-grade investments. His visionary approach combines rigorous risk discipline with technology-driven transparency, creating a trusted ecosystem for sophisticated investors.',
-    // Professional placeholder for the founder's image
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop' 
-  };
-
-  const company = {
-    name: 'Whitehill',
-    tagline: 'Institutional Alternative Assets for Sophisticated Capital',
-    vision: 'To become the global benchmark for transparent, performance-driven alternative investment platforms, bridging the gap between private capital and premier institutional opportunities.',
-    mission: 'To empower our exclusive network of investors with curated, high-growth assets in real estate and startups, secured by rigorous diligence and milestone-linked returns.'
-  };
+  const data = ABOUT_CONTENT;
 
   return (
     <div className="abt-page">
-      {/* HERO SECTION */}
+      {/* ── HERO ── */}
       <section className="abt-hero">
         <div className="abt-container">
-          <span className="abt-hero-tag">The Whitehill Standard</span>
-          <h1 className="abt-hero-title">{company.tagline}</h1>
+          <span className="abt-eyebrow">{data.hero.eyebrow}</span>
+          <h1 className="abt-hero-title">
+            {data.hero.titleMain} <br />
+            <span>{data.hero.titleAccent}</span>
+          </h1>
+          <p className="abt-hero-lead">{data.hero.lead}</p>
         </div>
       </section>
 
-      {/* FOUNDER & STORY SECTION */}
+      {/* ── METRICS ── */}
+      <section className="abt-metrics">
+        <div className="abt-container">
+          <div className="abt-metrics-grid">
+            {data.metrics.map((m, i) => (
+              <div key={i} className="abt-metric-card">
+                <h3>{m.value}</h3>
+                <p>{m.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOUNDER ── */}
       <section className="abt-founder">
         <div className="abt-container">
           <div className="abt-founder-grid">
-            <div className="abt-founder-image-wrapper">
-              <img src={founder.image} alt={founder.name} className="abt-founder-image" />
-              <div className="abt-founder-accent"></div>
+            <div className="abt-founder-image-container">
+              <img src={data.founder.image} alt={data.founder.name} className="abt-founder-img" />
+              <div className="abt-founder-experience">
+                <strong>{data.founder.experience}</strong>
+                <span>{data.founder.experienceLabel}</span>
+              </div>
             </div>
-            <div className="abt-founder-content">
-              <span className="abt-section-eyebrow">Leadership</span>
-              <h2 className="abt-founder-name">{founder.name}</h2>
-              <p className="abt-founder-title">{founder.title}</p>
-              <div className="abt-section-underline"></div>
-              
-              <p className="abt-paragraph">
-                <strong>Whitehill</strong> emerged as a response to the opacity often found in private equity and real estate markets. Under the leadership of <strong>{founder.name}</strong>, we recognized that while the appetite for alternative assets was growing, the infrastructure to access them remained fragmented.
-              </p>
-              <p className="abt-paragraph">
-                {founder.bio}
-              </p>
-              <p className="abt-paragraph">
-                By combining deep-rooted industry relationships with a modern digital ecosystem, we provide our members with a "first-look" advantage at high-stakes opportunities unavailable to the general public.
-              </p>
+            <div className="abt-founder-text">
+              <span className="abt-section-tag">Leadership</span>
+              <h2>{data.founder.name}</h2>
+              <p className="abt-founder-title">{data.founder.designation}</p>
+              {data.founder.bio.map((para, i) => (
+                <p key={i} className="abt-paragraph">{para}</p>
+              ))}
+              <div className="abt-founder-quote">"{data.founder.quote}"</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* VISION & MISSION CARDS */}
-      <section className="abt-purpose">
+      {/* ── STORY ── */}
+      <section className="abt-story">
         <div className="abt-container">
-          <div className="abt-purpose-grid">
-            <div className="abt-purpose-card abt-vision">
-              <div className="abt-purpose-icon"><i className="fas fa-eye"></i></div>
-              <h3>Our Vision</h3>
-              <p>{company.vision}</p>
+          <div className="abt-story-grid">
+            <div className="abt-story-content">
+              <span className="abt-section-tag">{data.story.tag}</span>
+              <h2 className="abt-story-h2">{data.story.title}</h2>
+              <p className="abt-story-p">{data.story.description}</p>
+              
+              <div className="abt-story-check-list">
+                <div className="abt-check-item">
+                  <i className="fas fa-circle-check"></i>
+                  <span>Direct access to Tier-1 developers</span>
+                </div>
+                <div className="abt-check-item">
+                  <i className="fas fa-circle-check"></i>
+                  <span>Zero information asymmetry</span>
+                </div>
+              </div>
             </div>
-            <div className="abt-purpose-card abt-mission">
-              <div className="abt-purpose-icon"><i className="fas fa-bullseye"></i></div>
-              <h3>Our Mission</h3>
-              <p>{company.mission}</p>
+
+            <div className="abt-story-visual-modern">
+              <div className="abt-visual-stack">
+                {data.story.steps.map((step, i) => (
+                  <div key={i} className={`abt-stack-card abt-stack-${i + 1}`}>
+                    <div className="abt-stack-number">0{i + 1}</div>
+                    <div className="abt-stack-info">
+                      <h4>{step.label}</h4>
+                      <p>{step.desc}</p>
+                    </div>
+                    <i className="fas fa-shield-halved abt-stack-icon"></i>
+                  </div>
+                ))}
+                {/* Decorative Elements */}
+                <div className="abt-visual-circle"></div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* PHILOSOPHY SECTION */}
-      <section className="abt-philosophy">
+      {/* ── PILLARS ── */}
+      <section className="abt-pillars">
         <div className="abt-container">
           <div className="abt-section-header">
-            <h2 className="abt-section-title">Our Operating Philosophy</h2>
-            <div className="abt-section-underline"></div>
+            <h2>{data.pillars.title}</h2>
+            <p>{data.pillars.subtitle}</p>
           </div>
-          <div className="abt-philosophy-grid">
-            <div className="abt-phil-box">
-              <h3>Institutional Rigor</h3>
-              <p>
-                Every investment opportunity undergoes a multi-layered due diligence process. From RERA compliance in real estate to scalability audits in startups, we apply the scrutiny of top-tier investment banking.
-              </p>
-            </div>
-            <div className="abt-phil-box">
-              <h3>Aligned Interests</h3>
-              <p>
-                We believe in performance-linked outcomes. Our model is designed so that returns are realized through structured distribution events, ensuring all stakeholders are moving toward milestone-driven success.
-              </p>
-            </div>
+          <div className="abt-pillars-grid">
+            {data.pillars.items.map((pillar, i) => (
+              <div key={i} className="abt-pillar-card">
+                <div className="abt-icon"><i className={`fas ${pillar.icon}`}></i></div>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA SECTION */}
+      {/* ── CTA ── */}
       <section className="abt-cta">
         <div className="abt-container">
-          <div className="abt-cta-wrapper">
-            <h2 className="abt-cta-title">Ready to Start Your Journey?</h2>
-            <p className="abt-cta-subtitle">Join the exclusive network of visionaries and institutional investors.</p>
-            <div className="abt-cta-buttons">
-              <button className="btn btn-primary" onClick={() => navigate('/register')}>Create Account</button>
-              <button className="btn btn-secondary" onClick={() => navigate('/projects')}>Explore Projects</button>
+          <div className="abt-cta-card" style={{ backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.9)), url(${data.cta.bgImage})` }}>
+            <h2>{data.cta.title}</h2>
+            <p>{data.cta.subtitle}</p>
+            <div className="abt-cta-btns">
+              <button className="btn btn-primary" onClick={() => navigate('/auth')}>{data.cta.primaryBtn}</button>
+              <button className="btn btn-secondary" onClick={() => navigate('/projects')}>{data.cta.secondaryBtn}</button>
             </div>
           </div>
         </div>

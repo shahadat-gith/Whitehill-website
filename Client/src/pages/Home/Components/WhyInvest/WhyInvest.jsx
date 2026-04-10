@@ -4,75 +4,81 @@ import "./WhyInvest.css";
 const WhyInvest = () => {
   const cards = [
     {
-      title:
-        "By the Visionary for the Visionaries, Exclusive Network and Connections",
-      desc: "Join a circle of forward-thinking investors and achievers. Whitehill connects you with visionaries, entrepreneurs, and financial experts who share a common goal — strategic wealth creation and long-term success.",
+      title: "Exclusive Network & Connections",
+      desc: "Join a circle of forward-thinking investors. Whitehill connects you with visionaries and financial experts for strategic wealth creation.",
       points: [
-        "Exclusive network of successful individuals",
-        "Access to mentors and financial experts",
-        "Collaborative growth and shared insights",
+        "Exclusive network of achievers",
+        "Access to financial mentors",
+        "Collaborative growth insights",
       ],
-      color: "pink",
-      button: "Explore Network",
+      icon: "fa-network-wired",
     },
     {
-      title: "Lucrative Real Estate, Land Deals and Futuristic Investments",
-      desc: "Invest in premium real estate and land assets that ensure steady appreciation. Whitehill identifies future-ready projects offering high returns and sustainable long-term value for investors.",
+      title: "Futuristic Real Estate Deals",
+      desc: "Invest in premium real estate and land assets. We identify future-ready projects offering high returns and sustainable value.",
       points: [
-        "Premium land and property investments",
-        "High return and appreciation potential",
-        "Future-focused real estate opportunities",
+        "Premium property investments",
+        "High appreciation potential",
+        "Future-focused land deals",
       ],
-      color: "yellow",
-      button: "View More",
+      icon: "fa-city",
     },
     {
-      title: "Strong Returns and Smart Investment Strategies",
-      desc: "Stay ahead with Whitehill’s data-driven investment approach. Our experts analyze trends, manage risks, and create diversified strategies that consistently deliver reliable and profitable returns.",
+      title: "Smart Investment Strategies",
+      desc: "Stay ahead with a data-driven approach. Our experts analyze trends and manage risks to deliver profitable returns.",
       points: [
-        "Research-backed investment insights",
-        "Data-driven and trend-focused planning",
-        "Optimized strategies for better returns",
+        "Research-backed insights",
+        "Trend-focused planning",
+        "Optimized risk management",
       ],
-      color: "blue",
-      button: "View More",
+      icon: "fa-chart-pie",
     },
     {
-      title: "Supporting the Next Big Startup",
-      desc: "Whitehill identifies and funds promising startups with strong potential. Our mentorship and seed funding help them grow — giving investors early access to scalable, high-growth business ventures.",
+      title: "The Next Big Startup",
+      desc: "We identify and fund promising startups. Get early access to scalable, high-growth business ventures and seed opportunities.",
       points: [
-        "Seed investment in promising startups",
-        "Hands-on mentoring and business guidance",
-        "Early-stage entry into growth ventures",
+        "Seed-stage opportunities",
+        "Hands-on business guidance",
+        "Early entry into unicorns",
       ],
-      color: "mint",
-      button: "View Details",
+      icon: "fa-rocket",
     },
   ];
 
   return (
-    <section className="why-invest">
-      <div className="why-header">
-        <h2>WHY TO INVEST WITH WHITEHILL</h2>
-      </div>
+    <section className="wi-section">
+      <div className="wi-container">
+        <header className="wi-header">
+          <span className="wi-eyebrow">The Whitehill Advantage</span>
+          <h2 className="wi-title">Why to invest with Whitehill</h2>
+          <p className="wi-subtitle">
+            Strategic assets and elite connections engineered for the modern investor.
+          </p>
+        </header>
 
-      <div className="cards-container">
-        {cards.map((card, index) => (
-          <div key={index} className={`invest-card ${card.color}`}>
-            <div className="card-header">
-              <h3>{card.title}</h3>
+        <div className="wi-grid">
+          {cards.map((card, index) => (
+            <div key={index} className="wi-card">
+              <div className="wi-card-icon">
+                <i className={`fas ${card.icon}`}></i>
+              </div>
+              
+              <div className="wi-card-content">
+                <h3 className="wi-card-title">{card.title}</h3>
+                <p className="wi-card-desc">{card.desc}</p>
+                
+                <ul className="wi-card-list">
+                  {card.points.map((point, i) => (
+                    <li key={i}>
+                      <i className="fas fa-check-circle"></i>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="card-body">
-              <p className="desc">{card.desc}</p>
-              <ul>
-                {card.points.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-              {/* <button className="btn btn-primary">{card.button}</button> */}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

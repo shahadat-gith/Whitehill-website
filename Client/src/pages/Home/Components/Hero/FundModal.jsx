@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./FundModal.css";
 
 const FUND_TYPES = [
   { value: "startup", icon: "fa-rocket", label: "Startup" },
@@ -9,112 +10,85 @@ const FUND_TYPES = [
 
 const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
   const navigate = useNavigate();
-
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
-  const [selectedType, setSelectedType] = useState(null); 
+  const [selectedType, setSelectedType] = useState(null);
 
-  /* =========================
-     HANDLE CARD CLICK
-  ========================= */
   const handleCardClick = (type) => {
     if (!isLoggedIn) {
       setSelectedType(type);
       setShowAuthPrompt(true);
       return;
     }
-
     handleFundSelection(type);
   };
 
-  /* =========================
-     HANDLE LOGIN REDIRECT
-  ========================= */
   const handleLoginRedirect = () => {
     if (!selectedType) return;
-
     const redirectUrl = `/funding?type=${selectedType}`;
-
-    setIsModalOpen(false); // ✅ close modal
-
-    navigate(
-      `/auth?redirect=${encodeURIComponent(redirectUrl)}`
-    );
+    setIsModalOpen(false);
+    navigate(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
   };
 
   return (
-    <div
-      className="fmodal-overlay"
-      onClick={() => setIsModalOpen(false)}
-    >
-      <div
-        className="fmodal"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* CLOSE */}
-        <button
-          className="fmodal-close"
-          onClick={() => setIsModalOpen(false)}
-        >
-          &times;
+    <div className="fm-overlay" onClick={() => setIsModalOpen(false)}>
+      <div className="fm-content" onClick={(e) => e.stopPropagation()}>
+        {/* CLOSE BUTTON */}
+        <button className="fm-close-btn" onClick={() => setIsModalOpen(false)}>
+          <i className="fas fa-times"></i>
         </button>
 
         {!showAuthPrompt ? (
-          <>
-            {/* HEADER */}
-            <div className="fmodal-header">
-              <h2 className="fmodal-title">Fund your vision</h2>
-              <p className="fmodal-sub">
-                Select the category that best describes your request.
+          <div className="fm-main-view">
+            <header className="fm-header">
+              <h2 className="fm-title">Fund your vision</h2>
+              <p className="fm-subtitle">
+                Select the category that best describes your capital request.
               </p>
-            </div>
+            </header>
 
-            {/* OPTIONS */}
-            <div className="fmodal-options">
+            <div className="fm-options-list">
               {FUND_TYPES.map(({ value, icon, label }) => (
                 <button
                   key={value}
-                  className="fmodal-card"
+                  className="fm-option-card"
                   onClick={() => handleCardClick(value)}
                 >
-                  <span className="fmodal-icon">
+                  <div className="fm-option-icon">
                     <i className={`fas ${icon}`} />
-                  </span>
-
-                  <span className="fmodal-card-label">
-                    {label}
-                  </span>
-
-                  <i className="fas fa-arrow-right fmodal-arrow" />
+                  </div>
+                  <span className="fm-option-label">{label}</span>
+                  <i className="fas fa-chevron-right fm-arrow" />
                 </button>
               ))}
             </div>
-          </>
+          </div>
         ) : (
-          <div className="fmodal-auth">
-            <div className="fmodal-auth-icon">
-              <i className="fas fa-lock" />
+          <div className="fm-auth-view">
+            <div className="fm-auth-icon-wrapper">
+              <i className="fas fa-user-shield" />
             </div>
 
-            <h2 className="fmodal-title">Login required</h2>
-
-            <p className="fmodal-sub">
-              You need to be logged in to apply for funding. It only
-              takes a minute to get started.
+            <h2 className="fm-title">Authentication required</h2>
+            <p className="fm-subtitle">
+              You need to be logged in to access the funding application.
+              Your selected category will be saved.
             </p>
 
-            <button
-              className="btn btn-primary fmodal-login-btn"
-              onClick={handleLoginRedirect}
-            >
-              Okay! Login
-            </button>
+            <div className="fm-auth-actions">
+              <button
+                className="fm-btn-primary"
+                onClick={handleLoginRedirect}
+              >
+                Proceed to Login
+              </button>
 
-            <button
-              className="fmodal-back-link"
-              onClick={() => setShowAuthPrompt(false)}
-            >
-              ← Back to options
-            </button>
+              <button
+                className="fm-btn-back"
+                onClick={() => setShowAuthPrompt(false)}
+              >
+                <i className="fas fa-arrow-left"></i> Back to options
+              </button>
+            </div>
           </div>
         )}
       </div>

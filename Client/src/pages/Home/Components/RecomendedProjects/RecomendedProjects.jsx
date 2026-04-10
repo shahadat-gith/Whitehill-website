@@ -3,11 +3,9 @@ import './RecomendedProjects.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../../../context/AppContext';
 
-const RecomendedProjects = ({ backendProjects = [] }) => {
-
-    const { projects } = useAppContext()
-
-    const navigate = useNavigate()
+const RecomendedProjects = () => {
+    const { projects } = useAppContext();
+    const navigate = useNavigate();
 
     // Helper to get Status Class
     const getStatusClass = (stage) => {
@@ -20,37 +18,28 @@ const RecomendedProjects = ({ backendProjects = [] }) => {
     return (
         <section className="rp-section">
             <div className="rp-header">
-                <div>
-                    <p className="rp-eyebrow">Recommended Opportunities</p>
-                    <h2 className="rp-title">Curated projects for high-potential investors</h2>
-                    <p className="rp-subtitle">
-                        Explore vetted projects with transparent funding details, strong traction, and clear growth paths.
-                    </p>
-                </div>
-                <button className="rp-button">View all projects</button>
+                <p className="rp-eyebrow">Recommended Opportunities</p>
             </div>
 
             <div className="rp-grid">
-                {projects.slice(0,3).map(project => (
+                {projects.slice(0, 3).map(project => (
                     <article key={project._id} className="rp-card">
                         <div className="rp-card-header">
                             <span className="rp-chip">
                                 {project.category === 'real_estate' ? 'Property' : 'Startup'}
                             </span>
                             <span className={`rp-status ${getStatusClass(project.stage)}`}>
+                                <i className={`fas ${project.stage === 'live' ? 'fa-signal' : 'fa-bolt'}`} style={{marginRight: '6px'}}></i>
                                 {project.stage || 'Trending'}
                             </span>
                         </div>
 
                         <h3 className="rp-card-title">{project.name}</h3>
-                        <p className="rp-card-description">{project.description}</p>
-
                         <div className="rp-card-meta">
                             <span><i className="fas fa-map-marker-alt"></i> {project.city}, {project.state}</span>
                             <span><i className="fas fa-chart-line"></i> {project.targetReturn} Return</span>
                         </div>
 
-                        {/* Use minCommitment as a proxy for 'Raised' in this UI example */}
                         <div className="rp-progress-row">
                             <div className="rp-progress-label">
                                 <span>Min. Investment</span>
@@ -59,16 +48,32 @@ const RecomendedProjects = ({ backendProjects = [] }) => {
                                 <strong>₹{(project.minCommitment / 10000000).toFixed(1)}Cr</strong>
                             </div>
                         </div>
-
                         <div className="rp-tag-list">
-                            {project.highlights.slice(0,4)?.map((tag, i) => (
+                            {project.highlights.slice(0, 3)?.map((tag, i) => (
                                 <span key={i} className="rp-tag">{tag.text}</span>
                             ))}
                         </div>
 
-                        <button className="rp-card-action" onClick={() => navigate(`/projects/${project._id}`)}>View & Invest</button>
+                        {/* Global Secondary Button used here */}
+                        <button 
+                            className="btn btn-secondary" 
+                            style={{ width: '100%' }} 
+                            onClick={() => navigate(`/projects/${project._id}`)}
+                        >
+                            View & Invest
+                        </button>
                     </article>
                 ))}
+            </div>
+
+            <div className="rp-action-btns" style={{ marginTop: '40px', textAlign: 'center' }}>
+                {/* Global Primary Button used here */}
+                <button 
+                    onClick={() => navigate("/projects")} 
+                    className='btn btn-primary'
+                >
+                    Explore All Opportunities <i className="fas fa-arrow-right"></i>
+                </button>
             </div>
         </section>
     );

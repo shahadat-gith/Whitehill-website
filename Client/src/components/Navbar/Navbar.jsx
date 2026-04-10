@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./Navbar.css";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import "./Navbar.css";
 import { useAppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { logout, user } = useAppContext();
+  const { logout } = useAppContext();
 
   const navigate = useNavigate();
 
@@ -62,7 +62,6 @@ const Navbar = () => {
           <DesktopNav
             handleLogout={handleLogout}
             navLinks={navLinks}
-            user={user} // ✅ pass user if needed
           />
         </div>
 
@@ -73,7 +72,6 @@ const Navbar = () => {
             setMobileMenuOpen={setMobileMenuOpen}
             handleLogout={handleLogout}
             navLinks={navLinks}
-            user={user} // ✅ pass user if needed
           />
         </div>
       </div>

@@ -1,0 +1,200 @@
+/* ============================================================
+   FUND MODAL — FundModal.css (Prefixed fm-)
+   ============================================================ */
+
+.fm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6); /* Fintech dark slate */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fmFadeIn 0.3s ease-out;
+}
+
+.fm-content {
+  background: var(--bg-surface);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 28px;
+  position: relative;
+  padding: 40px;
+  box-shadow: var(--shadow-high);
+  border: 1px solid var(--border-default);
+  animation: fmSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.fm-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.fm-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 10px;
+}
+
+.fm-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Options List ───────────────────────────────────────── */
+.fm-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fm-option-card {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-muted);
+  border: 1.5px solid var(--border-default);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.fm-option-card:hover {
+  background: var(--bg-surface);
+  border-color: var(--color-accent);
+  transform: translateX(5px);
+  box-shadow: var(--shadow-low);
+}
+
+.fm-option-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--bg-surface);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin-right: 16px;
+  border: 1px solid var(--border-default);
+}
+
+.fm-option-label {
+  flex: 1;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-heading);
+  font-size: 1rem;
+}
+
+.fm-arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* ── Auth View ──────────────────────────────────────────── */
+.fm-auth-view {
+  text-align: center;
+}
+
+.fm-auth-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: var(--accent-soft-gold);
+  color: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto 20px;
+}
+
+.fm-auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.fm-btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fm-btn-primary:hover {
+  background: var(--color-accent);
+}
+
+.fm-btn-back {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fm-btn-back:hover {
+  color: var(--text-heading);
+}
+
+/* ── Utilities ──────────────────────────────────────────── */
+.fm-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-muted);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.fm-close-btn:hover {
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes fmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fmSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .fm-content {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+}
