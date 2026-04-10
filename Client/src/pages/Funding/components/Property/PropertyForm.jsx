@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './PropertyForm.css';
 
 const PropertyForm = ({ formData, updateFormData }) => {
+  const [inputValue, setInputValue] = useState(
+    (formData.property.legal?.approvals || []).join(', ')
+  );
+
+  const handleApprovalChange = (e) => {
+    const rawValue = e.target.value;
+
+    // 1. Update the local UI state immediately so typing feels natural
+    setInputValue(rawValue);
+
+    // 2. Convert to array for formData
+    // We split by comma but DON'T filter yet, so the user can type a comma
+    const arrayValue = rawValue.split(',').map(s => s.trim());
+
+    // 3. Update your global/parent state
+    updateFormData('property.legal.approvals', arrayValue);
+  };
+
+  const handleBlur = () => {
+    // Clean up the data (remove empty strings) only when the user finishes typing
+    const cleanedArray = (formData.property.legal?.approvals || [])
+      .filter(val => val !== "");
+
+    updateFormData('property.legal.approvals', cleanedArray);
+    setInputValue(cleanedArray.join(', '));
+  };
+
+
+
   return (
     <div className="pf-container">
       <h2 className="pf-title">Property Information</h2>
@@ -264,15 +293,15 @@ const PropertyForm = ({ formData, updateFormData }) => {
         </div>
 
         <div className="pf-field pf-field--full">
-          <label className="pf-label">
-            Approvals (optional)
-          </label>
+          <label className="pf-label">Approvals (optional)</label>
           <input
             type="text"
             className="pf-input"
             placeholder="List any approvals (e.g., RERA, municipal)"
-            value={(formData.property.legal?.approvals || []).join(', ')}
-            onChange={(e) => updateFormData('property.legal.approvals', e.target.value ? e.target.value.split(',').map(s => s.trim()).filter(s => s) : [])}
+            // Use the local string state for the value
+            value={inputValue}
+            onChange={handleApprovalChange}
+            onBlur={handleBlur}
           />
         </div>
       </div>

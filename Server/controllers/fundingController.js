@@ -1,6 +1,7 @@
 import { Funding } from "../models/funding/index.js";
 import { deleteFromCloudinary } from "../configs/cloudinary.js";
-import { parseIfJSON, getUploadHandler, cleanEmpty, deepMerge } from "../utils/funding.js";
+import { parseIfJSON, getUploadHandler, cleanEmpty, deepMerge, formatErrorResponse } from "../utils/funding.js";
+
 
 
 /* =========================
@@ -84,7 +85,8 @@ export const createFunding = async (req, res) => {
       data: funding,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
   }
 };
 
@@ -164,7 +166,8 @@ export const updateFunding = async (req, res) => {
       data: funding,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
   }
 };
 
@@ -188,7 +191,8 @@ export const getAllFunding = async (req, res) => {
       data,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
   }
 };
 
@@ -212,7 +216,39 @@ export const getFundingById = async (req, res) => {
       data: funding,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
+  }
+};
+
+
+export const getFundingByUserId = async (req, res) => {
+  try {
+    const funding = await Funding.find({ user: req.params.userId }).sort({
+      createdAt: -1,
+    });
+
+    //send necessary details only
+
+    const filteredData = funding.map((f) => ({
+      _id: f._id,
+      type: f.type,
+      amount: f.fundDetails?.amount || null,
+      tenure: f.fundDetails?.tenureMonths || null,
+      purpose: f.fundDetails?.purpose || null,
+      status: f.status,
+      adminReview: f.adminReview,
+      createdAt: f.createdAt,
+    })); 
+
+
+    res.status(200).json({
+      success: true,
+      data: filteredData,
+    });
+  } catch (error) {
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
   }
 };
 
@@ -262,6 +298,7 @@ export const reviewFunding = async (req, res) => {
       data: funding,
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+    const { status, message } = formatErrorResponse(error);
+    res.status(status).json({ success: false, message });
   }
 };

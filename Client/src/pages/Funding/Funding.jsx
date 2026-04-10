@@ -5,21 +5,22 @@ import "./Funding.css";
 
 import Steps from "./components/Common/Steps";
 import StepContent from "./StepContent";
+import SubmitModal from "./components/Common/SubmitModal";
 
 import { useFundingForm } from "./hooks/useFundingForm";
 import { useFileUpload } from "./hooks/useFileUpload";
+import { useAppContext } from "../../context/AppContext";
 
 const Funding = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState(1);
+  const { user } = useAppContext()
 
   const {
     formData,
     loading,
-    error,
-    success,
     updateFormData,
     addToArray,
     removeFromArray,
@@ -33,6 +34,10 @@ const Funding = () => {
     handleFileChange,
     hasErrors,
   } = useFileUpload();
+
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
 
   const typeFromUrl = searchParams.get("type");
 
@@ -59,7 +64,7 @@ const Funding = () => {
   }, [typeFromUrl, updateFormData]);
 
   /* ========================= */
-  const getTotalSteps = () => (formData.type ? 3 : 0);
+  const getTotalSteps = () => (formData.type ? 4 : 0);
 
   const handleNext = () => {
     if (currentStep < getTotalSteps()) {
@@ -81,12 +86,31 @@ const Funding = () => {
       return;
     }
 
+    setShowSubmitModal(true);
+    setSubmitStatus('processing');
+    setSubmitError('');
+
     try {
       await submitForm(files);
-      alert("Funding application submitted successfully!");
+      setSubmitStatus('success');
+    } catch (err) {
+      setSubmitStatus('failed');
+      setSubmitError(err.response?.data?.message || err.message || 'Unable to submit at this time.');
+    }
+  };
+
+  const handleSubmitModalClose = () => {
+    if (submitStatus === 'success') {
       resetForm();
-      setCurrentStep(1);
-    } catch (err) { }
+      navigate("/")
+    }
+    setShowSubmitModal(false);
+    setSubmitStatus('idle');
+    setSubmitError('');
+  };
+
+  const handleRedirectToFunding = () => {
+    navigate(`/funding/user=${user?._id}`);
   };
 
   return (
@@ -150,14 +174,6 @@ const Funding = () => {
               fileErrors={fileErrors}
               handleFileChange={handleFileChange}
             />
-
-            {error && <div className="fun-error">{error}</div>}
-            {success && (
-              <div className="fun-success">
-                Application submitted successfully!
-              </div>
-            )}
-
             <div className="fun-navigation">
               {currentStep > 1 && (
                 <button
@@ -193,6 +209,14 @@ const Funding = () => {
           </form>
         </div>
       </section>
+
+      <SubmitModal
+        show={showSubmitModal}
+        status={submitStatus}
+        error={submitError}
+        onClose={handleSubmitModalClose}
+        onRedirect={handleRedirectToFunding}
+      />
     </div>
   );
 };

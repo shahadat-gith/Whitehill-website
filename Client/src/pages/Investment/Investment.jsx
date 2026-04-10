@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useParams } from "react-router-dom";
 import "./Investment.css";
 import api from "../../configs/axios";
 import Loader from "../../components/Loader/Loader";
@@ -7,10 +7,9 @@ import { useAppContext } from "../../context/AppContext";
 import { getStatusClass, formatCurrency, formatDate, getRiskClass } from "../../Utils/utility";
 
 const Investment = () => {
-  const [params] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAppContext();
-  const userId = params.get("user") || user?._id;
+  const { userId } = useParams()
 
   const [loading, setLoading] = useState(false);
   const [investments, setInvestments] = useState([]);
@@ -115,7 +114,7 @@ const Investment = () => {
               </thead>
               <tbody>
                 {investments.map((inv) => (
-                  <tr 
+                  <tr
                     key={inv._id}
                     onClick={() => navigate(`/projects/${inv.project?._id}`)}
                     style={{ cursor: 'pointer' }}

@@ -75,6 +75,13 @@ fundingRouter.get(
   fundingController.getAllFunding
 );
 
+// 📄 Get funding by user ID
+fundingRouter.get(
+  "/user/:userId",
+  authMiddleware,
+  fundingController.getFundingByUserId
+);
+
 // 📄 Get single funding
 fundingRouter.get(
   "/:id",

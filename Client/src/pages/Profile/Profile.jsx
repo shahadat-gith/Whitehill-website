@@ -90,21 +90,21 @@ const Profile = () => {
           {/* ACTIONS */}
           <div className="prf-profile-header-action-group">
             <Link
-              to={`/fund-requests?user=${user?._id}`}
+              to={`/funding/${user?._id}`}
               className="prf-btn-nav secondary"
             >
-              <i className="fas fa-hand-holding-usd"></i> Fund Requests
+              <i className="fas fa-hand-holding-usd"></i> Funding Requests
             </Link>
 
             <Link
-              to={`/sold-property?user=${user?._id}`}
+              to={`/sold-property/${user?._id}`}
               className="prf-btn-nav secondary"
             >
               <i className="fas fa-home"></i> Sold Property
             </Link>
 
             <Link
-              to={`/investment-profile?user=${user?._id}`}
+              to={`/investments/${user?._id}`}
               className="prf-btn-nav secondary"
             >
               <i className="fas fa-briefcase"></i> My Investments

@@ -65,7 +65,7 @@ const DocumentsCommon = ({ files, errors, handleFileChange }) => {
 
   return (
     <div className="dc-container">
-      <h2 className="dc-title">Common Documents</h2>
+      <h2 className="dc-title">Basic Documents</h2>
       <p className="dc-subtitle">
         Please upload the following documents. All files must be under 10MB.
       </p>

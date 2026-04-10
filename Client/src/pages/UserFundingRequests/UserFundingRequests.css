@@ -1,0 +1,222 @@
+/* ============================================================
+   USER FUNDING REQUESTS — CSS
+   ============================================================ */
+
+.ufr-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.ufr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 24px;
+}
+
+.ufr-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.ufr-subtitle {
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.ufr-new-request-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ufr-new-request-btn:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ── Grid & Card ────────────────────────────────────────── */
+.ufr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.ufr-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.ufr-card:hover {
+  box-shadow: var(--shadow-medium);
+  border-color: var(--color-accent);
+}
+
+.ufr-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ufr-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── Badges ─────────────────────────────────────────────── */
+.ufr-badge {
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-pending { background: var(--accent-soft-gold); color: #b45309; }
+.status-approved { background: var(--accent-soft-green); color: var(--status-success); }
+.status-rejected { background: var(--accent-soft-red); color: var(--status-error); }
+
+/* ── Card Body ──────────────────────────────────────────── */
+.ufr-main-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ufr-info-group label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ufr-info-group h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.ufr-purpose {
+  margin-bottom: 24px;
+}
+
+.ufr-purpose label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.ufr-purpose p {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+/* ── Review Boxes ───────────────────────────────────────── */
+.ufr-review-box {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
+}
+
+.ufr-review-box.approved { border-left: 4px solid var(--status-success); }
+.ufr-review-box.rejected { border-left: 4px solid var(--status-error); }
+
+.review-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-heading);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.review-item span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.review-item strong {
+  font-size: 0.95rem;
+  color: var(--text-heading);
+}
+
+.ufr-action-btn {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ufr-action-btn:hover {
+  background: var(--bg-muted);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Loader ─────────────────────────────────────────────── */
+.ufr-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.ufr-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--bg-muted);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .ufr-grid { grid-template-columns: 1fr; }
+  .ufr-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .ufr-new-request-btn { width: 100%; }
+}

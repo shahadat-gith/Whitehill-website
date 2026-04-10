@@ -15,6 +15,7 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Funding from "./pages/Funding/Funding";
 import Authentication from "./pages/Authentication/Authentication";
+import UserFundingRequests from "./pages/UserFundingRequests/UserFundingRequests";
 
 
 
@@ -34,60 +35,69 @@ const App = () => {
     <div>
       <Navbar />
       <Toaster />
+      <main className="app-main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+          {/* 🚫 Guest Only */}
+          <Route
+            path="/auth"
+            element={
+              <GuestRoute>
+                <Authentication />
+              </GuestRoute>
+            }
+          />
 
-        {/* 🚫 Guest Only */}
-        <Route
-          path="/auth"
-          element={
-            <GuestRoute>
-            <Authentication />
-            </GuestRoute>
-          }
-        />
+          {/* 🔐 Protected */}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* 🔐 Protected */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/investments/:userId"
+            element={
+              <ProtectedRoute>
+                <Investment />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/investment-profile"
-          element={
-            <ProtectedRoute>
-              <Investment />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/funding"
+            element={
+              <ProtectedRoute>
+                <Funding />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/funding"
-          element={
-            <ProtectedRoute>
-              <Funding />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/funding/:userId"
+            element={
+              <ProtectedRoute>
+                <UserFundingRequests />
+              </ProtectedRoute>
+            }
+          />
 
 
-        
 
-        {/* Public */}
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/:id" element={<ProjectDetails />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
 
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
+          {/* Public */}
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

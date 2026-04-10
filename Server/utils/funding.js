@@ -48,3 +48,48 @@ export const deepMerge = (target, source) => {
     }
   }
 };
+
+
+
+export const formatErrorResponse = (error) => {
+  if (!error) {
+    return { status: 500, message: "An unexpected error occurred. Please try again." };
+  }
+
+  if (error.name === "ValidationError") {
+    const messages = Object.values(error.errors).map((err) => err.message);
+    return {
+      status: 422,
+      message: messages.length
+        ? `Validation failed: ${messages.join(". ")}`
+        : "Validation failed. Please check the submitted data.",
+    };
+  }
+
+  if (error.name === "CastError") {
+    return {
+      status: 400,
+      message: `Invalid value provided for ${error.path}. Please provide a valid ${error.path}.`,
+    };
+  }
+
+  if (error.code === 11000) {
+    const key = Object.keys(error.keyValue || {}).join(", ");
+    return {
+      status: 409,
+      message: `Duplicate entry for ${key}. Please provide a different value.`,
+    };
+  }
+
+  if (error.name === "MulterError") {
+    return {
+      status: 400,
+      message: error.message || "File upload failed. Please check your files and try again.",
+    };
+  }
+
+  return {
+    status: 500,
+    message: "Server error. Please try again later.",
+  };
+};

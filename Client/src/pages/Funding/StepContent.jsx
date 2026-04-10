@@ -14,6 +14,8 @@ import StartupDocuments from "./components/Startup/StartupDocuments";
 import BusinessDocuments from "./components/Business/BusinessDocuments";
 import PropertyDocuments from "./components/Property/PropertyDocuments";
 
+import ReviewStep from "./components/Common/ReviewStep";
+
 const StepContent = ({
   currentStep,
   formData,
@@ -111,6 +113,14 @@ const StepContent = ({
             updateFormData={updateFormData}
           />
         </div>
+      );
+
+    case 4:
+      return (
+        <ReviewStep
+          formData={formData}
+          files={files}
+        />
       );
 
     default:

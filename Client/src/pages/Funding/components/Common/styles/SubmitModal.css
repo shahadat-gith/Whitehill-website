@@ -1,0 +1,169 @@
+
+.submit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6); /* Dark slate with transparency */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.submit-modal-card {
+  background: var(--bg-surface);
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: var(--shadow-high);
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: translateY(0);
+  animation: cardSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.submit-modal-card h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.submit-modal-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Spinner Styling ────────────────────────────────────── */
+.submit-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.submit-spinner div {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.submit-spinner div:nth-child(2) { animation-delay: 0.2s; }
+.submit-spinner div:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Actions ────────────────────────────────────────────── */
+.submit-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-modal-actions .btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.submit-modal-actions .btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.submit-modal-actions .btn-primary:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.submit-modal-actions .btn-secondary {
+  background: var(--bg-muted);
+  color: var(--text-body);
+  border: 1px solid var(--border-default);
+}
+
+.submit-modal-actions .btn-secondary:hover {
+  background: var(--btn-alt-hover);
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  to { transform: translateY(-10px); opacity: 0.5; }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .submit-modal-card {
+    padding: 30px 20px;
+  }
+}
+
+
+
+
+/* Disable pointer events on the overlay when locked */
+.overlay-locked {
+  cursor: wait;
+}
+
+/* Specific styling for Success/Error Icons to match the theme */
+.status-visual {
+  margin-bottom: 10px;
+}
+
+.success-icon, .error-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.success-icon {
+  background: var(--accent-soft-green);
+  color: var(--status-success);
+}
+
+.error-icon {
+  background: var(--accent-soft-red);
+  color: var(--status-error);
+}
+
+/* Ensure the spinner is prominent during the lock */
+.submit-spinner div {
+  background-color: var(--color-accent);
+}

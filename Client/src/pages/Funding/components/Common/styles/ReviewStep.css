@@ -1,0 +1,191 @@
+
+.review-step {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.review-header {
+  border-bottom: 2px solid var(--border-default);
+  padding-bottom: 20px;
+}
+
+.review-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 8px 0;
+}
+
+.review-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Section Styling ────────────────────────────────────── */
+.review-section {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-default);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color 0.2s;
+}
+
+.review-section:hover {
+  border-color: var(--border-strong);
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+/* ── Grid Layout ────────────────────────────────────────── */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 32px;
+}
+
+.review-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-field--full {
+  grid-column: 1 / -1;
+}
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.field-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-body);
+  word-break: break-word;
+}
+
+/* ── Lists (Risks & Docs) ───────────────────────────────── */
+.risk-list, .document-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.risk-item, .document-item {
+  font-size: 0.9rem;
+  padding: 10px 16px;
+  background: var(--bg-muted);
+  border-radius: 8px;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.risk-item::before {
+  content: "•";
+  color: var(--status-warning);
+  font-weight: bold;
+}
+
+.document-group {
+  margin-bottom: 16px;
+}
+
+.document-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.document-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 8px;
+}
+
+.no-data {
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Notice Box ─────────────────────────────────────────── */
+.submit-notice {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  background: var(--accent-soft-gold);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  align-items: center;
+}
+
+.notice-icon {
+  font-size: 1.5rem;
+}
+
+.notice-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 4px 0;
+}
+
+.notice-content p {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Animation ──────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .review-section {
+    padding: 20px;
+  }
+
+  .submit-notice {
+    flex-direction: column;
+    text-align: center;
+  }
+}
