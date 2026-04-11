@@ -1,0 +1,160 @@
+/* ================================
+   CONTAINER
+================================ */
+.isb-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+
+  transition: var(--transition-fast);
+}
+
+/* ================================
+   LEFT
+================================ */
+.isb-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+/* ================================
+   ICON
+================================ */
+.isb-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+/* ================================
+   CONTENT
+================================ */
+.isb-content {
+  flex: 1;
+}
+
+.isb-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.isb-status {
+  margin-left: 6px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.isb-sub {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ================================
+   BUTTON
+================================ */
+.isb-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ================================
+   STATUS THEMES (🔥 MAIN UPGRADE)
+================================ */
+
+/* Pending */
+.isb-container.warn {
+  background: var(--color-warning-soft);
+  border-color: var(--color-warning);
+}
+
+.isb-container.warn .isb-icon {
+  background: var(--color-warning);
+  color: #fff;
+}
+
+.isb-status.warn {
+  color: var(--color-warning);
+}
+
+/* Success */
+.isb-container.success {
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+}
+
+.isb-container.success .isb-icon {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.isb-status.success {
+  color: var(--color-success);
+}
+
+/* Info */
+.isb-container.info {
+  background: var(--color-info-soft);
+  border-color: var(--color-info);
+}
+
+.isb-container.info .isb-icon {
+  background: var(--color-info);
+  color: #fff;
+}
+
+.isb-status.info {
+  color: var(--color-info);
+}
+
+/* Danger */
+.isb-container.danger {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+}
+
+.isb-container.danger .isb-icon {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.isb-status.danger {
+  color: var(--color-error);
+}
+
+/* Neutral */
+.isb-container.neutral {
+  background: var(--bg-muted);
+}
+
+.isb-container.neutral .isb-icon {
+  background: var(--border-color);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .isb-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .isb-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

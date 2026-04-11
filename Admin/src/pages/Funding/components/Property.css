@@ -1,0 +1,140 @@
+/* ================================
+   CARD
+================================ */
+.pt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   TITLE
+================================ */
+.pt-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.pt-card-title i {
+  color: var(--color-primary);
+}
+
+/* ================================
+   INFO
+================================ */
+.pt-info-item {
+  margin-top: 10px;
+}
+
+.pt-info-item label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.pt-info-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ================================
+   ROW
+================================ */
+.pt-info-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pt-info-row .pt-info-item {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* ================================
+   VALUE HIGHLIGHT (PRICE)
+================================ */
+.pt-info-value strong,
+.pt-info-value.highlight {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ================================
+   LOCATION
+================================ */
+.pt-info-value div {
+  line-height: 1.4;
+}
+
+.pt-info-value div:last-child {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* ================================
+   LEGAL SECTION
+================================ */
+.pt-legal-info {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pt-legal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+
+  font-size: 13px;
+}
+
+/* STATUS COLORS */
+.pt-legal-item .yes {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.pt-legal-item .no {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+/* ================================
+   MOBILE (🔥 IMPORTANT)
+================================ */
+@media (max-width: 768px) {
+  .pt-card {
+    padding: 14px;
+  }
+
+  .pt-info-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pt-info-value {
+    font-size: 13px;
+  }
+
+  .pt-legal-item {
+    padding: 7px 9px;
+    font-size: 12px;
+  }
+}

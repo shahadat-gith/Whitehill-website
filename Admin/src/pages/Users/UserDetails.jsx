@@ -130,21 +130,19 @@ const UserDetails = () => {
                         onClick={fetchUser}
                         disabled={loading}
                     >
-                        <i className="fa-solid fa-rotate"></i>
-                        <span>Refresh</span>
+                        <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-arrows-rotate"}`}></i>
+                        <span>{loading ? "Refreshing..." : "Refresh"}</span>
                     </button>
 
-                    {!(kyc.status === "verified") &&
-
+                    {kyc?.status !== "verified" && (
                         <button
                             className="btn btn-primary"
                             onClick={() => setShowKycModal(true)}
                         >
-                            <i className="fa-solid fa-shield-halved"></i>
+                            <i className="fa-solid fa-circle-check"></i>
                             <span>Verify KYC</span>
                         </button>
-
-                    }
+                    )}
                 </div>
             </div>
 

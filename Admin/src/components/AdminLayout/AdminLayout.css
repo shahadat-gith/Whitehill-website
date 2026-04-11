@@ -2,8 +2,6 @@
    ADMIN LAYOUT
 ================================ */
 .admin-layout {
-   display: flex;
-   min-height: 100vh;
    background: var(--bg-main);
 }
 
@@ -18,7 +16,7 @@
 
 /* Content */
 .content-body {
-   padding: var(--space-lg);
+   padding: 20px;
    min-height: calc(100vh - 70px);
 }
 

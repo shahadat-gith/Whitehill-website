@@ -10,39 +10,37 @@ const StatusUpdateModal = ({
   email,
   currentStatus = "pending",
 }) => {
-  const [status, setStatus] = useState(currentStatus || "pending");
+  const [status, setStatus] = useState(currentStatus);
   const [cancelReason, setCancelReason] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const isCancelled = useMemo(
-    () => String(status).toLowerCase() === "cancelled",
+    () => status === "cancelled",
     [status]
   );
 
   useEffect(() => {
     if (!isOpen) return;
-    setStatus(currentStatus || "pending");
+    setStatus(currentStatus);
     setCancelReason("");
   }, [isOpen, currentStatus]);
+
+  /* ESC close */
+  useEffect(() => {
+    const esc = (e) => e.key === "Escape" && onClose(false);
+    document.addEventListener("keydown", esc);
+    return () => document.removeEventListener("keydown", esc);
+  }, []);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!investmentId) {
-      toast.error("Investment ID missing");
-      return;
-    }
-
-    if (!status) {
-      toast.error("Please select a status");
-      return;
-    }
+    if (!investmentId) return toast.error("Investment ID missing");
 
     if (isCancelled && !cancelReason.trim()) {
-      toast.error("Please provide a cancellation reason");
-      return;
+      return toast.error("Cancellation reason required");
     }
 
     try {
@@ -51,108 +49,117 @@ const StatusUpdateModal = ({
       const payload = {
         investmentId,
         status,
+        ...(isCancelled && { cancelReason: cancelReason.trim() }),
       };
 
-      if (isCancelled) payload.cancelReason = cancelReason.trim();
-
-      const { data } = await api.post("/api/admin/investment/update-status", payload);
+      const { data } = await api.post(
+        "/api/admin/investment/update-status",
+        payload
+      );
 
       if (data.success) {
-        toast.success("Status updated successfully");
-        onClose(true); // refresh parent
+        toast.success("Status updated");
+        onClose(true);
       } else {
-        toast.error(data.message || "Failed to update status");
+        toast.error(data.message || "Failed");
       }
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to update status");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed");
     } finally {
       setSubmitting(false);
     }
   };
 
+  const STATUS_OPTIONS = [
+    { key: "pending", label: "Pending" },
+    { key: "confirmed", label: "Confirmed" },
+    { key: "completed", label: "Completed" },
+    { key: "cancelled", label: "Cancelled" },
+  ];
+
   return (
-    <div className="sum-overlay" role="dialog" aria-modal="true">
-      <div className="sum-dialog">
+    <div className="sum-overlay" onClick={() => onClose(false)}>
+      <div className="sum-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="sum-card">
+
+          {/* HEADER */}
           <div className="sum-header">
             <div>
-              <h5 className="sum-title">Update Investment Status</h5>
+              <h5>Update Investment Status</h5>
               <p className="sum-subtitle">
-                Investment: <span className="sum-mono">{investmentId}</span>
+                ID: <span className="sum-mono">{investmentId}</span>
               </p>
             </div>
 
-            <button
-              type="button"
-              className="sum-close"
-              onClick={() => onClose(false)}
-              disabled={submitting}
-              aria-label="Close"
-            >
+            <button className="sum-close" onClick={() => onClose(false)}>
               ×
             </button>
           </div>
 
           <form onSubmit={handleSubmit}>
             <div className="sum-body">
-              <div className="sum-field">
-                <label className="sum-label">Status</label>
-                <select
-                  className="sum-input"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  disabled={submitting}
-                >
-                  <option value="pending">Pending</option>
-                  <option value="confirmed">Confirmed</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-                <div className="sum-hint">
-                  Choose <b>Cancelled</b> only if you want to stop this investment.
-                </div>
+
+              {/* STATUS SELECTOR 🔥 */}
+              <div className="sum-status-grid">
+                {STATUS_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    className={`sum-status-btn ${status === opt.key ? "active" : ""} ${opt.key}`}
+                    onClick={() => setStatus(opt.key)}
+                    disabled={submitting}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
               </div>
 
+              {/* CANCEL REASON */}
               {isCancelled && (
-                <div className="sum-field">
-                  <label className="sum-label">Cancellation Reason</label>
+                <div className="sum-field danger">
+                  <label>Cancellation Reason</label>
                   <textarea
-                    className="sum-input sum-textarea"
-                    rows={4}
                     value={cancelReason}
                     onChange={(e) => setCancelReason(e.target.value)}
-                    placeholder="Write the reason for cancellation..."
+                    placeholder="Explain why this investment is cancelled..."
                     disabled={submitting}
                   />
                 </div>
               )}
 
+              {/* INFO */}
               <div className="sum-info">
                 <i className="fa-solid fa-envelope"></i>
-                <span> An email will be sent to the investor{" "}(<span className="sum-mono">{email}</span>) </span>
+                <span>
+                  User will be notified via email ({email})
+                </span>
               </div>
             </div>
 
+            {/* FOOTER */}
             <div className="sum-footer">
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => onClose(false)}
-                disabled={submitting}
               >
                 Cancel
               </button>
 
-              <button type="submit" className="btn btn-primary" disabled={submitting}>
+              <button
+                type="submit"
+                className={`btn ${isCancelled ? "btn-secondary" : "btn-primary"}`}
+                disabled={submitting}
+              >
                 {submitting ? (
                   <>
                     <i className="fa-solid fa-spinner fa-spin"></i>
-                    <span>Updating...</span>
+                    Updating...
                   </>
                 ) : (
                   <>
                     <i className="fa-solid fa-floppy-disk"></i>
-                    <span>Update Status</span>
+                    Update Status
                   </>
                 )}
               </button>

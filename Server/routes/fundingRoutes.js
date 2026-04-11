@@ -1,7 +1,6 @@
 import express from "express";
 import upload from "../configs/multer.js";
 import { authMiddleware } from "../middlewares/authmiddleware.js";
-import { adminAuth } from "../middlewares/adminMiddleware.js";
 import * as fundingController from "../controllers/fundingController.js";
 
 const fundingRouter = express.Router();
@@ -87,18 +86,6 @@ fundingRouter.get(
   "/:id",
   authMiddleware,
   fundingController.getFundingById
-);
-
-/* =========================
-   ADMIN ROUTES
-   ========================= */
-
-// 🛠 Admin review (approve/reject/etc.)
-fundingRouter.patch(
-  "/:id/review",
-  authMiddleware,
-  adminAuth,
-  fundingController.reviewFunding // (you will implement)
 );
 
 export default fundingRouter;

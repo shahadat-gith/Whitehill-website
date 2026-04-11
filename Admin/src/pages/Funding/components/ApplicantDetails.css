@@ -1,0 +1,77 @@
+/* ================================
+   APPLICANT DETAILS CARD
+================================ */
+.ad-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.ad-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.ad-card-title i {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.ad-card-title h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ================================
+   USER PROFILE SECTION
+================================ */
+.ad-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.ad-user-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    transition: transform var(--transition-fast);
+}
+
+.ad-user-profile:hover .ad-user-avatar {
+    transform: scale(1.05);
+    border-color: var(--color-primary-soft);
+}
+
+.ad-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ad-user-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.ad-user-email {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.ad-user-phone {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'ui-monospace', monospace;
+}

@@ -80,7 +80,7 @@ const InvestmentDetails = () => {
           )}
 
           <button className="btn btn-primary" onClick={fetchDetails} disabled={loading}>
-            <i className="fa-solid fa-rotate"></i>
+           <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-arrows-rotate"}`}></i>
             <span>Refresh</span>
           </button>
         </div>
@@ -230,7 +230,7 @@ const InvestmentDetails = () => {
               <div className="id-row">
                 <span className="id-label">Amount</span>
                 <span className="id-value id-strong">
-                  {rzp.amount != null ? formatAmount(rzp.amount / 100) : "N/A"}
+                  {rzp.amount != null ? formatCurrency(rzp.amount / 100) : "N/A"}
                 </span>
               </div>
 

@@ -1,430 +1,316 @@
-/* =========================
-   UserDetails.css (UPDATED)
-   - adds image viewer click styles
-   - fixes Bank Details into proper tabular grid
-========================= */
-
-/* Page container */
+/* ================================
+   CONTAINER
+================================ */
 .ud-container {
-  padding: 18px;
-  color: var(--text-primary);
-}
-
-/* Loading */
-.ud-loading {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 40px 0;
-  color: var(--text-muted);
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-/* Header */
+/* ================================
+   HEADER (🔥 IMPROVED)
+================================ */
 .ud-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px;
-  border-radius: 14px;
+  align-items: center;
+  gap: var(--space-md);
+
   background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
 }
 
 .ud-userhead {
   display: flex;
+  gap: var(--space-md);
   align-items: center;
-  gap: 14px;
-  min-width: 0;
 }
 
 .ud-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
   object-fit: cover;
-  border: 1px solid var(--border-color);
-  background: var(--bg-muted);
+  transition: var(--transition-fast);
+}
+
+.ud-avatar:hover {
+  transform: scale(1.05);
 }
 
 .ud-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.15;
+  font-size: var(--text-xl);
+  font-weight: 600;
 }
 
 .ud-sub {
-  margin-top: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  font-size: 13px;
 }
 
 .ud-mono {
-  margin-top: 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--text-muted);
 }
 
+/* ================================
+   ACTIONS
+================================ */
 .ud-header-actions {
   display: flex;
-  gap: 10px;
-  flex-shrink: 0;
+  gap: var(--space-sm);
 }
 
-/* Grid */
+/* ================================
+   KYC BANNER (🔥 STRONG VISUAL)
+================================ */
+.ud-kyc-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+
+  background: var(--bg-card);
+}
+
+.ud-kyc-banner.ok {
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+}
+
+.ud-kyc-banner.warn {
+  background: var(--color-warning-soft);
+  border-color: var(--color-warning);
+}
+
+.ud-kyc-banner.danger {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+}
+
+.ud-kyc-left {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.ud-kyc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+}
+
+.ud-kyc-icon.ok {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.ud-kyc-icon.warn {
+  background: var(--color-warning);
+  color: #fff;
+}
+
+.ud-kyc-icon.danger {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.ud-kyc-title {
+  font-weight: 600;
+}
+
+.ud-kyc-sub {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.ud-kyc-meta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ================================
+   GRID
+================================ */
 .ud-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+/* ================================
+   CARD (🔥 IMPROVED)
+================================ */
+.ud-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: var(--transition-fast);
+}
+
+.ud-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
 }
 
 .ud-span-3 {
   grid-column: span 3;
 }
 
-/* Card */
-.ud-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  padding: 16px;
-  min-width: 0;
-}
-
+/* ================================
+   CARD TITLE
+================================ */
 .ud-card-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  margin-bottom: 12px;
-  color: var(--text-primary);
+  gap: var(--space-xs);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
 }
 
-.ud-card-title i {
-  color: var(--color-primary);
-}
-
-/* Rows inside cards */
+/* ================================
+   ROWS
+================================ */
 .ud-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-  border-top: 1px solid var(--border-color);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.ud-row:first-of-type {
-  border-top: none;
-  padding-top: 0;
+.ud-row:last-child {
+  border-bottom: none;
 }
 
 .ud-label {
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  font-size: 13px;
-  white-space: nowrap;
 }
 
 .ud-value {
-  color: var(--text-primary);
-  font-size: 13px;
-  font-weight: 700;
-  text-align: right;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: var(--text-sm);
 }
 
 .ud-strong {
-  font-weight: 900;
+  font-weight: 600;
 }
 
-.ud-empty {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px;
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
-  color: var(--text-muted);
-  background: var(--bg-main);
-}
-
-/* =========================
-   KYC Banner
-========================= */
-.ud-kyc-banner {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  padding: 14px 16px;
-  margin-bottom: 14px;
-}
-
-.ud-kyc-left {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.ud-kyc-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  font-size: 18px;
-}
-
-.ud-kyc-content {
-  min-width: 0;
-}
-
-.ud-kyc-title {
-  font-weight: 900;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.ud-kyc-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.35;
-}
-
-.ud-kyc-meta {
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.ud-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  margin-left: 8px;
-  border: 1px solid;
-}
-
-/* Tones */
-.ud-kyc-banner.ok {
-  border-color: rgba(22, 101, 52, 0.35);
-  background: linear-gradient(
-    0deg,
-    rgba(22, 101, 52, 0.08),
-    rgba(22, 101, 52, 0.08)
-  );
-}
-.ud-kyc-banner.warn {
-  border-color: rgba(180, 83, 9, 0.35);
-  background: linear-gradient(
-    0deg,
-    rgba(180, 83, 9, 0.10),
-    rgba(180, 83, 9, 0.10)
-  );
-}
-.ud-kyc-banner.danger {
-  border-color: rgba(153, 27, 27, 0.35);
-  background: linear-gradient(
-    0deg,
-    rgba(153, 27, 27, 0.10),
-    rgba(153, 27, 27, 0.10)
-  );
-}
-
-.ud-kyc-icon.ok {
-  background: rgba(22, 101, 52, 0.14);
-  color: var(--color-success);
-}
-.ud-kyc-icon.warn {
-  background: rgba(180, 83, 9, 0.16);
-  color: var(--color-warning);
-}
-.ud-kyc-icon.danger {
-  background: rgba(153, 27, 27, 0.14);
-  color: var(--color-danger);
-}
-
-.ud-pill.ok {
-  color: var(--color-success);
-  border-color: rgba(22, 101, 52, 0.35);
-  background: rgba(22, 101, 52, 0.10);
-}
-.ud-pill.warn {
-  color: var(--color-warning);
-  border-color: rgba(180, 83, 9, 0.35);
-  background: rgba(180, 83, 9, 0.10);
-}
-.ud-pill.danger {
-  color: var(--color-danger);
-  border-color: rgba(153, 27, 27, 0.35);
-  background: rgba(153, 27, 27, 0.10);
-}
-
-/* =========================
-   Docs / KYC Images
-========================= */
+/* ================================
+   DOCUMENTS (🔥 BIG UPGRADE)
+================================ */
 .ud-docs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 10px;
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
 .ud-doc {
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  border-radius: 12px;
+  width: 120px;
+  height: 90px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  min-width: 0;
+  border: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .ud-doc img {
   width: 100%;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-.ud-doc-cap {
-  padding: 10px 12px;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--text-secondary);
-  border-top: 1px solid var(--border-color);
-  background: var(--bg-card);
-}
-
-/* Clickable image card (button) */
+/* Clickable */
 .ud-doc-btn {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  padding: 0;
-  width: 100%;
-  text-align: left;
   cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--bg-main);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  transition: var(--transition-fast);
 }
 
 .ud-doc-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-  border-color: var(--border-strong);
+  transform: scale(1.05);
 }
 
-.ud-doc-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 190px;
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
-  background: var(--bg-main);
-  color: var(--text-muted);
-  font-size: 13px;
-  padding: 10px;
+/* Caption */
+.ud-doc-cap {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 11px;
   text-align: center;
 }
 
-
-.ud-bank-grid {
-  margin-top: 6px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--bg-main);
-  padding: 20px;
-}
-
-/* each row looks like a table row */
-.ud-bank-row {
-  display: grid;
-  grid-template-columns: 220px 1fr; /* label fixed, value expands */
-  gap: 12px;
-  padding: 12px 14px;
-  align-items: center;
-  border-top: 1px solid var(--border-color);
-  background: var(--bg-card);
-}
-
-.ud-bank-row:first-child {
-  border-top: none;
-}
-
-.ud-bank-label {
+/* Empty */
+.ud-doc-empty {
+  font-size: var(--text-xs);
   color: var(--text-muted);
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
-.ud-bank-value {
-  color: var(--text-primary);
-  font-size: 13px;
-  font-weight: 900;
-  text-align: right;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* ================================
+   BANK GRID
+================================ */
+.ud-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
 }
 
-/* Optional: make some values mono */
-.ud-bank-value.ud-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-weight: 800;
+/* ================================
+   EMPTY STATE
+================================ */
+.ud-empty {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-muted);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* ================================
+   LOADING
+================================ */
+.ud-loading {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-sm);
+  color: var(--text-muted);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 992px) {
   .ud-grid {
     grid-template-columns: 1fr;
   }
+
   .ud-span-3 {
     grid-column: span 1;
   }
+
+  .ud-bank-grid {
+    grid-template-columns: 1fr;
+  }
+
   .ud-header {
     flex-direction: column;
-    align-items: stretch;
-  }
-  .ud-header-actions {
-    justify-content: flex-end;
-    flex-wrap: wrap;
-  }
-  .ud-docs {
-    grid-template-columns: 1fr;
-  }
-  .ud-bank-row {
-    grid-template-columns: 160px 1fr;
-  }
-}
-
-@media (max-width: 520px) {
-  .ud-bank-row {
-    grid-template-columns: 1fr;
-  }
-  .ud-bank-value {
-    text-align: left;
+    align-items: flex-start;
   }
 }

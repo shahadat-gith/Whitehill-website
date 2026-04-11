@@ -1,0 +1,286 @@
+/* ================================
+   CONTAINER
+================================ */
+.af-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================================
+   LOADING
+================================ */
+.af-loading {
+  height: 60vh;
+  display: grid;
+  place-items: center;
+}
+
+/* ================================
+   HEADER
+================================ */
+.af-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.af-header-title h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.af-header-title span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   GRID
+================================ */
+.af-grid-single {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+/* ================================
+   CARD
+================================ */
+.af-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.af-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* ================================
+   STATUS + INFO
+================================ */
+.af-status-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.af-info-item label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.af-status {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* STATUS COLORS */
+.af-status-approved {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.af-status-rejected {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.af-status-under_review {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+/* ================================
+   AMOUNT
+================================ */
+.af-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ================================
+   APPROVAL SECTION
+================================ */
+.af-approval-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* FORMS */
+.af-approve-form,
+.af-reject-form {
+  background: var(--bg-muted);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  border: 1px solid var(--border-color);
+}
+
+.af-approve-form h4,
+.af-reject-form h4 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* ================================
+   FORM
+================================ */
+.af-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.af-form-group label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.af-form-group input,
+.af-form-group textarea {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.af-form-group textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.af-form-group input:focus,
+.af-form-group textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+/* ================================
+   BUTTONS
+================================ */
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ================================
+   UTILITY ACTIONS
+================================ */
+.af-utility-actions {
+  margin-top: 12px;
+}
+
+/* ================================
+   REQUEST LIST
+================================ */
+.af-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.af-request-item {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--bg-muted);
+}
+
+.af-request-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.af-request-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.af-request-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.af-request-message {
+  font-size: 13px;
+}
+
+/* ================================
+   TIMELINE
+================================ */
+.af-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.af-timeline-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.af-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.af-timeline-title {
+  font-size: 13px;
+}
+
+.af-timeline-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   RESPONSIVE (🔥 IMPORTANT)
+================================ */
+@media (max-width: 900px) {
+  .af-grid-single {
+    grid-template-columns: 1fr;
+  }
+
+  .af-approval-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE POLISH */
+@media (max-width: 600px) {
+
+  .af-header-title h2 {
+    font-size: 16px;
+  }
+
+  .af-amount {
+    font-size: 18px;
+  }
+
+  .af-card {
+    padding: 14px;
+  }
+}

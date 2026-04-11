@@ -87,7 +87,7 @@ const PaymentHistory = () => {
           <button className="btn btn-secondary" onClick={fetchHistory} disabled={loading}>
             {loading ? (
               <>
-                <i className="fa-solid fa-spinner fa-spin"></i>
+               <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-arrows-rotate"}`}></i>
                 <span>Refreshing...</span>
               </>
             ) : (
@@ -103,14 +103,8 @@ const PaymentHistory = () => {
       {/* Table Card */}
       <div className="pg-card">
         <div className="pg-card-head">
-          <div className="pg-card-title">
-            <i className="fa-solid fa-list"></i>
-            <span>Payments</span>
-          </div>
-
           <div className="pg-pager">
             <div className="pg-count">
-              <span className="pg-muted">Count</span>
               <select
                 value={count}
                 onChange={(e) => {

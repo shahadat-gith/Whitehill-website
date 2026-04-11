@@ -8,13 +8,26 @@ const KycVerifyModal = ({ isOpen, onClose, userId, email, currentStatus }) => {
   const [status, setStatus] = useState("verified");
   const [reason, setReason] = useState("");
 
+  /* Reset on open */
   useEffect(() => {
     if (!isOpen) return;
     setStatus("verified");
     setReason("");
   }, [isOpen]);
 
-  const isReject = useMemo(() => String(status).toLowerCase() === "rejected", [status]);
+  /* ESC close */
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose(false);
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, []);
+
+  const isReject = useMemo(
+    () => String(status).toLowerCase() === "rejected",
+    [status]
+  );
 
   if (!isOpen) return null;
 
@@ -49,38 +62,64 @@ const KycVerifyModal = ({ isOpen, onClose, userId, email, currentStatus }) => {
   };
 
   return (
-    <div className="km-overlay" role="dialog" aria-modal="true">
-      <div className="km-dialog">
+    <div className="km-overlay" onClick={() => onClose(false)}>
+      <div
+        className="km-dialog"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="km-content">
+
+          {/* HEADER */}
           <div className="km-header">
             <div>
               <h5>KYC Verification</h5>
               <p className="km-sub">
-                Current: <span className="km-pill">{String(currentStatus || "pending").toUpperCase()}</span>
+                Current:{" "}
+                <span className="km-pill">
+                  {String(currentStatus || "pending").toUpperCase()}
+                </span>
               </p>
             </div>
 
-            <button type="button" className="km-close" onClick={() => onClose(false)} disabled={submitting}>
+            <button
+              type="button"
+              className="km-close"
+              onClick={() => onClose(false)}
+              disabled={submitting}
+            >
               ×
             </button>
           </div>
 
           <form onSubmit={handleSubmit}>
+            {/* BODY */}
             <div className="km-body">
               <div className="km-grid">
+
+                {/* ACTION SELECT */}
                 <div className="km-field">
                   <label>Action</label>
-                  <select value={status} onChange={(e) => setStatus(e.target.value)} disabled={submitting}>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    disabled={submitting}
+                  >
                     <option value="verified">Verify</option>
                     <option value="rejected">Reject</option>
                   </select>
                 </div>
 
+                {/* EMAIL */}
                 <div className="km-field">
                   <label>User Email</label>
-                  <input value={email || ""} disabled placeholder="No email available" />
+                  <input
+                    value={email || ""}
+                    disabled
+                    placeholder="No email available"
+                  />
                 </div>
 
+                {/* CONDITIONAL */}
                 {isReject ? (
                   <div className="km-field km-span-2">
                     <label>Rejection Reason</label>
@@ -96,19 +135,29 @@ const KycVerifyModal = ({ isOpen, onClose, userId, email, currentStatus }) => {
                   <div className="km-note km-span-2">
                     <i className="fa-solid fa-circle-info"></i>
                     <span>
-                      Verifying will mark the user’s KYC as <b>VERIFIED</b> and notify them via email.
+                      This will mark the user’s KYC as <b>VERIFIED</b> and notify them.
                     </span>
                   </div>
                 )}
               </div>
             </div>
 
+            {/* FOOTER */}
             <div className="km-footer">
-              <button type="button" className="btn btn-secondary" onClick={() => onClose(false)} disabled={submitting}>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => onClose(false)}
+                disabled={submitting}
+              >
                 Cancel
               </button>
 
-              <button type="submit" className="btn btn-primary" disabled={submitting}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={submitting}
+              >
                 {submitting ? (
                   <>
                     <i className="fa-solid fa-spinner fa-spin"></i>
@@ -116,8 +165,7 @@ const KycVerifyModal = ({ isOpen, onClose, userId, email, currentStatus }) => {
                   </>
                 ) : (
                   <>
-                    <i className="fa-solid fa-shield-halved"></i>
-                    <span>Update KYC</span>
+                    <span>{isReject ? "Reject KYC" : "Verify KYC"}</span>
                   </>
                 )}
               </button>

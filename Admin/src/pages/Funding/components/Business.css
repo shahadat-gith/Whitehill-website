@@ -1,0 +1,122 @@
+/* Business component styles - uses general fd- classes from FundingDetails.css *//* ================================
+   CARD
+================================ */
+.bu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   TITLE
+================================ */
+.bu-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.bu-card-title i {
+  color: var(--color-primary);
+}
+
+/* ================================
+   INFO
+================================ */
+.bu-info-item {
+  margin-top: 10px;
+}
+
+.bu-info-item label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.bu-info-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ================================
+   ROW
+================================ */
+.bu-info-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bu-info-row .bu-info-item {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* ================================
+   MONO (IDs / GST)
+================================ */
+.bu-mono {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+}
+
+/* ================================
+   FINANCIAL HIGHLIGHT (🔥 IMPORTANT)
+================================ */
+.bu-revenue {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.bu-profit {
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+/* Optional subtle card feel for financials */
+.bu-revenue,
+.bu-profit {
+  background: var(--bg-muted);
+  padding: 6px 8px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* ================================
+   TEXT BLOCKS (PLAN / ANALYSIS)
+================================ */
+.bu-info-item p {
+  white-space: pre-line;
+}
+
+/* ================================
+   MOBILE (🔥 IMPORTANT)
+================================ */
+@media (max-width: 768px) {
+  .bu-card {
+    padding: 14px;
+  }
+
+  .bu-info-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bu-info-value {
+    font-size: 13px;
+  }
+
+  .bu-revenue,
+  .bu-profit {
+    padding: 5px 7px;
+    font-size: 13px;
+  }
+}

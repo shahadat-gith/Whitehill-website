@@ -46,16 +46,28 @@ const fundingSchema = new Schema(
       },
     },
 
-    adminReview: {
-      reviewedBy: {
-        name: String,
-        role: String,
-        email: String,
-      },
-      decision: {
-        type: String,
-        enum: ["approved", "rejected", "needs_more_info"],
-      },
+
+    //for admin verification process
+
+    verification: {
+      //in case any document is missing or needs clarification, admin can request additional documents or information from the user
+      extraRequests: [
+        {
+          message: String,
+          requestedAt: {
+            type: Date,
+            default: Date.now,
+          },
+
+          files: [
+            {
+              url: String,
+              public_id: String,
+            }
+          ]
+        },
+      ],
+
       approvedAmount: Number,
       interestRate: Number,
       notes: String,
@@ -63,10 +75,10 @@ const fundingSchema = new Schema(
       reviewedAt: Date,
     },
   },
- {
-  timestamps: true,
-  discriminatorKey: "type",
-});
+  {
+    timestamps: true,
+    discriminatorKey: "type",
+  });
 
 
 

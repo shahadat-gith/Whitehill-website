@@ -1,0 +1,75 @@
+/* ================================
+   CONSENT INFO CARD
+================================ */
+.co-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.co-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.co-card-title i {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.co-card-title h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ================================
+   CONSENT LIST ITEMS
+================================ */
+.co-consents {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.co-consent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.co-consent-item:last-child {
+    border-bottom: none;
+}
+
+.co-consent-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.co-consent-value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.co-consent-value.yes {
+    color: var(--color-primary);
+}
+
+.co-consent-value.no {
+    color: var(--color-error);
+}
+
+.co-info-value {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+}

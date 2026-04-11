@@ -1,55 +1,121 @@
-import express from 'express';
+import express from "express";
 import upload from "../configs/multer.js";
 
-import { adminLogin, createProject, deleteProject, getInvestments, updateInvestmentStatus, updateProject, uploadProjectImages, getInvestmentById, getPaymentHistory, getPaymentDetails, verifyKYC, getUsers, getUserById, createQuery, getQueries, replyToQuery, getDashboardData, getAllPropertySellings, updatePropertySellingStatus } from '../controllers/adminController.js';
-import { adminAuth } from '../middlewares/adminMiddleware.js';
+import * as adminController from "../controllers/adminController.js";
 
 const adminRouter = express.Router();
 
+/* ================= ADMIN AUTH ================= */
+adminRouter.post("/login", adminController.adminLogin);
 
-//admin auth
+/* ================= PROJECTS ================= */
+adminRouter.post(
+  "/project/create",
+  upload.array("images", 10),
+  adminController.createProject
+);
 
-adminRouter.post('/login', adminLogin);
+adminRouter.delete(
+  "/project/delete/:projectId",
+  adminController.deleteProject
+);
 
+adminRouter.put(
+  "/project/update/:projectId",
+  upload.none(),
+  adminController.updateProject
+);
 
-//projects
-adminRouter.post("/project/create", upload.array("images", 10), createProject);
-adminRouter.delete("/project/delete/:projectId", deleteProject);
-adminRouter.put("/project/update/:projectId", upload.none(), updateProject);
 adminRouter.post(
   "/project/images/upload",
   upload.array("images", 10),
-  uploadProjectImages
+  adminController.uploadProjectImages
 );
 
-//investments
-adminRouter.post("/investment/update-status", updateInvestmentStatus);
-adminRouter.get("/investment/all", getInvestments)
-adminRouter.post("/investment/details", getInvestmentById);
+/* ================= INVESTMENTS ================= */
+adminRouter.post(
+  "/investment/update-status",
+  adminController.updateInvestmentStatus
+);
 
-//payment gateway
-adminRouter.get("/payment-gateway/history", getPaymentHistory)
-adminRouter.get("/payment-gateway/details", getPaymentDetails)
+adminRouter.get(
+  "/investment/all",
+  adminController.getInvestments
+);
 
+adminRouter.post(
+  "/investment/details",
+  adminController.getInvestmentById
+);
 
-//users
-adminRouter.get("/user/all", getUsers)
-adminRouter.post("/user/single", getUserById)
-adminRouter.post('/user/kyc/verify', verifyKYC);
+/* ================= PAYMENT ================= */
+adminRouter.get(
+  "/payment-gateway/history",
+  adminController.getPaymentHistory
+);
 
+adminRouter.get(
+  "/payment-gateway/details",
+  adminController.getPaymentDetails
+);
 
-//queries
-adminRouter.post("/query/create", createQuery);
-adminRouter.get("/query/all", getQueries);
-adminRouter.post("/query/reply", replyToQuery)
+/* ================= USERS ================= */
+adminRouter.get(
+  "/user/all",
+  adminController.getUsers
+);
 
-//dashboard stats
-adminRouter.get("/dashboard/stats", getDashboardData);
+adminRouter.post(
+  "/user/single",
+  adminController.getUserById
+);
 
+adminRouter.post(
+  "/user/kyc/verify",
+  adminController.verifyKYC
+);
 
+/* ================= QUERIES ================= */
+adminRouter.post(
+  "/query/create",
+  adminController.createQuery
+);
 
-//property selling
-adminRouter.get("/property-selling/all", getAllPropertySellings);
-adminRouter.post("/property-selling/update-status", updatePropertySellingStatus);
+adminRouter.get(
+  "/query/all",
+  adminController.getQueries
+);
+
+adminRouter.post(
+  "/query/reply",
+  adminController.replyToQuery
+);
+
+/* ================= DASHBOARD ================= */
+adminRouter.get(
+  "/dashboard/stats",
+  adminController.getDashboardData
+);
+
+/* ================= FUNDING ================= */
+adminRouter.post(
+  "/funding/verify",
+  adminController.verifyFunding
+);
+
+adminRouter.post(
+  "/funding/request-documents",
+  adminController.requestAdditionalDocuments
+);
+
+adminRouter.get(
+  "/funding/all",
+  adminController.getAllFundingsForAdmin
+);
+
+adminRouter.get(
+  "/funding/:id",
+  adminController.getFundingById
+);
 
 export default adminRouter;

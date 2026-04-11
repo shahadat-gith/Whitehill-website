@@ -4,9 +4,6 @@ import { parseIfJSON, getUploadHandler, cleanEmpty, deepMerge, formatErrorRespon
 
 
 
-/* =========================
-   CREATE FUNDING
-   ========================= */
 
 export const createFunding = async (req, res) => {
   try {
@@ -90,9 +87,6 @@ export const createFunding = async (req, res) => {
   }
 };
 
-/* =========================
-   UPDATE FUNDING
-   ========================= */
 
 export const updateFunding = async (req, res) => {
   try {
@@ -171,9 +165,6 @@ export const updateFunding = async (req, res) => {
   }
 };
 
-/* =========================
-   GET ALL
-   ========================= */
 
 export const getAllFunding = async (req, res) => {
   try {
@@ -196,9 +187,6 @@ export const getAllFunding = async (req, res) => {
   }
 };
 
-/* =========================
-   GET ONE
-   ========================= */
 
 export const getFundingById = async (req, res) => {
   try {
@@ -245,57 +233,6 @@ export const getFundingByUserId = async (req, res) => {
     res.status(200).json({
       success: true,
       data: filteredData,
-    });
-  } catch (error) {
-    const { status, message } = formatErrorResponse(error);
-    res.status(status).json({ success: false, message });
-  }
-};
-
-
-/* =========================
-   ADMIN REVIEW
-   ========================= */
-
-export const reviewFunding = async (req, res) => {
-  try {
-    const funding = await Funding.findById(req.params.id);
-
-    if (!funding) {
-      return res.status(404).json({
-        success: false,
-        message: "Funding not found",
-      });
-    }
-
-    const { decision, approvedAmount, interestRate, notes, rejectionReason } =
-      req.body;
-
-    funding.adminReview = {
-      reviewedBy: {
-        name: req.user.name,
-        role: "admin",
-        email: req.user.email,
-      },
-      decision,
-      approvedAmount,
-      interestRate,
-      notes,
-      rejectionReason,
-      reviewedAt: new Date(),
-    };
-
-    // Update status
-    if (decision === "approved") funding.status = "approved";
-    if (decision === "rejected") funding.status = "rejected";
-    if (decision === "needs_more_info") funding.status = "under_review";
-
-    await funding.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Review submitted",
-      data: funding,
     });
   } catch (error) {
     const { status, message } = formatErrorResponse(error);

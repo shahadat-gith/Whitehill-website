@@ -9,7 +9,8 @@ import Project from "../models/project.js";
 import Investment from "../models/investment.js";
 import User from "../models/user.js";
 import Query from "../models/query.js";
-import PropertySelling from "../models/propertySelling.js";
+import { Funding } from "../models/funding/index.js";
+
 
 
 
@@ -962,49 +963,185 @@ export const getDashboardData = async (req, res) => {
   }
 };
 
+/* ================= FUNDING ================= */
 
-// Property Selling Admin Functions
-export const getAllPropertySellings = async (req, res) => {
+export const verifyFunding = async (req, res) => {
   try {
-    const properties = await PropertySelling.find().populate('seller', 'fullName email').sort({ createdAt: -1 });
+    const { fundingId, status, approvedAmount, interestRate, notes, rejectionReason } = req.body;
 
-    return res.status(200).json({
+    // Validate
+    if (!fundingId || !status) {
+      return res.status(400).json({
+        success: false,
+        message: "fundingId and status are required",
+      });
+    }
+
+    if (!["approved", "rejected"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Status must be 'approved' or 'rejected'",
+      });
+    }
+
+    const funding = await Funding.findById(fundingId);
+
+    if (!funding) {
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
+    }
+
+    // Update verification object
+    funding.verification = funding.verification || {};
+    funding.verification.reviewedAt = new Date();
+
+    if (status === "approved") {
+      if (!approvedAmount || !interestRate) {
+        return res.status(400).json({
+          success: false,
+          message: "approvedAmount and interestRate are required for approval",
+        });
+      }
+
+      funding.verification.approvedAmount = parseFloat(approvedAmount);
+      funding.verification.interestRate = parseFloat(interestRate);
+      funding.verification.notes = notes || "";
+      funding.verification.rejectionReason = undefined;
+    } else if (status === "rejected") {
+      if (!rejectionReason) {
+        return res.status(400).json({
+          success: false,
+          message: "rejectionReason is required for rejection",
+        });
+      }
+
+      funding.verification.rejectionReason = rejectionReason;
+      funding.verification.approvedAmount = undefined;
+      funding.verification.interestRate = undefined;
+      funding.verification.notes = undefined;
+    }
+
+    funding.status = status;
+
+    await funding.save();
+
+    res.status(200).json({
       success: true,
-      data: properties,
+      message: `Funding request ${status} successfully`,
+      data: funding,
     });
   } catch (error) {
-    console.error("getAllPropertySellings error:", error);
     return res.status(500).json({
       success: false,
-      message: "Error retrieving property sellings",
+      message: "Server error",
       error: error.message,
     });
   }
 };
 
-export const updatePropertySellingStatus = async (req, res) => {
+export const getFundingById = async (req, res) => {
   try {
-    const { id, status } = req.body;
+    const funding = await Funding.findById(req.params.id)
+      .populate("user", "fullName email image phone city address panNumber");
 
-    const updatedProperty = await PropertySelling.findByIdAndUpdate(id, { status }, { new: true });
-
-    if (!updatedProperty) {
+    if (!funding) {
       return res.status(404).json({
         success: false,
-        message: "Property selling not found",
+        message: "Funding not found",
       });
     }
 
-    return res.status(200).json({
+    const decryptedPhone = decrypt(funding.user.phone);
+    funding.user.phone = decryptedPhone;
+
+    res.status(200).json({
       success: true,
-      message: "Property selling updated successfully",
-      data: updatedProperty,
+      data: funding,
     });
   } catch (error) {
-    console.error("updatePropertySellingStatus error:", error);
     return res.status(500).json({
       success: false,
-      message: "Error updating property selling",
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+export const getAllFundingsForAdmin = async (req, res) => {
+  try {
+    const { type, status } = req.query;
+
+    const query = {};
+    if (type) query.type = type;
+    if (status) query.status = status;
+
+    const data = await Funding.find(query)
+      .populate("user", "fullName email image phone city address panNumber")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: data.length,
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+export const requestAdditionalDocuments = async (req, res) => {
+  try {
+    const { fundingId, message } = req.body;
+
+    if (!fundingId || !message) {
+      return res.status(400).json({
+        success: false,
+        message: "fundingId and message are required",
+      });
+    }
+
+    const funding = await Funding.findById(fundingId);
+
+    if (!funding) {
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
+    }
+
+    // Initialize verification and extraRequests if not exists
+    if (!funding.verification) {
+      funding.verification = {};
+    }
+    if (!funding.verification.extraRequests) {
+      funding.verification.extraRequests = [];
+    }
+
+    // Add new request
+    const newRequest = {
+      message,
+      requestedAt: new Date(),
+      files: [],
+    };
+
+    funding.verification.extraRequests.push(newRequest);
+    await funding.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Additional documents requested successfully",
+      data: funding,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
       error: error.message,
     });
   }

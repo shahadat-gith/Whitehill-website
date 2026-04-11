@@ -11,15 +11,13 @@ import Projects from "./pages/Projects/Projects";
 import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Investments from "./pages/Investments/Investments";
 import InvestmentDetails from "./pages/Investments/InvestmentDetails";
+import Funding from "./pages/Funding/Funding";
+import FundingDetails from "./pages/Funding/FundingDetails";
+import ApproveFunding from "./pages/Funding/ApproveFunding";
 import PaymentHistory from "./pages/PaymentHistory/PaymentHistory";
 import PaymentDetails from "./pages/PaymentHistory/PaymentDetails";
 import Users from "./pages/Users/Users";
 import UserDetails from "./pages/Users/UserDetails";
-
-import PropertySelling from "./pages/PropertySelling/PropertySelling";
-import PropertyDetails from "./pages/PropertySelling/PropertyDetails";
-
-
 
 const ProtectedAdminRoute = ({ children }) => {
   const { token } = useAppContext();
@@ -61,14 +59,15 @@ const App = () => {
                   <Route path="/users" element={<Users/>} />
                   <Route path="/users/:userId" element={<UserDetails/>} />
 
+                  <Route path="/funding" element={<Funding/>} />
+                  <Route path="/funding/:fundingId" element={<FundingDetails/>} />
+                  <Route path="/funding/approve/:fundingId" element={<ApproveFunding/>} />
+
                   <Route path="/investments" element={<Investments/>} />
                   <Route path="/investments/:investmentId" element={<InvestmentDetails/>} />
 
                   <Route path="/payment-history" element={<PaymentHistory/>}/>
                   <Route path="/payment-history/:paymentId" element={<PaymentDetails />} />
-
-                  <Route path="/property-selling" element={<PropertySelling/>}/>
-                  <Route path="/property-selling/:propertyId" element={<PropertyDetails/>}/>
 
                   <Route path="/*" element={<PageNotFound/>}/>
                 </Routes>

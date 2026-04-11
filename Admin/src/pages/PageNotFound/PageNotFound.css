@@ -1,0 +1,81 @@
+/* ================================
+   CONTAINER
+================================ */
+.pnf-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* ================================
+   CARD
+================================ */
+.pnf-card {
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  max-width: 420px;
+  width: 100%;
+}
+
+/* ================================
+   ICON
+================================ */
+.pnf-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-md);
+  border-radius: 50%;
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+
+/* ================================
+   TEXT
+================================ */
+.pnf-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.pnf-subtitle {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.pnf-text {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+/* ================================
+   ACTIONS
+================================ */
+.pnf-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .pnf-actions {
+    flex-direction: column;
+  }
+
+  .pnf-actions .btn {
+    width: 100%;
+  }
+}

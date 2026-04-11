@@ -1,0 +1,79 @@
+/* ================================
+   DISCLOSURES CARD
+================================ */
+.dc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.dc-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.dc-card-title i {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.dc-card-title h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ================================
+   DISCLOSURE ITEMS
+================================ */
+.dc-disclosures {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dc-disclosure-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    gap: 20px;
+}
+
+.dc-disclosure-item:last-child {
+    border-bottom: none;
+}
+
+.dc-disclosure-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.dc-disclosure-value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Alerts for "Yes" in disclosures (Red usually indicates risk here) */
+.dc-disclosure-value.yes {
+    color: var(--color-error);
+}
+
+.dc-disclosure-value.no {
+    color: var(--color-primary);
+}
+
+.dc-info-value {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: right;
+    line-height: 1.5;
+}

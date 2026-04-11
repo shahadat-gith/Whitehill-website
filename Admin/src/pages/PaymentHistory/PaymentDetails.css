@@ -1,200 +1,177 @@
+/* ================================
+   CONTAINER
+================================ */
 .pdt-container {
-  background: var(--bg-main);
-  color: var(--text-primary);
-  padding: 22px;
-  border-radius: 14px;
-}
-
-/* Loading / Empty */
-.pdt-loading {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 40px 14px;
-  color: var(--text-muted);
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-.pdt-empty {
-  padding: 24px;
-}
-.pdt-empty-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-  max-width: 520px;
-}
-.pdt-empty-card i {
-  color: var(--color-info);
-  font-size: 22px;
-}
-.pdt-empty-card h4 {
-  margin: 10px 0 6px;
-  font-weight: 900;
-}
-.pdt-empty-card p {
-  margin: 0 0 14px;
-  color: var(--text-muted);
-}
-
-/* Header */
+/* ================================
+   HEADER (🔥 IMPROVED)
+================================ */
 .pdt-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 14px;
+  align-items: center;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .pdt-header h2 {
-  margin: 0;
-  font-weight: 900;
-  font-size: 1.5rem;
+  font-size: var(--text-xl);
+  font-weight: 600;
 }
 
 .pdt-subtitle {
-  margin: 8px 0 0;
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  font-size: 0.92rem;
 }
 
 .pdt-actions {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
 
-/* Banner */
+/* ================================
+   STATUS BANNER (🔥 BIG UPGRADE)
+================================ */
 .pdt-banner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 14px 16px;
-  border-radius: 14px;
+  align-items: center;
+
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  background: var(--bg-card);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
+}
+
+.pdt-banner.ok {
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+}
+
+.pdt-banner.warn {
+  background: var(--color-warning-soft);
+  border-color: var(--color-warning);
+}
+
+.pdt-banner.danger {
+  background: var(--color-error-soft);
+  border-color: var(--color-error);
+}
+
+.pdt-banner.info {
+  background: var(--color-info-soft);
+  border-color: var(--color-info);
 }
 
 .pdt-banner-left {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-width: 0;
+  gap: var(--space-md);
 }
 
 .pdt-banner-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 20px;
-  flex-shrink: 0;
+  font-size: 18px;
 }
 
-.pdt-banner-text {
-  min-width: 0;
+.pdt-banner.ok .pdt-banner-icon {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.pdt-banner.warn .pdt-banner-icon {
+  background: var(--color-warning);
+  color: #fff;
+}
+
+.pdt-banner.danger .pdt-banner-icon {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.pdt-banner.info .pdt-banner-icon {
+  background: var(--color-info);
+  color: #fff;
 }
 
 .pdt-banner-title {
-  font-weight: 900;
-  color: var(--text-primary);
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
+  font-weight: 600;
 }
 
 .pdt-banner-sub {
-  margin-top: 4px;
-  color: var(--text-muted);
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
 }
 
+/* ================================
+   COPY BUTTON
+================================ */
 .pdt-copy-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;
+  gap: var(--space-xs);
 }
 
-/* Banner tones */
-.pdt-banner.ok {
-  border-color: rgba(22, 101, 52, 0.35);
-  background: linear-gradient(0deg, rgba(22, 101, 52, 0.08), rgba(22, 101, 52, 0.08));
-}
-.pdt-banner.ok .pdt-banner-icon {
-  background: rgba(22, 101, 52, 0.14);
-  color: var(--color-success);
-}
-
-.pdt-banner.warn {
-  border-color: rgba(180, 83, 9, 0.35);
-  background: linear-gradient(0deg, rgba(180, 83, 9, 0.10), rgba(180, 83, 9, 0.10));
-}
-.pdt-banner.warn .pdt-banner-icon {
-  background: rgba(180, 83, 9, 0.16);
-  color: var(--color-warning);
-}
-
-.pdt-banner.danger {
-  border-color: rgba(153, 27, 27, 0.35);
-  background: linear-gradient(0deg, rgba(153, 27, 27, 0.10), rgba(153, 27, 27, 0.10));
-}
-.pdt-banner.danger .pdt-banner-icon {
-  background: rgba(153, 27, 27, 0.14);
-  color: var(--color-danger);
-}
-
-.pdt-banner.info {
-  border-color: rgba(6, 95, 70, 0.35);
-  background: linear-gradient(0deg, rgba(6, 95, 70, 0.10), rgba(6, 95, 70, 0.10));
-}
-.pdt-banner.info .pdt-banner-icon {
-  background: rgba(6, 95, 70, 0.14);
-  color: var(--color-info);
-}
-
-/* Grid */
+/* ================================
+   GRID
+================================ */
 .pdt-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  align-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
 }
 
+/* ================================
+   CARD (🔥 ELEVATED)
+================================ */
 .pdt-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  padding: 14px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: var(--transition-fast);
 }
 
+.pdt-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-light);
+}
+
+/* Span */
+.pdt-span-2 {
+  grid-column: span 2;
+}
+
+/* ================================
+   CARD TITLE
+================================ */
 .pdt-card-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 900;
-  margin-bottom: 10px;
+  gap: var(--space-xs);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
 }
 
-.pdt-card-title i {
-  color: var(--color-primary);
-}
-
+/* ================================
+   ROW
+================================ */
 .pdt-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 9px 0;
-  border-bottom: 1px dashed var(--border-color);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .pdt-row:last-child {
@@ -202,131 +179,125 @@
 }
 
 .pdt-k {
-  font-size: 0.86rem;
-  color: var(--text-secondary);
-  font-weight: 750;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
 }
 
 .pdt-v {
-  color: var(--text-primary);
-  text-align: right;
-  min-width: 0;
+  font-size: var(--text-sm);
 }
 
+/* ================================
+   STRONG VALUE (🔥 MONEY)
+================================ */
 .pdt-strong {
-  font-weight: 900;
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
-.pdt-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.92rem;
-}
-
-.pdt-ok {
-  color: var(--color-success);
-  font-weight: 850;
-}
-.pdt-bad {
-  color: var(--color-danger);
-  font-weight: 850;
-}
-
-/* Pills */
+/* ================================
+   STATUS PILL
+================================ */
 .pdt-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 900;
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  text-transform: capitalize;
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+  font-size: var(--text-xs);
+  font-weight: 500;
 }
 
 .pdt-pill.captured {
+  background: var(--color-success-soft);
   color: var(--color-success);
-  border-color: rgba(22, 101, 52, 0.35);
-  background: rgba(22, 101, 52, 0.10);
-}
-.pdt-pill.failed {
-  color: var(--color-danger);
-  border-color: rgba(153, 27, 27, 0.35);
-  background: rgba(153, 27, 27, 0.10);
-}
-.pdt-pill.created,
-.pdt-pill.authorized,
-.pdt-pill.pending {
-  color: var(--color-warning);
-  border-color: rgba(180, 83, 9, 0.35);
-  background: rgba(180, 83, 9, 0.10);
-}
-.pdt-pill.refunded {
-  color: var(--color-info);
-  border-color: rgba(6, 95, 70, 0.35);
-  background: rgba(6, 95, 70, 0.10);
 }
 
-/* Copy mini button */
-.pdt-mini-copy {
-  margin-left: 10px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  color: var(--text-muted);
-  border-radius: 10px;
-  padding: 6px 8px;
-  cursor: pointer;
-  transition: 0.15s ease;
+.pdt-pill.failed {
+  background: var(--color-error-soft);
+  color: var(--color-error);
 }
+
+.pdt-pill.refunded {
+  background: var(--color-info-soft);
+  color: var(--color-info);
+}
+
+.pdt-pill.pending {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+/* ================================
+   COLORS
+================================ */
+.pdt-ok {
+  color: var(--color-success);
+}
+
+.pdt-bad {
+  color: var(--color-error);
+}
+
+/* ================================
+   MONO
+================================ */
+.pdt-mono {
+  font-family: monospace;
+  font-size: var(--text-xs);
+}
+
+/* ================================
+   MINI COPY
+================================ */
+.pdt-mini-copy {
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
 .pdt-mini-copy:hover {
-  background: var(--bg-hover);
   color: var(--text-primary);
 }
 
-/* Error card */
+/* ================================
+   ERROR CARD
+================================ */
 .pdt-error {
-  border-color: rgba(153, 27, 27, 0.35);
-  background: rgba(153, 27, 27, 0.06);
-}
-.pdt-error .pdt-card-title i {
-  color: var(--color-danger);
+  border-color: var(--color-error);
 }
 
-.pdt-span-2 {
-  grid-column: span 2;
+/* ================================
+   STATES
+================================ */
+.pdt-loading,
+.pdt-empty {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+.pdt-empty-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
   .pdt-grid {
     grid-template-columns: 1fr;
   }
+
   .pdt-span-2 {
     grid-column: span 1;
   }
-}
 
-@media (max-width: 600px) {
-  .pdt-container {
-    padding: 14px;
-  }
   .pdt-header {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .pdt-actions {
-    width: 100%;
-  }
-  .pdt-actions .btn {
-    width: 100%;
-    justify-content: center;
-  }
-  .pdt-banner {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .pdt-copy-btn {
-    width: 100%;
-    justify-content: center;
   }
 }

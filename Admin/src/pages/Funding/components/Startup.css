@@ -1,0 +1,126 @@
+/* ================================
+   CARD
+================================ */
+.su-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   TITLE
+================================ */
+.su-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.su-card-title i {
+  color: var(--color-primary);
+}
+
+/* ================================
+   INFO
+================================ */
+.su-info-item {
+  margin-top: 10px;
+}
+
+.su-info-item label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.su-info-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ================================
+   ROW
+================================ */
+.su-info-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.su-info-row .su-info-item {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* ================================
+   FOUNDERS
+================================ */
+.su-founders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.su-founder-item {
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+}
+
+.su-founder-item strong {
+  color: var(--text-primary);
+}
+
+.su-muted {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ================================
+   LINKS
+================================ */
+.su-info-value a {
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.su-info-value a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   MOBILE (🔥 IMPORTANT)
+================================ */
+@media (max-width: 768px) {
+  .su-card {
+    padding: 14px;
+  }
+
+  .su-info-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .su-info-value {
+    font-size: 13px;
+  }
+
+  .su-founder-item {
+    padding: 8px;
+  }
+}

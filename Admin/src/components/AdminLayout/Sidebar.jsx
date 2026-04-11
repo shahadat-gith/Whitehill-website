@@ -7,9 +7,9 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     { to: "/", icon: "fa-solid fa-chart-pie", label: "Dashboard" },
     { to: "/projects", icon: "fa-solid fa-building-circle-check", label: "Projects" },
     { to: "/users", icon: "fa-solid fa-users-gear", label: "Users" },
+    { to: "/funding", icon: "fa-solid fa-hand-holding-dollar", label: "Funding" },
     { to: "/investments", icon: "fa-solid fa-money-bill-trend-up", label: "Investments" },
-    { to: "/properties", icon: "fa-solid fa-house-lock", label: "Property Sales" },
-    { to: "/payments", icon: "fa-solid fa-file-invoice-dollar", label: "Payments" },
+    { to: "/payment-history", icon: "fa-solid fa-file-invoice-dollar", label: "Payments" },
   ];
 
   return (

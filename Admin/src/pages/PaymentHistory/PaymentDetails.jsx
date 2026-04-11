@@ -121,40 +121,6 @@ const PaymentDetails = () => {
         </div>
       </div>
 
-      {/* Status Banner */}
-      <div className={`pdt-banner ${tone}`}>
-        <div className="pdt-banner-left">
-          <div className="pdt-banner-icon">
-            <i
-              className={`fa-solid ${
-                tone === "ok"
-                  ? "fa-circle-check"
-                  : tone === "danger"
-                  ? "fa-circle-xmark"
-                  : tone === "info"
-                  ? "fa-circle-info"
-                  : "fa-hourglass-half"
-              }`}
-            ></i>
-          </div>
-
-          <div className="pdt-banner-text">
-            <div className="pdt-banner-title">
-              Status: <span className={`pdt-pill ${status}`}>{payment.status || "unknown"}</span>
-            </div>
-            <div className="pdt-banner-sub">
-              {payment.captured ? "Captured by gateway" : "Not captured"}
-              {payment.method ? ` • Method: ${String(payment.method).toUpperCase()}` : ""}
-            </div>
-          </div>
-        </div>
-
-        <button className="btn btn-secondary pdt-copy-btn" onClick={() => copy(payment.id)}>
-          <i className="fa-solid fa-copy"></i>
-          <span>Copy ID</span>
-        </button>
-      </div>
-
       {/* Main Grid */}
       <div className="pdt-grid">
         {/* Overview */}

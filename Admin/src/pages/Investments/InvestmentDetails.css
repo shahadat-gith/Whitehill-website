@@ -1,489 +1,268 @@
+/* ================================
+   CONTAINER
+================================ */
 .id-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-  background: var(--bg-main);
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-/* ====================
-   HEADER SECTION
-==================== */
+/* ================================
+   HEADER (🔥 UPGRADED)
+================================ */
 .id-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  gap: 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .id-header h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 6px 0;
+  font-size: var(--text-xl);
+  font-weight: 600;
 }
 
 .id-subtitle {
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  font-size: 14px;
-  margin: 0;
 }
 
 .id-mono {
-  font-family: 'Courier New', monospace;
-  color: var(--text-secondary);
-  font-size: 0.95em;
+  font-family: monospace;
 }
 
+/* Actions */
 .id-header-actions {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
 
-.id-header-actions .btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: var(--btn-padding);
-  border-radius: var(--btn-radius);
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.id-header-actions .btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.id-header-actions .btn-primary {
-  background: var(--color-primary);
-  color: var(--text-inverse);
-}
-
-.id-header-actions .btn-primary:hover:not(:disabled) {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.id-header-actions .btn-secondary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.id-header-actions .btn-secondary:hover:not(:disabled) {
-  background: var(--bg-hover);
-  border-color: var(--border-strong);
-}
-
-
-
-/* ====================
-   GRID LAYOUT
-==================== */
+/* ================================
+   GRID
+================================ */
 .id-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
 }
 
-.id-span-3 {
-  grid-column: 1 / -1;
-}
-
-/* ====================
-   CARD COMPONENT
-==================== */
+/* ================================
+   CARD (🔥 ELEVATED)
+================================ */
 .id-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: var(--transition-fast);
 }
 
 .id-card:hover {
-  box-shadow: var(--shadow-md);
+  border-color: var(--border-light);
+  transform: translateY(-2px);
 }
 
+/* Full width */
+.id-span-3 {
+  grid-column: span 3;
+}
+
+/* ================================
+   CARD TITLE
+================================ */
 .id-card-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 16px;
+  gap: var(--space-xs);
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--space-md);
 }
 
-.id-card-title i {
-  color: var(--color-primary);
-  font-size: 18px;
-}
-
-/* ====================
-   USER SECTION
-==================== */
+/* ================================
+   USER
+================================ */
 .id-user {
   display: flex;
+  gap: var(--space-md);
   align-items: center;
-  gap: 16px;
 }
 
 .id-avatar {
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 .id-user-name {
-  font-size: 18px;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 4px;
 }
 
 .id-muted {
+  font-size: var(--text-xs);
   color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1.6;
 }
 
-/* ====================
-   ROW LAYOUT
-==================== */
+/* ================================
+   ROWS
+================================ */
 .id-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
 }
 
 .id-row:last-child {
   border-bottom: none;
-  padding-bottom: 0;
-}
-
-.id-row:first-child {
-  padding-top: 0;
 }
 
 .id-label {
-  color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
 }
 
 .id-value {
-  color: var(--text-primary);
-  font-size: 14px;
-  text-align: right;
-  max-width: 60%;
-  word-break: break-word;
+  font-size: var(--text-sm);
 }
 
+/* ================================
+   STRONG VALUES (🔥 MONEY)
+================================ */
 .id-strong {
-  font-weight: 600;
-  font-size: 16px;
-}
-
-/* ====================
-   BADGES & PILLS
-==================== */
-.id-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.id-badge.low {
-  background: var(--color-success);
-  color: var(--text-inverse);
-}
-
-.id-badge.medium {
-  background: var(--color-warning);
-  color: var(--text-inverse);
-}
-
-.id-badge.high {
-  background: var(--color-danger);
-  color: var(--text-inverse);
-}
-
-.id-pill {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.id-pill.captured {
-  background: var(--color-primary-soft);
-  color: var(--color-success);
-}
-
-.id-pill.authorized {
-  background: var(--color-secondary-soft);
-  color: var(--color-warning);
-}
-
-.id-pill.failed {
-  background: #fef2f2;
-  color: var(--color-danger);
-}
-
-[data-theme="dark"] .id-pill.failed {
-  background: #450a0a;
-}
-
-/* ====================
-   RAZORPAY GRID
-==================== */
-.id-rzp-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--border-color);
-}
-
-.id-rzp-grid .id-row {
-  grid-column: span 1;
-  border-bottom: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
-  padding: 16px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.id-rzp-grid .id-row:nth-child(3n) {
-  border-right: none;
-}
-
-.id-rzp-grid .id-row:last-child,
-.id-rzp-grid .id-row:nth-last-child(2):nth-child(3n-1),
-.id-rzp-grid .id-row:nth-last-child(1):nth-child(3n-2) {
-  border-bottom: none;
-}
-
-.id-rzp-grid .id-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.id-rzp-grid .id-value {
-  font-size: 14px;
-  color: var(--text-primary);
-  font-weight: 500;
-  text-align: left;
-  max-width: 100%;
-}
-
-.id-row-full {
-  grid-column: 1 / -1;
-  border-right: none !important;
-}
-
-/* ====================
-   RESPONSIVE DESIGN FOR RAZORPAY GRID
-==================== */
-@media (max-width: 1024px) {
-  .id-rzp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .id-rzp-grid .id-row:nth-child(3n) {
-    border-right: 1px solid var(--border-color);
-  }
-
-  .id-rzp-grid .id-row:nth-child(2n) {
-    border-right: none;
-  }
-
-  .id-rzp-grid .id-row:nth-last-child(2):nth-child(3n-1),
-  .id-rzp-grid .id-row:nth-last-child(1):nth-child(3n-2) {
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .id-rzp-grid .id-row:last-child,
-  .id-rzp-grid .id-row:nth-last-child(2):nth-child(2n) {
-    border-bottom: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .id-rzp-grid {
-    grid-template-columns: 1fr;
-    border: none;
-  }
-
-  .id-rzp-grid .id-row {
-    border-right: none;
-    border-left: none;
-    padding: 12px 0;
-  }
-
-  .id-rzp-grid .id-row:last-child {
-    border-bottom: none;
-  }
-}
-
-/* ====================
-   STATUS INDICATORS
-==================== */
-.id-success {
-  color: var(--color-success);
-  font-weight: 600;
-}
-
-.id-success i {
-  margin-right: 4px;
-}
-
-.id-danger {
-  color: var(--color-danger);
-  font-weight: 600;
-}
-
-.id-danger i {
-  margin-right: 4px;
-}
-
-/* ====================
-   EMPTY STATE
-==================== */
-.id-empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-muted);
-}
-
-.id-empty-state i {
-  font-size: 48px;
-  margin-bottom: 16px;
-  opacity: 0.5;
-}
-
-.id-empty-state p {
-  font-size: 14px;
-  line-height: 1.6;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-/* ====================
-   LOADING STATE
-==================== */
-.id-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  min-height: 60vh;
-  color: var(--text-muted);
-}
-
-.id-loading i {
-  font-size: 36px;
+  font-weight: 700;
   color: var(--color-primary);
 }
 
-.id-loading span {
-  font-size: 15px;
+/* ================================
+   BADGES (🔥 IMPROVED)
+================================ */
+.id-badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+  font-size: var(--text-xs);
+  font-weight: 500;
 }
 
-/* ====================
-   RESPONSIVE DESIGN
-==================== */
-@media (max-width: 768px) {
-  .id-container {
-    padding: 16px;
-  }
+/* Risk */
+.id-badge.low {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
 
-  .id-header {
-    flex-direction: column;
-    gap: 16px;
-  }
+.id-badge.medium {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
 
-  .id-header-actions {
-    width: 100%;
-  }
+.id-badge.high {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
 
-  .id-header-actions .btn {
-    flex: 1;
-    justify-content: center;
-  }
+/* ================================
+   PAYMENT STATUS
+================================ */
+.id-pill {
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
 
+.id-pill.captured,
+.id-pill.success {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.id-pill.failed {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.id-pill.pending {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+/* ================================
+   SUCCESS / ERROR TEXT
+================================ */
+.id-success {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.id-danger {
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+/* ================================
+   RAZORPAY GRID
+================================ */
+.id-rzp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.id-row-full {
+  grid-column: span 2;
+}
+
+/* ================================
+   EMPTY STATE
+================================ */
+.id-empty-state {
+  text-align: center;
+  padding: var(--space-lg);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+/* ================================
+   LOADING
+================================ */
+.id-loading {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-sm);
+  color: var(--text-muted);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 992px) {
   .id-grid {
     grid-template-columns: 1fr;
   }
 
   .id-span-3 {
-    grid-column: 1;
-  }
-
-  .id-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .id-value {
-    text-align: left;
-    max-width: 100%;
+    grid-column: span 1;
   }
 
   .id-rzp-grid {
     grid-template-columns: 1fr;
   }
 
-  .id-user {
+  .id-header {
     flex-direction: column;
-    text-align: center;
-  }
-
-  .id-verify {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .id-header h2 {
-    font-size: 22px;
-  }
-
-  .id-card {
-    padding: 16px;
-  }
-
-  .id-avatar {
-    width: 56px;
-    height: 56px;
+    align-items: flex-start;
   }
 }

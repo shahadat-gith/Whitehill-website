@@ -1,164 +1,138 @@
-/* StatusUpdateModal.css */
-
+/* ================================
+   OVERLAY
+================================ */
 .sum-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  z-index: 1100;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  z-index: 9000;
 }
 
+/* ================================
+   MODAL
+================================ */
 .sum-dialog {
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
 }
 
 .sum-card {
   background: var(--bg-card);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
 
+/* ================================
+   HEADER
+================================ */
 .sum-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.1rem 1.2rem;
-  background: var(--bg-muted);
+  padding: var(--space-md);
   border-bottom: 1px solid var(--border-color);
 }
 
-.sum-title {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 750;
-  color: var(--text-primary);
-}
-
 .sum-subtitle {
-  margin: 0.35rem 0 0;
-  font-size: 0.9rem;
+  font-size: var(--text-xs);
   color: var(--text-muted);
 }
 
 .sum-close {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
   border: none;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 1.8rem;
-  line-height: 1;
-  display: grid;
-  place-items: center;
+  background: none;
+  font-size: 20px;
   cursor: pointer;
-  transition: all 0.15s ease;
 }
 
-.sum-close:hover {
-  background: var(--bg-hover);
-  color: var(--text-primary);
-}
-
+/* ================================
+   BODY
+================================ */
 .sum-body {
-  padding: 1.2rem;
-}
-
-.sum-field {
-  margin-bottom: 1rem;
-}
-
-.sum-label {
-  display: block;
-  margin-bottom: 0.45rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.sum-input {
-  width: 100%;
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  color: var(--text-primary);
-  border-radius: 10px;
-  padding: 0.7rem 0.9rem;
-  outline: none;
-  transition: all 0.15s ease;
-  font-size: 0.95rem;
-}
-
-.sum-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
-}
-
-.sum-textarea {
-  resize: vertical;
-  min-height: 110px;
-}
-
-.sum-hint {
-  margin-top: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
-
-.sum-info {
-  margin-top: 0.75rem;
+  padding: var(--space-lg);
   display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  padding: 0.85rem 0.9rem;
-  border-radius: 12px;
-  background: var(--bg-muted);
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ================================
+   STATUS BUTTON GRID 🔥
+================================ */
+.sum-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.sum-status-btn {
+  padding: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.sum-info i {
-  margin-top: 0.1rem;
-  color: var(--color-primary);
-}
-
-.sum-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  word-break: break-all;
-}
-
-.sum-footer {
-  padding: 1rem 1.2rem;
   background: var(--bg-muted);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.sum-status-btn:hover {
+  background: var(--bg-hover);
+}
+
+.sum-status-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+/* Status colors */
+.sum-status-btn.pending.active {
+  border-color: var(--color-warning);
+}
+.sum-status-btn.confirmed.active {
+  border-color: var(--color-success);
+}
+.sum-status-btn.completed.active {
+  border-color: var(--color-info);
+}
+.sum-status-btn.cancelled.active {
+  border-color: var(--color-error);
+}
+
+/* ================================
+   FIELD
+================================ */
+.sum-field textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+/* Danger */
+.sum-field.danger textarea {
+  border-color: var(--color-error);
+}
+
+/* ================================
+   INFO
+================================ */
+.sum-info {
+  display: flex;
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* ================================
+   FOOTER
+================================ */
+.sum-footer {
+  padding: var(--space-md);
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
-}
-
-.sum-footer .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-@media (max-width: 520px) {
-  .sum-footer {
-    flex-direction: column-reverse;
-  }
-
-  .sum-footer .btn {
-    width: 100%;
-    justify-content: center;
-  }
+  gap: var(--space-sm);
 }

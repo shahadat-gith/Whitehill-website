@@ -1,0 +1,194 @@
+/* ================================
+   CONTAINER (CRITICAL FIX)
+================================ */
+.fde-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; 
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ================================
+   LOADING
+================================ */
+.fde-loading {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   HEADER
+================================ */
+.fde-header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.fde-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* STATUS */
+.fde-status {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fde-status-success {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.fde-status-danger {
+  background: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+.fde-status-warning {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+/* ================================
+   GRID (CRITICAL FIX)
+================================ */
+.fde-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* ✅ PREVENT OVERFLOW */
+  gap: 18px;
+  width: 100%;
+}
+
+/* COLUMNS */
+.fde-col-left,
+.fde-col-right {
+  min-width: 0; /* ✅ VERY IMPORTANT */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ================================
+   CARD
+================================ */
+.fde-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* TITLE */
+.fde-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.fde-card-title i {
+  color: var(--color-primary);
+}
+
+/* ================================
+   DOCUMENTS
+================================ */
+.fde-documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ================================
+   TIMELINE
+================================ */
+.fde-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.fde-timeline-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.fde-timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-top: 6px;
+}
+
+.fde-timeline-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fde-timeline-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fde-timeline-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   BUTTON ALIGNMENT
+================================ */
+.fde-header-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ================================
+   MOBILE (🔥 IMPORTANT)
+================================ */
+@media (max-width: 900px) {
+  .fde-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .fde-header {
+    justify-content: flex-start;
+  }
+
+  .fde-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .fde-card {
+    padding: 12px;
+  }
+
+  .fde-timeline-title {
+    font-size: 13px;
+  }
+
+  .fde-timeline-date {
+    font-size: 11px;
+  }
+}

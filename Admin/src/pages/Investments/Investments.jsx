@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
 import "./Investments.css";
-import { formatCurrency,formatDate } from "../../utils/utility";
+import { formatCurrency, formatDate } from "../../utils/utility";
 
 const Investments = () => {
   const [investments, setInvestments] = useState([]);
@@ -152,16 +152,19 @@ const Investments = () => {
 
                     <td className="inv-amount">{formatCurrency(tx.amount)}</td>
                     <td className="inv-muted">{formatDate(tx.date)}</td>
-                    <td className="inv-status">{inv.status || "-"}</td>
-
                     <td>
-                        <button
-                          className="btn btn-secondary btn-sm"
-                          onClick={() => navigate(`/investments/${inv._id}`)}
-                        >
-                          <i className="fa-solid fa-eye"></i>
-                          <span style={{ marginLeft: 6 }}>View</span>
-                        </button>
+                      <span className={`inv-status ${String(inv.status).toLowerCase()}`}>
+                        {inv.status || "-"}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => navigate(`/investments/${inv._id}`)}
+                      >
+                        <i className="fa-solid fa-eye"></i>
+                        <span style={{ marginLeft: 6 }}>View</span>
+                      </button>
                     </td>
                   </tr>
                 );
