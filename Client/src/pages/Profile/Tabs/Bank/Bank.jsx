@@ -8,55 +8,63 @@ const Bank = ({ user }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="bn-tab-content">
+    <div className="bn-container">
       {/* ================= HEADER ================= */}
-      <div className="bn-section-header">
-        <h2>Bank Account Details</h2>
-        <button
-          className="bn-btn-update"
-          onClick={() => setShowModal(true)}
-        >
-          <i className="fas fa-university"></i>{" "}
-          {bank ? "Update Bank Details" : "Add Bank Details"}
+      <div className="bn-header">
+        <div className="bn-header-left">
+          <h2 className="bn-title">Bank Account Details</h2>
+          <p className="bn-subtitle">Manage your payout and settlement destination</p>
+        </div>
+        
+        <button className="btn btn-secondary" onClick={() => setShowModal(true)}>
+          <i className="fas fa-university"></i>
+          {bank ? "Update Account" : "Link Bank Account"}
         </button>
       </div>
 
-      {/* ================= BANK DETAILS ================= */}
+      {/* ================= CONTENT ================= */}
       {bank ? (
-        <div className="bn-bank-info">
-          <div className="bn-info-card">
-            <div className="bn-info-label">Account Holder Name</div>
-            <div className="bn-info-value">{bank.accountHolderName}</div>
+        <div className="bn-grid">
+          <div className="bn-card">
+            <label className="bn-label">Account Holder</label>
+            <p className="bn-value">{bank.accountHolderName}</p>
           </div>
 
-          <div className="bn-info-card">
-            <div className="bn-info-label">Account Number</div>
-            <div className="bn-info-value">
-              ••••••{bank.accountNumber?.slice(-4)}
-            </div>
+          <div className="bn-card">
+            <label className="bn-label">Account Number</label>
+            <p className="bn-value">
+              <span className="bn-mask">•••• ••••</span> {bank.accountNumber?.slice(-4)}
+            </p>
           </div>
 
-          <div className="bn-info-card">
-            <div className="bn-info-label">IFSC Code</div>
-            <div className="bn-info-value">{bank.ifsc}</div>
+          <div className="bn-card">
+            <label className="bn-label">IFSC Identifier</label>
+            <p className="bn-value">{bank.ifsc}</p>
           </div>
 
-          <div className="bn-info-card">
-            <div className="bn-info-label">Bank Name</div>
-            <div className="bn-info-value">{bank.bankName}</div>
+          <div className="bn-card">
+            <label className="bn-label">Financial Institution</label>
+            <p className="bn-value">{bank.bankName}</p>
           </div>
 
-          <div className="bn-info-card bn-full-width">
-            <div className="bn-info-label">Branch</div>
-            <div className="bn-info-value">{bank.branch}</div>
+          <div className="bn-card bn-full">
+            <label className="bn-label">Branch Location</label>
+            <p className="bn-value">{bank.branch}</p>
           </div>
         </div>
       ) : (
-        /* ================= EMPTY STATE ================= */
-        <div className="bn-empty-state">
-          <p>You have not added your bank details yet.</p>
+        <div className="bn-empty">
+          <div className="bn-empty-icon">
+            <i className="fas fa-building-columns"></i>
+          </div>
+          <h3>No Bank Account Linked</h3>
+          <p>Link your primary bank account to receive returns and manage your capital.</p>
+          <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+            Connect Account
+          </button>
         </div>
       )}
+
       {/* ================= MODAL ================= */}
       {showModal && (
         <BankModal

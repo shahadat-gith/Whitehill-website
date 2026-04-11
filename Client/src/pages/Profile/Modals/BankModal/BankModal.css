@@ -1,181 +1,152 @@
-.bm-modal-overlay {
+/* ============================================================
+   BANK MODAL — BankModal.css (bm-)
+   ============================================================ */
+
+.bm-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(8, 28, 21, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
+  z-index: 2000;
+  padding: 20px;
 }
 
-.bm-modal-container {
+.bm-container {
   background: var(--bg-surface);
   width: 100%;
-  max-width: 550px;
-  border-radius: 20px;
+  max-width: 520px;
+  border-radius: 28px;
   box-shadow: var(--shadow-high);
-  animation: slideUp 0.3s ease-out;
   overflow: hidden;
-  border: 1px solid var(--border-default);
+  animation: bmSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes bmSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.bm-modal-header {
-  padding: 1.5rem 2rem;
-  background: var(--bg-main);
-  border-bottom: 1px solid var(--border-subtle);
+/* ── Header ── */
+.bm-header {
+  padding: 24px 30px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.bm-title-group {
+  display: flex;
+  gap: 16px;
   align-items: center;
 }
 
-.bm-header-title {
+.bm-icon-circle {
+  width: 44px;
+  height: 44px;
+  background: var(--accent-soft-gold);
+  color: var(--color-accent);
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--color-primary);
-}
-
-.bm-header-title i {
+  justify-content: center;
   font-size: 1.2rem;
-  color: var(--color-accent);
 }
 
-.bm-header-title h3 {
-  margin: 0;
+.bm-header h3 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-heading);
+  margin-bottom: 2px;
 }
 
-.bm-modal-close {
-  background: transparent;
-  border: none;
+.bm-header p {
+  font-size: 0.8rem;
   color: var(--text-muted);
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: color 0.2s;
 }
 
-.bm-modal-close:hover {
+.bm-close-trigger {
+  background: var(--bg-muted);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.bm-close-trigger:hover {
+  background: var(--accent-soft-red);
   color: var(--status-error);
 }
 
-.bm-modal-form {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+/* ── Form ── */
+.bm-form {
+  padding: 30px;
 }
 
-.bm-form-row {
+.bm-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bm-row {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  gap: 1.5rem;
+  gap: 20px;
 }
 
-.bm-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.bm-form-group label {
-  font-size: 0.85rem;
+.bm-group label {
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-body);
-  margin-left: 4px;
-}
-
-.bm-form-group input {
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--border-default);
-  background: var(--bg-surface);
-  color: var(--text-heading);
-  font-family: inherit;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-}
-
-.bm-form-group input:focus {
-  outline: none;
-  border-color: var(--color-primary-soft);
-  box-shadow: 0 0 0 3px var(--accent-soft-green);
-}
-
-.bm-form-group input::placeholder {
   color: var(--text-muted);
-  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.bm-modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.bm-btn-cancel {
+.bm-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-default);
   background: var(--bg-muted);
-  color: var(--text-body);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 10px;
+  font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s;
+  color: var(--text-heading);
 }
 
-.bm-btn-cancel:hover {
-  background: var(--border-default);
+.bm-form input:focus {
+  border-color: var(--color-accent);
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(30, 124, 201, 0.1);
 }
 
-.bm-btn-submit {
-  background: var(--btn-main-bg);
-  color: var(--text-on-primary);
-  border: none;
-  padding: 12px 30px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
+.bm-uppercase {
+  text-transform: uppercase;
 }
 
-.bm-btn-submit:hover:not(:disabled) {
-  background: var(--btn-main-hover);
-  transform: translateY(-1px);
+/* ── Footer ── */
+.bm-footer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-.bm-btn-submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-@media (max-width: 500px) {
-  .bm-form-row {
-    grid-template-columns: 1fr;
-  }
-  .bm-modal-form {
-    padding: 1.5rem;
-  }
-  .bm-modal-footer {
-    flex-direction: column-reverse;
-  }
-  .bm-btn-submit, .bm-btn-cancel {
-    width: 100%;
-    justify-content: center;
-  }
+@media (max-width: 480px) {
+  .bm-row { grid-template-columns: 1fr; gap: 0; }
+  .bm-footer { grid-template-columns: 1fr; }
+  .bm-container { border-radius: 20px; }
+  .bm-form { padding: 20px; }
 }

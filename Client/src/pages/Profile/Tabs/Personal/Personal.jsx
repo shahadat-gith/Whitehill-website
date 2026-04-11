@@ -14,48 +14,53 @@ const Personal = ({ user }) => {
         />
       )}
 
-      <div className="ps-tab-container">
-        <div className="ps-section-header">
+      <div className="ps-container">
+        <div className="ps-header">
           <div className="ps-header-left">
-            <h2>Personal Information</h2>
-            <p className="ps-section-subtitle">Manage your account details and contact information</p>
+            <h2 className="ps-title">Personal Information</h2>
+            <p className="ps-subtitle">Securely manage your identity and contact details</p>
           </div>
-          <button className="ps-btn-edit" onClick={() => setShowModal(true)}>
+          
+          {/* Using Global Secondary Button */}
+          <button className="btn btn-secondary" onClick={() => setShowModal(true)}>
             <i className="fa-solid fa-pen-to-square"></i>
-            Edit Details
+            Edit Profile
           </button>
         </div>
 
-        <div className="ps-details-grid">
-          <div className="ps-info-card">
-            <div className="ps-info-icon">
-              <i className="fa-solid fa-user"></i>
+        <div className="ps-grid">
+          {/* Full Name */}
+          <div className="ps-card">
+            <div className="ps-card-icon">
+              <i className="fa-solid fa-user-tie"></i>
             </div>
-            <div className="ps-info-content">
-              <label>Full Name</label>
+            <div className="ps-card-info">
+              <label className="ps-label">Legal Full Name</label>
               <p className="ps-value">{user?.fullName || "Not Provided"}</p>
             </div>
           </div>
 
-          <div className="ps-info-card">
-            <div className="ps-info-icon">
-              <i className="fa-solid fa-envelope"></i>
+          {/* Email */}
+          <div className="ps-card">
+            <div className="ps-card-icon">
+              <i className="fa-solid fa-envelope-open-text"></i>
             </div>
-            <div className="ps-info-content">
-              <label>Email Address</label>
-              <div className="ps-value-group">
+            <div className="ps-card-info">
+              <label className="ps-label">Verified Email</label>
+              <div className="ps-value-wrapper">
                 <p className="ps-value">{user?.email || "Not Provided"}</p>
-                {user?.email && <i className="fa-solid fa-check-circle"></i>}
+                {user?.email && <i className="fa-solid fa-circle-check ps-verified"></i>}
               </div>
             </div>
           </div>
 
-          <div className="ps-info-card">
-            <div className="ps-info-icon">
-              <i className="fa-solid fa-phone"></i>
+          {/* Phone */}
+          <div className="ps-card">
+            <div className="ps-card-icon">
+              <i className="fa-solid fa-mobile-screen-button"></i>
             </div>
-            <div className="ps-info-content">
-              <label>Phone Number</label>
+            <div className="ps-card-info">
+              <label className="ps-label">Mobile Number</label>
               <p className="ps-value">{user?.phone || "Add Phone Number"}</p>
             </div>
           </div>

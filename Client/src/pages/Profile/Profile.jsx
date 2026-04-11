@@ -89,26 +89,17 @@ const Profile = () => {
 
           {/* ACTIONS */}
           <div className="prf-profile-header-action-group">
-            <Link
-              to={`/funding/${user?._id}`}
-              className="prf-btn-nav secondary"
-            >
-              <i className="fas fa-hand-holding-usd"></i> Funding Requests
-            </Link>
-
-            <Link
-              to={`/sold-property/${user?._id}`}
-              className="prf-btn-nav secondary"
-            >
-              <i className="fas fa-home"></i> Sold Property
-            </Link>
-
-            <Link
-              to={`/investments/${user?._id}`}
-              className="prf-btn-nav secondary"
-            >
-              <i className="fas fa-briefcase"></i> My Investments
-            </Link>
+            <nav className="prf-header-nav">
+              <Link to={`/funding/${user?._id}`} className="prf-nav-item">
+                <span>Funding</span>
+              </Link>
+              <Link to={`/sold-property/${user?._id}`} className="prf-nav-item">
+                <span>Properties</span>
+              </Link>
+              <Link to={`/investments/${user?._id}`} className="prf-nav-item">
+                <span>Portfolio</span>
+              </Link>
+            </nav>
           </div>
         </div>
 

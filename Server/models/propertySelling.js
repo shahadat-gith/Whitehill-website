@@ -1,153 +1,161 @@
 import mongoose from "mongoose";
 
 
-
-const locationSchema = new mongoose.Schema(
-  {
-    village: { type: String, trim: true, required: true },
-    po: { type: String, trim: true,required: true },
-    ps: { type: String, trim: true,required: true },
-    mouza: { type: String, trim: true, required: true },
-    district: { type: String, required: true, trim: true },
-    city: { type: String, required: true, trim: true },
-    state: { type: String, required: true, trim: true },
-    pincode: { type: String, required: true, trim: true },
+const propertySchema = new mongoose.Schema({
+  // ================= BASIC INFO =================
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
   },
-  { _id: false }
-);
 
+  description: {
+    type: String,
+    maxlength: 2000
+  },
 
-/* ================= LAND DETAILS ================= */
+  propertyType: {
+    type: String,
+    enum: ["residential", "commercial", "land"],
+    required: true
+  },
 
-const landDetailsSchema = new mongoose.Schema(
-  {
+  subType: {
+    type: String, // e.g. apartment, villa, plot, office
+  },
+
+  // ================= LOCATION =================
+  location: {
+    addressLine: String,
+    city: String,
+    state: String,
+    pincode: String,
+    country: String,
+  },
+
+  // ================= PROPERTY DETAILS =================
+  details: {
     area: {
-      bigha: { type: Number, min: 0, required: true },
-      kattha: { type: Number, min: 0, required: true },
-      lessa: { type: Number, min: 0, required: true },
-     },
-    dagNumber: { type: String, required: true, trim: true },
-    pattaNumber: { type: String, required: true, trim: true },
-
-    documents: {
-      ownershipProof: {
-        url: String,
-        public_id: String,
-      },
-      khajnaReceipt: {
-        url: String,
-        public_id: String,
-      },
+      value: Number,
+      unit: {
+        type: String,
+        enum: ["sqft", "sqm", "acre", "bigha"]
+      }
     },
 
-    landType: {
+    bedrooms: Number,
+    bathrooms: Number,
+    floors: Number,
+    furnishing: {
       type: String,
-      enum: ["residential", "commercial", "agricultural"],
-      required: true,
+      enum: ["furnished", "semi-furnished", "unfurnished"]
     },
 
-    images: [
-      {
-        url: String,
-        public_id: String,
-      },
-    ],
+    ageOfProperty: Number, // years
+    facing: String, // east, west etc
   },
-  { _id: false }
-);
 
-/* ================= PROPERTY DETAILS ================= */
+  // ================= OWNERSHIP =================
+  ownership: {
+    ownerName: String,
+    contactNumber: String,
+    email: String,
 
-const propertyDetailsSchema = new mongoose.Schema(
-  {
-    bedrooms: { type: Number, min: 0, required: true },
-    bathrooms: { type: Number, min: 0, required: true },
-    parkingSpaces: { type: Number, min: 0, required: true },
+    ownershipType: {
+      type: String,
+      enum: ["individual", "joint", "company"]
+    },
 
-    images: [
+    isPrimaryOwner: Boolean,
+
+    documents: [
       {
+        type: {
+          type: String,
+          enum: [
+            "sale_deed",
+            "title_deed",
+            "encumbrance_certificate",
+            "tax_receipt",
+            "id_proof"
+          ]
+        },
         url: String,
-        public_id: String,
-      },
-    ],
-
-    documents: {
-      ownershipProof: { url: String, public_id: String },
-      buildingPlan: { url: String, public_id: String },
-    },
+        verified: {
+          type: Boolean,
+          default: false
+        }
+      }
+    ]
   },
-  { _id: false }
-);
 
-/* ================= MAIN SCHEMA ================= */
-
-const propertySellingSchema = new mongoose.Schema(
-  {
-    seller: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-      index: true,
-    },
-
-    priceAsked: {
+  // ================= PRICING =================
+  pricing: {
+    expectedPrice: {
       type: Number,
-      required: true,
-      min: 1,
+      required: true
     },
-
-    description: {
-      type: String,
-      trim: true,
-      required: true,
-      maxlength: 1000,
+    negotiable: {
+      type: Boolean,
+      default: true
     },
+    governmentValue: Number,
+    valuationByAdmin: Number
+  },
 
-    type: {
-      type: String,
-      enum: ["land", "property"],
-      required: true,
+  // ================= MEDIA =================
+  media: {
+    images: [
+      {
+        url: String,
+        public_id: String, // for cloud storage reference
+        caption: String,
+      }
+    ],
+    video: {
+      url: String,   //max 1 min, max 20MB
+      public_id: String,
     },
+  },
 
+  consent: {
+    agreedToTerms: { type: Boolean, required: true },
+    agreedToPrivacyPolicy: { type: Boolean, required: true },
+    agreedToCreditCheck: { type: Boolean, required: true },
+    consentedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+
+  disclosure: {
+    hasEncumbrance: Boolean,
+    encumbranceDetails: String,
+    hasLegalDisputes: Boolean,
+    legalDisputeDetails: String,
+    hasPendingDues: Boolean,
+    pendingDuesDetails: String,
+  },
+
+  // ================= VERIFICATION for Admin only=================
+  verification: {
     status: {
       type: String,
-      enum: ["pending", "approved", "rejected"],
-      default: "pending",
+      enum: [
+        "under_review",
+        "verified",
+        "rejected"
+      ],
+      default: "under_review"
     },
 
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
-
-    landDetails: landDetailsSchema,
-    propertyDetails: propertyDetailsSchema,
-
-    location: {
-      type: locationSchema,
-      required: true,
-    },
-
-    costPrice: { type: Number, default: 0 },
-    sellingPrice: { type: Number, default: 0 },
+    remarks: String,
+    verifiedAt: Date,
+    rejectionReason: String
   },
-  { timestamps: true }
-);
-
-/* ================= CONDITIONAL VALIDATION ================= */
-
-propertySellingSchema.pre("validate", function (next) {
-  if (this.type === "land" && !this.landDetails) {
-    return next(new Error("Land Details required for land type"));
-  }
-
-  if (this.type === "property" && !this.propertyDetails) {
-    return next(new Error("Property Details required for property type"));
-  }
-
-  next();
-});
+}, { timestamps: true });
 
 
+const PropertySelling = mongoose.models.PropertySelling || mongoose.model("PropertySelling", propertySchema);
 
-export default mongoose.models.PropertySelling || mongoose.model("PropertySelling", propertySellingSchema);
+export default PropertySelling;

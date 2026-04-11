@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "./KycModal.css";
 import api from "../../../../configs/axios";
 import { useAppContext } from "../../../../context/AppContext";
+import toast from "react-hot-toast";
 
 const KycModal = ({ user, onClose }) => {
   const { setUser } = useAppContext();
@@ -17,7 +18,6 @@ const KycModal = ({ user, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Refs for file inputs
   const aadharFrontRef = useRef(null);
   const aadharBackRef = useRef(null);
   const panFrontRef = useRef(null);
@@ -47,168 +47,115 @@ const KycModal = ({ user, onClose }) => {
 
       if (data.success) {
         setUser(data.user);
+        toast.success("Identity verification documents submitted.");
         onClose();
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to update KYC");
+      setError(err.response?.data?.message || "Verification sync failed.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="kyc-modal-backdrop">
-      <div className="kyc-modal">
-        <div className="kyc-modal-header">
-          <h2>Update KYC Details</h2>
-          <button className="kyc-modal-close" onClick={onClose}>
+    <div className="km-overlay">
+      <div className="km-container">
+        <div className="km-header">
+          <div className="km-title-group">
+            <div className="km-icon-badge">
+              <i className="fas fa-shield-halved"></i>
+            </div>
+            <div>
+              <h3>Identity Verification</h3>
+              <p>Secure document upload for KYC compliance</p>
+            </div>
+          </div>
+          <button className="km-close-btn" onClick={onClose}>
             <i className="fas fa-times"></i>
           </button>
         </div>
 
-        <form className="kyc-modal-form" onSubmit={handleSubmit}>
-          {/* ================= AADHAAR ================= */}
-          <div className="kyc-modal-section">
-            <h3>Aadhaar Details</h3>
+        <form className="km-form" onSubmit={handleSubmit}>
+          {/* ── AADHAAR SECTION ── */}
+          <div className="km-section">
+            <div className="km-section-head">
+              <i className="fas fa-address-card"></i>
+              <h4>Aadhaar Details</h4>
+            </div>
 
-            <div className="kyc-grid-3">
-              <div className="kyc-field">
-                <label>Aadhaar Number</label>
-                <input
-                  type="text"
-                  name="aadharNumber"
-                  maxLength={12}
-                  required
-                  value={formData.aadharNumber}
-                  onChange={handleChange}
-                />
+            <div className="km-field">
+              <label>Aadhaar Number (12 Digits)</label>
+              <input
+                type="text"
+                name="aadharNumber"
+                placeholder="0000 0000 0000"
+                maxLength={12}
+                required
+                value={formData.aadharNumber}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="km-upload-grid">
+              <div className="km-upload-box">
+                <label>Front Image</label>
+                <input ref={aadharFrontRef} type="file" name="aadharFront" accept="image/*" required onChange={handleChange} style={{ display: "none" }} />
+                <button type="button" className={`km-picker ${formData.aadharFront ? 'success' : ''}`} onClick={() => aadharFrontRef.current.click()}>
+                  <i className={`fas ${formData.aadharFront ? 'fa-check-circle' : 'fa-cloud-arrow-up'}`}></i>
+                  <span>{formData.aadharFront ? "Front Selected" : "Upload Front"}</span>
+                </button>
               </div>
 
-              <div className="kyc-field">
-                <label>Aadhaar Front Image</label>
-                <input
-                  ref={aadharFrontRef}
-                  type="file"
-                  name="aadharFront"
-                  accept="image/*"
-                  required
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
-                <button
-                  type="button"
-                  className="kyc-file-picker-btn"
-                  onClick={() => aadharFrontRef.current.click()}
-                >
-                  <i className="fas fa-upload"></i>
-                  Choose File
+              <div className="km-upload-box">
+                <label>Back Image</label>
+                <input ref={aadharBackRef} type="file" name="aadharBack" accept="image/*" required onChange={handleChange} style={{ display: "none" }} />
+                <button type="button" className={`km-picker ${formData.aadharBack ? 'success' : ''}`} onClick={() => aadharBackRef.current.click()}>
+                  <i className={`fas ${formData.aadharBack ? 'fa-check-circle' : 'fa-cloud-arrow-up'}`}></i>
+                  <span>{formData.aadharBack ? "Back Selected" : "Upload Back"}</span>
                 </button>
-                {formData.aadharFront && (
-                  <div className="kyc-file-selected">
-                    <i className="fas fa-check-circle"></i>
-                    {formData.aadharFront.name}
-                  </div>
-                )}
-              </div>
-
-              <div className="kyc-field">
-                <label>Aadhaar Back Image</label>
-                <input
-                  ref={aadharBackRef}
-                  type="file"
-                  name="aadharBack"
-                  accept="image/*"
-                  required
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
-                <button
-                  type="button"
-                  className="kyc-file-picker-btn"
-                  onClick={() => aadharBackRef.current.click()}
-                >
-                  <i className="fas fa-upload"></i>
-                  Choose File
-                </button>
-                {formData.aadharBack && (
-                  <div className="kyc-file-selected">
-                    <i className="fas fa-check-circle"></i>
-                    {formData.aadharBack.name}
-                  </div>
-                )}
               </div>
             </div>
           </div>
 
-          {/* ================= PAN ================= */}
-          <div className="kyc-modal-section">
-            <h3>PAN Details</h3>
+          {/* ── PAN SECTION ── */}
+          <div className="km-section">
+            <div className="km-section-head">
+              <i className="fas fa-id-badge"></i>
+              <h4>PAN Details</h4>
+            </div>
 
-            <div className="kyc-grid-2">
-              <div className="kyc-field">
+            <div className="km-grid-2">
+              <div className="km-field">
                 <label>PAN Number</label>
                 <input
                   type="text"
                   name="panNumber"
+                  placeholder="ABCDE1234F"
                   maxLength={10}
                   required
                   value={formData.panNumber}
                   onChange={handleChange}
+                  className="km-uppercase"
                 />
               </div>
 
-              <div className="kyc-field">
+              <div className="km-upload-box">
                 <label>PAN Front Image</label>
-                <input
-                  ref={panFrontRef}
-                  type="file"
-                  name="panFront"
-                  accept="image/*"
-                  required
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
-                <button
-                  type="button"
-                  className="kyc-file-picker-btn"
-                  onClick={() => panFrontRef.current.click()}
-                >
-                  <i className="fas fa-upload"></i>
-                  Choose File
+                <input ref={panFrontRef} type="file" name="panFront" accept="image/*" required onChange={handleChange} style={{ display: "none" }} />
+                <button type="button" className={`km-picker ${formData.panFront ? 'success' : ''}`} onClick={() => panFrontRef.current.click()}>
+                  <i className={`fas ${formData.panFront ? 'fa-check-circle' : 'fa-cloud-arrow-up'}`}></i>
+                  <span>{formData.panFront ? "PAN Selected" : "Upload Image"}</span>
                 </button>
-                {formData.panFront && (
-                  <div className="kyc-file-selected">
-                    <i className="fas fa-check-circle"></i>
-                    {formData.panFront.name}
-                  </div>
-                )}
               </div>
             </div>
           </div>
 
-          {error && <p className="kyc-modal-error">{error}</p>}
+          {error && <div className="km-error-alert"><i className="fas fa-triangle-exclamation"></i> {error}</div>}
 
-          <div className="kyc-modal-actions">
-            <button
-              type="button"
-              className="kyc-btn-secondary"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              className="kyc-btn-primary"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <i className="fas fa-spinner fa-spin"></i> Saving...
-                </>
-              ) : (
-                "Save KYC"
-              )}
+          <div className="km-footer">
+            <button type="button" className="btn btn-secondary" onClick={onClose}>Cancel</button>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? <><i className="fas fa-circle-notch fa-spin"></i> Processing...</> : "Submit for Verification"}
             </button>
           </div>
         </form>

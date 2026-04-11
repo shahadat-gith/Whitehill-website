@@ -48,7 +48,7 @@ export const ABOUT_CONTENT = {
                 text: "Equity participation in high-potential startups with proven unit economics."
             },
             {
-                icon: "fa-chart-network",
+                icon: "fa-chart-line",
                 title: "Milestone Funding",
                 text: "Tranche-based deployment linked to project success to protect downside."
             }
