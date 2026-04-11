@@ -1,0 +1,213 @@
+/* ================================
+   MODAL OVERLAY
+================================ */
+.pr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(10px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+/* ================================
+   MODAL CONTAINER
+================================ */
+.pr-modal-dialog {
+  width: 100%;
+  max-width: 700px;
+}
+
+.pr-modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: fadeIn var(--transition-normal);
+}
+
+/* ================================
+   HEADER
+================================ */
+.pr-modal-header {
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(180deg, var(--bg-muted), var(--bg-card));
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pr-modal-header h5 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.pr-subtitle {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Close button */
+.pr-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-round);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.pr-modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ================================
+   BODY
+================================ */
+.pr-modal-body {
+  padding: var(--space-lg);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ================================
+   DROPZONE (🔥 MAIN FEATURE)
+================================ */
+.pr-dropzone {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.pr-dropzone i {
+  font-size: 28px;
+  color: var(--color-primary);
+}
+
+.pr-dropzone p {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.pr-dropzone span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* Hover / drag */
+.pr-dropzone:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+/* Hide default input */
+.pr-dropzone input {
+  display: none;
+}
+
+/* ================================
+   PREVIEW GRID
+================================ */
+.pr-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: var(--space-sm);
+}
+
+/* Card */
+.pr-preview-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 100px;
+  background: var(--bg-muted);
+}
+
+.pr-preview-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Remove button */
+.pr-remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.pr-preview-card:hover .pr-remove-btn {
+  opacity: 1;
+}
+
+/* ================================
+   FOOTER
+================================ */
+.pr-modal-footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-muted);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+/* ================================
+   SCROLLBAR
+================================ */
+.pr-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pr-modal-body::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: var(--radius-round);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .pr-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .pr-modal-footer .btn {
+    width: 100%;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../../configs/axios";
 import toast from "react-hot-toast";
+import "./ImageUploadModal.css";
 
 const ImageUploadModal = ({ isOpen, onClose, projectId }) => {
   const [files, setFiles] = useState([]);
@@ -8,10 +9,23 @@ const ImageUploadModal = ({ isOpen, onClose, projectId }) => {
 
   if (!isOpen) return null;
 
+  /* ================= FILE HANDLING ================= */
   const handleFileChange = (e) => {
     setFiles([...e.target.files]);
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setFiles([...e.dataTransfer.files]);
+  };
+
+  const removeFile = (index) => {
+    const updated = [...files];
+    updated.splice(index, 1);
+    setFiles(updated);
+  };
+
+  /* ================= UPLOAD ================= */
   const handleUpload = async (e) => {
     e.preventDefault();
 
@@ -46,58 +60,104 @@ const ImageUploadModal = ({ isOpen, onClose, projectId }) => {
   };
 
   return (
-    <div className="pr-modal-overlay">
-      <div className="pr-modal-dialog">
-        <div className="pr-modal-content">
-          <form onSubmit={handleUpload}>
-            <div className="pr-modal-header">
+    <div className="pr-modal-overlay" onClick={() => onClose(false)}>
+      <div
+        className="pr-modal-dialog"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form className="pr-modal-content" onSubmit={handleUpload}>
+          
+          {/* HEADER */}
+          <div className="pr-modal-header">
+            <div>
               <h5>Upload Project Images</h5>
-              <button
-                type="button"
-                className="pr-modal-close"
-                onClick={() => onClose(false)}
-              >
-                ×
-              </button>
+              <span className="pr-subtitle">
+                Add multiple images for this project
+              </span>
             </div>
 
-            <div className="pr-modal-body">
-              <label className="pr-label">Select Images</label>
+            <button
+              type="button"
+              className="pr-modal-close"
+              onClick={() => onClose(false)}
+            >
+              ×
+            </button>
+          </div>
+
+          {/* BODY */}
+          <div className="pr-modal-body">
+
+            {/* DROP ZONE */}
+            <div
+              className="pr-dropzone"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+            >
+              <i className="fa-solid fa-cloud-arrow-up"></i>
+              <p>Drag & drop images here</p>
+              <span>or</span>
+
               <input
                 type="file"
                 multiple
-                className="pr-input pr-file-input"
                 onChange={handleFileChange}
               />
-            </div>
 
-            <div className="pr-modal-footer">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={uploading}
-              >
-                {uploading ? (
-                  <>
-                    <i className="fa-solid fa-spinner fa-spin"></i>
-                    <span>Uploading...</span>
-                  </>
-                ) : (
-                  "Upload"
-                )}
-              </button>
-
-              <button
-                type="button"
-                className="btn btn-secondary"
-                disabled={uploading}
-                onClick={() => onClose(false)}
-              >
-                Cancel
+              <button type="button" className="btn btn-secondary">
+                Browse Files
               </button>
             </div>
-          </form>
-        </div>
+
+            {/* FILE PREVIEW */}
+            {files.length > 0 && (
+              <div className="pr-preview-grid">
+                {files.map((file, index) => (
+                  <div key={index} className="pr-preview-card">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt="preview"
+                    />
+                    <button
+                      type="button"
+                      className="pr-remove-btn"
+                      onClick={() => removeFile(index)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* FOOTER */}
+          <div className="pr-modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              disabled={uploading}
+              onClick={() => onClose(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={uploading}
+            >
+              {uploading ? (
+                <>
+                  <i className="fa-solid fa-spinner fa-spin"></i>
+                  Uploading...
+                </>
+              ) : (
+                `Upload ${files.length || ""} Images`
+              )}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

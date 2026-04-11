@@ -1,62 +1,82 @@
-/* ProjectModal.css (pm- classes) — 3 inputs per row on desktop */
-
+/* ================================
+   MODAL OVERLAY
+================================ */
 .pm-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 6, 23, 0.68);
-  backdrop-filter: blur(6px);
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(10px);
   z-index: 9000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px;
+  padding: var(--space-md);
 }
 
+/* ================================
+   MODAL CONTAINER
+================================ */
 .pm-modal-dialog {
   width: 100%;
-  max-width: 1100px; /* a bit wider for 3 columns */
-  margin: 0 auto;
+  max-width: 1100px;
 }
 
 .pm-modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 18px;
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
+  animation: fadeIn var(--transition-normal);
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   HEADER
+================================ */
 .pm-modal-header {
-  padding: 18px 20px;
+  flex-shrink: 0;
+  padding: var(--space-md) var(--space-lg);
   background: linear-gradient(180deg, var(--bg-muted), var(--bg-card));
   border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 14px;
 }
 
 .pm-modal-header h5 {
-  margin: 0;
-  font-size: 1.12rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  line-height: 1.15;
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.pm-subtitle {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
 }
 
 .pm-modal-close {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-round);
   border: 1px solid var(--border-color);
   background: var(--bg-card);
   color: var(--text-muted);
-  display: grid;
-  place-items: center;
   cursor: pointer;
-  transition: 0.15s ease;
-  font-size: 1.4rem;
-  line-height: 1;
+  transition: var(--transition-fast);
 }
 
 .pm-modal-close:hover {
@@ -64,160 +84,179 @@
   color: var(--text-primary);
 }
 
+/* ================================
+   BODY
+================================ */
 .pm-modal-body {
-  padding: 18px 20px;
-  max-height: 72vh;
-  overflow: auto;
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-lg);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-.pm-modal-body::-webkit-scrollbar {
-  width: 10px;
-}
-.pm-modal-body::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 999px;
-}
-.pm-modal-body::-webkit-scrollbar-track {
-  background: transparent;
+/* ================================
+   SECTION (🔥 BIG IMPROVEMENT)
+================================ */
+.pm-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: var(--transition-fast);
 }
 
-/* ✅ 3 columns on desktop */
+.pm-section:hover {
+  border-color: var(--border-light);
+}
+
+/* Section title */
+.pm-section-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ================================
+   GRID (3 COLUMN)
+================================ */
 .pm-form-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
 }
 
-/* One field */
-.pm-form-col-half {
-  grid-column: span 1;
-}
-
-/* Full width */
-.pm-form-col-full {
-  grid-column: span 3;
-}
-
+/* ================================
+   INPUTS (🔥 MAJOR UPGRADE)
+================================ */
 .pm-label {
-  display: block;
-  margin: 0 0 8px;
-  font-size: 0.86rem;
-  font-weight: 650;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
+  margin-bottom: 4px;
 }
 
 .pm-input,
 .pm-textarea {
   width: 100%;
-  background: var(--bg-main);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 0.7rem 0.95rem;
-  font-size: 0.95rem;
-  transition: 0.15s ease;
-  outline: none;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
 }
 
+/* Hover */
+.pm-input:hover {
+  border-color: var(--border-light);
+}
+
+/* Focus */
 .pm-input:focus,
 .pm-textarea:focus {
+  outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
 }
 
-.pm-input::placeholder,
-.pm-textarea::placeholder {
+/* Placeholder */
+.pm-input::placeholder {
   color: var(--text-muted);
 }
 
 .pm-textarea {
+  min-height: 100px;
   resize: vertical;
-  min-height: 95px;
 }
 
-/* select arrow */
+/* ================================
+   SELECT
+================================ */
 select.pm-input {
   appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
-    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(1em + 2px),
-    calc(100% - 13px) calc(1em + 2px);
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-  padding-right: 2.2rem;
+  padding-right: 30px;
 }
 
+/* ================================
+   HIGHLIGHTS
+================================ */
+.pm-highlight-input {
+  margin-top: 6px;
+}
+
+.pm-section button.btn-secondary {
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+}
+
+/* ================================
+   FILE INPUT (🔥 CLEAN FIX)
+================================ */
 .pm-file-input {
-  padding: 0.55rem;
+  background: var(--bg-main);
+  border-radius: var(--radius-md);
+  padding: 8px;
 }
 
 .pm-file-input::file-selector-button {
   background: var(--bg-muted);
-  color: var(--text-primary);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 0.55rem 0.9rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
   cursor: pointer;
-  margin-right: 12px;
-  transition: 0.15s ease;
+  margin-right: 10px;
+  transition: var(--transition-fast);
 }
 
 .pm-file-input::file-selector-button:hover {
   background: var(--bg-hover);
 }
 
-.pm-highlight-input {
-  margin-top: 10px;
-}
-
+/* ================================
+   FOOTER
+================================ */
 .pm-modal-footer {
-  padding: 16px 20px;
-  background: var(--bg-muted);
+  flex-shrink: 0;
+  padding: var(--space-md) var(--space-lg);
   border-top: 1px solid var(--border-color);
+  background: var(--bg-muted);
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-sm);
 }
 
-.pm-modal-footer .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+/* ================================
+   SCROLLBAR
+================================ */
+.pm-modal-body::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* ✅ Tablet: 2 columns */
+.pm-modal-body::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 10px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
 @media (max-width: 900px) {
   .pm-form-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .pm-form-col-full {
-    grid-column: span 2;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ✅ Mobile: 1 column */
 @media (max-width: 768px) {
-  .pm-modal-overlay {
-    padding: 12px;
-  }
-
-  .pm-modal-header,
-  .pm-modal-body,
-  .pm-modal-footer {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
   .pm-form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .pm-form-col-half,
-  .pm-form-col-full {
-    grid-column: span 1;
   }
 
   .pm-modal-footer {
@@ -226,6 +265,5 @@ select.pm-input {
 
   .pm-modal-footer .btn {
     width: 100%;
-    justify-content: center;
   }
 }

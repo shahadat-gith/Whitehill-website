@@ -1,33 +1,40 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
 
-
-const Sidebar = ({ onNavigate }) => {
-const sidebarLinks = [
-    { to: "/", icon: "fa-solid fa-gauge-high", label: "Dashboard" }, // More standard for Admin Home
-    { to: "/projects", icon: "fa-solid fa-city", label: "Projects" }, // Better for Real Estate/Development
-    { to: "/users", icon: "fa-solid fa-users-gear", label: "Users" }, // Represents 'Management'
-    { to: "/investments", icon: "fa-solid fa-chart-line", label: "Investments" }, // Represents growth/equity
-    { to: "/fund-requests", icon: "fa-solid fa-file-invoice-dollar", label: "Fund Requests" }, // Represents the 'Application/Form' nature
-    { to: "/property-selling", icon: "fa-solid fa-house-chimney-window", label: "Property Selling" }, // More detailed house icon
-    { to: "/payment-history", icon: "fa-solid fa-receipt", label: "Payment History" }, // Better for financial records
+const Sidebar = ({ isOpen, closeSidebar }) => {
+  const menuItems = [
+    { to: "/", icon: "fa-solid fa-chart-pie", label: "Dashboard" },
+    { to: "/projects", icon: "fa-solid fa-building-circle-check", label: "Projects" },
+    { to: "/users", icon: "fa-solid fa-users-gear", label: "Users" },
+    { to: "/investments", icon: "fa-solid fa-money-bill-trend-up", label: "Investments" },
+    { to: "/properties", icon: "fa-solid fa-house-lock", label: "Property Sales" },
+    { to: "/payments", icon: "fa-solid fa-file-invoice-dollar", label: "Payments" },
   ];
+
   return (
-    <aside className="sidebar">
-      <ul className="sidebar-menu">
-        {sidebarLinks.map((link, index) => (
-          <li key={index}>
-            <NavLink
-              to={link.to}
-              onClick={onNavigate}
-              className={({ isActive }) => `sidebar-item ${isActive ? "active" : ""}`}
-            >
-              <i className={link.icon}></i>
-              <span>{link.label}</span>
-              {link.badge > 0 && <span className="badge">{link.badge}</span>}
-            </NavLink>
-          </li>
+    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+      <div className="sidebar-header">
+        <img src="/logo.png" alt="Whitehill" className="sidebar-logo" />
+        <div className="logo-text">
+          <h3>Whitehill</h3>
+          <span>Capital Admin</span>
+        </div>
+      </div>
+
+      <nav className="sidebar-nav">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            onClick={closeSidebar}
+          >
+            <i className={item.icon}></i>
+            <span>{item.label}</span>
+          </NavLink>
         ))}
-      </ul>
+      </nav>
     </aside>
   );
 };

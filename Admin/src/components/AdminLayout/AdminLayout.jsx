@@ -6,24 +6,28 @@ import "./AdminLayout.css";
 const AdminLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
 
   return (
-    <div className="layout">
-      {/* Navbar */}
-      <Navbar toggleSidebar={toggleSidebar} />
+    <div className="admin-layout">
+      <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
 
-      {/* Sidebar */}
-      <div className={`sidebar-wrapper ${isSidebarOpen ? "open" : ""}`}>
-        <Sidebar />
+      <div className="admin-layout">
+        <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+
+        <div className="admin-main">
+          <Navbar toggleSidebar={toggleSidebar} />
+          <main className="content-body">{children}</main>
+        </div>
+
+        {isSidebarOpen && (
+          <div className="mobile-overlay" onClick={closeSidebar}></div>
+        )}
       </div>
 
-      {/* Main Content */}
-      <main className="main-content">
-        {children} {/* Page-specific content goes here */}
-      </main>
+      {/* Mobile Overlay */}
+      {isSidebarOpen && <div className="mobile-overlay" onClick={closeSidebar}></div>}
     </div>
   );
 };

@@ -1,377 +1,211 @@
-/* =========================
-   HOME (Dashboard) - Home.css
-   ========================= */
-
+/* ================================
+   1. DASHBOARD HEADER
+================================ */
 .hm-container {
-  padding: 18px;
-  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .hm-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 16px;
+  align-items: center;
 }
 
 .hm-header h2 {
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
 }
 
-.hm-subtitle {
-  margin: 6px 0 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-}
-
-/* =========================
-   STATS
-   ========================= */
-
+/* ================================
+   2. STAT CARDS GRID
+=============================== */
 .hm-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .hm-stat {
   background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 14px 14px;
-  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.hm-stat:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary-soft);
 }
 
 .hm-stat-label {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--text-muted);
-  margin-bottom: 8px;
-  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .hm-stat-value {
-  font-size: 1.6rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0.5rem 0;
 }
 
 .hm-stat-sub {
-  margin-top: 8px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
-/* =========================
-   GRID / CARDS
-   ========================= */
-
+/* ================================
+   3. MAIN CONTENT GRID
+================================ */
 .hm-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 14px;
-  align-items: start;
+  grid-template-columns: 2fr 1fr; /* 2/3 for tables, 1/3 for user list */
+  gap: 1.5rem;
 }
 
 .hm-card {
   background: var(--bg-card);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .hm-span-2 {
-  grid-column: span 1; /* default for 2-col layout */
+  grid-column: span 1; /* Adjusts based on grid settings */
 }
 
 .hm-card-head {
-  padding: 14px 14px;
+  padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
-  background: var(--bg-muted);
+  align-items: baseline;
 }
 
 .hm-card-head h4 {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-primary);
 }
 
 .hm-muted {
+  font-size: 0.8rem;
   color: var(--text-muted);
-  font-size: 0.9rem;
 }
 
-/* =========================
-   TABLES
-   ========================= */
-
+/* ================================
+   4. TABLE & LIST STYLING
+================================ */
 .hm-table-wrap {
   overflow-x: auto;
-}
-
-.hm-table-wrap-tight {
-  overflow-x: hidden; /* ✅ remove horizontal scrollbar for 3 cols */
 }
 
 .hm-table {
   width: 100%;
   border-collapse: collapse;
-  color: var(--text-primary);
 }
 
-.hm-table thead th {
+.hm-table th {
+  text-align: left;
+  padding: 1rem 1.5rem;
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--text-muted);
-  font-weight: 800;
-  padding: 12px 14px;
-  text-align: left;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hm-table td {
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
-  background: var(--bg-muted);
-  white-space: nowrap;
+  vertical-align: middle;
 }
 
-.hm-table tbody td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border-color);
-  vertical-align: top;
+.hm-row-click {
+  cursor: pointer;
+  transition: background var(--transition-fast);
 }
 
-.hm-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.hm-table tbody tr:hover {
+.hm-row-click:hover {
   background: var(--bg-hover);
 }
 
-.hm-table-tight {
-  width: 100%;
-  table-layout: fixed; /* ✅ prevents overflow */
-}
-
-.hm-table-tight th,
-.hm-table-tight td {
-  white-space: normal; /* ✅ allow wrap */
-  word-break: break-word;
-}
-
-/* strong cell */
 .hm-cell-strong {
-  font-weight: 800;
+  font-weight: 600;
   color: var(--text-primary);
   font-size: 0.95rem;
-  line-height: 1.2;
 }
 
-/* amount column (last column in investment table) */
-.hm-table-tight tbody td:last-child {
-  text-align: right;
-  white-space: nowrap;
-}
-
-/* clickable rows */
-.hm-row-click {
-  cursor: pointer;
-}
-
-.hm-row-click:active {
-  transform: translateY(0.5px);
-}
-
-/* =========================
-   PILLS
-   ========================= */
-
-.hm-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight: 900;
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-
-.hm-pill.ok {
-  background: rgba(22, 101, 52, 0.12);
-  border-color: rgba(22, 101, 52, 0.35);
-  color: var(--color-success);
-}
-
-.hm-pill.warn {
-  background: rgba(180, 83, 9, 0.12);
-  border-color: rgba(180, 83, 9, 0.35);
-  color: var(--color-warning);
-}
-
-.hm-pill.danger {
-  background: rgba(153, 27, 27, 0.12);
-  border-color: rgba(153, 27, 27, 0.35);
-  color: var(--color-danger);
-}
-
-/* =========================
-   LIST (New Users)
-   ========================= */
-
+/* New User List */
 .hm-list {
-  padding: 8px 10px 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .hm-list-item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 10px;
-  border-radius: 12px;
-}
-
-.hm-list-item:hover {
-  background: var(--bg-hover);
-}
-
-.hm-list-main {
-  min-width: 0;
-  flex: 1;
-}
-
-.hm-list-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.hm-date {
-  font-size: 0.82rem;
-}
-
-/* =========================
-   QUERY ACTION BUTTONS
-   ========================= */
-
-.hm-action {
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-main);
-  color: var(--text-primary);
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hm-list-item:last-child {
+  border-bottom: none;
+}
+
+/* Status Pills */
+.hm-pill {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.hm-pill.ok { background: var(--color-primary-soft); color: var(--color-primary); }
+.hm-pill.danger { background: var(--color-error-soft); color: var(--color-error); }
+.hm-pill.warn { background: var(--color-warning-soft); color: var(--color-warning); }
+
+/* Action Buttons */
+.hm-action {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
-  font-weight: 800;
-  font-size: 0.86rem;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-
-.hm-action i {
-  font-size: 0.95rem;
-}
-
-.hm-action:hover {
-  background: var(--bg-hover);
-}
-
-.hm-action:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.hm-action-ok {
-  background: rgba(22, 101, 52, 0.12);
-  border-color: rgba(22, 101, 52, 0.35);
-  color: var(--color-success);
+  transition: all 0.2s ease;
 }
 
 .hm-action-warn {
-  background: rgba(180, 83, 9, 0.12);
-  border-color: rgba(180, 83, 9, 0.35);
+  background: var(--color-warning-soft);
   color: var(--color-warning);
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+.hm-action-warn:hover {
+  background: var(--color-warning);
+  color: white;
+}
 
-@media (max-width: 1024px) {
-  .hm-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+/* ================================
+   5. RESPONSIVE
+================================ */
+@media (max-width: 1200px) {
   .hm-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hm-span-2 {
-    grid-column: span 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .hm-container {
-    padding: 14px;
-  }
-
-  .hm-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .hm-table thead th,
-  .hm-table tbody td {
-    padding: 10px 10px;
-  }
-
-  .hm-stat {
-    padding: 12px 12px;
-  }
-
-  .hm-stat-value {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hm-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .hm-header h2 {
-    font-size: 1.35rem;
-  }
-
-  .hm-card-head {
-    padding: 12px 12px;
-  }
-
-  .hm-table thead th {
-    font-size: 0.7rem;
-  }
-
-  .hm-action span {
-    display: none; /* icon only */
   }
 }

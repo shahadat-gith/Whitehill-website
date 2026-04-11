@@ -1,0 +1,71 @@
+/* ================================
+   NAVBAR
+================================ */
+.navbar {
+   height: 70px;
+   background: var(--bg-card);
+   border-bottom: 1px solid var(--border-color);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 var(--space-lg);
+   position: sticky;
+   top: 0;
+   z-index: 80;
+}
+
+/* Left */
+.navbar-left {
+   display: flex;
+   align-items: center;
+   gap: var(--space-md);
+}
+
+/* Sidebar toggle */
+.sidebar-toggle {
+   background: var(--bg-muted);
+   border: none;
+   color: var(--text-primary);
+   padding: 8px 10px;
+   border-radius: var(--radius-md);
+   cursor: pointer;
+   transition: var(--transition-fast);
+   display: none;
+}
+
+.sidebar-toggle:hover {
+   background: var(--bg-hover);
+}
+
+/* Right */
+.nav-right {
+   display: flex;
+   align-items: center;
+   gap: var(--space-md);
+}
+
+/* Logout button */
+.logout-btn {
+   display: flex;
+   align-items: center;
+   gap: var(--space-xs);
+   background: var(--color-error-soft);
+   color: var(--color-error);
+   border: none;
+   padding: 8px 14px;
+   border-radius: var(--radius-md);
+   cursor: pointer;
+   font-size: var(--text-sm);
+   transition: var(--transition-fast);
+}
+
+.logout-btn:hover {
+   background: var(--color-error);
+   color: #fff;
+}
+
+@media(max-width:768px){
+    .sidebar-toggle{
+        display: block;
+    }
+}
