@@ -4,7 +4,7 @@ import api from "../../configs/axios";
 import "./UserFundingRequests.css";
 import ExtraDocumentUploadModal from "./ExtraDocumentUploadModal";
 import { generateInvoicePDF } from "./generateInvoice";
-import { formatCurrency,formatDate } from "../../utils/utility";
+import { formatCurrency,formatDate } from "../../Utils/utility";
 
 const UserFundingRequests = () => {
   const { userId } = useParams();
