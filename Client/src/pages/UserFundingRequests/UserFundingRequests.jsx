@@ -63,7 +63,7 @@ const UserFundingRequests = () => {
     return (
       <div className="ufr-loading-screen">
         <div className="ufr-loader"></div>
-        <p>Synchronizing Ledger...</p>
+        <p>Loading funding status...</p>
       </div>
     );
 
@@ -101,12 +101,7 @@ const UserFundingRequests = () => {
                     </div>
 
                     <div className="ufr-data-item">
-                      <label>Application Purpose</label>
-                      <span className="ufr-purpose">{request.purpose}</span>
-                    </div>
-
-                    <div className="ufr-data-item">
-                      <label>Capital Amount</label>
+                      <label>Requested Amount</label>
                       <span className="ufr-amount">{formatCurrency(request.amount)}</span>
                     </div>
 
