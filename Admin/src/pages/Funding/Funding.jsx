@@ -222,7 +222,7 @@ const Funding = () => {
 
                     <td>
                       <button
-                        className="btn btn-sm btn-primary"
+                        className="btn btn-secondary"
                         onClick={() => navigate(`/funding/${fund._id}`)}
                         title="View and verify"
                       >

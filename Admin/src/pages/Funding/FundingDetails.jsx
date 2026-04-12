@@ -14,12 +14,14 @@ import RiskFactors from "./components/RiskFactors";
 import Document from "./components/Document";
 import FundingBasic from "./components/FundingBasic";
 import ApplicantDetails from "./components/ApplicantDetails";
+import PaymentModal from "./PaymentModal";
 
 const FundingDetails = () => {
   const { fundingId } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const fetchDetails = useCallback(async () => {
     try {
@@ -86,6 +88,16 @@ const FundingDetails = () => {
             <i className="fa-solid fa-check-circle"></i>
             <span>Approve</span>
           </button>
+
+          {data.status === "approved" && (
+            <button
+              className="btn btn-success"
+              onClick={() => setShowPaymentModal(true)}
+            >
+              <i className="fa-solid fa-money-bill"></i>
+              <span>Initiate Payment</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -118,6 +130,45 @@ const FundingDetails = () => {
                 {allDocuments.map((doc) => (
                   <Document key={doc.name} doc={doc} />
                 ))}
+              </div>
+            </div>
+          )}
+
+          {data.verification?.extraRequests?.some(req => req.status === "submitted" && req.files?.length > 0) && (
+            <div className="fde-card">
+              <div className="fde-card-title">
+                <i className="fa-solid fa-file-upload"></i>
+                <h3>Additional Documents</h3>
+              </div>
+
+              <div className="fde-extra-documents-list">
+                {data.verification.extraRequests
+                  .filter(req => req.status === "submitted" && req.files?.length > 0)
+                  .map((req, reqIndex) => (
+                    <div key={req._id || reqIndex} className="fde-extra-request-group">
+                      <div className="fde-extra-request-header">
+                        <span className="fde-extra-request-message">{req.message}</span>
+                        <span className="fde-extra-request-date">
+                          Submitted {formatDate(req.submittedAt || req.requestedAt)}
+                        </span>
+                      </div>
+                      <div className="fde-extra-files-list">
+                        {req.files.map((file, fileIndex) => (
+                          <div key={fileIndex} className="fde-extra-file-item">
+                            <i className="fa-solid fa-file"></i>
+                            <a
+                              href={file.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="fde-extra-file-link"
+                            >
+                              {file.originalName || `Document ${fileIndex + 1}`}
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           )}
@@ -159,6 +210,19 @@ const FundingDetails = () => {
 
         </div>
       </div>
+
+      {/* PAYMENT MODAL */}
+      {showPaymentModal && (
+        <PaymentModal
+          fundingId={fundingId}
+          approvedAmount={verification.approvedAmount}
+          onClose={() => setShowPaymentModal(false)}
+          onSuccess={() => {
+            setShowPaymentModal(false);
+            fetchDetails();
+          }}
+        />
+      )}
     </div>
   );
 };

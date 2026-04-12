@@ -114,6 +114,70 @@
 }
 
 /* ================================
+   EXTRA DOCUMENTS
+================================ */
+.fde-extra-documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fde-extra-request-group {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--bg-muted);
+}
+
+.fde-extra-request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.fde-extra-request-message {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.fde-extra-request-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.fde-extra-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fde-extra-file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.fde-extra-file-item i {
+  color: var(--color-primary);
+}
+
+.fde-extra-file-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.fde-extra-file-link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
    TIMELINE
 ================================ */
 .fde-timeline {

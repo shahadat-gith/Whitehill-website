@@ -10,7 +10,9 @@ const RequestDocumentsModal = ({ fundingId, onClose, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!message.trim()) {
+    const trimmedMessage = message.trim();
+
+    if (!trimmedMessage) {
       toast.error("Please enter a message");
       return;
     }
@@ -18,16 +20,19 @@ const RequestDocumentsModal = ({ fundingId, onClose, onSuccess }) => {
     try {
       setLoading(true);
 
-      const { data } = await api.post("/api/admin/funding/request-documents", {
-        fundingId,
-        message: message.trim(),
-      });
+      const { data: res } = await api.post(
+        "/api/admin/funding/request-documents",
+        {
+          fundingId,
+          message: trimmedMessage, // ✅ cleaned input
+        }
+      );
 
-      if (data.success) {
+      if (res.success) {
         toast.success("Document request sent successfully!");
         onSuccess();
       } else {
-        toast.error(data.message || "Failed to send request");
+        toast.error(res.message || "Failed to send request");
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");

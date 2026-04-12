@@ -37,7 +37,6 @@ const Hero = () => {
         <div className="he-hero-illus he-hero-illus-left">
           <div className="he-illus-card">
             <img src={buildingImg} alt="Real Estate" />
-            <span className="he-illus-label">Real Estate</span>
           </div>
         </div>
 
@@ -68,7 +67,7 @@ const Hero = () => {
               className="btn btn-secondary"
               onClick={() => setIsModalOpen(true)}
             >
-              Need funding? Apply Here!
+              Need funding?
             </button>
           </div>
 
@@ -89,7 +88,6 @@ const Hero = () => {
         <div className="he-hero-illus he-hero-illus-right">
           <div className="he-illus-card">
             <img src={gearImg} alt="Startups" />
-            <span className="he-illus-label">Startups</span>
           </div>
         </div>
       </div>

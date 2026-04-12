@@ -9,7 +9,7 @@ import Project from "../models/project.js";
 import Investment from "../models/investment.js";
 import User from "../models/user.js";
 import Query from "../models/query.js";
-import { Funding } from "../models/funding/index.js";
+import { Funding, Verification } from "../models/funding/index.js";
 
 
 
@@ -18,67 +18,67 @@ import { Funding } from "../models/funding/index.js";
 //auth 
 
 export const adminLogin = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const adminEmail = process.env.ADMIN_EMAIL;
-        const adminPassword = process.env.ADMIN_PASSWORD;
+  try {
+    const { email, password } = req.body;
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
-        if (email === adminEmail && password === adminPassword) {
-            const token = jwt.sign(
-                { key: process.env.ADMIN_KEY },
-                process.env.ADMIN_JWT_SECRET
-            );
+    if (email === adminEmail && password === adminPassword) {
+      const token = jwt.sign(
+        { key: process.env.ADMIN_KEY },
+        process.env.ADMIN_JWT_SECRET
+      );
 
-            return res.status(200).json({ success: true, message: "Login successful", token });
-        } else {
-            return res.status(401).json({ success: false, message: "Invalid credentials" });
-        }
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Server error", error: error.message });
+      return res.status(200).json({ success: true, message: "Login successful", token });
+    } else {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 };
 
 //Queries
 
 export const createQuery = async (req, res) => {
-    try {
-        const { name, email, phone, message } = req.body;
-        const query = await Query.create({ name, email, phone, message });
-        return res.status(200).json({ success: true, query });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Server error", error: error.message });
-    }
+  try {
+    const { name, email, phone, message } = req.body;
+    const query = await Query.create({ name, email, phone, message });
+    return res.status(200).json({ success: true, query });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 };
 
 export const getQueries = async (req, res) => {
-    try {
-        const queries = await Query.find();
-        return res.status(200).json({ success: true, queries });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Server error", error: error.message });
-    }
+  try {
+    const queries = await Query.find();
+    return res.status(200).json({ success: true, queries });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 };
 
 export const replyToQuery = async (req, res) => {
-    try {
-        const { queryId, reply } = req.body;
-        const query = await Query.findById(queryId);
-        if (!query) {
-            return res.status(404).json({ success: false, message: "Query not found" });
-        }
-
-        //send mail to user
-        await sendEmail({
-            to: query.email,
-            subject: "Reply to your query",
-            html: `<p>Hello ${query.name},</p><p>Thank you for your query. Here is our reply:</p><p>${reply}</p>`
-        });
-        query.reply = reply;
-        await query.save();
-        return res.status(200).json({ success: true, message: "Reply sent successfully" });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  try {
+    const { queryId, reply } = req.body;
+    const query = await Query.findById(queryId);
+    if (!query) {
+      return res.status(404).json({ success: false, message: "Query not found" });
     }
+
+    //send mail to user
+    await sendEmail({
+      to: query.email,
+      subject: "Reply to your query",
+      html: `<p>Hello ${query.name},</p><p>Thank you for your query. Here is our reply:</p><p>${reply}</p>`
+    });
+    query.reply = reply;
+    await query.save();
+    return res.status(200).json({ success: true, message: "Reply sent successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
 };
 
 
@@ -86,289 +86,289 @@ export const replyToQuery = async (req, res) => {
 //Projects 
 
 export const createProject = async (req, res) => {
-    try {
-        const {
-            category,
-            name,
-            type,
-            city,
-            state,
-            stage,
-            targetHold,
-            minCommitment,
-            targetReturn,
-            risk,
-            description,
-            rera,
-        } = req.body;
+  try {
+    const {
+      category,
+      name,
+      type,
+      city,
+      state,
+      stage,
+      targetHold,
+      minCommitment,
+      targetReturn,
+      risk,
+      description,
+      rera,
+    } = req.body;
 
-        /* ================= BASIC VALIDATION ================= */
-        if (
-            !category ||
-            !name ||
-            !type ||
-            !city ||
-            !state ||
-            !stage ||
-            !targetHold ||
-            !minCommitment ||
-            !targetReturn ||
-            !risk ||
-            !description
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "All required fields must be provided",
-            });
-        }
-
-        /* ================= CATEGORY VALIDATION ================= */
-        if (category === "real_estate" && !rera) {
-            return res.status(400).json({
-                success: false,
-                message: "RERA number is required for real estate projects",
-            });
-        }
-
-        if (category === "startup" && rera) {
-            return res.status(400).json({
-                success: false,
-                message: "RERA is not applicable for startup projects",
-            });
-        }
-
-        /* ================= IMAGE UPLOAD ================= */
-        let images = [];
-
-        if (req.files && req.files.length > 0) {
-            const uploadPromises = req.files.map((file) =>
-                uploadImageToCloudinary(file.buffer, "projects")
-            );
-
-            const uploadResults = await Promise.all(uploadPromises);
-
-            images = uploadResults.map((img) => ({
-                url: img.url,
-                public_id: img.public_id,
-            }));
-        }
-
-        /* ================= HIGHLIGHTS ================= */
-        const highlights = req.body.highlights
-            ? JSON.parse(req.body.highlights)
-            : [];
-
-        /* ================= CREATE PROJECT ================= */
-        const project = await Project.create({
-            category,
-            name,
-            type,
-            city,
-            state,
-            rera: rera || null,
-            stage,
-            targetHold,
-            minCommitment,
-            targetReturn,
-            risk,
-            description,
-            images,
-            highlights,
-        });
-
-        return res.status(201).json({
-            success: true,
-            message: "Project created successfully",
-            project,
-        });
-    } catch (error) {
-        console.error("Create Project Error:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Failed to create project",
-            error: error.message,
-        });
+    /* ================= BASIC VALIDATION ================= */
+    if (
+      !category ||
+      !name ||
+      !type ||
+      !city ||
+      !state ||
+      !stage ||
+      !targetHold ||
+      !minCommitment ||
+      !targetReturn ||
+      !risk ||
+      !description
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be provided",
+      });
     }
+
+    /* ================= CATEGORY VALIDATION ================= */
+    if (category === "real_estate" && !rera) {
+      return res.status(400).json({
+        success: false,
+        message: "RERA number is required for real estate projects",
+      });
+    }
+
+    if (category === "startup" && rera) {
+      return res.status(400).json({
+        success: false,
+        message: "RERA is not applicable for startup projects",
+      });
+    }
+
+    /* ================= IMAGE UPLOAD ================= */
+    let images = [];
+
+    if (req.files && req.files.length > 0) {
+      const uploadPromises = req.files.map((file) =>
+        uploadImageToCloudinary(file.buffer, "projects")
+      );
+
+      const uploadResults = await Promise.all(uploadPromises);
+
+      images = uploadResults.map((img) => ({
+        url: img.url,
+        public_id: img.public_id,
+      }));
+    }
+
+    /* ================= HIGHLIGHTS ================= */
+    const highlights = req.body.highlights
+      ? JSON.parse(req.body.highlights)
+      : [];
+
+    /* ================= CREATE PROJECT ================= */
+    const project = await Project.create({
+      category,
+      name,
+      type,
+      city,
+      state,
+      rera: rera || null,
+      stage,
+      targetHold,
+      minCommitment,
+      targetReturn,
+      risk,
+      description,
+      images,
+      highlights,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Project created successfully",
+      project,
+    });
+  } catch (error) {
+    console.error("Create Project Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to create project",
+      error: error.message,
+    });
+  }
 };
 
 export const updateProject = async (req, res) => {
-    try {
-        const { projectId } = req.params;
+  try {
+    const { projectId } = req.params;
 
-        /* ================= FIND PROJECT ================= */
-        const project = await Project.findById(projectId);
+    /* ================= FIND PROJECT ================= */
+    const project = await Project.findById(projectId);
 
-        if (!project) {
-            return res.status(404).json({
-                success: false,
-                message: "Project not found",
-            });
-        }
-
-        const {
-            category,
-            name,
-            type,
-            city,
-            state,
-            stage,
-            targetHold,
-            minCommitment,
-            targetReturn,
-            risk,
-            description,
-            rera,
-        } = req.body || {};
-
-
-        /* ================= CATEGORY VALIDATION ================= */
-        const finalCategory = category || project.category;
-
-        if (finalCategory === "real_estate" && !rera && !project.rera) {
-            return res.status(400).json({
-                success: false,
-                message: "RERA number is required for real estate projects",
-            });
-        }
-
-        if (finalCategory === "startup" && rera) {
-            return res.status(400).json({
-                success: false,
-                message: "RERA is not applicable for startup projects",
-            });
-        }
-
-        /* ================= UPDATE FIELDS ================= */
-        const updatableFields = {
-            category,
-            name,
-            type,
-            city,
-            state,
-            stage,
-            targetHold,
-            minCommitment,
-            targetReturn,
-            risk,
-            description,
-        };
-
-        Object.keys(updatableFields).forEach((key) => {
-            if (updatableFields[key] !== undefined) {
-                project[key] = updatableFields[key];
-            }
-        });
-
-        /* ================= RERA ================= */
-        if (finalCategory === "real_estate") {
-            project.rera = rera ?? project.rera;
-        } else {
-            project.rera = null;
-        }
-
-        /* ================= HIGHLIGHTS ================= */
-        if (req.body.highlights) {
-            project.highlights = JSON.parse(req.body.highlights);
-        }
-
-        /* ================= SAVE ================= */
-        await project.save();
-
-        return res.status(200).json({
-            success: true,
-            message: "Project updated successfully",
-            project,
-        });
-    } catch (error) {
-        console.error("Update Project Error:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Error updating project",
-            error: error.message,
-        });
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found",
+      });
     }
+
+    const {
+      category,
+      name,
+      type,
+      city,
+      state,
+      stage,
+      targetHold,
+      minCommitment,
+      targetReturn,
+      risk,
+      description,
+      rera,
+    } = req.body || {};
+
+
+    /* ================= CATEGORY VALIDATION ================= */
+    const finalCategory = category || project.category;
+
+    if (finalCategory === "real_estate" && !rera && !project.rera) {
+      return res.status(400).json({
+        success: false,
+        message: "RERA number is required for real estate projects",
+      });
+    }
+
+    if (finalCategory === "startup" && rera) {
+      return res.status(400).json({
+        success: false,
+        message: "RERA is not applicable for startup projects",
+      });
+    }
+
+    /* ================= UPDATE FIELDS ================= */
+    const updatableFields = {
+      category,
+      name,
+      type,
+      city,
+      state,
+      stage,
+      targetHold,
+      minCommitment,
+      targetReturn,
+      risk,
+      description,
+    };
+
+    Object.keys(updatableFields).forEach((key) => {
+      if (updatableFields[key] !== undefined) {
+        project[key] = updatableFields[key];
+      }
+    });
+
+    /* ================= RERA ================= */
+    if (finalCategory === "real_estate") {
+      project.rera = rera ?? project.rera;
+    } else {
+      project.rera = null;
+    }
+
+    /* ================= HIGHLIGHTS ================= */
+    if (req.body.highlights) {
+      project.highlights = JSON.parse(req.body.highlights);
+    }
+
+    /* ================= SAVE ================= */
+    await project.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Project updated successfully",
+      project,
+    });
+  } catch (error) {
+    console.error("Update Project Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Error updating project",
+      error: error.message,
+    });
+  }
 };
 
 
 export const uploadProjectImages = async (req, res) => {
-    try {
-        const { projectId } = req.body;
+  try {
+    const { projectId } = req.body;
 
-        if (!projectId) {
-            return res.status(400).json({
-                success: false,
-                message: "Project ID is required",
-            });
-        }
-
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: "At least one image file is required",
-            });
-        }
-
-        /* ================= FIND PROJECT ================= */
-        const project = await Project.findById(projectId);
-
-        if (!project) {
-            return res.status(404).json({
-                success: false,
-                message: "Project not found",
-            });
-        }
-
-        /* ================= UPLOAD IMAGES ================= */
-        const uploadPromises = req.files.map((file) =>
-            uploadImageToCloudinary(file.buffer, "projects")
-        );
-
-        const uploadedImages = await Promise.all(uploadPromises);
-
-        const newImages = uploadedImages.map((img) => ({
-            url: img.url,
-            public_id: img.public_id,
-        }));
-
-        /* ================= APPEND IMAGES ================= */
-        project.images.push(...newImages);
-
-        /* ================= SAVE ================= */
-        await project.save();
-
-        return res.status(200).json({
-            success: true,
-            message: "Images uploaded successfully",
-            images: newImages,
-            project,
-        });
-    } catch (error) {
-        console.error("Upload Project Images Error:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Failed to upload project images",
-            error: error.message,
-        });
+    if (!projectId) {
+      return res.status(400).json({
+        success: false,
+        message: "Project ID is required",
+      });
     }
+
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "At least one image file is required",
+      });
+    }
+
+    /* ================= FIND PROJECT ================= */
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found",
+      });
+    }
+
+    /* ================= UPLOAD IMAGES ================= */
+    const uploadPromises = req.files.map((file) =>
+      uploadImageToCloudinary(file.buffer, "projects")
+    );
+
+    const uploadedImages = await Promise.all(uploadPromises);
+
+    const newImages = uploadedImages.map((img) => ({
+      url: img.url,
+      public_id: img.public_id,
+    }));
+
+    /* ================= APPEND IMAGES ================= */
+    project.images.push(...newImages);
+
+    /* ================= SAVE ================= */
+    await project.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Images uploaded successfully",
+      images: newImages,
+      project,
+    });
+  } catch (error) {
+    console.error("Upload Project Images Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to upload project images",
+      error: error.message,
+    });
+  }
 };
 
 
 export const deleteProject = async (req, res) => {
-    try {
-        const { projectId } = req.params;
-        const project = await Project.findByIdAndDelete(projectId);
+  try {
+    const { projectId } = req.params;
+    const project = await Project.findByIdAndDelete(projectId);
 
-        if (!project) {
-            return res.status(404).json({ success: false, message: "Project not found" });
-        }
-        return res.status(200).json({ success: true, message: "Project deleted successfully" });
+    if (!project) {
+      return res.status(404).json({ success: false, message: "Project not found" });
     }
-    catch (error) {
-        return res.status(500).json({ success: false, message: "Error deleting project", error: error.message });
-    }
+    return res.status(200).json({ success: true, message: "Project deleted successfully" });
+  }
+  catch (error) {
+    return res.status(500).json({ success: false, message: "Error deleting project", error: error.message });
+  }
 };
 
 
@@ -378,7 +378,7 @@ export const deleteProject = async (req, res) => {
 
 export const updateInvestmentStatus = async (req, res) => {
   try {
-    const { investmentId, status, cancelReason="" } = req.body;
+    const { investmentId, status, cancelReason = "" } = req.body;
 
     if (!investmentId || !status) {
       return res.status(400).json({
@@ -510,7 +510,7 @@ export const getInvestments = async (req, res) => {
         select: "fullName email image",
       })
       .sort({ createdAt: -1 })
-      .lean(); 
+      .lean();
 
     return res.status(200).json({
       success: true,
@@ -570,7 +570,7 @@ export const getInvestmentById = async (req, res) => {
 
     // Fetch and attach Razorpay payment details if available
     const paymentId = investment?.transaction?.razorpay_payment_id;
-    
+
     if (paymentId) {
       try {
         const razorpayPayment = await instance.payments.fetch(paymentId);
@@ -588,7 +588,7 @@ export const getInvestmentById = async (req, res) => {
     }
 
     return res.status(200).json(response);
-    
+
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -602,46 +602,46 @@ export const getInvestmentById = async (req, res) => {
 //Payment Gateway
 
 export const getPaymentHistory = async (req, res) => {
-    try {
+  try {
 
-        const {count = 20, skip = 0} = req.query;
-        const payments = await instance.payments.all({ count, skip});
+    const { count = 20, skip = 0 } = req.query;
+    const payments = await instance.payments.all({ count, skip });
 
-        return res.status(200).json({
-            success: true,
-            payments: payments.items,
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Error retrieving payment history",
-            error: error.message,
-        });
-    }
+    return res.status(200).json({
+      success: true,
+      payments: payments.items,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving payment history",
+      error: error.message,
+    });
+  }
 };
 
 export const getPaymentDetails = async (req, res) => {
-    try {
-        const { paymentId } = req.query;
+  try {
+    const { paymentId } = req.query;
 
-        if (!paymentId) {
-            return res.status(400).json({
-                success: false,
-                message: "paymentId query parameter is required",
-            });
-        }
-        const payment = await instance.payments.fetch(paymentId);
-        return res.status(200).json({
-            success: true,
-            payment,
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Error retrieving payment details",
-            error: error.message,
-        });
+    if (!paymentId) {
+      return res.status(400).json({
+        success: false,
+        message: "paymentId query parameter is required",
+      });
     }
+    const payment = await instance.payments.fetch(paymentId);
+    return res.status(200).json({
+      success: true,
+      payment,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving payment details",
+      error: error.message,
+    });
+  }
 };
 
 
@@ -649,20 +649,20 @@ export const getPaymentDetails = async (req, res) => {
 //users
 
 export const getUsers = async (req, res) => {
-    try {
-        const users = await User.find().select("-password").sort({ createdAt: -1 });
+  try {
+    const users = await User.find().select("-password").sort({ createdAt: -1 });
 
-        return res.status(200).json({
-            success: true,
-            users,
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Error retrieving users",
-            error: error.message,
-        });
-    }
+    return res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving users",
+      error: error.message,
+    });
+  }
 };
 
 export const getUserById = async (req, res) => {
@@ -670,25 +670,25 @@ export const getUserById = async (req, res) => {
     const { userId } = req.body;
     const user = await User.findById(userId).select("-password");
 
-    if (!user) {    
-        return res.status(404).json({   
-            success: false,    
-            message: "User not found",    
-        });    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
 
     const decryptedPhone = decrypt(user.phone);
     user.phone = decryptedPhone;
-    return res.status(200).json({    
-        success: true,    
-        user,    
-    });    
+    return res.status(200).json({
+      success: true,
+      user,
+    });
   } catch (error) {
-    return res.status(500).json({    
-        success: false,    
-        message: "Error retrieving user",
-        error: error.message,    
-    });    
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving user",
+      error: error.message,
+    });
   }
 };
 
@@ -963,17 +963,34 @@ export const getDashboardData = async (req, res) => {
   }
 };
 
+
+
+
 /* ================= FUNDING ================= */
 
 export const verifyFunding = async (req, res) => {
   try {
-    const { fundingId, status, approvedAmount, interestRate, notes, rejectionReason } = req.body;
+    const {
+      fundingId,
+      status,
+      approvedAmount,
+      interestRate,
+      notes,
+      rejectionReason,
+    } = req.body;
 
-    // Validate
+    // 🔹 Basic validation
     if (!fundingId || !status) {
       return res.status(400).json({
         success: false,
         message: "fundingId and status are required",
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(fundingId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid fundingId",
       });
     }
 
@@ -993,43 +1010,125 @@ export const verifyFunding = async (req, res) => {
       });
     }
 
-    // Update verification object
-    funding.verification = funding.verification || {};
-    funding.verification.reviewedAt = new Date();
+    // 🔹 Get or create verification record
+    let verification = await Verification.findOne({ funding: fundingId });
+    if (!verification) {
+      verification = new Verification({ funding: fundingId });
+    }
+
+    // 🔹 Update verification
+    verification.reviewedAt = new Date();
 
     if (status === "approved") {
-      if (!approvedAmount || !interestRate) {
+      if (approvedAmount == null || interestRate == null) {
         return res.status(400).json({
           success: false,
-          message: "approvedAmount and interestRate are required for approval",
+          message: "Approved amount and interest rate are required",
         });
       }
 
-      funding.verification.approvedAmount = parseFloat(approvedAmount);
-      funding.verification.interestRate = parseFloat(interestRate);
-      funding.verification.notes = notes || "";
-      funding.verification.rejectionReason = undefined;
-    } else if (status === "rejected") {
+      verification.approvedAmount = Number(approvedAmount);
+      verification.interestRate = Number(interestRate);
+      verification.notes = notes?.trim() || "";
+
+      // remove rejection fields
+      verification.rejectionReason = undefined;
+    }
+
+    if (status === "rejected") {
       if (!rejectionReason) {
         return res.status(400).json({
           success: false,
-          message: "rejectionReason is required for rejection",
+          message: "Rejection reason is required",
         });
       }
 
-      funding.verification.rejectionReason = rejectionReason;
-      funding.verification.approvedAmount = undefined;
-      funding.verification.interestRate = undefined;
-      funding.verification.notes = undefined;
+      verification.rejectionReason = rejectionReason.trim();
+      verification.notes = notes?.trim() || "";
+
+      // remove approval fields
+      verification.approvedAmount = undefined;
+      verification.interestRate = undefined;
     }
 
+    await verification.save();
+
+    // 🔹 Update funding status and reference
     funding.status = status;
+    funding.verification = verification._id;
 
     await funding.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: `Funding request ${status} successfully`,
+      data: funding,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+export const requestAdditionalDocuments = async (req, res) => {
+  try {
+    const { fundingId, message } = req.body;
+
+    // 🔹 Validation
+    if (!fundingId || !message) {
+      return res.status(400).json({
+        success: false,
+        message: "fundingId and message are required",
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(fundingId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid fundingId",
+      });
+    }
+
+    const funding = await Funding.findById(fundingId);
+
+    if (!funding) {
+      return res.status(404).json({
+        success: false,
+        message: "Funding not found",
+      });
+    }
+
+    // 🔹 Get or create verification record
+    let verification = await Verification.findOne({ funding: fundingId });
+    if (!verification) {
+      verification = new Verification({ funding: fundingId });
+    }
+
+    // 🔹 Push request
+    verification.extraRequests.push({
+      message: message.trim(),
+      requestedAt: new Date(),
+      files: [],
+    });
+
+    await verification.save();
+
+    // 🔹 Update funding reference if not set
+    if (!funding.verification) {
+      funding.verification = verification._id;
+      await funding.save();
+    }
+
+    // 🔹 Optional: move status back to review
+    funding.status = "under_review";
+    await funding.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Additional documents requested successfully",
       data: funding,
     });
   } catch (error) {
@@ -1044,7 +1143,8 @@ export const verifyFunding = async (req, res) => {
 export const getFundingById = async (req, res) => {
   try {
     const funding = await Funding.findById(req.params.id)
-      .populate("user", "fullName email image phone city address panNumber");
+      .populate("user", "fullName email image phone city address")
+      .populate("verification");
 
     if (!funding) {
       return res.status(404).json({
@@ -1079,6 +1179,7 @@ export const getAllFundingsForAdmin = async (req, res) => {
 
     const data = await Funding.find(query)
       .populate("user", "fullName email image phone city address panNumber")
+      .populate("verification")
       .sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -1095,57 +1196,6 @@ export const getAllFundingsForAdmin = async (req, res) => {
   }
 };
 
-export const requestAdditionalDocuments = async (req, res) => {
-  try {
-    const { fundingId, message } = req.body;
-
-    if (!fundingId || !message) {
-      return res.status(400).json({
-        success: false,
-        message: "fundingId and message are required",
-      });
-    }
-
-    const funding = await Funding.findById(fundingId);
-
-    if (!funding) {
-      return res.status(404).json({
-        success: false,
-        message: "Funding not found",
-      });
-    }
-
-    // Initialize verification and extraRequests if not exists
-    if (!funding.verification) {
-      funding.verification = {};
-    }
-    if (!funding.verification.extraRequests) {
-      funding.verification.extraRequests = [];
-    }
-
-    // Add new request
-    const newRequest = {
-      message,
-      requestedAt: new Date(),
-      files: [],
-    };
-
-    funding.verification.extraRequests.push(newRequest);
-    await funding.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Additional documents requested successfully",
-      data: funding,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-      error: error.message,
-    });
-  }
-};
 
 
 

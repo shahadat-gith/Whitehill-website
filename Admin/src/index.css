@@ -139,6 +139,7 @@ body {
    justify-content: center;
    gap: var(--space-xs);
    text-decoration: none;
+   
 }
 
 /* Primary Button */

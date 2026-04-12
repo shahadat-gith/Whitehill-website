@@ -26,15 +26,24 @@ const fundingSchema = new Schema(
 
     fundDetails: {
       amount: { type: Number, required: true },
-      tenureMonths: Number,
-      purpose: String,
+      tenureMonths: { type: Number },
+      purpose: { type: String, trim: true },
     },
 
-    disclosures: disclosuresSchema,
+    disclosures: {
+      type: disclosuresSchema,
+      default: {},
+    },
 
-    riskFactors: [String],
+    riskFactors: {
+      type: [String],
+      default: [],
+    },
 
-    documents: documentsSchema,
+    documents: {
+      type: documentsSchema,
+      default: {},
+    },
 
     consent: {
       agreedToTerms: { type: Boolean, required: true },
@@ -46,44 +55,25 @@ const fundingSchema = new Schema(
       },
     },
 
-
-    //for admin verification process
-
+    // ✅ Reference to separate Verification model
     verification: {
-      //in case any document is missing or needs clarification, admin can request additional documents or information from the user
-      extraRequests: [
-        {
-          message: String,
-          requestedAt: {
-            type: Date,
-            default: Date.now,
-          },
-
-          files: [
-            {
-              url: String,
-              public_id: String,
-            }
-          ]
-        },
-      ],
-
-      approvedAmount: Number,
-      interestRate: Number,
-      notes: String,
-      rejectionReason: String,
-      reviewedAt: Date,
+      type: Schema.Types.ObjectId,
+      ref: "Verification",
     },
   },
   {
     timestamps: true,
     discriminatorKey: "type",
-  });
+  }
+);
 
-
-
-// ✅ INDEXES
+// ✅ INDEXES (optimized for real-world queries)
 fundingSchema.index({ createdAt: -1 });
+fundingSchema.index({ user: 1, createdAt: -1 });
+fundingSchema.index({ status: 1, createdAt: -1 });
+
+// ✅ Prevent empty objects from being saved
+fundingSchema.set("minimize", true);
 
 const Funding = mongoose.models.Funding || mongoose.model("Funding", fundingSchema);
 

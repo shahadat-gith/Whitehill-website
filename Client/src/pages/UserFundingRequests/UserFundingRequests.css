@@ -1,199 +1,246 @@
 /* ============================================================
-   USER FUNDING REQUESTS — CSS
+   USER FUNDING DASHBOARD — Full Width Key:Value Cards
    ============================================================ */
 
-.ufr-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  font-family: 'Poppins', sans-serif;
+.ufr-page {
+  max-width: 1400px;
+  margin: 3rem auto;
+  padding: 0 2rem;
 }
 
-/* ── Header ─────────────────────────────────────────────── */
-.ufr-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  border-bottom: 1px solid var(--border-default);
-  padding-bottom: 24px;
+.ufr-header-simple {
+  margin-bottom: 2.5rem;
+  border-left: 4px solid var(--color-primary);
+  padding-left: 1.5rem;
 }
 
 .ufr-title {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text-heading);
-  margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .ufr-subtitle {
   color: var(--text-muted);
-  margin-top: 4px;
+  font-size: 1rem;
 }
 
-.ufr-new-request-btn {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+/* ── LIST CONTAINER ── */
+.ufr-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.ufr-new-request-btn:hover {
-  background: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-/* ── Grid & Card ────────────────────────────────────────── */
-.ufr-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 24px;
-}
-
+/* ── FULL WIDTH CARD ── */
 .ufr-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
   border-radius: 20px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+/* Card Status Accent */
+.ufr-card-status-bar {
+  padding: 8px 24px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ufr-card-content {
   padding: 24px;
-  transition: all 0.3s ease;
+}
+
+/* ── KEY:VALUE GRID ── */
+.ufr-data-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.ufr-data-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ufr-data-item label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.ufr-data-item span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.ufr-amount {
+  color: var(--color-primary) !important;
+  font-size: 1.1rem !important;
+}
+
+.ufr-ref-id {
+  font-family: monospace;
+  color: var(--text-muted) !important;
+}
+
+/* ── APPROVAL PANEL ── */
+.ufr-approval-panel {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border-subtle);
+}
+
+.ufr-approval-stat {
   display: flex;
   flex-direction: column;
 }
 
-.ufr-card:hover {
-  box-shadow: var(--shadow-medium);
-  border-color: var(--color-accent);
-}
-
-.ufr-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.ufr-date {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-/* ── Badges ─────────────────────────────────────────────── */
-.ufr-badge {
-  padding: 6px 14px;
-  border-radius: 99px;
-  font-size: 0.75rem;
+.ufr-approval-stat label {
+  font-size: 0.65rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.status-pending { background: var(--accent-soft-gold); color: #b45309; }
-.status-approved { background: var(--accent-soft-green); color: var(--status-success); }
-.status-rejected { background: var(--accent-soft-red); color: var(--status-error); }
-
-/* ── Card Body ──────────────────────────────────────────── */
-.ufr-main-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.ufr-info-group label {
-  display: block;
-  font-size: 0.7rem;
+  color: #64748b;
   text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 700;
-  margin-bottom: 4px;
 }
 
-.ufr-info-group h3 {
-  font-size: 1.5rem;
+.ufr-approved-amt {
+  font-size: 1.1rem;
   font-weight: 800;
-  color: var(--color-primary);
-  margin: 0;
+  color: var(--status-success);
 }
 
-.ufr-purpose {
-  margin-bottom: 24px;
-}
-
-.ufr-purpose label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 700;
-}
-
-.ufr-purpose p {
+.ufr-interest {
   font-size: 0.9rem;
-  color: var(--text-body);
-  margin: 4px 0 0;
-  line-height: 1.5;
-}
-
-/* ── Review Boxes ───────────────────────────────────────── */
-.ufr-review-box {
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--bg-muted);
-  border: 1px solid var(--border-default);
-}
-
-.ufr-review-box.approved { border-left: 4px solid var(--status-success); }
-.ufr-review-box.rejected { border-left: 4px solid var(--status-error); }
-
-.review-header {
-  font-size: 0.85rem;
   font-weight: 700;
-  margin-bottom: 12px;
   color: var(--text-heading);
 }
 
-.review-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.review-item span {
-  display: block;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-.review-item strong {
-  font-size: 0.95rem;
-  color: var(--text-heading);
-}
-
+/* ── ACTION BUTTONS ── */
 .ufr-action-btn {
-  width: 100%;
-  padding: 10px;
-  background: white;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.2s;
+  border: 1.5px solid transparent;
+  transition: 0.2s;
 }
 
-.ufr-action-btn:hover {
-  background: var(--bg-muted);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+.ufr-btn-download {
+  background: var(--color-primary);
+  color: white;
 }
 
-/* ── Loader ─────────────────────────────────────────────── */
-.ufr-loader-container {
+.ufr-btn-download:hover {
+  background: #1a368d;
+}
+
+.ufr-btn-disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* ── ALERTS & REJECTIONS ── */
+.ufr-alert-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ufr-doc-alert {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  padding: 12px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ufr-doc-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #c53030;
+}
+
+.ufr-doc-info p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.ufr-upload-btn {
+  background: #c53030;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.ufr-rejection-msg {
+  background: #fef2f2;
+  color: #991b1b;
+  padding: 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.ufr-info-msg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 10px 0;
+}
+
+/* ── STATUS THEMES ── */
+.ufr-status-pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.ufr-status-approved {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.ufr-status-rejected {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* ── UTILS ── */
+.ufr-loading-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,22 +248,48 @@
   height: 60vh;
 }
 
-.ufr-spinner {
+.ufr-loader {
   width: 40px;
   height: 40px;
-  border: 4px solid var(--bg-muted);
-  border-top-color: var(--color-accent);
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid var(--color-primary);
   border-radius: 50%;
-  animation: spin 1s infinite linear;
-  margin-bottom: 16px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@media (max-width: 640px) {
-  .ufr-grid { grid-template-columns: 1fr; }
-  .ufr-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .ufr-new-request-btn { width: 100%; }
+/* ── RESPONSIVE ── */
+@media (max-width: 850px) {
+  .ufr-data-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ufr-approval-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .ufr-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .ufr-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ufr-doc-alert {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
 }

@@ -29,16 +29,6 @@ const Document = ({ doc }) => {
         >
           <i className="fa-solid fa-eye"></i>
         </a>
-
-        {/* APPROVE ACTION */}
-        <button className="dm-doc-approve" title="Approve">
-          <i className="fa-solid fa-check"></i>
-        </button>
-
-        {/* REJECT ACTION */}
-        <button className="dm-doc-reject" title="Reject">
-          <i className="fa-solid fa-xmark"></i>
-        </button>
       </div>
     </div>
   );

@@ -1,0 +1,214 @@
+/* ================================
+   1. MODAL OVERLAY & DIALOG
+================================ */
+.pim-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.pim-modal {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* ================================
+   2. HEADER & TABS
+================================ */
+.pim-header {
+  padding: 1.5rem;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pim-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pim-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pim-close:hover {
+  color: var(--color-error);
+}
+
+.pim-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg-main);
+  padding: 4px;
+  margin: 1.5rem 1.5rem 0;
+  border-radius: 10px;
+}
+
+.pim-tab {
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.pim-tab i { font-size: 14px; }
+
+.pim-tab.active {
+  background: var(--bg-card);
+  color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ================================
+   3. CONTENT & FORM
+================================ */
+.pim-content {
+  padding: 1.5rem;
+}
+
+.pim-amount-summary {
+  background: var(--color-primary-soft);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pim-amount-summary span {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.pim-amount-summary strong {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-family: 'ui-monospace', monospace;
+}
+
+.pim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pim-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pim-form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pim-form-group input, 
+.pim-form-group select {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pim-form-group input:focus {
+  border-color: var(--color-primary);
+}
+
+/* ================================
+   4. BUTTONS
+================================ */
+.pim-confirm-btn, 
+.pim-rzp-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s active, opacity 0.2s;
+}
+
+.pim-confirm-btn {
+  background: var(--color-primary);
+  color: #fff;
+  margin-top: 10px;
+}
+
+.pim-razorpay-content {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.pim-razorpay-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.pim-rzp-btn {
+  background: #1e3a8a; /* Razorpay Blue */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pim-confirm-btn:disabled, 
+.pim-rzp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

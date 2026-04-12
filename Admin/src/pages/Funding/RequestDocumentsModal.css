@@ -209,7 +209,7 @@ textarea:disabled {
   gap: var(--space-sm);
   padding: var(--space-lg);
   border-top: 1px solid var(--border-color);
-  background: var(--bg-muted);
+ 
 }
 
 .rdm-footer .btn {

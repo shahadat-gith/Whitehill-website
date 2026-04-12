@@ -2,162 +2,208 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../configs/axios";
 import "./UserFundingRequests.css";
+import ExtraDocumentUploadModal from "./ExtraDocumentUploadModal";
+import { generateInvoicePDF } from "./generateInvoice";
+import { formatCurrency,formatDate } from "../../utils/utility";
 
 const UserFundingRequests = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+
   const [fundingRequests, setFundingRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchFundingRequests = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await api.get(`/api/funding/user/${userId}`);
-        setFundingRequests(response.data.data || []);
-      } catch (err) {
-        setError(err.response?.data?.message || "Failed to load funding requests");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [downloadingInvoice, setDownloadingInvoice] = useState(null);
 
+  const fetchFundingRequests = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await api.get(`/api/funding/user/${userId}`);
+      setFundingRequests(response.data.data || []);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to load funding requests");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     if (userId) fetchFundingRequests();
   }, [userId]);
 
+  const handleDownloadInvoice = async (fundingId) => {
+    try {
+      setDownloadingInvoice(fundingId);
+      const response = await api.get(`/api/funding/invoice/${fundingId}`);
+      if (response.data.success) {
+        await generateInvoicePDF(response.data.data);
+      }
+    } catch (error) {
+      console.error("Invoice download failed:", error);
+    } finally {
+      setDownloadingInvoice(null);
+    }
+  };
+
   const getStatusConfig = (status) => {
     const config = {
-      under_review: { class: "status-pending", label: "Under Review", icon: "fa-clock" },
-      approved: { class: "status-approved", label: "Approved", icon: "fa-circle-check" },
-      rejected: { class: "status-rejected", label: "Rejected", icon: "fa-circle-xmark" },
+      under_review: { class: "ufr-status-pending", label: "Under Review", icon: "fa-clock" },
+      approved: { class: "ufr-status-approved", label: "Approved", icon: "fa-check-circle" },
+      rejected: { class: "ufr-status-rejected", label: "Rejected", icon: "fa-times-circle" },
     };
     return config[status] || config["under_review"];
   };
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(amount || 0);
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-IN", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  if (loading) {
+  
+  if (loading)
     return (
-      <div className="ufr-loader-container">
-        <div className="ufr-spinner"></div>
-        <p>Syncing your financial requests...</p>
+      <div className="ufr-loading-screen">
+        <div className="ufr-loader"></div>
+        <p>Synchronizing Ledger...</p>
       </div>
     );
-  }
 
   return (
-    <div className="ufr-container">
-      <header className="ufr-header">
-        <div className="ufr-header-text">
-          <h1 className="ufr-title">My Funding Dashboard</h1>
-          <p className="ufr-subtitle">Monitor and manage your capital applications in real-time.</p>
-        </div>
-      </header>
+    <div className="ufr-page">
+      <div className="ufr-header-simple">
+        <h1 className="ufr-title">Funding Dashboard</h1>
+        <p className="ufr-subtitle">Monitor your funding lifecycle and active disbursements.</p>
+      </div>
 
-      <main className="ufr-content">
-        {error && (
-          <div className="ufr-error-card">
-            <i className="fas fa-exclamation-triangle"></i>
-            <p>{error}</p>
-          </div>
-        )}
-
-        {fundingRequests.length === 0 && !error ? (
-          <div className="ufr-empty-state">
-            <div className="ufr-empty-icon">
-              <i className="fas fa-folder-open"></i>
-            </div>
-            <h2>No requests found</h2>
-            <p>You haven't submitted any funding applications yet.</p>
-            <button className="ufr-empty-btn" onClick={() => navigate("/funding?type=startup")}>
-              Get Started
-            </button>
+      <div className="ufr-list-container">
+        {fundingRequests.length === 0 ? (
+          <div className="ufr-empty-box">
+            <i className="fas fa-folder-open"></i>
+            <p>No active funding applications found.</p>
           </div>
         ) : (
-          <div className="ufr-grid">
-            {fundingRequests.map((request) => {
-              const status = getStatusConfig(request.status);
-              return (
-                <article key={request._id} className="ufr-card">
-                  <div className="ufr-card-header">
-                    <span className="ufr-date">
-                      <i className="far fa-calendar-alt"></i> {formatDate(request.createdAt)}
-                    </span>
-                    <div className={`ufr-badge ${status.class}`}>
-                      <i className={`fas ${status.icon}`}></i> {status.label}
+          fundingRequests.map((request) => {
+            const status = getStatusConfig(request.status);
+            const isPaid = request.status === "approved" && request.payment;
+
+            return (
+              <div key={request._id} className="ufr-card">
+                {/* Status Ribbon/Badge */}
+                <div className={`ufr-card-status-bar ${status.class}`}>
+                  <i className={`fas ${status.icon}`}></i> {status.label}
+                </div>
+
+                <div className="ufr-card-content">
+                  <div className="ufr-data-grid">
+                    {/* Key:Value Pairs */}
+                    <div className="ufr-data-item">
+                      <label>Submission Date</label>
+                      <span className="ufr-date">{formatDate(request.createdAt)}</span>
+                    </div>
+
+                    <div className="ufr-data-item">
+                      <label>Application Purpose</label>
+                      <span className="ufr-purpose">{request.purpose}</span>
+                    </div>
+
+                    <div className="ufr-data-item">
+                      <label>Capital Amount</label>
+                      <span className="ufr-amount">{formatCurrency(request.amount)}</span>
+                    </div>
+
+                    <div className="ufr-data-item">
+                      <label>Reference ID</label>
+                      <span className="ufr-ref-id">#{request._id.slice(-8).toUpperCase()}</span>
                     </div>
                   </div>
 
-                  <div className="ufr-card-body">
-                    <div className="ufr-main-info">
-                      <div className="ufr-info-group">
-                        <label>Requested Capital</label>
-                        <h3>{formatCurrency(request.amount)}</h3>
+                  {/* Approved Stats Section */}
+                  {request.status === "approved" && (
+                    <div className="ufr-approval-panel">
+                      <div className="ufr-approval-stat">
+                        <label>Approved Principal</label>
+                        <span className="ufr-approved-amt">{formatCurrency(request.approvedAmount)}</span>
                       </div>
-                      <div className="ufr-info-group">
-                        <label>Tenure</label>
-                        <p>{request.tenureMonths || request.tenure} Months</p>
+                      <div className="ufr-approval-stat">
+                        <label>Annual Interest</label>
+                        <span className="ufr-interest">{request.interestRate}% APR</span>
                       </div>
-                    </div>
-
-                    <div className="ufr-purpose">
-                      <label>Purpose</label>
-                      <p>{request.purpose || "Business Expansion"}</p>
-                    </div>
-
-                    {/* Conditional Review Sections */}
-                    {request.status === "approved" && request.adminReview && (
-                      <div className="ufr-review-box approved">
-                        <div className="review-header">
-                          <i className="fas fa-file-invoice-dollar"></i> Approval Summary
-                        </div>
-                        <div className="review-grid">
-                          <div className="review-item">
-                            <span>Approved Amt</span>
-                            <strong>{formatCurrency(request.adminReview.approvedAmount)}</strong>
-                          </div>
-                          <div className="review-item">
-                            <span>Interest Rate</span>
-                            <strong>{request.adminReview.interestRate}% p.a.</strong>
-                          </div>
-                        </div>
-                        <button className="ufr-action-btn">
-                          <i className="fas fa-download"></i> Download Agreement
+                      <div className="ufr-approval-actions">
+                        <button
+                          className={`ufr-action-btn ${!isPaid ? "ufr-btn-disabled" : "ufr-btn-download"}`}
+                          onClick={() => isPaid && handleDownloadInvoice(request._id)}
+                          disabled={downloadingInvoice === request._id || !isPaid}
+                          title={!isPaid ? "Processing Disbursement" : "Download Invoice"}
+                        >
+                          {downloadingInvoice === request._id ? (
+                            <i className="fas fa-circle-notch fa-spin"></i>
+                          ) : !isPaid ? (
+                            <i className="fas fa-hourglass-half"></i>
+                          ) : (
+                            <i className="fas fa-file-invoice-dollar"></i>
+                          )}
+                          <span>{!isPaid ? "Settling Funds" : "Download Invoice"}</span>
                         </button>
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {request.status === "rejected" && (
-                      <div className="ufr-review-box rejected">
-                        <div className="review-header">
-                          <i className="fas fa-circle-info"></i> Feedback
+                  {/* Review Mode Text */}
+                  {request.status === "under_review" && !request.pendingRequests?.length && (
+                    <div className="ufr-info-msg">
+                      <i className="fas fa-shield-alt"></i>
+                      <span>Your application is currently being verified by our compliance team.</span>
+                    </div>
+                  )}
+
+                  {/* Expandable Alerts (Rejection/Document Requests) */}
+                  {(request.pendingRequests?.length > 0 || request.status === "rejected") && (
+                    <div className="ufr-alert-section">
+                      {request.status === "rejected" && (
+                        <div className="ufr-rejection-msg">
+                          <i className="fas fa-exclamation-circle"></i>
+                          <div>
+                            <strong>Application Rejected:</strong> {request.rejectionReason}
+                          </div>
                         </div>
-                        <p>{request.adminReview?.rejectionReason || "Incomplete documentation or eligibility criteria not met."}</p>
-                      </div>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                      )}
+
+                      {request.pendingRequests?.map((req) => (
+                        <div key={req._id} className="ufr-doc-alert">
+                          <div className="ufr-doc-info">
+                            <i className="fas fa-file-signature"></i>
+                            <p><strong>Compliance Action:</strong> {req.message}</p>
+                          </div>
+                          <button
+                            className="ufr-upload-btn"
+                            onClick={() => {
+                              setSelectedRequest({ fundingId: request._id, requestId: req._id });
+                              setShowUploadModal(true);
+                            }}
+                          >
+                            Upload Docs
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })
         )}
-      </main>
+      </div>
+
+      {showUploadModal && selectedRequest && (
+        <ExtraDocumentUploadModal
+          fundingId={selectedRequest.fundingId}
+          requestId={selectedRequest.requestId}
+          onClose={() => setShowUploadModal(false)}
+          onSuccess={() => {
+            setShowUploadModal(false);
+            fetchFundingRequests();
+          }}
+        />
+      )}
     </div>
   );
 };

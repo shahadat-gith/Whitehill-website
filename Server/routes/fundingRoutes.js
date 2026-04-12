@@ -88,4 +88,36 @@ fundingRouter.get(
   fundingController.getFundingById
 );
 
+
+// 📤 Upload documents for a specific admin request
+fundingRouter.post(
+  "/upload-request-documents",
+  authMiddleware,
+  upload.any(),
+  fundingController.uploadRequestedExtraDocuments
+);
+
+// 📄 Download invoice for approved funding
+fundingRouter.get(
+  "/invoice/:fundingId",
+  authMiddleware,
+  fundingController.downloadInvoice
+);
+
+// 💳 Payment Routes
+// Initiate payment (manual or razorpay)
+fundingRouter.post(
+  "/payment/initiate",
+  authMiddleware,
+  fundingController.initiatePayment
+);
+
+// Complete Razorpay payment
+fundingRouter.post(
+  "/payment/razorpay/complete",
+  authMiddleware,
+  fundingController.completeRazorpayPayment
+);
+
+
 export default fundingRouter;

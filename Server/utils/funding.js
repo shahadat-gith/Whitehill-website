@@ -93,3 +93,11 @@ export const formatErrorResponse = (error) => {
     message: "Server error. Please try again later.",
   };
 };
+
+export const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
