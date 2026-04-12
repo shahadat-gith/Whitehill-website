@@ -21,7 +21,7 @@ export const ABOUT_CONTENT = {
             "Under his leadership, Whitehill has evolved into a technology-first ecosystem where every investment is treated as a strategic partnership. His philosophy of 'Rigorous Diligence over Speculation' remains the bedrock of our platform."
         ],
         quote: "Our goal is not just to provide returns, but to provide certainty in an uncertain market through institutional-grade discipline.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
+        image: "/founder.jpeg"
     },
     story: {
         tag: "The Genesis",
