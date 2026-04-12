@@ -30,13 +30,6 @@ const Property = ({ funding }) => {
       </div>
 
       <div className="pt-info-item">
-        <label>Property Value</label>
-        <p className="pt-info-value" style={{ fontFamily: 'ui-monospace, monospace', fontWeight: 700 }}>
-          {funding.property?.value ? formatCurrency(funding.property.value) : "N/A"}
-        </p>
-      </div>
-
-      <div className="pt-info-item">
         <label>Location</label>
         <div className="pt-info-value">
           {funding.property?.location ? (

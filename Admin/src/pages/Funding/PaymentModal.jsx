@@ -105,7 +105,7 @@ const PaymentModal = ({ fundingId, approvedAmount, onClose, onSuccess }) => {
             );
 
             if (verifyRes.data.success) {
-              toast.success("Disbursement Verified 🎉");
+              toast.success("Disbursement done 🎉");
               onSuccess();
             }
           } catch (error) {

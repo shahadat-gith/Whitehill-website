@@ -1,4 +1,4 @@
-import PropertySelling from "../models/propertySelling.js";
+import PropertySelling from "../models/sellingProperty/propertySelling.js";
 import {
   uploadPdfToCloudinary,
   uploadImageToCloudinary,

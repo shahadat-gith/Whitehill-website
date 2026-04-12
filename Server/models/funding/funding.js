@@ -55,11 +55,15 @@ const fundingSchema = new Schema(
       },
     },
 
-    // ✅ Reference to separate Verification model
     verification: {
       type: Schema.Types.ObjectId,
       ref: "Verification",
     },
+    transaction: {
+      type: Schema.Types.ObjectId,
+      ref: "FundingTransaction",
+    }
+
   },
   {
     timestamps: true,

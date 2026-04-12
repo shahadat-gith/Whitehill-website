@@ -217,29 +217,27 @@ export const getFundingById = async (req, res) => {
 export const getFundingByUserId = async (req, res) => {
   try {
     const funding = await Funding.find({ user: req.params.userId })
-      .populate("verification")
+      .populate({
+        path: "transaction",
+        select: "transactionId razorpay_payment_id method paidAt",
+        options: { lean: true },
+      })
+      .populate({
+        path: "verification",
+        select:
+          "approvedAmount interestRate rejectionReason extraRequests",
+        options: { lean: true },
+      })
       .sort({ createdAt: -1 })
       .lean();
 
-    // Get all funding IDs to check for transactions in bulk
-    const fundingIds = funding.map(f => f._id);
-    const transactions = await FundingTransaction.find({
-      funding: { $in: fundingIds },
-      status: "completed"
-    }).lean();
-
-    // Create a map for quick lookup
-    const transactionMap = {};
-    transactions.forEach(tx => {
-      transactionMap[tx.funding.toString()] = tx;
-    });
-
-    const filteredData = funding.map((f) => {
+    const data = funding.map((f) => {
       const verification = f.verification || {};
-      const extraRequests = verification.extraRequests || [];
-      const transaction = transactionMap[f._id.toString()];
+      const transaction = f.transaction || null;
 
-      // Separate pending & submitted
+      const extraRequests = verification.extraRequests || [];
+
+      // 🔹 Extract only pending requests
       const pendingRequests = extraRequests
         .filter((req) => req.status === "pending")
         .map((req) => ({
@@ -251,40 +249,55 @@ export const getFundingByUserId = async (req, res) => {
       return {
         _id: f._id,
         type: f.type,
+
+        // 🔹 Funding details
         amount: f.fundDetails?.amount || null,
         tenure: f.fundDetails?.tenureMonths || null,
         purpose: f.fundDetails?.purpose || null,
         status: f.status,
 
-        // Approval info
+        // 🔹 Approval info
         approvedAmount: verification.approvedAmount || null,
         interestRate: verification.interestRate || null,
 
-        // Payment info - from transaction
-        payment: transaction ? {
-          transactionId: transaction.transactionId || transaction.razorpay_payment_id,
-          method: transaction.method,
-          paidAt: transaction.paidAt,
-        } : null,
+        // 🔹 Payment info
+        payment: transaction
+          ? {
+            transactionId:
+              transaction.transactionId ||
+              transaction.razorpay_payment_id ||
+              null,
+            method: transaction.method || null,
+            paidAt: transaction.paidAt || null,
+          }
+          : null,
 
-        // Rejection info
+        // 🔹 Rejection info
         rejectionReason: verification.rejectionReason || null,
 
-        // Request tracking
+        // 🔹 Request tracking
         pendingRequests,
-        actionRequired: f.status === "under_review" && pendingRequests.length > 0,
+        actionRequired:
+          f.status === "under_review" && pendingRequests.length > 0,
 
         createdAt: f.createdAt,
       };
     });
 
-    res.status(200).json({ success: true, data: filteredData });
+    res.status(200).json({
+      success: true,
+      count: data.length,
+      data,
+    });
   } catch (error) {
     const { status, message } = formatErrorResponse(error);
-    res.status(status).json({ success: false, message });
+
+    res.status(status).json({
+      success: false,
+      message,
+    });
   }
 };
-
 
 export const uploadRequestedExtraDocuments = async (req, res) => {
   try {
@@ -375,7 +388,6 @@ export const uploadRequestedExtraDocuments = async (req, res) => {
 };
 
 
-
 export const downloadInvoice = async (req, res) => {
   try {
     const { fundingId } = req.params;
@@ -408,9 +420,9 @@ export const downloadInvoice = async (req, res) => {
     }
 
     // 4. Check if payment transaction exists and is completed
-    const transaction = await FundingTransaction.findOne({ 
-      funding: fundingId, 
-      status: "completed" 
+    const transaction = await FundingTransaction.findOne({
+      funding: fundingId,
+      status: "completed"
     }).lean();
 
     if (!transaction) {
@@ -425,25 +437,25 @@ export const downloadInvoice = async (req, res) => {
       invoiceNumber: transaction.invoiceId || `WH/CAP/${fundingId.slice(-6).toUpperCase()}`,
       invoiceDate: transaction.paidAt || transaction.date || new Date(),
       approvalDate: v.reviewedAt || v.createdAt,
-      
+
       customer: {
         name: funding.user.fullName,
         email: funding.user.email,
         phone: decrypt(funding.user.phone),
       },
-      
+
       funding: {
         type: funding.type?.toUpperCase() || "CREDIT",
         purpose: funding.fundDetails?.purpose || "Business Expansion",
         tenure: funding.fundDetails?.tenureMonths ? `${funding.fundDetails.tenureMonths} Months` : "N/A",
       },
-      
+
       financials: {
         requestedAmount: funding.fundDetails?.amount || 0,
         approvedAmount: v.approvedAmount || 0,
         interestRate: v.interestRate || 0,
       },
-      
+
       payment: {
         transactionId: transaction.transactionId || transaction.razorpay_payment_id || "N/A",
         method: transaction.method || "Direct Bank Transfer",
@@ -515,7 +527,7 @@ export const initiatePayment = async (req, res) => {
     // ───────── RAZORPAY PAYMENT ─────────
     if (method === "razorpay") {
       const options = {
-        amount: Math.round(amount * 100), 
+        amount: Math.round(amount * 100),
         currency: "INR",
         receipt: `WH_REC_${fundingId.slice(-6).toUpperCase()}`,
         notes: { fundingId },
@@ -571,12 +583,15 @@ export const completeRazorpayPayment = async (req, res) => {
       funding: fundingId,
       amount,
       status: "completed",
-      method: "razorpay",
+      method: actualMethod || "razorpay",
       transactionId: razorpay_payment_id,
       razorpay_order_id,
       invoiceId: manualInvoiceId,
       paidAt: new Date(),
     });
+
+    funding.transaction = transaction._id;
+    await funding.save();
 
     return res.status(200).json({ success: true, data: transaction });
   } catch (error) {
