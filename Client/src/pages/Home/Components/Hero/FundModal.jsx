@@ -33,7 +33,11 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
     <div className="fm-overlay" onClick={() => setIsModalOpen(false)}>
       <div className="fm-content" onClick={(e) => e.stopPropagation()}>
         {/* CLOSE BUTTON */}
-        <button className="fm-close-btn" onClick={() => setIsModalOpen(false)}>
+        <button 
+          type="button" 
+          className="fm-close-btn" 
+          onClick={() => setIsModalOpen(false)}
+        >
           <i className="fas fa-times"></i>
         </button>
 
@@ -49,6 +53,7 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
             <div className="fm-options-list">
               {FUND_TYPES.map(({ value, icon, label }) => (
                 <button
+                  type="button"
                   key={value}
                   className="fm-option-card"
                   onClick={() => handleCardClick(value)}
@@ -76,6 +81,7 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
 
             <div className="fm-auth-actions">
               <button
+                type="button"
                 className="fm-btn-primary"
                 onClick={handleLoginRedirect}
               >
@@ -83,6 +89,7 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
               </button>
 
               <button
+                type="button"
                 className="fm-btn-back"
                 onClick={() => setShowAuthPrompt(false)}
               >

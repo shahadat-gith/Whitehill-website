@@ -15,10 +15,10 @@ const Hero = () => {
     { label: "Avg. Approval", value: "72 hrs" },
   ];
 
+  // Derive login state directly during render
   const isLoggedIn = Boolean(localStorage.getItem("token"));
 
   const handleFundSelection = (type) => {
-    if (!isLoggedIn) return; 
     setIsModalOpen(false);
     navigate(`/funding?type=${type}`);
   };
@@ -65,6 +65,7 @@ const Hero = () => {
             
             <button
               className="btn btn-secondary"
+              style={{ cursor: "pointer" }}
               onClick={() => setIsModalOpen(true)}
             >
               Need funding?

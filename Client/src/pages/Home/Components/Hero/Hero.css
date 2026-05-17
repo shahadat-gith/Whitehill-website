@@ -10,7 +10,8 @@
 .he-hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;               /* FIXED: Low positive integer */
+  pointer-events: none;     /* FIXED: Guarantees clicks pass through completely */
 }
 
 /* Soft accent glows */
@@ -21,6 +22,7 @@
   filter: blur(140px);
   opacity: 0.18;
   border-radius: 50%;
+  pointer-events: none;     /* FIXED: Prevents mouse blocking */
 }
 
 .he-hero-glow-1 {
@@ -39,10 +41,10 @@
 .he-hero-grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px,
-      transparent 1px),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 42px 42px;
+  pointer-events: none;     /* FIXED: Prevents mouse blocking */
 }
 
 /* ── LAYOUT ── */
@@ -52,12 +54,17 @@
   align-items: center;
   max-width: 1200px;
   margin: auto;
+  position: relative;       /* FIXED: Needed to respect z-index layering */
+  z-index: 5;               /* FIXED: Forces content out in front of background */
 }
+
 /* ── CENTER ── */
 .he-hero-center {
   text-align: center;
   max-width: 640px;
   margin: auto;
+  position: relative;       /* FIXED: Reinforces structural hierarchy */
+  z-index: 6;
 }
 
 /* Eyebrow */
@@ -103,6 +110,12 @@
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;       /* FIXED: Makes container context clear */
+  z-index: 10;              /* FIXED: Gives buttons optimal hit-box clearance */
+}
+
+.he-hero-ctas button {
+  cursor: pointer;          /* FIXED: Forces clean mouse interaction */
 }
 
 /* ── TRUST STATS ── */
@@ -140,6 +153,10 @@
 .he-hero-illus {
   display: flex;
   justify-content: center;
+}
+
+.he-illus-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .he-illus-card:hover {
