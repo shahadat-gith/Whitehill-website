@@ -1,7 +1,12 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './styles/Consent.css';
 
-const Consent = ({ formData, updateFormData }) => {
+const Consent = ({ formData, updateFormData, currentStep }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const typeFromUrl = searchParams.get('type');
+  const stepFromUrl = searchParams.get('step') || currentStep || 3;
   return (
     <div className="cs-container">
       <h2 className="cs-title">Terms and Consent</h2>
@@ -19,7 +24,7 @@ const Consent = ({ formData, updateFormData }) => {
               required
             />
             <span className="cs-checkbox-text">
-              I agree to the <a href="#" className="cs-link">Terms and Conditions</a>
+              I agree to the <Link to={`/terms-and-conditions?from=/funding&type=${typeFromUrl}&step=${stepFromUrl}`} className="cs-link">Terms and Conditions</Link>
               <span className="cs-required">*</span>
             </span>
           </label>
@@ -34,7 +39,7 @@ const Consent = ({ formData, updateFormData }) => {
               required
             />
             <span className="cs-checkbox-text">
-              I agree to the <a href="#" className="cs-link">Privacy Policy</a>
+              I agree to the <Link to={`/privacy-policy?from=/funding&type=${typeFromUrl}&step=${stepFromUrl}`} className="cs-link">Privacy Policy</Link>
               <span className="cs-required">*</span>
             </span>
           </label>

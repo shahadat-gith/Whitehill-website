@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import "./Funding.css";
 
@@ -14,9 +14,22 @@ import { useAppContext } from "../../context/AppContext";
 const Funding = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { user } = useAppContext();
 
-  const [currentStep, setCurrentStep] = useState(1);
-  const { user } = useAppContext()
+  const typeFromUrl = searchParams.get("type");
+  const stepFromUrl = parseInt(searchParams.get("step")) || 1;
+
+  const savedFundingState = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const saved = sessionStorage.getItem('fundingFormState');
+      return saved ? JSON.parse(saved) : null;
+    } catch (err) {
+      return null;
+    }
+  }, []);
+
+  const [currentStep, setCurrentStep] = useState(stepFromUrl);
 
   const {
     formData,
@@ -26,7 +39,7 @@ const Funding = () => {
     removeFromArray,
     submitForm,
     resetForm,
-  } = useFundingForm();
+  } = useFundingForm(savedFundingState?.formData);
 
   const {
     files,
@@ -39,42 +52,74 @@ const Funding = () => {
   const [submitStatus, setSubmitStatus] = useState('idle');
   const [submitError, setSubmitError] = useState('');
 
-  const typeFromUrl = searchParams.get("type");
-
   /* =========================
-     TYPE VALIDATION
+     TYPE VALIDATION & INIT
   ========================= */
   useEffect(() => {
     if (!typeFromUrl) {
+      if (typeof window !== 'undefined') {
+        const saved = sessionStorage.getItem('fundingFormState');
+        if (saved) return;
+      }
       navigate("/");
+      return;
     }
-  }, [typeFromUrl, navigate]);
+
+    const mappedType = typeFromUrl === "businessVenture" ? "business" : typeFromUrl;
+    const savedType = savedFundingState?.formData?.type;
+
+    if (savedType !== mappedType) {
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('fundingFormState');
+      }
+      resetForm();
+      updateFormData("type", mappedType);
+    } else if (!formData.type) {
+      updateFormData("type", mappedType);
+    }
+  }, [typeFromUrl, savedFundingState, formData.type, updateFormData, resetForm, navigate]);
 
   /* =========================
-     SET TYPE
+     SYNC STEP FROM URL
   ========================= */
   useEffect(() => {
-    if (typeFromUrl) {
-      const mappedType =
-        typeFromUrl === "businessVenture" ? "business" : typeFromUrl;
-
-      updateFormData("type", mappedType);
-      setCurrentStep(1);
+    if (stepFromUrl && stepFromUrl !== currentStep) {
+      setCurrentStep(stepFromUrl);
     }
-  }, [typeFromUrl, updateFormData]);
+  }, [stepFromUrl]);
+
+  /* =========================
+     PERSIST STATE TO SESSION
+  ========================= */
+  useEffect(() => {
+    if (typeof window !== 'undefined' && formData.type && currentStep) {
+      try {
+        sessionStorage.setItem(
+          'fundingFormState',
+          JSON.stringify({ formData, currentStep })
+        );
+      } catch (err) {
+        // Ignore storage errors
+      }
+    }
+  }, [formData, currentStep]);
 
   /* ========================= */
   const getTotalSteps = () => (formData.type ? 4 : 0);
 
   const handleNext = () => {
     if (currentStep < getTotalSteps()) {
-      setCurrentStep((prev) => prev + 1);
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+      navigate(`/funding?type=${typeFromUrl}&step=${nextStep}`);
     }
   };
 
   const handlePrevious = () => {
     if (currentStep > 1) {
-      setCurrentStep((prev) => prev - 1);
+      const prevStep = currentStep - 1;
+      setCurrentStep(prevStep);
+      navigate(`/funding?type=${typeFromUrl}&step=${prevStep}`);
     }
   };
 
@@ -102,6 +147,9 @@ const Funding = () => {
   const handleSubmitModalClose = () => {
     if (submitStatus === 'success') {
       resetForm();
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('fundingFormState');
+      }
       navigate("/")
     }
     setShowSubmitModal(false);
@@ -136,6 +184,12 @@ const Funding = () => {
           <p className="fun-hero-desc">
             We provide funding solutions for startups, business ventures, and individuals looking to invest in property or land — making access to capital simple and efficient.
           </p>
+
+          <div className="fun-legal-links">
+            <p>
+              By applying, you agree to our <Link to={`/terms-and-conditions?from=/funding&type=${typeFromUrl}&step=${currentStep}`}>Terms & Conditions</Link>, <Link to={`/privacy-policy?from=/funding&type=${typeFromUrl}&step=${currentStep}`}>Privacy Policy</Link>, <Link to={`/refund-policy?from=/funding&type=${typeFromUrl}&step=${currentStep}`}>Refund Policy</Link>, and <Link to={`/business-policy?from=/funding&type=${typeFromUrl}&step=${currentStep}`}>Business Policy</Link>.
+            </p>
+          </div>
 
           <div className="fun-hero-stats">
             <div>

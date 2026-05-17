@@ -2,14 +2,15 @@ import { useState, useCallback } from 'react';
 import { buildFormData } from '../utils/buildFormData';
 import api from '../../../configs/axios';
 
-export const useFundingForm = () => {
-  const [formData, setFormData] = useState({
-    type: '',
-    fundDetails: {
-      amount: '',
-      tenureMonths: '',
-      purpose: ''
-    },
+export const useFundingForm = (initialFormData = null) => {
+  const [formData, setFormData] = useState(
+    initialFormData || {
+      type: '',
+      fundDetails: {
+        amount: '',
+        tenureMonths: '',
+        purpose: ''
+      },
     disclosures: {
       hasExistingLoans: false,
       hasDefaultedBefore: false,

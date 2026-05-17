@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
@@ -29,11 +30,11 @@ const Footer = () => {
         <div className="footer-section footer-center">
           <h3>Company</h3>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Business Rules</a></li>
-            <li><a href="#">Careers</a></li>
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/terms-and-conditions">Terms & Conditions</Link></li>
+            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            <li><Link to="/refund-policy">Refund Policy</Link></li>
+            <li><Link to="/business-policy">Business Policy</Link></li>
           </ul>
         </div>
 

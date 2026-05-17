@@ -111,6 +111,7 @@ const StepContent = ({
           <Consent
             formData={formData}
             updateFormData={updateFormData}
+            currentStep={currentStep}
           />
         </div>
       );

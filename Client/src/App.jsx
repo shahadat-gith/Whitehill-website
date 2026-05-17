@@ -16,6 +16,10 @@ import Contact from "./pages/Contact/Contact";
 import Funding from "./pages/Funding/Funding";
 import Authentication from "./pages/Authentication/Authentication";
 import UserFundingRequests from "./pages/UserFundingRequests/UserFundingRequests";
+import TermsAndConditions from "./pages/Legal/TermsAndConditions";
+import PrivacyPolicy from "./pages/Legal/PrivacyPolicy";
+import RefundPolicy from "./pages/Legal/RefundPolicy";
+import BusinessPolicy from "./pages/Legal/BusinessPolicy";
 
 
 
@@ -94,6 +98,10 @@ const App = () => {
           <Route path="/projects/:id" element={<ProjectDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/business-policy" element={<BusinessPolicy />} />
 
           <Route path="/*" element={<NotFound />} />
         </Routes>

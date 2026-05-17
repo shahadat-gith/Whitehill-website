@@ -88,12 +88,32 @@
   display: block;
 }
 
-.fun-hero-desc {
+..fun-hero-desc {
   font-size: 1rem;
   color: #94a3b8;
   max-width: 560px;
   line-height: 1.7;
   margin: 0;
+}
+
+.fun-legal-links {
+  max-width: 680px;
+}
+
+.fun-legal-links p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.fun-legal-links a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.fun-legal-links a:hover {
+  color: #f8fafc;
 }
 
 /* ── Stats row ──────────────────────────────────────────── */

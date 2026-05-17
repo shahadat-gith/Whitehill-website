@@ -20,7 +20,7 @@ const Hero = () => {
 
   const handleFundSelection = (type) => {
     setIsModalOpen(false);
-    navigate(`/funding?type=${type}`);
+    navigate(`/funding?type=${type}&step=1`);
   };
 
   return (

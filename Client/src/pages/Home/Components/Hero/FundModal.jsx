@@ -24,7 +24,7 @@ const FundModal = ({ isLoggedIn, setIsModalOpen, handleFundSelection }) => {
 
   const handleLoginRedirect = () => {
     if (!selectedType) return;
-    const redirectUrl = `/funding?type=${selectedType}`;
+    const redirectUrl = `/funding?type=${selectedType}&step=1`;
     setIsModalOpen(false);
     navigate(`/auth?redirect=${encodeURIComponent(redirectUrl)}`);
   };
